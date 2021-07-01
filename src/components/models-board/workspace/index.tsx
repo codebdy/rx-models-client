@@ -84,7 +84,7 @@ export const WorkSpace = observer(()=>{
           fill: '#FFF',  
           stroke: '#000', 
           strokeWidth: 1,
-          d: 'M 20 -10 0 0 20 10 Z',
+          d: 'M 18 -9 0 0 18 9 Z',
         },
       },
     })
