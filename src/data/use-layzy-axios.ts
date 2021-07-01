@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { axiosConfig } from "./axiosConfig";
-import { serverUrl } from "./serverConfig";
-import { DataError } from "./DataError";
+import { axiosConfig } from "./axios-config";
+import { serverUrl } from "./server-config";
+import { DataError } from "./data-error";
 import { LOGIN_URL, TOKEN_NAME } from "../util/consts";
 
 axios.defaults.baseURL = serverUrl

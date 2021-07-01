@@ -24,7 +24,7 @@ import { observer } from 'mobx-react';
 import SubmitButton from './common/submit-button';
 import { INDEX_URL, PRIMARY_COLOR, TOKEN_NAME } from '../util/consts';
 import { API_LOGIN } from '../apis/auth';
-import useLayzyAxios from '../data/useLayzyAxios';
+import useLayzyAxios from '../data/use-layzy-axios';
 import { useAppStore } from '../store/app-store';
 import useShadows from '../util/use-shadows';
 
