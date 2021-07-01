@@ -6,7 +6,8 @@ import { ClassNodeData } from '../../store/diagram';
 import PropertyView from './property-view';
 import { useEffect } from 'react';
 import $bus from 'components/models-board/model-event/bus';
-import { EVENT_INHERIT_PRESSED } from 'components/models-board/model-event/events';
+import { EVENT_BEGIN_LNIK, EVENT_INHERIT_PRESSED } from 'components/models-board/model-event/events';
+import { LinkType } from 'components/models-board/store/link-action';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -82,9 +83,11 @@ export const ClassView = (props:{
   const [hover, setHover] = useState(false);
   const data : ClassNodeData|undefined = node?.data;
 
+  const canLink = isInheritPressed && !data?.inheritFormId;
   const handlePressInheritEvent = (isPressed:boolean)=>{
     setIsInheritPressed(isPressed);
   }
+  const disableHover = isInheritPressed;
 
   useEffect(()=>{
     $bus.on(EVENT_INHERIT_PRESSED, handlePressInheritEvent);
@@ -94,15 +97,21 @@ export const ClassView = (props:{
   },[])
 
   const handleMouseDown = (event:React.MouseEvent)=>{
+    const { clientX, clientY } = event;
     if(isInheritPressed){
       event.preventDefault();
-      event.stopPropagation();      
+      event.stopPropagation();    
+      $bus.emit(EVENT_BEGIN_LNIK, {
+        linkType: LinkType.inherit, 
+        sourceNode: node,
+        initPoint: {x:clientX, y:clientY}
+      });
     }
   }
 
   return (
     <div 
-      className={classNames(classes.root,{[classes.canLink]:isInheritPressed})}
+      className={classNames(classes.root,{[classes.canLink]:canLink})}
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}  
       onMouseDown = {handleMouseDown}     
@@ -119,7 +128,7 @@ export const ClassView = (props:{
             <div className = {classNames(classes.nameItem, classes.smFont)}><em>{data?.packageName}</em></div>
           }
           {
-            hover && !isInheritPressed &&
+            hover && !disableHover &&
             <IconButton className = {classes.entityCloseButton}>
               <MdiIcon iconClass="mdi-eye-off-outline" size={16}></MdiIcon>
             </IconButton>          
@@ -128,16 +137,16 @@ export const ClassView = (props:{
         </div>
         <div className = {
           classNames(classes.propertiesArea,
-            {[classes.canLink]:isInheritPressed, [classes.defaultCusor]:!isInheritPressed}
+            {[classes.canLink]:canLink, [classes.defaultCusor]:!canLink}
           )
         }>
           {
             data?.columns.map(column=>{
-              return (<PropertyView key = {column.id} name= {column.name} type = {column.type} readOnly = {isInheritPressed}/>)
+              return (<PropertyView key = {column.id} name= {column.name} type = {column.type} readOnly = {disableHover}/>)
             })
           }
           {
-            hover && !isInheritPressed &&
+            hover && !disableHover &&
             <div className = {classes.propertyPlus}>
               <IconButton className = {classes.propertyButton}>
                 <MdiIcon iconClass="mdi-plus" size={20}></MdiIcon>

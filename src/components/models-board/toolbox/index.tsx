@@ -173,12 +173,6 @@ export const Toolbox = observer(() => {
               }
               {intl.get('many-to-one')}
             </div>
-            <div className = {classes.toolItem}>
-              {
-                svgAggregation
-              }
-              {intl.get('many-to-many')}
-            </div>   
           </AccordionDetails>
         </Accordion>
         <Accordion square expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
@@ -197,12 +191,6 @@ export const Toolbox = observer(() => {
                 svgCombination
               }
               {intl.get('many-to-one')}
-            </div>
-            <div className = {classes.toolItem}>
-              {
-                svgCombination
-              }
-              {intl.get('many-to-many')}
             </div>
           </AccordionDetails>
         </Accordion>

@@ -5,6 +5,7 @@ import { Graph } from "@antv/x6";
 import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 import { RootMeta } from "../meta/root-meta";
+import { LinkAction } from "./link-action";
 
 var seed = 1;
 
@@ -17,6 +18,7 @@ export class ModelsBoardStore{
   openedDiagram?: DiagramStore;
   graph?: Graph;
   isInheritPressed = false;
+  drawingLink: LinkAction|undefined;
   
   constructor(meta:RootMeta) {
     this.rootStore = new PackageStore();
@@ -30,6 +32,10 @@ export class ModelsBoardStore{
 
   setGraph(graph?:Graph){
     this.graph = graph;
+  }
+
+  setDrawingLink(drawingLink: LinkAction|undefined){
+    this.drawingLink = drawingLink;
   }
 
   setPressInherit(isInheritPressed:boolean){
