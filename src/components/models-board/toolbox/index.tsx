@@ -13,8 +13,6 @@ import { observer } from 'mobx-react';
 import { ClassView } from '../workspace/class-view';
 import { svgAggregation, svgAssociation, svgCombination, svgInherit } from './const-svg';
 import { PRIMARY_COLOR } from 'util/consts';
-import $bus from '../model-event/bus';
-import { EVENT_INHERIT_PRESSED } from '../model-event/events';
 const { Dnd } = Addon
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -79,7 +77,6 @@ export const Toolbox = observer(() => {
 
   const handleIneritClick = ()=>{
     modelBoardStore.setPressInherit(!modelBoardStore.isInheritPressed);
-    $bus.emit(EVENT_INHERIT_PRESSED, modelBoardStore.isInheritPressed);
   }
 
   const inheritColor = modelBoardStore.isInheritPressed ? PRIMARY_COLOR : undefined;

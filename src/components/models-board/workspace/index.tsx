@@ -72,11 +72,21 @@ export const WorkSpace = observer(()=>{
       target: p,
       attrs: {
         line: {
-          strokeDasharray: '5 5',
-          stroke: '#a0a0a0',
+          stroke: '#000',
           strokeWidth: 1,
         }
       }
+    })
+    linkAction.tempEdge?.attr({
+      line: {
+        targetMarker: {
+          tagName: 'path',
+          fill: '#FFF',  
+          stroke: '#000', 
+          strokeWidth: 1,
+          d: 'M 20 -10 0 0 20 10 Z',
+        },
+      },
     })
     modelStore.setDrawingLink(linkAction);
   }
@@ -84,7 +94,7 @@ export const WorkSpace = observer(()=>{
   const handleMouseUp = ()=>{
     modelStore.drawingLink?.tempEdge && modelStore.graph?.removeEdge(modelStore.drawingLink?.tempEdge);
     modelStore.setDrawingLink(undefined);
-    modelStore.setPressInherit(false);
+    //modelStore.setPressInherit(false);
   }
 
   useEffect(()=>{

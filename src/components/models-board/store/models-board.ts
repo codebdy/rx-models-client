@@ -6,6 +6,8 @@ import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 import { RootMeta } from "../meta/root-meta";
 import { LinkAction } from "./link-action";
+import { EVENT_INHERIT_PRESSED } from "../model-event/events";
+import $bus from "../model-event/bus";
 
 var seed = 1;
 
@@ -40,6 +42,7 @@ export class ModelsBoardStore{
 
   setPressInherit(isInheritPressed:boolean){
     this.isInheritPressed = isInheritPressed;
+    $bus.emit(EVENT_INHERIT_PRESSED, this.isInheritPressed);
   }
 
   createNewClassNode(){
