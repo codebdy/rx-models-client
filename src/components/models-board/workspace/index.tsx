@@ -42,6 +42,10 @@ export const WorkSpace = observer(()=>{
     }
   }
 
+  const handleTest = ()=>{
+    console.log('哈哈2 handleTest')
+  }
+
   useEffect(()=>{
     const config = getGraphConfig();
     const graph =  new Graph(config as any);
@@ -52,7 +56,7 @@ export const WorkSpace = observer(()=>{
       edges:[]
     })
     graphDiff?.createdNodes && graph.addNodes(graphDiff?.createdNodes.map(node=>{
-      return {...node, shape: 'react-shape', component: <ClassView/>}
+      return {...node, shape: 'react-shape', component: <ClassView onTest = {modelStore.onTest}/>}
     }));
 
     graph.on('node:added', ({ cell, index, options }) => {

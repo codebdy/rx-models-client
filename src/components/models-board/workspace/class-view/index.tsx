@@ -75,10 +75,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );  
 
 export const ClassView = (props:{
-  node?:any
+  node?:any,
+  onTest:()=>void
 }) =>{
   const classes = useStyles();
-  const {node} = props;
+  const {node, onTest} = props;
   const [isInheritPressed, setIsInheritPressed] = useState(false);
   const [hover, setHover] = useState(false);
   const data : ClassNodeData|undefined = node?.data;
@@ -95,6 +96,10 @@ export const ClassView = (props:{
       $bus.off(EVENT_INHERIT_PRESSED, handlePressInheritEvent);
     }
   },[])
+
+  const handleHidden = ()=>{
+    onTest();
+  }
 
   const handleMouseDown = (event:React.MouseEvent)=>{
     const { clientX, clientY } = event;
@@ -129,7 +134,9 @@ export const ClassView = (props:{
           }
           {
             hover && !disableHover &&
-            <IconButton className = {classes.entityCloseButton}>
+            <IconButton className = {classes.entityCloseButton}
+              onClick = {handleHidden}
+            >
               <MdiIcon iconClass="mdi-eye-off-outline" size={16}></MdiIcon>
             </IconButton>          
           }
