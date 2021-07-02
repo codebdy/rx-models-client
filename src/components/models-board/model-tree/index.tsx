@@ -11,6 +11,7 @@ import MdiIcon from 'components/common/mdi-icon';
 import { IconButton } from '@material-ui/core';
 import { useModelsBoardStore } from '../store';
 import { PackageNode } from './package-node';
+import { ClassNode } from './class-node';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +48,13 @@ export default function ModelTree() {
           modelStore.packages.map(aPackage=>{
             return (
               <PackageNode key={aPackage.id} packageStore = {aPackage} />
+            )
+          })
+        }
+        {
+          modelStore.classes.map(aClass=>{
+            return (
+              <ClassNode key={aClass.id} classStore = {aClass} />
             )
           })
         }

@@ -15,7 +15,8 @@ createStyles({
 }),
 );
 
-export function ProperytNode(props:{
+export function ColumnNode(props:{
+  key?:string,
   columnStore: ColumnStore
 }){
 const {columnStore} = props;

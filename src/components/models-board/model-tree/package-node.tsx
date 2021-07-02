@@ -2,6 +2,7 @@ import { makeStyles, Theme, createStyles, IconButton } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { PackageStore } from "../store/package";
+import { ClassNode } from "./class-node";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 
@@ -38,6 +39,13 @@ return(
       packageStore.packages.map(aPackage=>{
         return (
           <PackageNode key={aPackage.id} packageStore = {aPackage} />
+        )
+      })
+    }
+    {
+      packageStore.classes.map(aClass=>{
+        return (
+          <ClassNode key={aClass.id} classStore = {aClass} />
         )
       })
     }

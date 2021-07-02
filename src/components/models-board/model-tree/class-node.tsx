@@ -3,7 +3,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ClassStore } from "../store/class-store";
 import { NodeText } from "./node-text";
-import { ProperytNode } from "./property-node";
+import { ColumnNode } from "./column-node";
 import { TreeNodeLabel } from "./tree-node-label";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,6 +16,7 @@ createStyles({
 );
 
 export function ClassNode(props:{
+  key?:string,
   classStore: ClassStore
 }){
 const {classStore} = props;
@@ -37,7 +38,7 @@ return(
     {
       classStore.columns.map(column=>{
         return (
-          <ProperytNode key={column.id} columnStore = {column} />
+          <ColumnNode key={column.id} columnStore = {column} />
         )
       })
     }
