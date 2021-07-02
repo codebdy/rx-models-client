@@ -13,6 +13,7 @@ import { PackageNode } from './package-node';
 import { ClassNode } from './class-node';
 import { DiagramNode } from './diagram-node';
 import PackageAction from './package-action';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,13 +24,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function ModelTree() {
+export const ModelTree = observer(() => {
   const classes = useStyles();
 
   const modelStore = useModelsBoardStore().rootStore;
 
   const handleAddPackage = ()=>{
-
+    modelStore.addNewPackage();
   }
   
   const handleAddClass = ()=>{
@@ -40,10 +41,6 @@ export default function ModelTree() {
   
   }
   
-  const handleDelete = ()=>{
-    
-  }
-
   return (
     <TreeView
       className={classes.root}
@@ -58,7 +55,6 @@ export default function ModelTree() {
               onAddPackage = {handleAddPackage} 
               onAddClass = {handleAddClass}
               onAddDiagram = {handleAddDiagram}
-              onDelete = {handleDelete}
             />
           }
         >
@@ -91,4 +87,4 @@ export default function ModelTree() {
       
     </TreeView>
   );
-}
+})

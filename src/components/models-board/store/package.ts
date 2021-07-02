@@ -5,6 +5,8 @@ import { DiagramStore } from "./diagram";
 import intl from "react-intl-universal";
 import { RelationStore } from "./relation";
 import { RootMeta } from "../meta/root-meta";
+import { createId } from "util/creat-id";
+import { seedId } from "util/seed-id";
 
 export class PackageStore{
   id: string;
@@ -18,9 +20,9 @@ export class PackageStore{
   constructor(meta?:PackageMeta, private rootStore?: PackageStore){
     this.id = meta?.id || 'root';
     this.name = meta?.name || intl.get('root-models');
-    this.packages = meta?.children.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
-    this.classes = meta?.classMetas.map(meta=>new ClassStore(meta, this.rootStore||this, this))||[];
-    this.diagrams = meta?.diagramMetas.map(meta=>new DiagramStore(meta, this.rootStore||this))||[];
+    this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
+    this.classes = meta?.classMetas?.map(meta=>new ClassStore(meta, this.rootStore||this, this))||[];
+    this.diagrams = meta?.diagramMetas?.map(meta=>new DiagramStore(meta, this.rootStore||this))||[];
     makeAutoObservable(this)
   }
 
@@ -64,7 +66,15 @@ export class PackageStore{
   }
 
   addNewPackage(){
-
+    const packageStore = new PackageStore(
+      {
+        id:createId(), 
+        name:intl.get('add-package') + seedId(),
+      }, 
+      this.rootStore||this
+    );
+    this.packages.push(packageStore);
+    return packageStore;
   }
 
   updatePackage(){

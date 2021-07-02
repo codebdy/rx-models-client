@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import ModelTree from './model-tree';
+import { ModelTree } from './model-tree';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

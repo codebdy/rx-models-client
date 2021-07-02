@@ -4,8 +4,8 @@ import { DiagramMeta } from "./diagram-meta";
 export interface PackageMeta{
   id: string;
   name: string;
-  parent: PackageMeta | undefined;
-  children: PackageMeta[];
-  classMetas: ClassMeta[];
-  diagramMetas: DiagramMeta[];
+  parent?: PackageMeta;
+  packages?: PackageMeta[];
+  classMetas?: ClassMeta[];
+  diagramMetas?: DiagramMeta[];
 }

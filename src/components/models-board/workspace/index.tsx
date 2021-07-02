@@ -42,10 +42,6 @@ export const WorkSpace = observer(()=>{
     }
   }
 
-  const handleTest = ()=>{
-    console.log('哈哈2 handleTest')
-  }
-
   useEffect(()=>{
     const config = getGraphConfig();
     const graph =  new Graph(config as any);

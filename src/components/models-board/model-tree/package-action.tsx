@@ -15,13 +15,14 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function PackageAction(props:{
-  hasDelete?:boolean,
+  canEdit?:boolean,
   onAddPackage:()=>void,
   onAddClass:()=>void,
   onAddDiagram:()=>void,
-  onDelete:()=>void,
+  onEdit?:()=>void,
+  onDelete?:()=>void,
 }){
-  const {hasDelete, onAddPackage, onAddClass, onAddDiagram, onDelete} = props
+  const {canEdit, onAddPackage, onAddClass, onAddDiagram, onEdit, onDelete} = props
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -52,12 +53,19 @@ export default function PackageAction(props:{
     setAnchorEl(null);
     event.stopPropagation();
   }
-  
-  const handleDelete = (event: React.MouseEvent<HTMLElement>)=>{
-    onDelete()
+
+  const handleEdit = (event: React.MouseEvent<HTMLElement>)=>{
+    onEdit && onEdit();
     setAnchorEl(null);
     event.stopPropagation();
   }
+  
+  const handleDelete = (event: React.MouseEvent<HTMLElement>)=>{
+    onDelete && onDelete()
+    setAnchorEl(null);
+    event.stopPropagation();
+  }
+  
 
   return (
     <>
@@ -91,9 +99,14 @@ export default function PackageAction(props:{
             {intl.get('add-diagram')} 
           </MenuItem>
           {
-            hasDelete&&
+            canEdit&&
             <div>
               <Divider/>
+              <MenuItem onClick={handleEdit} className = {classes.menuItem}>
+                <MdiIcon iconClass = "mdi-pencil-outline" size={16}/>
+                <span className = {classes.deleteText}>{intl.get('delete')} </span>
+              </MenuItem> 
+
               <MenuItem onClick={handleDelete} className = {classes.menuItem}>
                 <MdiIcon iconClass = "mdi-trash-can-outline"  color = "red" size={16}/>
                 <span className = {classes.deleteText}>{intl.get('delete')} </span>

@@ -34,7 +34,7 @@ return(
     <TreeNodeLabel
       action = {
         <PackageAction 
-          hasDelete 
+          canEdit 
           onAddPackage = {handleAddPackage} 
           onAddClass = {handleAddClass}
           onAddDiagram = {handleAddDiagram}

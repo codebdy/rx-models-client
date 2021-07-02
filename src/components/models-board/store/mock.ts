@@ -8,7 +8,7 @@ export const rootMeta:RootMeta = {
       id: '1',
       name: 'System',
       parent: undefined,
-      children: [],
+      packages: [],
       classMetas: [
         {
           id: '2',
