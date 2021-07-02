@@ -4,6 +4,11 @@ import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
+import intl from 'react-intl-universal';
+import { NodeLabel } from './node-label';
+import { TreeNode } from './tree-node';
+import MdiIcon from 'components/common/mdi-icon';
+import { IconButton } from '@material-ui/core';
 
 interface RenderTree {
   id: string;
@@ -12,8 +17,8 @@ interface RenderTree {
 }
 
 const data: RenderTree = {
-  id: 'root',
-  name: '业务对象模型',
+  id: 'root2',
+  name: 'ddd',//root-models
   children: [
     {
       id: '1',
@@ -38,6 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding:theme.spacing(1),
     },
+    rootAction: {
+      position:'absolute',
+      right:'5px',
+    }
   }),
 );
 
@@ -57,7 +66,20 @@ export default function ModelTree() {
       defaultExpanded={['root']}
       defaultExpandIcon={<ChevronRightIcon />}
     >
-      {renderTree(data)}
+      <TreeItem nodeId='root' label={
+        <TreeNode>
+          <MdiIcon iconClass = "mdi-cube-outline" size={18} />
+          <NodeLabel>{intl.get('root-models')}</NodeLabel>
+          <div className={classes.rootAction}>
+            <IconButton size = "small">
+              <MdiIcon className="mdi-dots-horizontal" size="16" />
+            </IconButton>
+          </div>
+        </TreeNode>
+      }>
+        {renderTree(data)}
+      </TreeItem>
+      
     </TreeView>
   );
 }

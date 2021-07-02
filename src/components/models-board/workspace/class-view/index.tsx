@@ -156,7 +156,7 @@ export const ClassView = (props:{
             })
           }
           {
-            !disableHover &&
+            hover && !disableHover &&
             <div className = {classes.propertyPlus}>
               <IconButton className = {classes.propertyButton}>
                 <MdiIcon iconClass="mdi-plus" size={20}></MdiIcon>
