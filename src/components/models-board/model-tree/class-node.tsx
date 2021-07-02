@@ -6,6 +6,7 @@ import { NodeText } from "./node-text";
 import { ColumnNode } from "./column-node";
 import { TreeNodeLabel } from "./tree-node-label";
 import intl from "react-intl-universal";
+import { RelationNode } from "./relation-node";
 
 
 export function ClassNode(props:{
@@ -71,7 +72,13 @@ return(
           <NodeText>{intl.get('relations')}</NodeText>
         </TreeNodeLabel>
       }>
-        
+        {
+          relations.map(relation=>{
+            return (
+              <RelationNode key={relation.id} relation = {relation} />
+            )
+          })
+        }
       </TreeItem>      
     }
 
