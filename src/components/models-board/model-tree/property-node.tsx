@@ -1,7 +1,8 @@
 import { makeStyles, Theme, createStyles, IconButton } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
-import { PackageStore } from "../store/package";
+import { ClassStore } from "../store/class-store";
+import { ColumnStore } from "../store/column";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 
@@ -14,15 +15,14 @@ createStyles({
 }),
 );
 
-export function PackageNode(props:{
-  key?:string,
-  packageStore: PackageStore
+export function ProperytNode(props:{
+  columnStore: ColumnStore
 }){
-const {packageStore} = props;
+const {columnStore} = props;
 const classes = useStyles();
 
 return(
-  <TreeItem nodeId= {packageStore.id} label={
+  <TreeItem nodeId= {columnStore.id} label={
     <TreeNodeLabel
       action = {
         <IconButton size = "small">
@@ -31,16 +31,9 @@ return(
       }
     >
       <MdiIcon iconClass = "mdi-folder-outline" size={18} />
-      <NodeText>{packageStore.name}</NodeText>
+      <NodeText>{columnStore.name}</NodeText>
     </TreeNodeLabel>
   }>
-    {
-      packageStore.packages.map(aPackage=>{
-        return (
-          <PackageNode key={aPackage.id} packageStore = {aPackage} />
-        )
-      })
-    }
   </TreeItem>
 )
 }

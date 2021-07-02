@@ -46,7 +46,7 @@ export default function ModelTree() {
         {
           modelStore.packages.map(aPackage=>{
             return (
-              <PackageNode packageStore = {aPackage} />
+              <PackageNode key={aPackage.id} packageStore = {aPackage} />
             )
           })
         }
