@@ -17,7 +17,7 @@ return(
       action = {
         <>
           <IconButton size = "small">
-          <MdiIcon className="mdi-pencil-outline" size="16" />
+            <MdiIcon className="mdi-pencil-outline" size="16" />
           </IconButton>
           <IconButton size = "small">
             <MdiIcon className="mdi-trash-can-outline" size="16" />
