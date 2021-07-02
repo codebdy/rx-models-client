@@ -4,6 +4,7 @@
   "login-tip": "Welcome to use rxModels",
   "operate-success": "Operate success!",
   "save": "Save",
+  "edit": "Edit",
   "cancel": "Cancel",
   "confirm": "Confirm",
   "user-name": "User name",
@@ -40,5 +41,8 @@
   "aggregation": "Aggregation",
   "combination": "Combination",
   "properties": "Properties",
-  "relations": "Relations"
+  "relations": "Relations",
+  "add-package":"New package",
+  "add-class":"New class",
+  "add-diagram":"New diagram"
 }

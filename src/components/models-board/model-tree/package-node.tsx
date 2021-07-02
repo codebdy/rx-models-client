@@ -5,6 +5,7 @@ import { PackageStore } from "../store/package";
 import { ClassNode } from "./class-node";
 import { DiagramNode } from "./diagram-node";
 import { NodeText } from "./node-text";
+import PackageAction from "./package-action";
 import { TreeNodeLabel } from "./tree-node-label";
 
 export function PackageNode(props:{
@@ -17,9 +18,7 @@ return(
   <TreeItem nodeId= {packageStore.id} label={
     <TreeNodeLabel
       action = {
-        <IconButton size = "small">
-          <MdiIcon className="mdi-dots-horizontal" size="16" />
-        </IconButton>
+        <PackageAction hasDelete />
       }
     >
       <MdiIcon iconClass = "mdi-folder-outline" size={18} />

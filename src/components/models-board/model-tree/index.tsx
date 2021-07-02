@@ -8,11 +8,11 @@ import intl from 'react-intl-universal';
 import { NodeText } from './node-text';
 import { TreeNodeLabel } from './tree-node-label';
 import MdiIcon from 'components/common/mdi-icon';
-import { IconButton } from '@material-ui/core';
 import { useModelsBoardStore } from '../store';
 import { PackageNode } from './package-node';
 import { ClassNode } from './class-node';
 import { DiagramNode } from './diagram-node';
+import PackageAction from './package-action';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ModelTree() {
   const classes = useStyles();
+
   const modelStore = useModelsBoardStore().rootStore;
   return (
     <TreeView
@@ -36,9 +37,7 @@ export default function ModelTree() {
       <TreeItem nodeId='root' label={
         <TreeNodeLabel
           action = {
-            <IconButton size = "small">
-              <MdiIcon className="mdi-dots-horizontal" size="16" />
-            </IconButton>
+            <PackageAction />
           }
         >
           <MdiIcon iconClass = "mdi-cube-outline" size={18} />
