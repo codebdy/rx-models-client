@@ -22,14 +22,9 @@ export const ClassNode = observer((props:{
     <TreeItem nodeId= {classStore.id} label={
       <TreeNodeLabel
         action = {
-          <>
-            <IconButton size = "small">
-              <MdiIcon className="mdi-pencil-outline" size="16" />
-            </IconButton>
-            <IconButton size = "small">
-              <MdiIcon className="mdi-trash-can-outline" size="16" />
-            </IconButton>
-          </>
+          <IconButton size = "small">
+            <MdiIcon className="mdi-trash-can-outline" size="16" />
+          </IconButton>
         }
       >
         <SvgIcon>
