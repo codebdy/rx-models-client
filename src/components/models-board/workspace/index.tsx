@@ -56,7 +56,7 @@ export const WorkSpace = observer(()=>{
       edges:[]
     })
     graphDiff?.createdNodes && graph.addNodes(graphDiff?.createdNodes.map(node=>{
-      return {...node, shape: 'react-shape', component: <ClassView onTest = {modelStore.onTest}/>}
+      return {...node, shape: 'react-shape', component: <ClassView onHidden = {modelStore.onClassChange}/>}
     }));
 
     graph.on('node:added', ({ cell, index, options }) => {

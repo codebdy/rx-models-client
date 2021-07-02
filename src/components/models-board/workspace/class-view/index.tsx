@@ -76,10 +76,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ClassView = (props:{
   node?:any,
-  onTest:()=>void
+  onHidden?:()=>void,
+  onDeleteProperty?:(id:string)=>void,
+  onAddProperty?:()=>void,
+  onSelectProperty?:()=>void
 }) =>{
   const classes = useStyles();
-  const {node, onTest} = props;
+  const {node, onHidden} = props;
   const [isInheritPressed, setIsInheritPressed] = useState(false);
   const [hover, setHover] = useState(false);
   const data : ClassNodeData|undefined = node?.data;
@@ -98,7 +101,7 @@ export const ClassView = (props:{
   },[])
 
   const handleHidden = ()=>{
-    onTest();
+    onHidden && onHidden();
   }
 
   const handleMouseDown = (event:React.MouseEvent)=>{
@@ -153,7 +156,7 @@ export const ClassView = (props:{
             })
           }
           {
-            hover && !disableHover &&
+            !disableHover &&
             <div className = {classes.propertyPlus}>
               <IconButton className = {classes.propertyButton}>
                 <MdiIcon iconClass="mdi-plus" size={20}></MdiIcon>

@@ -21,12 +21,12 @@ export class ModelsBoardStore{
   graph?: Graph;
   isInheritPressed = false;
   drawingLink: LinkAction|undefined;
-  onTest: ()=>void;
+  onClassChange: ()=>void;
   
   constructor(meta:RootMeta) {
     this.rootStore = new PackageStore();
     this.rootStore.initAsRoot(meta);
-    this.onTest = ()=>{
+    this.onClassChange = ()=>{
       this.test2();
     }
     makeAutoObservable(this);
