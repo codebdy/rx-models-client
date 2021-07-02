@@ -2,6 +2,7 @@ import { IconButton } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
+import { useModelsBoardStore } from "../store";
 import { ColumnStore } from "../store/column";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
@@ -12,7 +13,11 @@ export const ColumnNode = observer((props:{
   columnStore: ColumnStore
 })=>{
   const {columnStore} = props;
+  const bordStore = useModelsBoardStore();
 
+  const handleClick = ()=>{
+    bordStore.setSelectedNode(columnStore);
+  }
   return(
     <TreeItem nodeId= {columnStore.id} label={
       <TreeNodeLabel
@@ -21,6 +26,7 @@ export const ColumnNode = observer((props:{
             <MdiIcon className="mdi-trash-can-outline" size="16" />
           </IconButton>
         }
+        onClick = {handleClick}
       >
         <MdiIcon iconClass = "mdi-plus" size={15} />
         <NodeText>{columnStore.name}</NodeText>

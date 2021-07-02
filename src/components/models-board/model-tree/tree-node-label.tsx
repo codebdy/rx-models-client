@@ -17,23 +17,26 @@ createStyles({
 export function TreeNodeLabel(props:{
   children:any,
   action?:any,
+  onClick?:()=>void
 }){
-const classes = useStyles();
-const [hover, setHover] = useState(false);
+  const {action, children, onClick} = props;
+  const classes = useStyles();
+  const [hover, setHover] = useState(false);
 
-return(
-  <div
-    className={classes.root}
-    onMouseOver = {()=>setHover(true)}
-    onMouseLeave = {()=>setHover(false)}  
-  >
-    {props.children}
-    {
-      hover &&
-      <NodeAction>
-        {props.action}
-      </NodeAction>
-    }
-  </div>    
-)
+  return(
+    <div
+      className={classes.root}
+      onMouseOver = {()=>setHover(true)}
+      onMouseLeave = {()=>setHover(false)}  
+      onClick = {onClick}
+    >
+      {children}
+      {
+        hover &&
+        <NodeAction>
+          {action}
+        </NodeAction>
+      }
+    </div>    
+  )
 }

@@ -26,11 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ModelTree = observer(() => {
   const classes = useStyles();
-
-  const modelStore = useModelsBoardStore().rootStore;
+  const bordStore = useModelsBoardStore();
+  const modelStore = bordStore.rootStore;
 
   const handleAddPackage = ()=>{
-    modelStore.addNewPackage();
+    const newPackage = modelStore.addNewPackage();
+    bordStore.setSelectedNode(newPackage);
   }
   
   const handleAddClass = ()=>{
@@ -47,6 +48,7 @@ export const ModelTree = observer(() => {
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpanded={['root']}
       defaultExpandIcon={<ChevronRightIcon />}
+      selected = {[bordStore?.selectedNode?.id || '', bordStore?.openedDiagram?.id || '']}
     >
       <TreeItem nodeId='root' label={
         <TreeNodeLabel

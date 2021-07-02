@@ -8,36 +8,33 @@ import { RootMeta } from "../meta/root-meta";
 import { LinkAction } from "./link-action";
 import { EVENT_INHERIT_PRESSED } from "../model-event/events";
 import $bus from "../model-event/bus";
+import { seedId } from "util/seed-id";
+import { ClassStore } from "./class-store";
+import { ColumnStore } from "./column";
+import { RelationStore } from "./relation";
 
-var seed = 1;
-
-function seedId(){
-  return (seed++).toString()
-}
+type SelectedNode = PackageStore | ClassStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
 export class ModelsBoardStore{
   rootStore: PackageStore;
   openedDiagram?: DiagramStore;
   graph?: Graph;
   isInheritPressed = false;
-  drawingLink: LinkAction|undefined;
-  onClassChange: ()=>void;
+  drawingLink: LinkAction | undefined;
+  selectedNode: SelectedNode;
   
   constructor(meta:RootMeta) {
     this.rootStore = new PackageStore();
     this.rootStore.initAsRoot(meta);
-    this.onClassChange = ()=>{
-      this.test2();
-    }
     makeAutoObservable(this);
-  }
-
-  test2(){
-    console.log('嘿嘿', this);
   }
 
   setOpendDiagram(openedDiagram?: DiagramStore){
     this.openedDiagram = openedDiagram;
+  }
+
+  setSelectedNode(selectedNode : SelectedNode){
+    this.selectedNode = selectedNode;
   }
 
   setGraph(graph?:Graph){

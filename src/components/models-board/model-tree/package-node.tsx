@@ -1,6 +1,7 @@
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
+import { useModelsBoardStore } from "../store";
 import { PackageStore } from "../store/package";
 import { ClassNode } from "./class-node";
 import { DiagramNode } from "./diagram-node";
@@ -13,6 +14,11 @@ export const PackageNode = observer((props:{
   packageStore: PackageStore
 })=>{
   const {packageStore} = props;
+  const bordStore = useModelsBoardStore();
+
+  const handleClick = ()=>{
+    bordStore.setSelectedNode(packageStore);
+  }
 
   const handleAddPackage = ()=>{
 
@@ -42,6 +48,7 @@ export const PackageNode = observer((props:{
             onDelete = {handleDelete}          
           />
         }
+        onClick = {handleClick}
       >
         <MdiIcon iconClass = "mdi-folder-outline" size={18} />
         <NodeText>{packageStore.name}</NodeText>

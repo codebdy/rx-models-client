@@ -8,6 +8,7 @@ import { TreeNodeLabel } from "./tree-node-label";
 import intl from "react-intl-universal";
 import { RelationNode } from "./relation-node";
 import { observer } from "mobx-react";
+import { useModelsBoardStore } from "../store";
 
 
 export const ClassNode = observer((props:{
@@ -15,7 +16,11 @@ export const ClassNode = observer((props:{
   classStore: ClassStore
 })=>{
   const {classStore} = props;
+  const bordStore = useModelsBoardStore();
 
+  const handleClick = ()=>{
+    bordStore.setSelectedNode(classStore);
+  }
   const relations = classStore.getRelations();
 
   return(
@@ -26,6 +31,7 @@ export const ClassNode = observer((props:{
             <MdiIcon className="mdi-trash-can-outline" size="16" />
           </IconButton>
         }
+        onClick = {handleClick}
       >
         <SvgIcon>
           <path d="
