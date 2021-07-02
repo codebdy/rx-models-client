@@ -27,6 +27,23 @@ export default function ModelTree() {
   const classes = useStyles();
 
   const modelStore = useModelsBoardStore().rootStore;
+
+  const handleAddPackage = ()=>{
+
+  }
+  
+  const handleAddClass = ()=>{
+  
+  }
+  
+  const handleAddDiagram = ()=>{
+  
+  }
+  
+  const handleDelete = ()=>{
+    
+  }
+
   return (
     <TreeView
       className={classes.root}
@@ -37,7 +54,12 @@ export default function ModelTree() {
       <TreeItem nodeId='root' label={
         <TreeNodeLabel
           action = {
-            <PackageAction />
+            <PackageAction 
+              onAddPackage = {handleAddPackage} 
+              onAddClass = {handleAddClass}
+              onAddDiagram = {handleAddDiagram}
+              onDelete = {handleDelete}
+            />
           }
         >
           <MdiIcon iconClass = "mdi-cube-outline" size={18} />

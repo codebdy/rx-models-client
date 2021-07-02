@@ -1,4 +1,3 @@
-import { IconButton } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { PackageStore } from "../store/package";
@@ -14,11 +13,33 @@ export function PackageNode(props:{
 }){
 const {packageStore} = props;
 
+const handleAddPackage = ()=>{
+
+}
+
+const handleAddClass = ()=>{
+
+}
+
+const handleAddDiagram = ()=>{
+
+}
+
+const handleDelete = ()=>{
+
+}
+
 return(
   <TreeItem nodeId= {packageStore.id} label={
     <TreeNodeLabel
       action = {
-        <PackageAction hasDelete />
+        <PackageAction 
+          hasDelete 
+          onAddPackage = {handleAddPackage} 
+          onAddClass = {handleAddClass}
+          onAddDiagram = {handleAddDiagram}
+          onDelete = {handleDelete}          
+        />
       }
     >
       <MdiIcon iconClass = "mdi-folder-outline" size={18} />
