@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, Tooltip, IconButton, Button } from '@material-ui/core';
 import LeftArea from './leaft-area';
-import RightArea from './right-area';
+import { RightArea } from './right-area';
 import { WorkSpace } from './workspace';
 import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
