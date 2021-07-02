@@ -12,7 +12,7 @@ createStyles({
 }),
 );
 
-export function NodeLabel(props:{
+export function NodeText(props:{
   children:any,
 }){
 const classes = useStyles();

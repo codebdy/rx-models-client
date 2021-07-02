@@ -10,7 +10,7 @@ export class PackageStore{
   id: string;
   name: string;
   parent: PackageStore | undefined;
-  children: PackageStore[] = [];
+  packages: PackageStore[] = [];
   classes: ClassStore[] = [];
   diagrams: DiagramStore[] = [];
   relations: RelationStore[] = [];
@@ -18,14 +18,14 @@ export class PackageStore{
   constructor(meta?:PackageMeta, private rootStore?: PackageStore){
     this.id = meta?.id || 'root';
     this.name = meta?.name || intl.get('root-models');
-    this.children = meta?.children.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
+    this.packages = meta?.children.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
     this.classes = meta?.classMetas.map(meta=>new ClassStore(meta, this.rootStore||this, this))||[];
     this.diagrams = meta?.diagramMetas.map(meta=>new DiagramStore(meta, this.rootStore||this))||[];
     makeAutoObservable(this)
   }
 
   initAsRoot(meta:RootMeta){
-    this.children = meta.packageMetas?.map(meta=>new PackageStore(meta, this))||[];
+    this.packages = meta.packageMetas?.map(meta=>new PackageStore(meta, this))||[];
     this.classes = meta.classMetas?.map(meta=>new ClassStore(meta, this))||[];
     this.diagrams = meta.diagramMetas?.map(meta=>new DiagramStore(meta, this))||[];
     this.relations = meta.relationMetas?.map(relation=>new RelationStore(relation, this));
@@ -37,7 +37,7 @@ export class PackageStore{
       return classStore;
     }
 
-    for(const pkg of this.children){
+    for(const pkg of this.packages){
       const clsStore = pkg.getClassById(id);
       if(clsStore){
         return clsStore;
@@ -50,7 +50,7 @@ export class PackageStore{
     if(diagramStore){
       return diagramStore;
     }
-    for(const pkg of this.children){
+    for(const pkg of this.packages){
       const diagStore = pkg.getDiagramById(id);
       if(diagStore){
         return diagStore;
