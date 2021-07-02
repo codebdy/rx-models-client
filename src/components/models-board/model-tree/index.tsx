@@ -12,6 +12,7 @@ import { IconButton } from '@material-ui/core';
 import { useModelsBoardStore } from '../store';
 import { PackageNode } from './package-node';
 import { ClassNode } from './class-node';
+import { DiagramNode } from './diagram-node';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,6 +56,13 @@ export default function ModelTree() {
           modelStore.classes.map(aClass=>{
             return (
               <ClassNode key={aClass.id} classStore = {aClass} />
+            )
+          })
+        }
+        {
+          modelStore.diagrams.map(diagram=>{
+            return (
+              <DiagramNode key={diagram.id} diagramStore = {diagram} />
             )
           })
         }

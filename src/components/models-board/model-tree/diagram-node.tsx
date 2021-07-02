@@ -1,19 +1,18 @@
 import { IconButton } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
-import { ColumnStore } from "../store/column";
+import { DiagramStore } from "../store/diagram";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 
-
-export function ColumnNode(props:{
+export function DiagramNode(props:{
   key?:string,
-  columnStore: ColumnStore
+  diagramStore: DiagramStore
 }){
-const {columnStore} = props;
+const {diagramStore} = props;
 
 return(
-  <TreeItem nodeId= {columnStore.id} label={
+  <TreeItem nodeId= {diagramStore.id} label={
     <TreeNodeLabel
       action = {
         <IconButton size = "small">
@@ -21,8 +20,8 @@ return(
         </IconButton>
       }
     >
-      <MdiIcon iconClass = "mdi-plus" size={15} />
-      <NodeText>{columnStore.name}</NodeText>
+      <MdiIcon iconClass = "mdi-arrange-send-backward" size={15} />
+      <NodeText>{diagramStore.name}</NodeText>
     </TreeNodeLabel>
   }>
   </TreeItem>

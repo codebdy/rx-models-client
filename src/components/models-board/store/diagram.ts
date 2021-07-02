@@ -31,11 +31,13 @@ export interface GraphData{
 
 export class DiagramStore{
   id: string;
+  name: string;
   nodes: X6NodeMeta[] = [];
   edges: X6EdgeMeta[] = [];
   
   constructor(meta:DiagramMeta, private rootStore: PackageStore){
     this.id = meta.id;
+    this.name = meta.name;
     this.nodes = meta.nodes;
     this.edges = meta.edges;
     makeAutoObservable(this)

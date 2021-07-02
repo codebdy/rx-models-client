@@ -64,6 +64,7 @@ export const rootMeta:RootMeta = {
       diagramMetas: [
         {
           id: '999',
+          name: '类图',
           nodes: [
             {
               id: '2',

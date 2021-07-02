@@ -1,4 +1,4 @@
-import { makeStyles, Theme, createStyles, IconButton, SvgIcon } from "@material-ui/core";
+import { IconButton, SvgIcon } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ClassStore } from "../store/class-store";
@@ -7,21 +7,12 @@ import { ColumnNode } from "./column-node";
 import { TreeNodeLabel } from "./tree-node-label";
 import intl from "react-intl-universal";
 
-const useStyles = makeStyles((theme: Theme) =>
-createStyles({
-  root: {
-
-  },  
-
-}),
-);
 
 export function ClassNode(props:{
   key?:string,
   classStore: ClassStore
 }){
 const {classStore} = props;
-const classes = useStyles();
 
 return(
   <TreeItem nodeId= {classStore.id} label={
