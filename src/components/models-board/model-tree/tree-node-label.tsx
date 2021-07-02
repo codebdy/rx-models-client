@@ -16,7 +16,7 @@ createStyles({
 
 export function TreeNodeLabel(props:{
   children:any,
-  action:any,
+  action?:any,
 }){
 const classes = useStyles();
 const [hover, setHover] = useState(false);

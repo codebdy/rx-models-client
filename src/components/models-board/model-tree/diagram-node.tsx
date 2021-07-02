@@ -15,9 +15,14 @@ return(
   <TreeItem nodeId= {diagramStore.id} label={
     <TreeNodeLabel
       action = {
-        <IconButton size = "small">
-          <MdiIcon className="mdi-dots-horizontal" size="16" />
-        </IconButton>
+        <>
+          <IconButton size = "small">
+          <MdiIcon className="mdi-pencil-outline" size="16" />
+          </IconButton>
+          <IconButton size = "small">
+            <MdiIcon className="mdi-trash-can-outline" size="16" />
+          </IconButton>
+        </>
       }
     >
       <MdiIcon iconClass = "mdi-arrange-send-backward" size={15} />

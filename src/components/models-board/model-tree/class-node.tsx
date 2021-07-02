@@ -44,7 +44,7 @@ return(
       <TreeNodeLabel
         action = {
           <IconButton size = "small">
-            <MdiIcon className="mdi-dots-horizontal" size="16" />
+            <MdiIcon className="mdi-plus" size="16" />
           </IconButton>
         }
       >
@@ -62,13 +62,7 @@ return(
     {
       relations.length > 0 &&
       <TreeItem nodeId= {classStore.id + 'relations'} label={
-        <TreeNodeLabel
-          action = {
-            <IconButton size = "small">
-              <MdiIcon className="mdi-dots-horizontal" size="16" />
-            </IconButton>
-          }
-        >
+        <TreeNodeLabel>
           <NodeText>{intl.get('relations')}</NodeText>
         </TreeNodeLabel>
       }>

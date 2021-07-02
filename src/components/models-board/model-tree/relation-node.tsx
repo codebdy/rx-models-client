@@ -17,7 +17,7 @@ return(
     <TreeNodeLabel
       action = {
         <IconButton size = "small">
-          <MdiIcon className="mdi-dots-horizontal" size="16" />
+          <MdiIcon className="mdi-trash-can-outline" size="16" />
         </IconButton>
       }
     >
