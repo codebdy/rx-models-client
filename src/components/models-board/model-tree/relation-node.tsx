@@ -25,7 +25,7 @@ export const RelationNode = observer((props:{
         }
         onClick = {handleClick}
       >
-        <MdiIcon iconClass = "mdi-relation-many-to-many" size={15} />
+        <MdiIcon iconClass = "mdi-relation-many-to-many" size={12} />
         <NodeText>{relation.name}</NodeText>
       </TreeNodeLabel>
     }>

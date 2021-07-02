@@ -28,7 +28,7 @@ export const ColumnNode = observer((props:{
         }
         onClick = {handleClick}
       >
-        <MdiIcon iconClass = "mdi-plus" size={15} />
+        <MdiIcon iconClass = "mdi-rhombus-outline" size={12} />
         <NodeText>{columnStore.name}</NodeText>
       </TreeNodeLabel>
     }>
