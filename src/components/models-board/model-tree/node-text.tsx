@@ -5,7 +5,6 @@ createStyles({
   labelText: {
     fontWeight: 'inherit',
     flexGrow: 1,
-    margintLeft:'4px',
     marginLeft: theme.spacing(1),
   },  
 

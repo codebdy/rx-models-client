@@ -8,13 +8,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display:'flex',
       flexFlow:'column',
       borderRight: `solid 1px ${theme.palette.divider}`,
-      width:'220px',
+      width:'280px',
     },
     modelTree:{
       flex:1,
     },
     miniMap:{
-      height:'180px',
       borderTop: `solid 1px ${theme.palette.divider}`,
     }
   }),

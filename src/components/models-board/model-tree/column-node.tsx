@@ -31,7 +31,7 @@ return(
         </IconButton>
       }
     >
-      <MdiIcon iconClass = "mdi-folder-outline" size={18} />
+      <MdiIcon iconClass = "mdi-plus" size={15} />
       <NodeText>{columnStore.name}</NodeText>
     </TreeNodeLabel>
   }>

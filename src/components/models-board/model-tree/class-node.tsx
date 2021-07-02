@@ -1,4 +1,4 @@
-import { makeStyles, Theme, createStyles, IconButton } from "@material-ui/core";
+import { makeStyles, Theme, createStyles, IconButton, SvgIcon } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ClassStore } from "../store/class-store";
@@ -31,8 +31,18 @@ return(
         </IconButton>
       }
     >
-      <MdiIcon iconClass = "mdi-folder-outline" size={18} />
-      <NodeText>{classStore.name}</NodeText>
+      <SvgIcon>
+        <path d="
+          M 1,6
+          L 14,6
+          L 14,19
+          L 1,19
+          L 1,6
+          M 1,11
+          L 14,11
+        " stroke="#000" strokeWidth="1" fill="#fff"></path>
+      </SvgIcon>
+      <NodeText><div style={{marginLeft:'-8px'}}>{classStore.name}</div></NodeText>
     </TreeNodeLabel>
   }>
     {

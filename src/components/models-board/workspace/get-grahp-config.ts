@@ -41,7 +41,7 @@ export const getGraphConfig = ()=>{
     minimap: {
       enabled: true,
       container: document.getElementById('mini-map')||undefined,
-      width:220,
+      width:280,
       height:220
     }
   }
