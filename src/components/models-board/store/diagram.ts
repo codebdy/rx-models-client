@@ -82,6 +82,10 @@ export class DiagramStore{
     }
   }
 
+  setName(name:string){
+    this.name = name;
+  }
+
   /**
    * 点击保存按钮时时使用
    */
