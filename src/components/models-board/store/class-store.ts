@@ -1,7 +1,14 @@
 import { makeAutoObservable } from "mobx";
+import { createId } from "util/creat-id";
 import { ClassMeta } from "../meta/class-meta";
 import { ColumnStore } from "./column";
 import { PackageStore } from "./package";
+
+export interface RelationOfClass{
+  id: string;
+  relationId: string;
+  name: string;
+}
 
 export class ClassStore{
   id: string;
@@ -27,6 +34,27 @@ export class ClassStore{
 
   setPackage(belongsToPackage:PackageStore){
     this.package = belongsToPackage;
+  }
+
+  getRelations():RelationOfClass[]{
+    const relations: RelationOfClass[] = [];
+    this.rootStore.relations.forEach(relation=>{
+      if(relation.sourceId === this.id){
+        relations.push({
+          id: createId(),
+          relationId: relation.id,
+          name: relation.nameOnSource
+        })
+      }
+      if(relation.targetId === this.id){
+        relations.push({
+          id: createId(),
+          relationId: relation.id,
+          name: relation.nameOnTarget
+        })
+      }
+    });
+    return relations;
   }
 
   toMeta(){

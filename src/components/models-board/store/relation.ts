@@ -4,7 +4,6 @@ import { PackageStore } from "./package";
 
 export class RelationStore{
   id: string;
-  name: string;
   relationType: RelationType;
   constraintType: ConstraintType;
   sourceId: string;
@@ -14,7 +13,6 @@ export class RelationStore{
 
   constructor(meta:RelationMeta, private rootStore: PackageStore){
     this.id = meta.id;
-    this.name = meta.name;
     this.relationType = meta.relationType;
     this.constraintType = meta.constraintType;
     this.sourceId = meta.sourceId;
@@ -27,7 +25,6 @@ export class RelationStore{
   toMeta(): RelationMeta{
     return {
       id: this.id,
-      name: this.name,
       relationType: this.relationType,
       constraintType: this.constraintType,
       sourceId: this.sourceId,

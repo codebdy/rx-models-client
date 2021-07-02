@@ -14,6 +14,8 @@ export function ClassNode(props:{
 }){
 const {classStore} = props;
 
+const relations = classStore.getRelations();
+
 return(
   <TreeItem nodeId= {classStore.id} label={
     <TreeNodeLabel
@@ -56,19 +58,23 @@ return(
         })
       }
     </TreeItem>
-    <TreeItem nodeId= {classStore.id + 'columns'} label={
-      <TreeNodeLabel
-        action = {
-          <IconButton size = "small">
-            <MdiIcon className="mdi-dots-horizontal" size="16" />
-          </IconButton>
-        }
-      >
-        <NodeText>{intl.get('relations')}</NodeText>
-      </TreeNodeLabel>
-    }>
-      
-    </TreeItem>
+    {
+      relations.length > 0 &&
+      <TreeItem nodeId= {classStore.id + 'relations'} label={
+        <TreeNodeLabel
+          action = {
+            <IconButton size = "small">
+              <MdiIcon className="mdi-dots-horizontal" size="16" />
+            </IconButton>
+          }
+        >
+          <NodeText>{intl.get('relations')}</NodeText>
+        </TreeNodeLabel>
+      }>
+        
+      </TreeItem>      
+    }
+
   </TreeItem>
 )
 }

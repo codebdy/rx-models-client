@@ -14,13 +14,14 @@ createStyles({
 export function NodeText(props:{
   children:any,
 }){
-const classes = useStyles();
+  const classes = useStyles();
 
-return(
-  <Typography variant="body2" 
-    className={classes.labelText}
-  >
-    {props.children}
-  </Typography>    
-)
+  return(
+    <Typography variant="body2" 
+      component = 'div'
+      className={classes.labelText}
+    >
+      {props.children}
+    </Typography>    
+  )
 }

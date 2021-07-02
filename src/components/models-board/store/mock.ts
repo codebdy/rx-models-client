@@ -1,4 +1,5 @@
 import { ColumnType } from "../meta/column-meta";
+import { ConstraintType, RelationType } from "../meta/relation-meta";
 import { RootMeta } from "../meta/root-meta";
 
 export const rootMeta:RootMeta = {
@@ -81,5 +82,15 @@ export const rootMeta:RootMeta = {
   ],
   classMetas:[],
   diagramMetas:[],
-  relationMetas:[],
+  relationMetas:[
+    {
+      id: 'relation1',
+      relationType: RelationType.Association,
+      constraintType: ConstraintType.MANY_TO_MANY,
+      sourceId: '2',
+      targetId: '11',
+      nameOnSource: 'roles',
+      nameOnTarget: 'users'
+    }
+  ],
 }

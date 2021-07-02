@@ -12,7 +12,6 @@ export enum ConstraintType {
 
 export interface RelationMeta {
   id: string;
-  name: string;
   relationType: RelationType;
   constraintType: ConstraintType;
   sourceId: string;
