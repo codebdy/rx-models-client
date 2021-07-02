@@ -5,6 +5,7 @@ import { ClassStore } from "../store/class-store";
 import { NodeText } from "./node-text";
 import { ColumnNode } from "./column-node";
 import { TreeNodeLabel } from "./tree-node-label";
+import intl from "react-intl-universal";
 
 const useStyles = makeStyles((theme: Theme) =>
 createStyles({
@@ -45,13 +46,38 @@ return(
       <NodeText><div style={{marginLeft:'-8px'}}>{classStore.name}</div></NodeText>
     </TreeNodeLabel>
   }>
-    {
-      classStore.columns.map(column=>{
-        return (
-          <ColumnNode key={column.id} columnStore = {column} />
-        )
-      })
-    }
+    <TreeItem nodeId= {classStore.id + 'columns'} label={
+      <TreeNodeLabel
+        action = {
+          <IconButton size = "small">
+            <MdiIcon className="mdi-dots-horizontal" size="16" />
+          </IconButton>
+        }
+      >
+        <NodeText>{intl.get('properties')}</NodeText>
+      </TreeNodeLabel>
+    }>
+      {
+        classStore.columns.map(column=>{
+          return (
+            <ColumnNode key={column.id} columnStore = {column} />
+          )
+        })
+      }
+    </TreeItem>
+    <TreeItem nodeId= {classStore.id + 'columns'} label={
+      <TreeNodeLabel
+        action = {
+          <IconButton size = "small">
+            <MdiIcon className="mdi-dots-horizontal" size="16" />
+          </IconButton>
+        }
+      >
+        <NodeText>{intl.get('relations')}</NodeText>
+      </TreeNodeLabel>
+    }>
+      
+    </TreeItem>
   </TreeItem>
 )
 }

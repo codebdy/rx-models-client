@@ -38,5 +38,7 @@
   "many-to-many": "多 对 多",
   "association": "关联",
   "aggregation": "聚合",
-  "combination": "组合"
+  "combination": "组合",
+  "properties": "属性",
+  "relations": "关联"
 }
