@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const GraphCanvas = observer(()=>{
   const classes = useStyles();
   const modelStore = useModelsBoardStore();
+  const graph = modelStore.graph;
 
   //禁止浏览器滚动，解决x6会增加浏览器滚动条的bug
   useEffect(()=>{
@@ -35,24 +36,32 @@ export const GraphCanvas = observer(()=>{
     }
   },[])
 
-  const nodeClickHandle = (arg: { node: Cell<Cell.Properties>; })=>{
-    modelStore.graph?.isSelected(arg.node);
+  useEffect(()=>{
+    if(modelStore.selectedNode)
+    {
+      graph?.select(graph?.getCellById(modelStore.selectedNode.id));
+    }
+
+  },[graph, modelStore.selectedNode])
+
+  const nodeSelectedClickHandle = (arg: { node: Cell<Cell.Properties>; })=>{
     modelStore.selectClass(arg.node.id);
   }
 
-  const blankClickHandle = ()=>{
+  const unselectedClickHandle = ()=>{
     modelStore.setSelectedNode(undefined);
   }
 
   useEffect(()=>{
     const config = getGraphConfig();
     const graph =  new Graph(config as any);
+    //graph?.enableSelection();
     modelStore.setGraph(graph);
-    graph.on('node:click', nodeClickHandle);
-    graph.on('blank:click', blankClickHandle);
+    graph.on('node:selected', nodeSelectedClickHandle);
+    graph.on('node:unselected', unselectedClickHandle);
     return ()=>{
-      graph.off('node:click', nodeClickHandle);
-      graph.off('blank:click', blankClickHandle);
+      graph.off('node:selected', nodeSelectedClickHandle);
+      graph.off('node:unselected', unselectedClickHandle);
       graph?.dispose();
       modelStore.setGraph(undefined);
     }
@@ -66,8 +75,6 @@ export const GraphCanvas = observer(()=>{
       modelStore.drawingLink?.tempEdge.setTarget(p as any);
     }
   }
-
-  const graph = modelStore.graph;
 
   const nodes = modelStore.openedDiagram?.getNodes();
   useEffect(()=>{

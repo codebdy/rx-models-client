@@ -4,6 +4,7 @@ export const getGraphConfig = ()=>{
   return {
     container: containerDiv,
     interacting: true,
+    selecting: true,
     snapline: true,
     resizing: {
       enabled: true,
