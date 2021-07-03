@@ -33,6 +33,10 @@ export class PackageStore{
     this.relations = meta.relationMetas?.map(relation=>new RelationStore(relation, this));
   }
 
+  setName(name:string){
+    this.name = name;
+  }
+
   getClassById(id:string): ClassStore|undefined{
     const classStore = this.classes.find(classStore=>classStore.id === id);
     if(classStore){
