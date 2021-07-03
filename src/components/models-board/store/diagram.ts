@@ -67,7 +67,7 @@ export class DiagramStore{
     })
 
     oldGraphData.nodes.forEach(oldNode => {
-      if(!this.nodes.find(node=>node.id === oldNode)){
+      if(!this.nodes.find(node=>node.id === oldNode.id)){
         removedNodes.push(oldNode);
       }
     });

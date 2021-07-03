@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { Graph } from '@antv/x6';
 import '@antv/x6-react-shape'
@@ -9,6 +9,7 @@ import { ClassView } from './class-view';
 import { LinkAction } from '../store/link-action';
 import $bus from '../model-event/bus';
 import { EVENT_BEGIN_LNIK } from '../model-event/events';
+import { GraphData } from '../store/diagram';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,6 +24,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const GraphCanvas = observer(()=>{
   const classes = useStyles();
+  const [grahpData] = useState<GraphData>({nodes: [],
+    edges:[]});
   const modelStore = useModelsBoardStore();
 
   //禁止浏览器滚动，解决x6会增加浏览器滚动条的bug
@@ -34,6 +37,18 @@ export const GraphCanvas = observer(()=>{
     }
   },[])
 
+  useEffect(()=>{
+    const config = getGraphConfig();
+    const graph =  new Graph(config as any);
+    modelStore.setGraph(graph);
+
+    return ()=>{
+      graph?.dispose();
+      modelStore.setGraph(undefined);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[modelStore.openedDiagram])
+
   const handleMouseMove = (e: MouseEvent) => {
     const { clientX, clientY } = e;
     const p = modelStore.graph?.clientToLocal({x: clientX, y: clientY});
@@ -42,29 +57,29 @@ export const GraphCanvas = observer(()=>{
     }
   }
 
-  const graphDiff = modelStore.openedDiagram?.getGraphDataDiff({
-    nodes: [],
-    edges:[]
-  })
+  const graph = modelStore.graph;
+
+  const graphDiff = graph ? modelStore.openedDiagram?.getGraphDataDiff(grahpData) : undefined;
 
   useEffect(()=>{
-    const config = getGraphConfig();
-    const graph =  new Graph(config as any);
-    modelStore.setGraph(graph);
+    grahpData.nodes = graphDiff?.createdNodes.concat(graphDiff.updatedNodes)||[];
+    grahpData.edges = graphDiff?.createdEdges.concat(graphDiff.updatedEdges)||[];
 
-    graphDiff?.createdNodes && graph.addNodes(graphDiff?.createdNodes.map(node=>{
+    graphDiff?.createdNodes && graph?.addNodes(graphDiff?.createdNodes.map(node=>{
+      console.log('哈哈', node);
       return {...node, shape: 'react-shape', component: <ClassView />}
     }));
 
-    graph.on('node:added', ({ cell, index, options }) => {
-      console.log('良善', cell);
+    graphDiff?.updatedNodes.forEach(node=>{
+      console.log('哈哈3', node, graph?.getCellById(node.id));
+      graph?.getCellById(node.id).setData({...node, shape: 'react-shape', component: <ClassView />})
     })
 
-    return ()=>{
-      graph?.dispose();
-      modelStore.setGraph(undefined);
-    }
+    graph?.on('node:added', ({ cell, index, options }) => {
+      console.log('良善', cell);
+    })    
   })
+
   const handleStratLink = (linkAction:LinkAction)=>{
     const p = modelStore.graph?.clientToLocal(linkAction.initPoint);
     linkAction.tempEdge = modelStore.graph?.addEdge({
