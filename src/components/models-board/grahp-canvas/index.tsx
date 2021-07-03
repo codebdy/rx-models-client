@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import { Graph } from '@antv/x6';
+import { Cell, Graph } from '@antv/x6';
 import '@antv/x6-react-shape'
 import { observer } from 'mobx-react';
 import { getGraphConfig } from './get-grahp-config';
@@ -35,12 +35,24 @@ export const GraphCanvas = observer(()=>{
     }
   },[])
 
+  const nodeClickHandle = (arg: { node: Cell<Cell.Properties>; })=>{
+    modelStore.graph?.isSelected(arg.node);
+    modelStore.selectClass(arg.node.id);
+  }
+
+  const blankClickHandle = ()=>{
+    modelStore.setSelectedNode(undefined);
+  }
+
   useEffect(()=>{
     const config = getGraphConfig();
     const graph =  new Graph(config as any);
     modelStore.setGraph(graph);
-
+    graph.on('node:click', nodeClickHandle);
+    graph.on('blank:click', blankClickHandle);
     return ()=>{
+      graph.off('node:click', nodeClickHandle);
+      graph.off('blank:click', blankClickHandle);
       graph?.dispose();
       modelStore.setGraph(undefined);
     }

@@ -37,6 +37,11 @@ export class ModelsBoardStore{
     this.openedDiagram = openedDiagram;
   }
 
+  selectClass(id:string){
+    const classStore = this.rootStore.getClassById(id);
+    this.setSelectedNode(classStore);
+  }
+
   setSelectedNode(selectedNode : SelectedNode){
     this.selectedNode = selectedNode;
   }
