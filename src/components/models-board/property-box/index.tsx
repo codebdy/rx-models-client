@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const RightArea = observer(()=>{
+export const PropertyBox = observer(()=>{
   const classes = useStyles();
   return (
     <div className={classes.root}>

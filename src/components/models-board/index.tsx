@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, Tooltip, IconButton, Button } from '@material-ui/core';
 import LeftArea from './leaft-area';
-import { RightArea } from './right-area';
 import { WorkSpace } from './workspace';
 import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
@@ -11,6 +10,7 @@ import { ModelsBoardStore } from './store/models-board';
 import { ModelStoreProvider } from './store';
 import { rootMeta } from './store/mock';
 import { Toolbox } from './toolbox';
+import { PropertyBox } from './property-box';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,7 +84,7 @@ export default function ModelsBoard(){
         <LeftArea></LeftArea>
         <Toolbox></Toolbox>
         <WorkSpace></WorkSpace>
-        <RightArea></RightArea>
+        <PropertyBox></PropertyBox>
       </div>
     </div>
     </ModelStoreProvider>
