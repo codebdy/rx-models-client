@@ -138,6 +138,11 @@ export const GraphCanvas = observer(()=>{
         modelStore.graph?.addNode({...node, shape: 'react-shape', component: <ClassView />});
       }
     })
+    modelStore.graph?.getNodes().forEach(node=>{
+      if(!modelStore.openedDiagram?.getNodeById(node.id)){
+        modelStore.graph?.removeNode(node.id);
+      }
+    })
   })
 
   const handleStratLink = (linkAction:LinkAction)=>{
