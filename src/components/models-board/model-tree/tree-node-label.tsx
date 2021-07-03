@@ -17,7 +17,7 @@ createStyles({
 export function TreeNodeLabel(props:{
   children:any,
   action?:any,
-  onClick?:()=>void
+  onClick?:(event:React.MouseEvent)=>void
 }){
   const {action, children, onClick} = props;
   const classes = useStyles();

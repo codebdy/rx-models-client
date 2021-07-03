@@ -65,7 +65,7 @@ export const Studio = observer(() => {
             variant="rounded"
             className={classes.logoIcon}
           >
-            <MdiIcon iconClass = "mdi-feather" />
+            RX
           </Avatar>
           <NavLink
             className = {classes.navLink}

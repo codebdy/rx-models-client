@@ -1,6 +1,7 @@
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
+import React from "react";
 import { useModelsBoardStore } from "../store";
 import { PackageStore } from "../store/package";
 import { ClassNode } from "./class-node";
@@ -16,8 +17,9 @@ export const PackageNode = observer((props:{
   const {packageStore} = props;
   const bordStore = useModelsBoardStore();
 
-  const handleClick = ()=>{
+  const handleClick = (event:React.MouseEvent)=>{
     bordStore.setSelectedNode(packageStore);
+    event.stopPropagation();
   }
 
   const handleAddPackage = ()=>{

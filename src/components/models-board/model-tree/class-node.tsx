@@ -18,8 +18,9 @@ export const ClassNode = observer((props:{
   const {classStore} = props;
   const bordStore = useModelsBoardStore();
 
-  const handleClick = ()=>{
+  const handleClick = (event:React.MouseEvent)=>{
     bordStore.setSelectedNode(classStore);
+    event.stopPropagation();
   }
   const relations = classStore.getRelations();
 

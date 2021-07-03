@@ -62,6 +62,7 @@ export const DiagramNode = observer((props:{
                 onChange={handleNameChange}
                 onBlur = {handleNameBlur}
                 onKeyUp = {handleKeyEnter}
+                autoFocus
               />
             : diagramStore.name
           }
