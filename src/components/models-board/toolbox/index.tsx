@@ -65,16 +65,12 @@ export const Toolbox = observer(() => {
     setDnd(theDnd);
   },[modelBoardStore.graph])
   
-  const handleTest = ()=>{
-    console.log('哈哈', 'handleTest2');
-  }
-
   const startDrag = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if(!modelBoardStore.graph){
       return;
     }
     const nodeConfig = modelBoardStore.createTempClassNodeForNew() as any;
-    nodeConfig.component = <ClassView onHidden = {handleTest} />;
+    nodeConfig.component = <ClassView />;
     const node = modelBoardStore.graph.createNode(nodeConfig);
     dnd?.start(node, e.nativeEvent as any)
   }

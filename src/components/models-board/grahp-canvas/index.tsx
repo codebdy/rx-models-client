@@ -10,7 +10,6 @@ import { LinkAction } from '../store/link-action';
 import $bus from '../model-event/bus';
 import { EVENT_BEGIN_LNIK } from '../model-event/events';
 import _ from "lodash";
-import { ClassNodeData } from '../store/diagram';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,10 +59,21 @@ export const GraphCanvas = observer(()=>{
   const nodeAdded = (arg: { node: Node<Node.Properties>; })=>{
     const node = arg.node;
     const nodeJson = node.toJSON();
-    const {isTempForNew, packageName, ...classMeta} = arg.node.data;
+    const {isTempForNew, isTempForDrag, packageName, ...classMeta} = arg.node.data;
     if(isTempForNew){
       node.remove({disconnectEdges:true});
       modelStore.openedDiagram?.belongsToPackage?.addNewClass(classMeta);
+      modelStore.openedDiagram?.addNode({
+        //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
+        id:classMeta.id||'', 
+        x:nodeJson.position?.x, 
+        y:nodeJson.position?.y, 
+        width: nodeJson.size?.width, 
+        height: nodeJson.size?.height
+      })
+    }
+    if(isTempForDrag){
+      node.remove({disconnectEdges:true});
       modelStore.openedDiagram?.addNode({
         //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
         id:classMeta.id||'', 

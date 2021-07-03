@@ -13,6 +13,7 @@ import { ClassStore } from "./class-store";
 import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
 import { Command } from "../command/command";
+import { NODE_INIT_SIZE } from "./node-init-size";
 
 export type SelectedNode = PackageStore | ClassStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
@@ -63,8 +64,7 @@ export class ModelsBoardStore{
     const id = createId()
     return {
       id: id,
-      width: 180,
-      height: 80,
+      ...NODE_INIT_SIZE,
       shape: 'react-shape', 
       data:{
         id,

@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { IconButton, SvgIcon } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
@@ -9,14 +10,45 @@ import intl from "react-intl-universal";
 import { RelationNode } from "./relation-node";
 import { observer } from "mobx-react";
 import { useModelsBoardStore } from "../store";
-
+import { Addon } from '@antv/x6'
+import { ClassView } from "../grahp-canvas/class-view";
+import { NODE_INIT_SIZE } from "../store/node-init-size";
+const { Dnd } = Addon
 
 export const ClassNode = observer((props:{
   key?:string,
   classStore: ClassStore
 })=>{
   const {classStore} = props;
+  const [dnd, setDnd] = React.useState<any>();
   const bordStore = useModelsBoardStore();
+
+  useEffect(()=>{
+    const theDnd = bordStore.graph
+    ? new Dnd({
+      target: bordStore.graph,
+      scaled: false,
+      animation: true,
+
+    })
+    : undefined;
+    setDnd(theDnd);
+  },[bordStore.graph])
+
+  const startDragHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if(!bordStore.graph){
+      return;
+    }
+
+    const node = bordStore.graph.createNode({
+      ...NODE_INIT_SIZE,
+      isTempForDrag:true,
+      shape: 'react-shape', 
+      component: <ClassView />,
+      data: {...classStore.toMeta(), isTempForDrag: true}
+    });
+    dnd?.start(node, e.nativeEvent as any)
+  }
 
   const handleClick = (event:React.MouseEvent)=>{
     bordStore.setSelectedNode(classStore);
@@ -33,6 +65,7 @@ export const ClassNode = observer((props:{
           </IconButton>
         }
         onClick = {handleClick}
+        onDragStart={startDragHandle}
       >
         <SvgIcon>
           <path d="

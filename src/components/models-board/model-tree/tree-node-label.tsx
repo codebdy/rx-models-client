@@ -18,9 +18,10 @@ createStyles({
 export function TreeNodeLabel(props:{
   children:any,
   action?:any,
-  onClick?:(event:React.MouseEvent)=>void
+  onClick?:(event:React.MouseEvent)=>void,
+  onDragStart?:(event: React.MouseEvent<HTMLDivElement, MouseEvent>)=>void
 }){
-  const {action, children, onClick} = props;
+  const {action, children, onClick, onDragStart} = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
@@ -30,6 +31,8 @@ export function TreeNodeLabel(props:{
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}  
       onClick = {onClick}
+      onDragStart = {onDragStart}
+      draggable
     >
       {children}
       {
