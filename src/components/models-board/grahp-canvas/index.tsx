@@ -9,6 +9,7 @@ import { ClassView } from './class-view';
 import { LinkAction } from '../store/link-action';
 import $bus from '../model-event/bus';
 import { EVENT_BEGIN_LNIK } from '../model-event/events';
+import _ from "lodash";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,8 +61,11 @@ export const GraphCanvas = observer(()=>{
   useEffect(()=>{
     nodes?.forEach(node=>{
       const grahpNode = graph?.getCellById(node.id);
-      if(grahpNode){
-        grahpNode.setData(node.data);
+      if(grahpNode) {
+        //Update by diff
+        if(!_.isEqual(node.data, grahpNode.data)){
+          grahpNode.setData(node.data);
+        }
       }
       else{
         graph?.addNode({...node, shape: 'react-shape', component: <ClassView />});

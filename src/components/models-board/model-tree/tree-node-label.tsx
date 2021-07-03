@@ -9,6 +9,7 @@ createStyles({
     alignItems: 'center',
     padding:'5px 0',
     position:'relative',
+    userSelect: 'none',
   },  
 
 }),
