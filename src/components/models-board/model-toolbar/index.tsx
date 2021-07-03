@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
 import Spacer from 'components/common/spacer';
+import { useModelsBoardStore } from '../store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ModelToolbar = observer(()=>{
   const classes = useStyles();
+  const boardStore = useModelsBoardStore();
 
   return (
     <div className = {classes.toolbar}>
@@ -45,17 +47,30 @@ export const ModelToolbar = observer(()=>{
           <IconButton className={classes.iconButton}><MdiIcon iconClass = "mdi-file-export-outline" /></IconButton>
         </Tooltip>
         <Spacer />
-        <Tooltip title={intl.get('database-settings')} aria-label={intl.get('undo')}>
-          <IconButton className={classes.iconButton}><MdiIcon iconClass = "mdi-undo" /></IconButton>
+        <Tooltip title={intl.get('undo')} aria-label={intl.get('undo')}>
+          <IconButton 
+            className={classes.iconButton}
+            disabled = {boardStore.undoList.length === 0}
+          ><MdiIcon iconClass = "mdi-undo" /></IconButton>
         </Tooltip>
-        <Tooltip title={intl.get('database-settings')} aria-label={intl.get('redo')}>
-          <IconButton className={classes.iconButton}><MdiIcon iconClass = "mdi-redo" /></IconButton>
+        <Tooltip title={intl.get('redo')} aria-label={intl.get('redo')}>
+          <IconButton 
+            className={classes.iconButton}
+            disabled = {boardStore.redoList.length === 0}
+          ><MdiIcon iconClass = "mdi-redo" /></IconButton>
         </Tooltip>
-        <Tooltip title={intl.get('database-settings')} aria-label={intl.get('delete')}>
-          <IconButton className={classes.iconButton}><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
+        <Tooltip title={intl.get('delete')} aria-label={intl.get('delete')}>
+          <IconButton 
+            className={classes.iconButton}
+            disabled = {!boardStore.selectedNode}
+          ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         </Tooltip>
         <div className={classes.saveButtonShell}>
-          <Button variant="contained" color = "primary" size = "medium">{intl.get('save')}</Button>
+          <Button 
+            variant="contained" 
+            color = "primary" 
+            size = "medium"
+          >{intl.get('save')}</Button>
         </div>
       </div>
     </div>

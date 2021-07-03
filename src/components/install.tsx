@@ -183,6 +183,7 @@ export const Install = observer(()=>{
                       variant="outlined"
                       onChange={handleChange('type')}
                       size = "small"
+                      disabled
                       required
                     />
                   </Grid>
