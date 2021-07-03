@@ -42,15 +42,16 @@ export const GraphCanvas = observer(()=>{
     }
   }
 
+  const graphDiff = modelStore.openedDiagram?.getGraphDataDiff({
+    nodes: [],
+    edges:[]
+  })
+
   useEffect(()=>{
     const config = getGraphConfig();
     const graph =  new Graph(config as any);
     modelStore.setGraph(graph);
-    const diagram = modelStore.rootStore.getDiagramById('999');
-    const graphDiff = diagram?.getGraphDataDiff({
-      nodes: [],
-      edges:[]
-    })
+
     graphDiff?.createdNodes && graph.addNodes(graphDiff?.createdNodes.map(node=>{
       return {...node, shape: 'react-shape', component: <ClassView />}
     }));
@@ -66,7 +67,6 @@ export const GraphCanvas = observer(()=>{
   })
   const handleStratLink = (linkAction:LinkAction)=>{
     const p = modelStore.graph?.clientToLocal(linkAction.initPoint);
-    console.log('哈哈', linkAction.sourceNode);
     linkAction.tempEdge = modelStore.graph?.addEdge({
       source: linkAction.sourceNode,
       target: p,

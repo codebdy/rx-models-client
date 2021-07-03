@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { ModelTree } from './model-tree';
 import { GraphCanvas } from './grahp-canvas';
@@ -9,6 +9,7 @@ import { rootMeta } from './store/mock';
 import { Toolbox } from './toolbox';
 import { PropertyBox } from './property-box';
 import { ModelToolbar } from './model-toolbar';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,11 +25,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display:'flex',
       height:'0',
     },
+    empertyCanvas: {
+      flex: 1,
+    }
   }),
 );
 
-export default function ModelsBoard(){
-  const modelStore = new ModelsBoardStore(rootMeta);
+export const ModelsBoard = observer(()=>{
+  const [modelStore] = useState(new ModelsBoardStore(rootMeta));
   const classes = useStyles();
   return (
     <ModelStoreProvider value = {modelStore}>
@@ -36,11 +40,17 @@ export default function ModelsBoard(){
       <ModelToolbar />
       <div className = {classNames(classes.content, 'dragit-scrollbar')}>
         <ModelTree></ModelTree>
-        <Toolbox></Toolbox>
-        <GraphCanvas></GraphCanvas>
+        {
+          modelStore.openedDiagram 
+          ? <>
+              <Toolbox></Toolbox>
+              <GraphCanvas></GraphCanvas>
+            </>
+          : <div className={classes.empertyCanvas}></div>
+        }
         <PropertyBox></PropertyBox>
       </div>
     </div>
     </ModelStoreProvider>
   )
-}
+})
