@@ -18,8 +18,9 @@ export const DiagramNode = observer((props:{
   const handleClick = ()=>{
     bordStore.setOpendDiagram(diagramStore);
   }
-  const handleEdit = ()=>{
+  const handleEdit = (event:React.MouseEvent)=>{
     setEditing(true);
+    event.stopPropagation();
   }
 
   const handleNameChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
