@@ -37,6 +37,14 @@ export const ModelToolbar = observer(()=>{
   const classes = useStyles();
   const boardStore = useModelsBoardStore();
 
+  const handleUndo = ()=>{
+    boardStore.undo();
+  }
+
+  const handleRedo = ()=>{
+    boardStore.redo();
+  }
+
   return (
     <div className = {classes.toolbar}>
       <div className = {classes.toolbarInner}>
@@ -47,24 +55,20 @@ export const ModelToolbar = observer(()=>{
           <IconButton className={classes.iconButton}><MdiIcon iconClass = "mdi-file-export-outline" /></IconButton>
         </Tooltip>
         <Spacer />
-        <Tooltip title={intl.get('undo')} aria-label={intl.get('undo')}>
-          <IconButton 
-            className={classes.iconButton}
-            disabled = {boardStore.undoList.length === 0}
-          ><MdiIcon iconClass = "mdi-undo" /></IconButton>
-        </Tooltip>
-        <Tooltip title={intl.get('redo')} aria-label={intl.get('redo')}>
-          <IconButton 
-            className={classes.iconButton}
-            disabled = {boardStore.redoList.length === 0}
-          ><MdiIcon iconClass = "mdi-redo" /></IconButton>
-        </Tooltip>
-        <Tooltip title={intl.get('delete')} aria-label={intl.get('delete')}>
-          <IconButton 
-            className={classes.iconButton}
-            disabled = {!boardStore.selectedNode}
-          ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
-        </Tooltip>
+        <IconButton 
+          className={classes.iconButton}
+          disabled = {boardStore.undoList.length === 0}
+          onClick = {handleUndo}
+        ><MdiIcon iconClass = "mdi-undo" /></IconButton>
+        <IconButton 
+          className={classes.iconButton}
+          disabled = {boardStore.redoList.length === 0}
+          onClick = {handleRedo}
+        ><MdiIcon iconClass = "mdi-redo" /></IconButton>
+        <IconButton 
+          className={classes.iconButton}
+          disabled = {!boardStore.selectedNode}
+        ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         <div className={classes.saveButtonShell}>
           <Button 
             variant="contained" 

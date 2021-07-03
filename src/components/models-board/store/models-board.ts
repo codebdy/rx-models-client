@@ -77,6 +77,12 @@ export class ModelsBoardStore{
     }
   }
 
+  excuteCommand(command: Command){
+    command.excute();
+    this.undoList.push(command);
+    this.redoList = [];
+  }
+
   undo(){
     const cmd = this.undoList.pop();
     const selectedNode = cmd?.undo();
