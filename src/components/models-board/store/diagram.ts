@@ -5,6 +5,7 @@ import { RelationMeta } from "../meta/relation-meta";
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { PackageStore } from "./package";
+import _ from "lodash";
 
 export type InheritMeta = {
   parentId: string,
@@ -62,43 +63,12 @@ export class DiagramStore{
     this.nodes.push(node);
   }
 
+  deleteNode(id:string){
+    _.remove(this.nodes, (node)=>node.id ===id);
+  }
+
   setName(name:string){
     this.name = name;
-  }
-
-  /**
-   * 点击保存按钮时时使用
-   */
-  updateGraphData(){
-
-  }
-
-  removeClass(){
-
-  }
-
-  updateClass(){
-
-  }
-
-  reomveInherit(){
-
-  }
-
-  addInherit(){
-
-  }
-
-  removeRelation(){
-
-  }
-
-  updateRelation(){
-
-  }
-
-  addRelation(){
-
   }
 
   toMeta(){

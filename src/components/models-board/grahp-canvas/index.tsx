@@ -10,6 +10,8 @@ import { LinkAction } from '../store/link-action';
 import $bus from '../model-event/bus';
 import { EVENT_BEGIN_LNIK } from '../model-event/events';
 import _ from "lodash";
+import { CreateClassCommand } from '../command/create-class-command';
+import { AddClassCommand } from '../command/add-class-command';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export const GraphCanvas = observer(()=>{
   const classes = useStyles();
   const modelStore = useModelsBoardStore();
-  const graph = modelStore.graph;
 
   //禁止浏览器滚动，解决x6会增加浏览器滚动条的bug
   useEffect(()=>{
@@ -40,11 +41,11 @@ export const GraphCanvas = observer(()=>{
     if(modelStore.selectedNode)
     {
       const selectionId = modelStore.selectedNode?.id;
-      graph?.cleanSelection();
-      graph?.select(graph?.getCellById(selectionId));
+      modelStore.graph?.cleanSelection();
+      modelStore.graph?.select( modelStore.graph?.getCellById(selectionId));
     }
 
-  },[graph, modelStore.selectedNode])
+  },[ modelStore.graph, modelStore.selectedNode])
 
   const nodeSelectedClickHandle = (arg: { node: Cell<Cell.Properties>; })=>{
     modelStore.selectClass(arg.node.id);
@@ -60,28 +61,40 @@ export const GraphCanvas = observer(()=>{
     const node = arg.node;
     const nodeJson = node.toJSON();
     const {isTempForNew, isTempForDrag, packageName, ...classMeta} = arg.node.data;
+    if(!modelStore.openedDiagram){
+      return;
+    }
+
     if(isTempForNew){
       node.remove({disconnectEdges:true});
-      modelStore.openedDiagram?.belongsToPackage?.addNewClass(classMeta);
-      modelStore.openedDiagram?.addNode({
-        //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
-        id:classMeta.id||'', 
-        x:nodeJson.position?.x, 
-        y:nodeJson.position?.y, 
-        width: nodeJson.size?.width, 
-        height: nodeJson.size?.height
-      })
+      const command = new CreateClassCommand(modelStore.openedDiagram, classMeta, 
+        {
+          //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
+          id:classMeta.id||'', 
+          x:nodeJson.position?.x, 
+          y:nodeJson.position?.y, 
+          width: nodeJson.size?.width, 
+          height: nodeJson.size?.height
+        }
+      )
+      modelStore.excuteCommand(command);
     }
     if(isTempForDrag){
       node.remove({disconnectEdges:true});
-      modelStore.openedDiagram?.addNode({
+      if(modelStore.graph?.getCellById(classMeta.id)){
+        return;
+      }
+      const command = new AddClassCommand(modelStore.openedDiagram, modelStore?.rootStore.getClassById(classMeta.id),
+      {
         //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
         id:classMeta.id||'', 
         x:nodeJson.position?.x, 
         y:nodeJson.position?.y, 
         width: nodeJson.size?.width, 
         height: nodeJson.size?.height
-      })
+      }
+      )
+      modelStore.excuteCommand(command);
     }
   }
 
@@ -114,7 +127,7 @@ export const GraphCanvas = observer(()=>{
   const nodes = modelStore.openedDiagram?.getNodes();
   useEffect(()=>{
     nodes?.forEach(node=>{
-      const grahpNode = graph?.getCellById(node.id);
+      const grahpNode =  modelStore.graph?.getCellById(node.id);
       if(grahpNode) {
         //Update by diff
         if(!_.isEqual(node.data, grahpNode.data)){
@@ -122,7 +135,7 @@ export const GraphCanvas = observer(()=>{
         }
       }
       else{
-        graph?.addNode({...node, shape: 'react-shape', component: <ClassView />});
+        modelStore.graph?.addNode({...node, shape: 'react-shape', component: <ClassView />});
       }
     })
   })

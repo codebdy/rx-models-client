@@ -8,6 +8,7 @@ import { RootMeta } from "../meta/root-meta";
 import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { ClassMeta } from "../meta/class-meta";
+import _ from 'lodash';
 
 export class PackageStore{
   id: string;
@@ -82,43 +83,21 @@ export class PackageStore{
     return packageStore;
   }
 
-  updatePackage(){
 
-  }
-
-  movePackage(){
-
-  }
-
-  deletePackage(){
-
+  deletePackage(id:string){
+    _.remove(this.packages, (packageStore)=> packageStore.id === id);
   }
 
   addNewClass(classMeta: ClassMeta){
-    this.classes.push(new ClassStore(classMeta, this.rootStore||this, this));
+    const newClass = new ClassStore(classMeta, this.rootStore||this, this);
+    this.classes.push(newClass);
+    return newClass;
   }
 
-  updateClass(){
 
+
+  deleteClass(id:string){
+    _.remove(this.classes, (classStore)=> classStore.id === id);
   }
 
-  deleteClass(){
-
-  }
-
-  moveClass(){
-
-  }
-
-  updateClassName(){
-
-  }
-
-  addRelation(){
-
-  }
-
-  deleteRelation(){
-
-  }
 }
