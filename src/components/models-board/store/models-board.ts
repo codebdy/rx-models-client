@@ -12,8 +12,9 @@ import { seedId } from "util/seed-id";
 import { ClassStore } from "./class-store";
 import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
+import { Command } from "../command/command";
 
-type SelectedNode = PackageStore | ClassStore | DiagramStore | ColumnStore | RelationStore | undefined;
+export type SelectedNode = PackageStore | ClassStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
 export class ModelsBoardStore{
   rootStore: PackageStore;
@@ -22,6 +23,9 @@ export class ModelsBoardStore{
   isInheritPressed = false;
   drawingLink: LinkAction | undefined;
   selectedNode: SelectedNode;
+
+  undoList: Array<Command> = [];
+  redoList: Array<Command> = [];
   
   constructor(meta:RootMeta) {
     this.rootStore = new PackageStore();
@@ -72,4 +76,23 @@ export class ModelsBoardStore{
       }
     }
   }
+
+  undo(){
+    const cmd = this.undoList.pop();
+    const selectedNode = cmd?.undo();
+    if(cmd){
+      this.redoList.push(cmd);
+    }
+    this.setSelectedNode(selectedNode);
+  }
+
+  redo(){
+    const cmd = this.redoList.pop();
+    const selectedNode = cmd?.excute();
+    if(cmd){
+      this.undoList.push(cmd);
+    }
+    this.setSelectedNode(selectedNode);
+  }
+
 }

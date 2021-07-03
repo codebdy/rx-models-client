@@ -10,7 +10,7 @@ import { useModelsBoardStore } from '../store';
 import { Addon } from '@antv/x6'
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { ClassView } from '../workspace/class-view';
+import { ClassView } from '../grahp-canvas/class-view';
 import { svgAggregation, svgAssociation, svgCombination, svgInherit } from './const-svg';
 import { PRIMARY_COLOR } from 'util/consts';
 const { Dnd } = Addon

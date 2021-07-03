@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const WorkSpace = observer(()=>{
+export const GraphCanvas = observer(()=>{
   const classes = useStyles();
   const modelStore = useModelsBoardStore();
 
