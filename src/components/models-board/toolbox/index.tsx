@@ -73,7 +73,7 @@ export const Toolbox = observer(() => {
     if(!modelBoardStore.graph){
       return;
     }
-    const nodeConfig = modelBoardStore.createNewClassNode() as any;
+    const nodeConfig = modelBoardStore.createTempClassNodeForNew() as any;
     nodeConfig.component = <ClassView onHidden = {handleTest} />;
     const node = modelBoardStore.graph.createNode(nodeConfig);
     dnd?.start(node, e.nativeEvent as any)

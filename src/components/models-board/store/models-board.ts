@@ -59,7 +59,7 @@ export class ModelsBoardStore{
     $bus.emit(EVENT_INHERIT_PRESSED, this.isInheritPressed);
   }
 
-  createNewClassNode(){
+  createTempClassNodeForNew(){
     const id = createId()
     return {
       id: id,
@@ -77,7 +77,8 @@ export class ModelsBoardStore{
             primary: true,
             generated: true,
           },
-        ]
+        ],
+        isTempForNew: true,
       }
     }
   }

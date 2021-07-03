@@ -10,7 +10,7 @@ export type InheritMeta = {
   parentId: string,
   childId: string,
 }
-export type ClassNodeData = ClassMeta & {packageName?:string};
+export type ClassNodeData = ClassMeta & {packageName?:string, isTempForNew?:boolean, isTempForDrag?: boolean};
 export type NodeConfig = X6NodeMeta & {data: ClassNodeData};
 export type EdgeConfig = X6EdgeMeta & {data: RelationMeta|InheritMeta};
 export type GraphDataDiff = {
