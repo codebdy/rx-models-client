@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     modelTree:{
       flex:1,
+      overflow: 'auto',
     },
     miniMap:{
       borderTop: `solid 1px ${theme.palette.divider}`,

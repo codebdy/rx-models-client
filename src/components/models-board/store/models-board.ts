@@ -14,6 +14,7 @@ import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
 import { Command } from "../command/command";
 import { NODE_INIT_SIZE } from "./node-init-size";
+import { NodeChangeCommand } from "../command/node-change-command";
 
 export type SelectedNode = PackageStore | ClassStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
@@ -25,6 +26,8 @@ export class ModelsBoardStore{
   drawingLink: LinkAction | undefined;
   selectedNode: SelectedNode;
 
+  changingCommand?:NodeChangeCommand;
+
   undoList: Array<Command> = [];
   redoList: Array<Command> = [];
   
@@ -32,6 +35,10 @@ export class ModelsBoardStore{
     this.rootStore = new PackageStore();
     this.rootStore.initAsRoot(meta);
     makeAutoObservable(this);
+  }
+
+  setChangingCommand(command:NodeChangeCommand|undefined){
+    this.changingCommand = command;
   }
 
   setOpendDiagram(openedDiagram?: DiagramStore){

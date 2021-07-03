@@ -12,6 +12,7 @@ import { EVENT_BEGIN_LNIK } from '../model-event/events';
 import _ from "lodash";
 import { CreateClassCommand } from '../command/create-class-command';
 import { AddClassCommand } from '../command/add-class-command';
+import { NodeChangeCommand } from '../command/node-change-command';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,7 +60,6 @@ export const GraphCanvas = observer(()=>{
 
   const nodeAdded = (arg: { node: Node<Node.Properties>; })=>{
     const node = arg.node;
-    const nodeJson = node.toJSON();
     const {isTempForNew, isTempForDrag, packageName, ...classMeta} = arg.node.data;
     if(!modelStore.openedDiagram){
       return;
@@ -71,10 +71,10 @@ export const GraphCanvas = observer(()=>{
         {
           //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
           id:classMeta.id||'', 
-          x:nodeJson.position?.x, 
-          y:nodeJson.position?.y, 
-          width: nodeJson.size?.width, 
-          height: nodeJson.size?.height
+          x:node.getPosition().x, 
+          y:node.getPosition().y, 
+          width: node.getSize().width, 
+          height: node.getSize().height,
         }
       )
       modelStore.excuteCommand(command);
@@ -88,14 +88,49 @@ export const GraphCanvas = observer(()=>{
       {
         //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
         id:classMeta.id||'', 
-        x:nodeJson.position?.x, 
-        y:nodeJson.position?.y, 
-        width: nodeJson.size?.width, 
-        height: nodeJson.size?.height
+        x:node.getPosition().x, 
+        y:node.getPosition().y, 
+        width: node.getSize().width, 
+        height: node.getSize().height,
       }
       )
       modelStore.excuteCommand(command);
     }
+  }
+
+  const nodeChangeHandle = (arg: { node: Node<Node.Properties>; })=>{
+    const node = arg.node;
+    if(!modelStore.openedDiagram){
+      return;
+    }
+    const command = new NodeChangeCommand(modelStore.openedDiagram,
+      {
+        id:node.id,
+        x:node.getPosition().x, 
+        y:node.getPosition().y, 
+        width: node.getSize().width, 
+        height: node.getSize().height,
+      },
+      modelStore.rootStore.getClassById(node.id),
+    )
+    modelStore.setChangingCommand(command);
+  }
+
+  const nodeChangedHandle = (arg: { node: Node<Node.Properties>; })=>{
+    const node = arg.node;
+    if(!modelStore.openedDiagram || !modelStore.changingCommand){
+      modelStore.setChangingCommand(undefined);
+      return;
+    }
+    modelStore.changingCommand.setNewNodeMeta({
+      id:node.id,
+      x:node.getPosition().x, 
+      y:node.getPosition().y, 
+      width: node.getSize().width, 
+      height: node.getSize().height,
+    });
+    modelStore.excuteCommand(modelStore.changingCommand);
+    modelStore.setChangingCommand(undefined);
   }
 
   useEffect(()=>{
@@ -106,10 +141,18 @@ export const GraphCanvas = observer(()=>{
     graph.on('node:selected', nodeSelectedClickHandle);
     graph.on('node:unselected', unselectedClickHandle);
     graph.on('node:added', nodeAdded);
+    graph.on('node:move', nodeChangeHandle);
+    graph.on('node:moved', nodeChangedHandle);
+    graph.on('node:resize', nodeChangeHandle);
+    graph.on('node:resized', nodeChangedHandle);
     return ()=>{
       graph.off('node:selected', nodeSelectedClickHandle);
       graph.off('node:unselected', unselectedClickHandle);
       graph.off('node:added', nodeAdded);
+      graph.off('node:move', nodeChangeHandle);
+      graph.off('node:moved', nodeChangedHandle);
+      graph.off('node:resize', nodeChangeHandle);
+      graph.off('node:resized', nodeChangedHandle);
       graph?.dispose();
       modelStore.setGraph(undefined);
     }
@@ -127,11 +170,19 @@ export const GraphCanvas = observer(()=>{
   const nodes = modelStore.openedDiagram?.getNodes();
   useEffect(()=>{
     nodes?.forEach(node=>{
-      const grahpNode =  modelStore.graph?.getCellById(node.id);
+      const grahpNode =  modelStore.graph?.getCellById(node.id) as Node<Node.Properties>;
       if(grahpNode) {
         //Update by diff
         if(!_.isEqual(node.data, grahpNode.data)){
           grahpNode.setData(node.data);
+        }
+        if(node.x !== grahpNode.getPosition().x 
+          || node.y !== grahpNode.getPosition().y
+          || node.width !== grahpNode.getSize().width
+          || node.height !== grahpNode.getSize().height
+        ){
+          grahpNode.setSize(node as any);
+          grahpNode.setPosition(node as any);
         }
       }
       else{

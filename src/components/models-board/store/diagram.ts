@@ -67,6 +67,14 @@ export class DiagramStore{
     _.remove(this.nodes, (node)=>node.id ===id);
   }
 
+  updateNode(node:X6NodeMeta){
+    for(let i = 0; i< this.nodes.length; i++){
+      if(this.nodes[i].id === node.id){
+        this.nodes[i] = node;
+      }
+    }
+  }
+
   setName(name:string){
     this.name = name;
   }
