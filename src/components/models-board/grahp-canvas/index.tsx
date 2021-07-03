@@ -66,13 +66,11 @@ export const GraphCanvas = observer(()=>{
     grahpData.edges = graphDiff?.createdEdges.concat(graphDiff.updatedEdges)||[];
 
     graphDiff?.createdNodes && graph?.addNodes(graphDiff?.createdNodes.map(node=>{
-      console.log('哈哈', node);
       return {...node, shape: 'react-shape', component: <ClassView />}
     }));
 
     graphDiff?.updatedNodes.forEach(node=>{
-      console.log('哈哈3', node, graph?.getCellById(node.id));
-      graph?.getCellById(node.id).setData({...node, shape: 'react-shape', component: <ClassView />})
+      graph?.getCellById(node.id).setData(node.data)
     })
 
     graph?.on('node:added', ({ cell, index, options }) => {
