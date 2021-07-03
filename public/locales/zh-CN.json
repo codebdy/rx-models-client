@@ -44,5 +44,6 @@
   "relations": "关联",
   "add-package":"新建包",
   "add-class":"新建类",
-  "add-diagram":"新建类图"
+  "add-diagram":"新建类图",
+  "no-selected":"没有选中任何元素！"
 }

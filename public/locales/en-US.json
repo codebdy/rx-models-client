@@ -44,5 +44,6 @@
   "relations": "Relations",
   "add-package":"New package",
   "add-class":"New class",
-  "add-diagram":"New diagram"
+  "add-diagram":"New diagram",
+  "no-selected":"Nothing selected!"
 }
