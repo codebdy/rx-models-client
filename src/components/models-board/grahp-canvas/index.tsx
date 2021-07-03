@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
-import { Cell, Graph } from '@antv/x6';
+import { Cell, Node, Graph } from '@antv/x6';
 import '@antv/x6-react-shape'
 import { observer } from 'mobx-react';
 import { getGraphConfig } from './get-grahp-config';
@@ -39,7 +39,9 @@ export const GraphCanvas = observer(()=>{
   useEffect(()=>{
     if(modelStore.selectedNode)
     {
-      graph?.select(graph?.getCellById(modelStore.selectedNode.id));
+      const selectionId = modelStore.selectedNode?.id;
+      graph?.cleanSelection();
+      graph?.select(graph?.getCellById(selectionId));
     }
 
   },[graph, modelStore.selectedNode])
@@ -49,7 +51,27 @@ export const GraphCanvas = observer(()=>{
   }
 
   const unselectedClickHandle = ()=>{
-    modelStore.setSelectedNode(undefined);
+    if(modelStore.openedDiagram?.getNodeById(modelStore.selectedNode?.id||'')){
+      modelStore.setSelectedNode(undefined);      
+    }
+  }
+
+  const nodeAdded = (arg: { node: Node<Node.Properties>; })=>{
+    const node = arg.node;
+    const nodeJson = node.toJSON();
+    const classId = arg.node.data.id;//拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
+    const classStore = modelStore.rootStore.getClassById(classId);
+    if(!classStore){
+      node.remove({disconnectEdges:true});
+      modelStore.openedDiagram?.belongsToPackage?.addNewClass(node.data);
+      modelStore.openedDiagram?.addNode({
+        id:classId||'', 
+        x:nodeJson.position?.x, 
+        y:nodeJson.position?.y, 
+        width: nodeJson.size?.width, 
+        height: nodeJson.size?.height
+      })
+    }
   }
 
   useEffect(()=>{
@@ -59,9 +81,11 @@ export const GraphCanvas = observer(()=>{
     modelStore.setGraph(graph);
     graph.on('node:selected', nodeSelectedClickHandle);
     graph.on('node:unselected', unselectedClickHandle);
+    graph.on('node:added', nodeAdded);
     return ()=>{
       graph.off('node:selected', nodeSelectedClickHandle);
       graph.off('node:unselected', unselectedClickHandle);
+      graph.off('node:added', nodeAdded);
       graph?.dispose();
       modelStore.setGraph(undefined);
     }

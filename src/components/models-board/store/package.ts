@@ -7,6 +7,7 @@ import { RelationStore } from "./relation";
 import { RootMeta } from "../meta/root-meta";
 import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
+import { ClassMeta } from "../meta/class-meta";
 
 export class PackageStore{
   id: string;
@@ -22,14 +23,14 @@ export class PackageStore{
     this.name = meta?.name || intl.get('root-models');
     this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
     this.classes = meta?.classMetas?.map(meta=>new ClassStore(meta, this.rootStore||this, this))||[];
-    this.diagrams = meta?.diagramMetas?.map(meta=>new DiagramStore(meta, this.rootStore||this))||[];
+    this.diagrams = meta?.diagramMetas?.map(meta=>new DiagramStore(meta, this.rootStore||this, this))||[];
     makeAutoObservable(this)
   }
 
   initAsRoot(meta:RootMeta){
     this.packages = meta.packageMetas?.map(meta=>new PackageStore(meta, this))||[];
     this.classes = meta.classMetas?.map(meta=>new ClassStore(meta, this))||[];
-    this.diagrams = meta.diagramMetas?.map(meta=>new DiagramStore(meta, this))||[];
+    this.diagrams = meta.diagramMetas?.map(meta=>new DiagramStore(meta, this, this))||[];
     this.relations = meta.relationMetas?.map(relation=>new RelationStore(relation, this));
   }
 
@@ -93,8 +94,8 @@ export class PackageStore{
 
   }
 
-  addNewClass(){
-
+  addNewClass(classMeta: ClassMeta){
+    this.classes.push(new ClassStore(classMeta, this.rootStore||this, this));
   }
 
   updateClass(){

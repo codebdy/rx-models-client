@@ -34,7 +34,11 @@ export class DiagramStore{
   nodes: X6NodeMeta[] = [];
   edges: X6EdgeMeta[] = [];
   
-  constructor(meta:DiagramMeta, private rootStore: PackageStore){
+  constructor(
+    meta:DiagramMeta, 
+    private rootStore: PackageStore, 
+    public belongsToPackage: PackageStore
+  ){
     this.id = meta.id;
     this.name = meta.name;
     this.nodes = meta.nodes;
@@ -48,6 +52,14 @@ export class DiagramStore{
       const data = {...classStore?.toMeta(), packageName:classStore?.package?.name}
       return{...node, data};
     })
+  }
+
+  getNodeById(id:string){
+    return this.nodes.find(node=>node.id === id);
+  }
+
+  addNode(node:X6NodeMeta){
+    this.nodes.push(node);
   }
 
   setName(name:string){
