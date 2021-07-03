@@ -4,7 +4,6 @@ import { DiagramMeta } from "../meta/diagram-meta";
 import { RelationMeta } from "../meta/relation-meta";
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
-import _ from "lodash";
 import { PackageStore } from "./package";
 
 export type InheritMeta = {
@@ -43,43 +42,12 @@ export class DiagramStore{
     makeAutoObservable(this)
   }
 
-  //画布内容Diff，只关注基础meta，忽略位置信息
-  getGraphDataDiff(oldGraphData: GraphData): GraphDataDiff{
-    const createdNodes: NodeConfig[] = [];
-    const removedNodes: NodeConfig[] = [];
-    const updatedNodes: NodeConfig[] = [];
-    const createdEdges: EdgeConfig[] = [];
-    const removedEdges: EdgeConfig[] = [];
-    const updatedEdges: EdgeConfig[] = [];
-
-    this.nodes.forEach(node=>{
+  getNodes(){
+    return this.nodes.map(node=>{
       const classStore = this.rootStore.getClassById(node.id);
-      if(classStore){
-        const data = {...classStore.toMeta(), packageName:classStore.package?.name}
-        const oldNode = oldGraphData.nodes.find(oldNode=>oldNode.id === node.id);
-        if(!oldNode){
-          createdNodes.push({...node, data});
-        }
-        else if(!_.isEqual(data, oldNode.data)){
-          updatedNodes.push({...node, data});
-        }        
-      }
+      const data = {...classStore?.toMeta(), packageName:classStore?.package?.name}
+      return{...node, data};
     })
-
-    oldGraphData.nodes.forEach(oldNode => {
-      if(!this.nodes.find(node=>node.id === oldNode.id)){
-        removedNodes.push(oldNode);
-      }
-    });
-
-    return {
-      createdNodes,
-      removedNodes,
-      updatedNodes,    
-      createdEdges,
-      removedEdges,
-      updatedEdges,
-    }
   }
 
   setName(name:string){

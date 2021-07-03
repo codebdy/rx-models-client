@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { Graph } from '@antv/x6';
 import '@antv/x6-react-shape'
@@ -9,7 +9,6 @@ import { ClassView } from './class-view';
 import { LinkAction } from '../store/link-action';
 import $bus from '../model-event/bus';
 import { EVENT_BEGIN_LNIK } from '../model-event/events';
-import { GraphData } from '../store/diagram';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,8 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const GraphCanvas = observer(()=>{
   const classes = useStyles();
-  const [grahpData] = useState<GraphData>({nodes: [],
-    edges:[]});
   const modelStore = useModelsBoardStore();
 
   //禁止浏览器滚动，解决x6会增加浏览器滚动条的bug
@@ -59,23 +56,17 @@ export const GraphCanvas = observer(()=>{
 
   const graph = modelStore.graph;
 
-  const graphDiff = graph ? modelStore.openedDiagram?.getGraphDataDiff(grahpData) : undefined;
-
+  const nodes = modelStore.openedDiagram?.getNodes();
   useEffect(()=>{
-    grahpData.nodes = graphDiff?.createdNodes.concat(graphDiff.updatedNodes)||[];
-    grahpData.edges = graphDiff?.createdEdges.concat(graphDiff.updatedEdges)||[];
-
-    graphDiff?.createdNodes && graph?.addNodes(graphDiff?.createdNodes.map(node=>{
-      return {...node, shape: 'react-shape', component: <ClassView />}
-    }));
-
-    graphDiff?.updatedNodes.forEach(node=>{
-      graph?.getCellById(node.id).setData(node.data)
+    nodes?.forEach(node=>{
+      const grahpNode = graph?.getCellById(node.id);
+      if(grahpNode){
+        grahpNode.setData(node.data);
+      }
+      else{
+        graph?.addNode({...node, shape: 'react-shape', component: <ClassView />});
+      }
     })
-
-    graph?.on('node:added', ({ cell, index, options }) => {
-      console.log('良善', cell);
-    })    
   })
 
   const handleStratLink = (linkAction:LinkAction)=>{
