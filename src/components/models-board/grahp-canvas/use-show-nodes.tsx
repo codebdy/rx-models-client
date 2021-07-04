@@ -1,4 +1,5 @@
 import { useModelsBoardStore } from "../store";
+import '@antv/x6-react-shape'
 import { Node } from '@antv/x6';
 import { useEffect } from "react";
 import { ClassView } from "./class-view";
