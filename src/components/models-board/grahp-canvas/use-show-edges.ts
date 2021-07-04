@@ -13,6 +13,8 @@ export function useShowEdges(){
         modelStore.graph?.addEdge({
           source: soureId,
           target: targetId,
+          vertices: [],
+          tools: ['vertices', 'boundary'],
           attrs: INHERIT_ATTRS,
         })
       }

@@ -26,7 +26,6 @@ export function useSelectNode(){
 
   useEffect(()=>{
     const graph =  modelStore.graph;
-
     modelStore.setGraph(graph);
     graph?.on('node:selected', nodeSelectedClickHandle);
     graph?.on('node:unselected', unselectedClickHandle);
