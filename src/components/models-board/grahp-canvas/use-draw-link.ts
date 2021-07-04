@@ -43,4 +43,16 @@ export function useDrawLink(){
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
+
+  const nodeMouseUpHandle = ()=>{
+    
+  }
+
+  useEffect(()=>{
+    const graph =  modelStore.graph;
+    graph?.on('node:mouseup', nodeMouseUpHandle);
+    return ()=>{
+      graph?.off('node:mouseup', nodeMouseUpHandle);
+    }
+  },[modelStore.graph])
 }

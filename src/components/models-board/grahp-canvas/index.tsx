@@ -7,6 +7,8 @@ import { useSelectNode } from './use-select-node';
 import { useCreateGraph } from './use-create-grahp';
 import { useDrawLink } from './use-draw-link';
 import { useShowEdges } from './use-show-edges';
+import { useNodeMoveOrResize } from './use-node-move-or-resize';
+import { useAddNode } from './use-add-node';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +29,9 @@ export const GraphCanvas = observer(()=>{
   useShowNodes();
   useDrawLink();
   useShowEdges();
-  
+  useNodeMoveOrResize();
+  useAddNode();
+
   return (
     <div className={classes.root} id="container">
     </div>
