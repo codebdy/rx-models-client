@@ -7,7 +7,8 @@ import PropertyView from './property-view';
 import { useEffect } from 'react';
 import $bus from 'components/models-board/model-event/bus';
 import { EVENT_BEGIN_LNIK, EVENT_INHERIT_PRESSED } from 'components/models-board/model-event/events';
-import { LinkType } from 'components/models-board/store/link-action';
+import { EdgeType } from "components/models-board/meta/edge-type";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -110,7 +111,7 @@ export const ClassView = (props:{
       event.preventDefault();
       event.stopPropagation();    
       $bus.emit(EVENT_BEGIN_LNIK, {
-        linkType: LinkType.inherit, 
+        linkType: EdgeType.inherit, 
         sourceNode: node,
         initPoint: {x:clientX, y:clientY}
       });

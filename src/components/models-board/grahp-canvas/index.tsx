@@ -5,7 +5,7 @@ import { useShowNodes } from './use-show-nodes';
 import { useHideExplorerScrollbar } from './use-hide-explorer-scrollbar';
 import { useSelectNode } from './use-select-node';
 import { useCreateGraph } from './use-create-grahp';
-import { useDrawLink } from './use-draw-link';
+import { useDrawLine } from './use-draw-line';
 import { useShowEdges } from './use-show-edges';
 import { useNodeMoveOrResize } from './use-node-move-or-resize';
 import { useAddNode } from './use-add-node';
@@ -27,7 +27,7 @@ export const GraphCanvas = observer(()=>{
   useSelectNode();
   useCreateGraph();
   useShowNodes();
-  useDrawLink();
+  useDrawLine();
   useShowEdges();
   useNodeMoveOrResize();
   useAddNode();

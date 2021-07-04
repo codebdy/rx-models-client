@@ -5,7 +5,7 @@ import { Graph } from "@antv/x6";
 import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 import { RootMeta } from "../meta/root-meta";
-import { LinkAction } from "./link-action";
+import { LineAction } from "./line-action";
 import { EVENT_INHERIT_PRESSED } from "../model-event/events";
 import $bus from "../model-event/bus";
 import { seedId } from "util/seed-id";
@@ -23,7 +23,7 @@ export class ModelsBoardStore{
   openedDiagram?: DiagramStore;
   graph?: Graph;
   isInheritPressed = false;
-  drawingLink: LinkAction | undefined;
+  drawingLink: LineAction | undefined;
   selectedNode: SelectedNode;
 
   changingCommand?:NodeChangeCommand;
@@ -58,7 +58,7 @@ export class ModelsBoardStore{
     this.graph = graph;
   }
 
-  setDrawingLink(drawingLink: LinkAction|undefined){
+  setDrawingLink(drawingLink: LineAction|undefined){
     this.drawingLink = drawingLink;
   }
 

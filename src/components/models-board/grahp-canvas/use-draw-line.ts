@@ -2,12 +2,13 @@ import { useEffect } from "react";
 import $bus from "../model-event/bus";
 import { EVENT_BEGIN_LNIK } from "../model-event/events";
 import { useModelsBoardStore } from "../store";
-import { LinkAction } from "../store/link-action";
+import { LineAction } from "../store/line-action";
 import { INHERIT_ATTRS } from "./consts";
+import { Node } from '@antv/x6';
 
-export function useDrawLink(){
+export function useDrawLine(){
   const modelStore = useModelsBoardStore();
-  const handleStratLink = (linkAction:LinkAction)=>{
+  const handleStratLink = (linkAction:LineAction)=>{
     const p = modelStore.graph?.clientToLocal(linkAction.initPoint);
     linkAction.tempEdge = modelStore.graph?.addEdge({
       source: linkAction.sourceNode,
@@ -44,7 +45,7 @@ export function useDrawLink(){
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
-  const nodeMouseUpHandle = ()=>{
+  const nodeMouseUpHandle = (arg: { node: Node<Node.Properties> })=>{
     
   }
 

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { EdgeType } from "../meta/x6-edge-meta";
+import { EdgeType } from "../meta/edge-type";
 import { useModelsBoardStore } from "../store";
 import { INHERIT_ATTRS } from "./consts";
 
