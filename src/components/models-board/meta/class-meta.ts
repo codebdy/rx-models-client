@@ -5,7 +5,7 @@ export enum ClassType{
 }
 
 export interface ClassMeta{
-  inheritFormId?: number;
+  inheritFromId?: string;
   id: string;
   name: string;
   classType?: ClassType;

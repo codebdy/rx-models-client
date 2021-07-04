@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { createId } from "util/creat-id";
-import { ClassMeta } from "../meta/class-meta";
+import { ClassMeta, ClassType } from "../meta/class-meta";
 import { ColumnStore } from "./column";
 import { PackageStore } from "./package";
 
@@ -12,13 +12,17 @@ export interface RelationOfClass{
 
 export class ClassStore{
   id: string;
+  inheritFromId?: string;
   name: string;
+  classType?: ClassType;
   package: PackageStore | undefined;
   columns: ColumnStore[];
 
   constructor(meta:ClassMeta, private rootStore: PackageStore, belongsTopackage?: PackageStore){
     this.id = meta.id;
+    this.inheritFromId = meta.inheritFromId
     this.name = meta.name;
+    this.classType = meta.classType;
     this.package = belongsTopackage;
 
     this.columns = meta.columns 
@@ -61,6 +65,8 @@ export class ClassStore{
     return {
       id: this.id,
       name: this.name,
+      inheritFromId: this.inheritFromId,
+      classType: this.classType,
       columns: this.columns.map(column=>column.toMeta()),
     }
   }

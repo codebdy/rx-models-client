@@ -87,7 +87,7 @@ export const ClassView = (props:{
   const [hover, setHover] = useState(false);
   const data : ClassNodeData|undefined = node?.data;
 
-  const canLink = isInheritPressed && !data?.inheritFormId;
+  const canLink = isInheritPressed && !data?.inheritFromId;
   const handlePressInheritEvent = (isPressed:boolean)=>{
     setIsInheritPressed(isPressed);
   }

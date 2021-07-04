@@ -11,5 +11,5 @@ export interface X6EdgeMeta{
   //对应relation id
   id: string;
   edgeType: EdgeType;
-  vertices: Point.PointLike[];
+  vertices?: Point.PointLike[];
 }

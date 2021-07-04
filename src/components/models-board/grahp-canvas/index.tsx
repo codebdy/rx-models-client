@@ -5,14 +5,13 @@ import '@antv/x6-react-shape'
 import { observer } from 'mobx-react';
 import { getGraphConfig } from './get-grahp-config';
 import { useModelsBoardStore } from '../store';
-import { ClassView } from './class-view';
 import { LinkAction } from '../store/link-action';
 import $bus from '../model-event/bus';
 import { EVENT_BEGIN_LNIK } from '../model-event/events';
-import _ from "lodash";
 import { CreateClassCommand } from '../command/create-class-command';
 import { AddClassCommand } from '../command/add-class-command';
 import { NodeChangeCommand } from '../command/node-change-command';
+import { useShowNodes } from './use-show-nodes';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -159,42 +158,7 @@ export const GraphCanvas = observer(()=>{
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[modelStore.openedDiagram])
 
-  const handleMouseMove = (e: MouseEvent) => {
-    const { clientX, clientY } = e;
-    const p = modelStore.graph?.clientToLocal({x: clientX, y: clientY});
-    if (modelStore.drawingLink?.tempEdge) {
-      modelStore.drawingLink?.tempEdge.setTarget(p as any);
-    }
-  }
-
-  const nodes = modelStore.openedDiagram?.getNodes();
-  useEffect(()=>{
-    nodes?.forEach(node=>{
-      const grahpNode =  modelStore.graph?.getCellById(node.id) as Node<Node.Properties>;
-      if(grahpNode) {
-        //Update by diff
-        if(!_.isEqual(node.data, grahpNode.data)){
-          grahpNode.setData(node.data);
-        }
-        if(node.x !== grahpNode.getPosition().x 
-          || node.y !== grahpNode.getPosition().y
-          || node.width !== grahpNode.getSize().width
-          || node.height !== grahpNode.getSize().height
-        ){
-          grahpNode.setSize(node as any);
-          grahpNode.setPosition(node as any);
-        }
-      }
-      else{
-        modelStore.graph?.addNode({...node, shape: 'react-shape', component: <ClassView />});
-      }
-    })
-    modelStore.graph?.getNodes().forEach(node=>{
-      if(!modelStore.openedDiagram?.getNodeById(node.id)){
-        modelStore.graph?.removeNode(node.id);
-      }
-    })
-  })
+  useShowNodes();
 
   const handleStratLink = (linkAction:LinkAction)=>{
     const p = modelStore.graph?.clientToLocal(linkAction.initPoint);
@@ -220,6 +184,14 @@ export const GraphCanvas = observer(()=>{
       },
     })
     modelStore.setDrawingLink(linkAction);
+  }
+
+  const handleMouseMove = (e: MouseEvent) => {
+    const { clientX, clientY } = e;
+    const p = modelStore.graph?.clientToLocal({x: clientX, y: clientY});
+    if (modelStore.drawingLink?.tempEdge) {
+      modelStore.drawingLink?.tempEdge.setTarget(p as any);
+    }
   }
 
   const handleMouseUp = ()=>{
