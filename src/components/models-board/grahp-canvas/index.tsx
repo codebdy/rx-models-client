@@ -6,6 +6,7 @@ import { useHideExplorerScrollbar } from './use-hide-explorer-scrollbar';
 import { useSelectNode } from './use-select-node';
 import { useCreateGraph } from './use-create-grahp';
 import { useDrawLink } from './use-draw-link';
+import { useShowEdges } from './use-show-edges';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +26,7 @@ export const GraphCanvas = observer(()=>{
   useCreateGraph();
   useShowNodes();
   useDrawLink();
+  useShowEdges();
   
   return (
     <div className={classes.root} id="container">

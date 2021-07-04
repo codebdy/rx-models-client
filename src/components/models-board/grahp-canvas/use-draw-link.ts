@@ -3,6 +3,7 @@ import $bus from "../model-event/bus";
 import { EVENT_BEGIN_LNIK } from "../model-event/events";
 import { useModelsBoardStore } from "../store";
 import { LinkAction } from "../store/link-action";
+import { INHERIT_ATTRS } from "./consts";
 
 export function useDrawLink(){
   const modelStore = useModelsBoardStore();
@@ -11,24 +12,9 @@ export function useDrawLink(){
     linkAction.tempEdge = modelStore.graph?.addEdge({
       source: linkAction.sourceNode,
       target: p,
-      attrs: {
-        line: {
-          stroke: '#000',
-          strokeWidth: 1,
-        }
-      }
+      attrs: INHERIT_ATTRS,
     })
-    linkAction.tempEdge?.attr({
-      line: {
-        targetMarker: {
-          tagName: 'path',
-          fill: '#FFF',  
-          stroke: '#000', 
-          strokeWidth: 1,
-          d: 'M 18 -9 0 0 18 9 Z',
-        },
-      },
-    })
+
     modelStore.setDrawingLink(linkAction);
   }
 
