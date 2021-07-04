@@ -9,7 +9,7 @@ export function useShowEdges(){
   useEffect(()=>{
     edges?.forEach((edgeMeta)=>{
       if(edgeMeta.edgeType === EdgeType.inherit){
-        const[soureId, targetId] = edgeMeta.id.split('-');
+        const[soureId, targetId] = edgeMeta.id.split('&');
         modelStore.graph?.addEdge({
           source: soureId,
           target: targetId,

@@ -36,6 +36,10 @@ export class ClassStore{
     this.name = name;
   }
 
+  setInheritId(id:string){
+    this.inheritFromId = id;
+  }
+
   setPackage(belongsToPackage:PackageStore){
     this.package = belongsToPackage;
   }

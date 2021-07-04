@@ -4,7 +4,6 @@ import { EVENT_BEGIN_LNIK } from "../model-event/events";
 import { useModelsBoardStore } from "../store";
 import { LineAction } from "../store/line-action";
 import { INHERIT_ATTRS } from "./consts";
-import { Node } from '@antv/x6';
 
 export function useDrawLine(){
   const modelStore = useModelsBoardStore();
@@ -27,7 +26,16 @@ export function useDrawLine(){
     }
   }
 
-  const handleMouseUp = ()=>{
+  const handleMouseUp = (e: MouseEvent)=>{
+    const { clientX, clientY } = e;
+    const p = modelStore.graph?.clientToLocal({x: clientX, y: clientY});
+    const [targetNode] = modelStore.graph?.getNodesFromPoint(p?.x||0, p?.y||0)||[];
+    if(modelStore.drawingLink && targetNode){
+      if(modelStore.drawingLink.sourceNode.id !== targetNode.id){
+        modelStore.rootStore.getClassById(modelStore.drawingLink.sourceNode.id)?.setInheritId(targetNode.id);
+        modelStore.setPressInherit(false);
+      }
+    }
     modelStore.drawingLink?.tempEdge && modelStore.graph?.removeEdge(modelStore.drawingLink?.tempEdge);
     modelStore.setDrawingLink(undefined);
     //modelStore.setPressInherit(false);
@@ -45,15 +53,4 @@ export function useDrawLine(){
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
-  const nodeMouseUpHandle = (arg: { node: Node<Node.Properties> })=>{
-    
-  }
-
-  useEffect(()=>{
-    const graph =  modelStore.graph;
-    graph?.on('node:mouseup', nodeMouseUpHandle);
-    return ()=>{
-      graph?.off('node:mouseup', nodeMouseUpHandle);
-    }
-  },[modelStore.graph])
 }

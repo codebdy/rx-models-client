@@ -108,7 +108,6 @@ export const ClassView = (props:{
   const handleMouseDown = (event:React.MouseEvent)=>{
     const { clientX, clientY } = event;
     if(isInheritPressed){
-      event.preventDefault();
       event.stopPropagation();    
       $bus.emit(EVENT_BEGIN_LNIK, {
         linkType: EdgeType.inherit, 
@@ -123,7 +122,7 @@ export const ClassView = (props:{
       className={classNames(classes.root,{[classes.canLink]:canLink})}
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}  
-      onMouseDown = {handleMouseDown}     
+      onMouseDown = {handleMouseDown}  
     >
       <div className={classes.container}>
         <div className={classes.entityName}>

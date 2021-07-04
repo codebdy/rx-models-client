@@ -56,7 +56,7 @@ export class DiagramStore{
         const parentNode = this.nodes.find(aNode=>aNode.id === classStore?.inheritFromId);
         //如果父类在本图
         if(parentNode){
-          const edgeId = classStore.id + '-' + parentNode.id;
+          const edgeId = classStore.id + '&' + parentNode.id;
           const edge =this.edges.find(edge=>edge.id === edgeId);
           if(edge){
             edges.push();
