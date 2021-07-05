@@ -9,6 +9,7 @@ import { useDrawLine } from './use-draw-line';
 import { useShowEdges } from './use-show-edges';
 import { useNodeMoveOrResize } from './use-node-move-or-resize';
 import { useAddNode } from './use-add-node';
+import { useSelectEdge } from './use-select-edge';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +26,7 @@ export const GraphCanvas = observer(()=>{
   const classes = useStyles();
   useHideExplorerScrollbar();
   useSelectNode();
+  useSelectEdge();
   useCreateGraph();
   useShowNodes();
   useDrawLine();

@@ -34,6 +34,7 @@ export function useDrawLine(){
       modelStore.drawingLine?.tempEdge?.remove();    
       modelStore.setPressRelation(undefined);
       modelStore.setDrawingLine(undefined);
+      modelStore.setSelectedCell(relation);
       return;
     }
     if(edge?.id === modelStore.drawingLine?.tempEdge?.id){

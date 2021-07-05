@@ -51,7 +51,7 @@ export const ClassNode = observer((props:{
   }
 
   const handleClick = (event:React.MouseEvent)=>{
-    bordStore.setSelectedNode(classStore);
+    bordStore.setSelectedCell(classStore);
     event.stopPropagation();
   }
   const relations = classStore.getRelations();

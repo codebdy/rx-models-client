@@ -25,7 +25,7 @@ export class ModelsBoardStore{
   graph?: Graph;
   pressedLineType?: RelationType;
   drawingLine: LineAction | undefined;
-  selectedNode: SelectedNode;
+  selectedCell: SelectedNode;
 
   changingCommand?:NodeChangeCommand;
 
@@ -48,11 +48,11 @@ export class ModelsBoardStore{
 
   selectClass(id:string){
     const classStore = this.rootStore.getClassById(id);
-    this.setSelectedNode(classStore);
+    this.setSelectedCell(classStore);
   }
 
-  setSelectedNode(selectedNode : SelectedNode){
-    this.selectedNode = selectedNode;
+  setSelectedCell(selectedCell : SelectedNode){
+    this.selectedCell = selectedCell;
   }
 
   setGraph(graph?:Graph){
@@ -103,7 +103,7 @@ export class ModelsBoardStore{
     if(cmd){
       this.redoList.push(cmd);
     }
-    this.setSelectedNode(selectedNode);
+    this.setSelectedCell(selectedNode);
   }
 
   redo(){
@@ -112,7 +112,7 @@ export class ModelsBoardStore{
     if(cmd){
       this.undoList.push(cmd);
     }
-    this.setSelectedNode(selectedNode);
+    this.setSelectedCell(selectedNode);
   }
 
 }

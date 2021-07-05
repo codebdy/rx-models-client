@@ -42,24 +42,24 @@ export const PropertyBox = observer(()=>{
       <div className = {classes.propertiesArea}>
         <Grid container spacing = {2}>
           {
-            boardStore?.selectedNode instanceof PackageStore &&
-            <PackagePanel packageStore = {boardStore.selectedNode} />
+            boardStore?.selectedCell instanceof PackageStore &&
+            <PackagePanel packageStore = {boardStore.selectedCell} />
           }
           {
-            boardStore?.selectedNode instanceof EntityStore &&
-            <ClassPanel classStore = {boardStore.selectedNode} />            
+            boardStore?.selectedCell instanceof EntityStore &&
+            <ClassPanel classStore = {boardStore.selectedCell} />            
           }
           {
-            boardStore?.selectedNode instanceof ColumnStore &&
-            <ColumnPanel columnStore = {boardStore.selectedNode} />            
+            boardStore?.selectedCell instanceof ColumnStore &&
+            <ColumnPanel columnStore = {boardStore.selectedCell} />            
           }
           {
-            boardStore?.selectedNode instanceof RelationStore &&
-            <RelationPanel relationStore = {boardStore.selectedNode} />            
+            boardStore?.selectedCell instanceof RelationStore &&
+            <RelationPanel relationStore = {boardStore.selectedCell} />            
           }
 
           {
-            !boardStore?.selectedNode &&
+            !boardStore?.selectedCell &&
             <Grid item>{intl.get('no-selected')}</Grid>
           }
         </Grid>

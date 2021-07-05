@@ -18,7 +18,7 @@ export const PackageNode = observer((props:{
   const bordStore = useModelsBoardStore();
 
   const handleClick = (event:React.MouseEvent)=>{
-    bordStore.setSelectedNode(packageStore);
+    bordStore.setSelectedCell(packageStore);
     event.stopPropagation();
   }
 

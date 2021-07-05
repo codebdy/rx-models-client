@@ -5,32 +5,32 @@ import { Node } from '@antv/x6';
 export function useSelectNode(){
   const modelStore = useModelsBoardStore();
   useEffect(()=>{
-    if(modelStore.selectedNode)
+    if(modelStore.selectedCell)
     {
-      const selectionId = modelStore.selectedNode?.id;
+      const selectionId = modelStore.selectedCell?.id;
       modelStore.graph?.cleanSelection();
       modelStore.graph?.select( modelStore.graph?.getCellById(selectionId));
     }
 
-  },[ modelStore.graph, modelStore.selectedNode])
+  },[ modelStore.graph, modelStore.selectedCell])
 
-  const nodeSelectedClickHandle = (arg: { node: Node<Node.Properties>; })=>{
+  const handleNodeSelected = (arg: { node: Node<Node.Properties>; })=>{
     modelStore.selectClass(arg.node.id);
   }
 
-  const unselectedClickHandle = ()=>{
-    if(modelStore.openedDiagram?.getNodeById(modelStore.selectedNode?.id||'')){
-      modelStore.setSelectedNode(undefined);      
+  const handleNodeUnselected = ()=>{
+    if(modelStore.openedDiagram?.getNodeById(modelStore.selectedCell?.id||'')){
+      modelStore.setSelectedCell(undefined);      
     }
   }
 
   useEffect(()=>{
     const graph =  modelStore.graph;
-    graph?.on('node:selected', nodeSelectedClickHandle);
-    graph?.on('node:unselected', unselectedClickHandle);
+    graph?.on('node:selected', handleNodeSelected);
+    graph?.on('node:unselected', handleNodeUnselected);
     return ()=>{
-      graph?.off('node:selected', nodeSelectedClickHandle);
-      graph?.off('node:unselected', unselectedClickHandle);
+      graph?.off('node:selected', handleNodeSelected);
+      graph?.off('node:unselected', handleNodeUnselected);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[modelStore.graph])

@@ -67,7 +67,7 @@ export const ModelToolbar = observer(()=>{
         ><MdiIcon iconClass = "mdi-redo" /></IconButton>
         <IconButton 
           className={classes.iconButton}
-          disabled = {!boardStore.selectedNode}
+          disabled = {!boardStore.selectedCell}
         ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         <div className={classes.saveButtonShell}>
           <Button 

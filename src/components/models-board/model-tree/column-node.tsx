@@ -16,7 +16,7 @@ export const ColumnNode = observer((props:{
   const bordStore = useModelsBoardStore();
 
   const handleClick = ()=>{
-    bordStore.setSelectedNode(columnStore);
+    bordStore.setSelectedCell(columnStore);
   }
   return(
     <TreeItem nodeId= {columnStore.id} label={

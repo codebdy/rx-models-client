@@ -31,7 +31,7 @@ export const ModelTreeView = observer(() => {
 
   const handleAddPackage = ()=>{
     const newPackage = modelStore.addNewPackage();
-    bordStore.setSelectedNode(newPackage);
+    bordStore.setSelectedCell(newPackage);
   }
   
   const handleAddClass = ()=>{
@@ -48,7 +48,7 @@ export const ModelTreeView = observer(() => {
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpanded={['root']}
       defaultExpandIcon={<ChevronRightIcon />}
-      selected = {[bordStore?.selectedNode?.id || '', bordStore?.openedDiagram?.id || '']}
+      selected = {[bordStore?.selectedCell?.id || '', bordStore?.openedDiagram?.id || '']}
     >
       <TreeItem nodeId='root' label={
         <TreeNodeLabel
