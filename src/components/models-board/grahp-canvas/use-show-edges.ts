@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { EdgeType } from "../meta/edge-type";
 import { useModelsBoardStore } from "../store";
 import { INHERIT_ATTRS } from "./consts";
 
@@ -8,7 +7,7 @@ export function useShowEdges(){
   const edges = modelStore.openedDiagram?.getAndMakeEdges();
   useEffect(()=>{
     edges?.forEach((edgeMeta)=>{
-      if(edgeMeta.edgeType === EdgeType.inherit){
+      /*if(edgeMeta.edgeType === EdgeType.inherit){
         const[soureId, targetId] = edgeMeta.id.split('&');
         modelStore.graph?.addEdge({
           source: soureId,
@@ -17,7 +16,7 @@ export function useShowEdges(){
           tools: ['vertices', 'boundary'],
           attrs: INHERIT_ATTRS,
         })
-      }
+      }*/
     })
   })
 }

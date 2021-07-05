@@ -24,7 +24,7 @@ export class ModelsBoardStore{
   openedDiagram?: DiagramStore;
   graph?: Graph;
   pressedLineType?: RelationType;
-  drawingLink: LineAction | undefined;
+  drawingLine: LineAction | undefined;
   selectedNode: SelectedNode;
 
   changingCommand?:NodeChangeCommand;
@@ -59,8 +59,8 @@ export class ModelsBoardStore{
     this.graph = graph;
   }
 
-  setDrawingLink(drawingLink: LineAction|undefined){
-    this.drawingLink = drawingLink;
+  setDrawingLine(drawingLine: LineAction|undefined){
+    this.drawingLine = drawingLine;
   }
 
   setPressRelation(pressedLineType?:RelationType){

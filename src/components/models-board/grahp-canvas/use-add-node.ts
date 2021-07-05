@@ -49,8 +49,6 @@ export function useAddNode(){
 
   useEffect(()=>{
     const graph =  modelStore.graph;
-
-    modelStore.setGraph(graph);
     graph?.on('node:added', nodeAdded);
     return ()=>{
       graph?.off('node:added', nodeAdded);

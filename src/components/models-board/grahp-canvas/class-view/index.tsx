@@ -6,8 +6,8 @@ import { ClassNodeData } from '../../store/diagram';
 import PropertyView from './property-view';
 import { useEffect } from 'react';
 import $bus from 'components/models-board/model-event/bus';
-import { EVENT_BEGIN_LNIK, EVENT_RELATION_PRESSED } from 'components/models-board/model-event/events';
-import { EdgeType } from "components/models-board/meta/edge-type";
+import { EVENT_RELATION_PRESSED } from 'components/models-board/model-event/events';
+import { RelationType } from 'components/models-board/meta/relation-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,6 +75,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );  
 
+type StartLineData = {
+  relationType: RelationType, 
+  sourceNode: any,
+  initPoint: {x:number, y:number}
+}
+
 export const ClassView = (props:{
   node?:any,
   onHidden?:()=>void,
@@ -84,20 +90,20 @@ export const ClassView = (props:{
 }) =>{
   const classes = useStyles();
   const {node, onHidden} = props;
-  const [isInheritPressed, setIsInheritPressed] = useState(false);
+  const [pressedRelation, setPressedRelation] = useState<RelationType>();
   const [hover, setHover] = useState(false);
   const data : ClassNodeData|undefined = node?.data;
 
-  const canLink = isInheritPressed;
-  const handlePressInheritEvent = (isPressed:boolean)=>{
-    setIsInheritPressed(isPressed);
+  const canLink = pressedRelation;
+  const handlePressRelation = (relationType:RelationType)=>{
+    setPressedRelation(relationType);
   }
-  const disableHover = isInheritPressed;
+  const disableHover = !!pressedRelation;
 
   useEffect(()=>{
-    $bus.on(EVENT_RELATION_PRESSED, handlePressInheritEvent);
+    $bus.on(EVENT_RELATION_PRESSED, handlePressRelation);
     return ()=>{
-      $bus.off(EVENT_RELATION_PRESSED, handlePressInheritEvent);
+      $bus.off(EVENT_RELATION_PRESSED, handlePressRelation);
     }
   },[])
 
@@ -105,24 +111,24 @@ export const ClassView = (props:{
     onHidden && onHidden();
   }
 
-  const handleMouseDown = (event:React.MouseEvent)=>{
+  /*const handleMouseDown = (event:React.MouseEvent)=>{
     const { clientX, clientY } = event;
-    if(isInheritPressed){
+    if(pressedRelation){
       event.stopPropagation();    
-      $bus.emit(EVENT_BEGIN_LNIK, {
-        linkType: EdgeType.inherit, 
+      onStartLine && onStartLine({
+        relationType: pressedRelation, 
         sourceNode: node,
         initPoint: {x:clientX, y:clientY}
       });
     }
-  }
+  }*/
 
   return (
     <div 
       className={classNames(classes.root,{[classes.canLink]:canLink})}
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}  
-      onMouseDown = {handleMouseDown}  
+      //onMouseDown = {handleMouseDown}  
     >
       <div className={classes.container}>
         <div className={classes.entityName}>

@@ -5,7 +5,7 @@ import { NodeChangeCommand } from "../command/node-change-command";
 
 export function useNodeMoveOrResize(){
   const modelStore = useModelsBoardStore();
-  const nodeChangeHandle = (arg: { node: Node<Node.Properties>; })=>{
+  const HandleNodeChange = (arg: { node: Node<Node.Properties>; })=>{
     const node = arg.node;
     if(!modelStore.openedDiagram){
       return;
@@ -23,7 +23,7 @@ export function useNodeMoveOrResize(){
     modelStore.setChangingCommand(command);
   }
 
-  const nodeChangedHandle = (arg: { node: Node<Node.Properties>; })=>{
+  const handleNodeChanged = (arg: { node: Node<Node.Properties>; })=>{
     const node = arg.node;
     if(!modelStore.openedDiagram || !modelStore.changingCommand){
       modelStore.setChangingCommand(undefined);
@@ -42,16 +42,16 @@ export function useNodeMoveOrResize(){
 
   useEffect(()=>{
     const graph =  modelStore.graph;
-    modelStore.setGraph(graph);
-    graph?.on('node:move', nodeChangeHandle);
-    graph?.on('node:moved', nodeChangedHandle);
-    graph?.on('node:resize', nodeChangeHandle);
-    graph?.on('node:resized', nodeChangedHandle);
+
+    graph?.on('node:move', HandleNodeChange);
+    graph?.on('node:moved', handleNodeChanged);
+    graph?.on('node:resize', HandleNodeChange);
+    graph?.on('node:resized', handleNodeChanged);
     return ()=>{
-      graph?.off('node:move', nodeChangeHandle);
-      graph?.off('node:moved', nodeChangedHandle);
-      graph?.off('node:resize', nodeChangeHandle);
-      graph?.off('node:resized', nodeChangedHandle);
+      graph?.off('node:move', HandleNodeChange);
+      graph?.off('node:moved', handleNodeChanged);
+      graph?.off('node:resize', HandleNodeChange);
+      graph?.off('node:resized', handleNodeChanged);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[modelStore.graph])

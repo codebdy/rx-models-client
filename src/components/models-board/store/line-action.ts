@@ -1,9 +1,8 @@
-import { Edge, Node } from "@antv/x6";
-import { EdgeType } from "../meta/edge-type";
+import { Edge } from "@antv/x6";
+import { RelationType } from "../meta/relation-meta";
 
 export interface LineAction {
-  edgeType: EdgeType;
-  sourceNode: Node;
-  initPoint:{ x:number, y:number };
+  relationType: RelationType;
+  sourceNodeId: string;
   tempEdge?:Edge;
 }
