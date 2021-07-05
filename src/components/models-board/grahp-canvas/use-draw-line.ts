@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useModelsBoardStore } from "../store";
 import { LineAction } from "../store/line-action";
 import { INHERIT_ATTRS } from "./consts";
-import { Node } from '@antv/x6';
+import { Edge, Node } from '@antv/x6';
 
 export function useDrawLine(){
   const modelStore = useModelsBoardStore();
@@ -15,14 +15,62 @@ export function useDrawLine(){
     }
   }
 
+  const addVertex = (p:{x:number,y:number})=>{
+    if(modelStore.drawingLine){
+      modelStore.drawingLine.tempEdge?.appendVertex(p);
+    }
+  }
+
+  const handleEdgeMouseUp = (arg: { x:number, y:number, edge:Edge})=>{
+    const{edge, x, y} = arg;
+    const [targetNode] = modelStore.graph?.getNodesFromPoint(x,y)||[];
+    if(targetNode){
+      modelStore.setPressRelation(undefined);
+      modelStore.setDrawingLine(undefined);
+      return;
+    }
+    if(edge?.id === modelStore.drawingLine?.tempEdge?.id){
+      addVertex({x,y});      
+    }
+  }
+
+  const handleNodeMouseUp = (arg: { node:Node})=>{
+    const {node} = arg;
+    const verticesLength = modelStore.drawingLine?.tempEdge?.getVertices()?.length;
+    console.log('吼吼', verticesLength);
+    if(node && verticesLength ){
+      modelStore.setPressRelation(undefined);
+      modelStore.setDrawingLine(undefined);
+    }
+  }
+
+  const handleEdgeDbclick =  (arg: { edge:Edge})=>{
+    if(arg.edge?.id === modelStore.drawingLine?.tempEdge?.id){
+      modelStore.setPressRelation(undefined);
+      modelStore.setDrawingLine(undefined);  
+      arg.edge.remove();         
+    }
+  }
+
   const handleMouseUp = (e: MouseEvent)=>{
     const { clientX, clientY } = e;
     const p = modelStore.graph?.clientToLocal({x: clientX, y: clientY});
+    console.log('哈哈 mouse up', p)
+    if(!p){
+      return;
+    }
     const [targetNode] = modelStore.graph?.getNodesFromPoint(p?.x||0, p?.y||0)||[];
-    if(modelStore.drawingLine && targetNode){
-      if(modelStore.drawingLine.sourceNodeId !== targetNode.id){
-        //modelStore.rootStore.getClassById(modelStore.drawingLink.sourceNode.id)?.setInheritId(targetNode.id);
-        modelStore.setPressRelation(undefined);
+    if(modelStore.drawingLine){
+      
+      if(targetNode){
+        if(modelStore.drawingLine.sourceNodeId !== targetNode.id){
+          //modelStore.rootStore.getClassById(modelStore.drawingLink.sourceNode.id)?.setInheritId(targetNode.id);
+          modelStore.setPressRelation(undefined);
+        }        
+      }
+      else{
+        console.log('哈哈', p)
+        modelStore.drawingLine.tempEdge?.appendVertex(p);
       }
     }
     modelStore.drawingLine?.tempEdge && modelStore.graph?.removeEdge(modelStore.drawingLine?.tempEdge);
@@ -30,9 +78,9 @@ export function useDrawLine(){
     //modelStore.setPressInherit(false);
   }
 
-  const handleMouseDown = (arg: { e:React.MouseEvent, node: Node<Node.Properties> })=>{
+  const handleNodeClick = (arg: { e:React.MouseEvent, node: Node<Node.Properties> })=>{
+    console.log('handleNodeClick');
     const{e, node} = arg;
-
     if(!modelStore.pressedLineType){
       return;
     }
@@ -47,17 +95,15 @@ export function useDrawLine(){
       })
     }
     modelStore.setDrawingLine(lineAction);
-    e.stopPropagation();
+    //e.stopPropagation();
   }
 
   useEffect(()=>{
     //$bus.on(EVENT_BEGIN_LNIK, handleStratLink);
     document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
     return ()=>{
       //$bus.off(EVENT_BEGIN_LNIK, handleStratLink);
       document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
@@ -65,9 +111,15 @@ export function useDrawLine(){
   useEffect(()=>{
     const graph =  modelStore.graph;
 
-    graph?.on('node:mousedown', handleMouseDown);
+    graph?.on('node:click', handleNodeClick);
+    graph?.on('edge:mouseup', handleEdgeMouseUp);
+    graph?.on('node:mouseup', handleNodeMouseUp);
+    graph?.on('edge:dblclick', handleEdgeDbclick);
     return ()=>{
-      graph?.off('node:mousedown', handleMouseDown);
+      graph?.off('node:click', handleNodeClick);
+      graph?.off('edge:mouseup', handleEdgeMouseUp);
+      graph?.off('node:mouseup', handleNodeMouseUp);
+      graph?.off('edge:dblclick', handleEdgeDbclick);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[modelStore.graph])
