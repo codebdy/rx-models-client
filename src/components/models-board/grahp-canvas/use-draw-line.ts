@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useModelsBoardStore } from "../store";
 import { LineAction } from "../store/line-action";
-import { INHERIT_ATTRS } from "./consts";
 import { Edge, Node } from '@antv/x6';
+import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
 
 export function useDrawLine(){
   const modelStore = useModelsBoardStore();
@@ -78,6 +78,7 @@ export function useDrawLine(){
     //modelStore.setPressInherit(false);
   }
 
+  //创建临时线条
   const handleNodeClick = (arg: { e:React.MouseEvent, node: Node<Node.Properties> })=>{
     console.log('handleNodeClick');
     const{e, node} = arg;
@@ -91,11 +92,10 @@ export function useDrawLine(){
       tempEdge: modelStore.graph?.addEdge({
         source: node.id,
         target: p,
-        attrs: INHERIT_ATTRS,
+        attrs: getRelationGraphAttrs(modelStore.pressedLineType),
       })
     }
     modelStore.setDrawingLine(lineAction);
-    //e.stopPropagation();
   }
 
   useEffect(()=>{

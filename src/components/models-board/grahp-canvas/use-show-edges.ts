@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useModelsBoardStore } from "../store";
-import { INHERIT_ATTRS } from "./consts";
 
 export function useShowEdges(){
   const modelStore = useModelsBoardStore();
