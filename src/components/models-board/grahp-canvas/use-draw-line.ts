@@ -99,10 +99,8 @@ export function useDrawLine(){
   }
 
   useEffect(()=>{
-    //$bus.on(EVENT_BEGIN_LNIK, handleStratLink);
     document.addEventListener('mousemove', handleMouseMove);
     return ()=>{
-      //$bus.off(EVENT_BEGIN_LNIK, handleStratLink);
       document.removeEventListener('mousemove', handleMouseMove);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -26,7 +26,11 @@ export function useShowNodes(){
         }
       }
       else{
-        modelStore.graph?.addNode({...node, shape: 'react-shape', component: <ClassView />});
+        modelStore.graph?.addNode({
+          ...node, 
+          shape: 'react-shape', 
+          component: <ClassView />
+        });
       }
     })
     modelStore.graph?.getNodes().forEach(node=>{

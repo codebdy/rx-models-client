@@ -75,12 +75,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );  
 
-type StartLineData = {
-  relationType: RelationType, 
-  sourceNode: any,
-  initPoint: {x:number, y:number}
-}
-
 export const ClassView = (props:{
   node?:any,
   onHidden?:()=>void,
@@ -111,24 +105,11 @@ export const ClassView = (props:{
     onHidden && onHidden();
   }
 
-  /*const handleMouseDown = (event:React.MouseEvent)=>{
-    const { clientX, clientY } = event;
-    if(pressedRelation){
-      event.stopPropagation();    
-      onStartLine && onStartLine({
-        relationType: pressedRelation, 
-        sourceNode: node,
-        initPoint: {x:clientX, y:clientY}
-      });
-    }
-  }*/
-
   return (
     <div 
       className={classNames(classes.root,{[classes.canLink]:canLink})}
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}  
-      //onMouseDown = {handleMouseDown}  
     >
       <div className={classes.container}>
         <div className={classes.entityName}>
