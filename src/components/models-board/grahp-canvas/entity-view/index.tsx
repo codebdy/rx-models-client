@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
 import classNames from 'classnames';
 import MdiIcon from 'components/common/mdi-icon';
 import { ClassNodeData } from '../../store/diagram';
-import PropertyView from './property-view';
+import ColumnView from './column-view';
 import { useEffect } from 'react';
 import $bus from 'components/models-board/model-event/bus';
 import { EVENT_RELATION_PRESSED } from 'components/models-board/model-event/events';
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );  
 
-export const ClassView = (props:{
+export const EntityView = (props:{
   node?:any,
   onHidden?:()=>void,
   onDeleteProperty?:(id:string)=>void,
@@ -139,7 +139,7 @@ export const ClassView = (props:{
         }>
           {
             data?.columns.map(column=>{
-              return (<PropertyView key = {column.id} name= {column.name} type = {column.type} readOnly = {disableHover}/>)
+              return (<ColumnView key = {column.id} name= {column.name} type = {column.type} readOnly = {disableHover}/>)
             })
           }
           {

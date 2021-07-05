@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { IconButton, SvgIcon } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
-import { ClassStore } from "../store/class-store";
+import { EntityStore } from "../store/entity-store";
 import { NodeText } from "./node-text";
 import { ColumnNode } from "./column-node";
 import { TreeNodeLabel } from "./tree-node-label";
@@ -11,13 +11,13 @@ import { RelationNode } from "./relation-node";
 import { observer } from "mobx-react";
 import { useModelsBoardStore } from "../store";
 import { Addon } from '@antv/x6'
-import { ClassView } from "../grahp-canvas/class-view";
+import { EntityView } from "../grahp-canvas/entity-view";
 import { NODE_INIT_SIZE } from "../store/node-init-size";
 const { Dnd } = Addon
 
 export const ClassNode = observer((props:{
   key?:string,
-  classStore: ClassStore
+  classStore: EntityStore
 })=>{
   const {classStore} = props;
   const [dnd, setDnd] = React.useState<any>();
@@ -44,7 +44,7 @@ export const ClassNode = observer((props:{
       ...NODE_INIT_SIZE,
       isTempForDrag:true,
       shape: 'react-shape', 
-      component: <ClassView />,
+      component: <EntityView />,
       data: {...classStore.toMeta(), isTempForDrag: true}
     });
     dnd?.start(node, e.nativeEvent as any)

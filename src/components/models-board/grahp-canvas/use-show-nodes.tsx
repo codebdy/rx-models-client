@@ -2,7 +2,7 @@ import { useModelsBoardStore } from "../store";
 import '@antv/x6-react-shape'
 import { Node } from '@antv/x6';
 import { useEffect } from "react";
-import { ClassView } from "./class-view";
+import { EntityView } from "./entity-view";
 import _ from "lodash";
 
 export function useShowNodes(){
@@ -29,7 +29,7 @@ export function useShowNodes(){
         modelStore.graph?.addNode({
           ...node, 
           shape: 'react-shape', 
-          component: <ClassView />
+          component: <EntityView />
         });
       }
     })

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { PackageMeta } from "../meta/package-meta";
-import { ClassStore } from "./class-store";
+import { EntityStore } from "./entity-store";
 import { DiagramStore } from "./diagram";
 import intl from "react-intl-universal";
 import { RelationStore } from "./relation";
@@ -9,13 +9,14 @@ import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
+import { RelationType } from "../meta/relation-meta";
 
 export class PackageStore{
   id: string;
   name: string;
   parent: PackageStore | undefined;
   packages: PackageStore[] = [];
-  classes: ClassStore[] = [];
+  classes: EntityStore[] = [];
   diagrams: DiagramStore[] = [];
   relations: RelationStore[] = [];
   
@@ -23,14 +24,14 @@ export class PackageStore{
     this.id = meta?.id || 'root';
     this.name = meta?.name || intl.get('root-models');
     this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
-    this.classes = meta?.classMetas?.map(meta=>new ClassStore(meta, this.rootStore||this, this))||[];
+    this.classes = meta?.classMetas?.map(meta=>new EntityStore(meta, this.rootStore||this, this))||[];
     this.diagrams = meta?.diagramMetas?.map(meta=>new DiagramStore(meta, this.rootStore||this, this))||[];
     makeAutoObservable(this)
   }
 
   initAsRoot(meta:RootMeta){
     this.packages = meta.packageMetas?.map(meta=>new PackageStore(meta, this))||[];
-    this.classes = meta.classMetas?.map(meta=>new ClassStore(meta, this))||[];
+    this.classes = meta.classMetas?.map(meta=>new EntityStore(meta, this))||[];
     this.diagrams = meta.diagramMetas?.map(meta=>new DiagramStore(meta, this, this))||[];
     this.relations = meta.relationMetas?.map(relation=>new RelationStore(relation, this));
   }
@@ -39,7 +40,7 @@ export class PackageStore{
     this.name = name;
   }
 
-  getClassById(id:string): ClassStore|undefined{
+  getClassById(id:string): EntityStore|undefined{
     const classStore = this.classes.find(classStore=>classStore.id === id);
     if(classStore){
       return classStore;
@@ -89,15 +90,27 @@ export class PackageStore{
   }
 
   addNewEntity(entityMeta: EntityMeta){
-    const newClass = new ClassStore(entityMeta, this.rootStore||this, this);
+    const newClass = new EntityStore(entityMeta, this.rootStore||this, this);
     this.classes.push(newClass);
     return newClass;
   }
-
-
 
   deleteClass(id:string){
     _.remove(this.classes, (classStore)=> classStore.id === id);
   }
 
+  //只供根节点使用
+  createRelation(relationType: RelationType, source?: EntityStore, taget?: EntityStore){
+    if(!source || !taget){
+      return;
+    }
+    this.relations.push(new RelationStore({
+      id: createId(),
+      relationType: relationType,
+      sourceId: source.id,
+      targetId: taget.id,
+      roleOnSource: taget.name.toLowerCase() + seedId(),
+      roleOnTarget: source.name.toLowerCase() + seedId(),
+    }, this));
+  }
 }

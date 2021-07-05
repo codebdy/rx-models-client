@@ -1,5 +1,5 @@
 import { X6NodeMeta } from "../meta/x6-node-meta";
-import { ClassStore } from "../store/class-store";
+import { EntityStore } from "../store/entity-store";
 import { DiagramStore } from "../store/diagram";
 import { SelectedNode } from "../store/models-board";
 import { Command } from "./command";
@@ -9,7 +9,7 @@ export class NodeChangeCommand implements Command{
   constructor(
     private readonly diagramStore: DiagramStore,
     private readonly oldNodeMeta: X6NodeMeta,
-    private readonly classStore?: ClassStore,
+    private readonly classStore?: EntityStore,
   ){}
 
   setNewNodeMeta(meta:X6NodeMeta){

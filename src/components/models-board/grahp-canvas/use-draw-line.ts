@@ -24,23 +24,20 @@ export function useDrawLine(){
   const handleEdgeMouseUp = (arg: { x:number, y:number, edge:Edge})=>{
     const{edge, x, y} = arg;
     const [targetNode] = modelStore.graph?.getNodesFromPoint(x,y)||[];
-    if(targetNode){
+    if(modelStore.drawingLine && targetNode && modelStore.drawingLine?.tempEdge){
+      modelStore.rootStore.createRelation(
+        modelStore.drawingLine.relationType,
+        modelStore.rootStore.getClassById(modelStore.drawingLine.sourceNodeId),
+        modelStore.rootStore.getClassById(targetNode.id)
+      )
+      
+      modelStore.drawingLine?.tempEdge?.remove();    
       modelStore.setPressRelation(undefined);
       modelStore.setDrawingLine(undefined);
       return;
     }
     if(edge?.id === modelStore.drawingLine?.tempEdge?.id){
       addVertex({x,y});      
-    }
-  }
-
-  const handleNodeMouseUp = (arg: { node:Node})=>{
-    const {node} = arg;
-    const verticesLength = modelStore.drawingLine?.tempEdge?.getVertices()?.length;
-    console.log('吼吼', verticesLength);
-    if(node && verticesLength ){
-      modelStore.setPressRelation(undefined);
-      modelStore.setDrawingLine(undefined);
     }
   }
 
@@ -52,35 +49,8 @@ export function useDrawLine(){
     }
   }
 
-  const handleMouseUp = (e: MouseEvent)=>{
-    const { clientX, clientY } = e;
-    const p = modelStore.graph?.clientToLocal({x: clientX, y: clientY});
-    console.log('哈哈 mouse up', p)
-    if(!p){
-      return;
-    }
-    const [targetNode] = modelStore.graph?.getNodesFromPoint(p?.x||0, p?.y||0)||[];
-    if(modelStore.drawingLine){
-      
-      if(targetNode){
-        if(modelStore.drawingLine.sourceNodeId !== targetNode.id){
-          //modelStore.rootStore.getClassById(modelStore.drawingLink.sourceNode.id)?.setInheritId(targetNode.id);
-          modelStore.setPressRelation(undefined);
-        }        
-      }
-      else{
-        console.log('哈哈', p)
-        modelStore.drawingLine.tempEdge?.appendVertex(p);
-      }
-    }
-    modelStore.drawingLine?.tempEdge && modelStore.graph?.removeEdge(modelStore.drawingLine?.tempEdge);
-    modelStore.setDrawingLine(undefined);
-    //modelStore.setPressInherit(false);
-  }
-
   //创建临时线条
   const handleNodeClick = (arg: { e:React.MouseEvent, node: Node<Node.Properties> })=>{
-    console.log('handleNodeClick');
     const{e, node} = arg;
     if(!modelStore.pressedLineType){
       return;
@@ -111,12 +81,10 @@ export function useDrawLine(){
 
     graph?.on('node:click', handleNodeClick);
     graph?.on('edge:mouseup', handleEdgeMouseUp);
-    graph?.on('node:mouseup', handleNodeMouseUp);
     graph?.on('edge:dblclick', handleEdgeDbclick);
     return ()=>{
       graph?.off('node:click', handleNodeClick);
       graph?.off('edge:mouseup', handleEdgeMouseUp);
-      graph?.off('node:mouseup', handleNodeMouseUp);
       graph?.off('edge:dblclick', handleEdgeDbclick);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

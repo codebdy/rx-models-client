@@ -10,7 +10,7 @@ export interface RelationOfClass{
   name: string;
 }
 
-export class ClassStore{
+export class EntityStore{
   id: string;
   name: string;
   entityType?: EntityType;
@@ -45,14 +45,14 @@ export class ClassStore{
         relations.push({
           id: createId(),
           relationId: relation.id,
-          name: relation.nameOnSource
+          name: relation.roleOnSource
         })
       }
       if(relation.targetId === this.id){
         relations.push({
           id: createId(),
           relationId: relation.id,
-          name: relation.nameOnTarget
+          name: relation.roleOnTarget
         })
       }
     });

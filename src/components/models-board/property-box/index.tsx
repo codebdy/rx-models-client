@@ -7,7 +7,7 @@ import { observer } from 'mobx-react';
 import { useModelsBoardStore } from '../store';
 import { PackageStore } from '../store/package';
 import { PackagePanel } from './package-pannel';
-import { ClassStore } from '../store/class-store';
+import { EntityStore } from '../store/entity-store';
 import { ClassPanel } from './class-pannel';
 import { ColumnStore } from '../store/column';
 import { ColumnPanel } from './column-pannel';
@@ -46,7 +46,7 @@ export const PropertyBox = observer(()=>{
             <PackagePanel packageStore = {boardStore.selectedNode} />
           }
           {
-            boardStore?.selectedNode instanceof ClassStore &&
+            boardStore?.selectedNode instanceof EntityStore &&
             <ClassPanel classStore = {boardStore.selectedNode} />            
           }
           {

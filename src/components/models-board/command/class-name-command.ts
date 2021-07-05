@@ -1,11 +1,11 @@
-import { ClassStore } from "../store/class-store";
+import { EntityStore } from "../store/entity-store";
 import { SelectedNode } from "../store/models-board";
 import { Command } from "./command";
 
 export class ClassNameCommand implements Command{
   private oldName: string;
   constructor(
-    private readonly classStore: ClassStore,
+    private readonly classStore: EntityStore,
     private readonly newName: string,
   ){
     this.oldName = classStore.name;

@@ -10,7 +10,7 @@ import { useModelsBoardStore } from '../store';
 import { Addon } from '@antv/x6'
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { ClassView } from '../grahp-canvas/class-view';
+import { EntityView } from '../grahp-canvas/entity-view';
 import { svgManyToMany, svgOneToMany, svgOneToOne } from './const-svg';
 import { RelationType } from '../meta/relation-meta';
 const { Dnd } = Addon
@@ -76,7 +76,7 @@ export const Toolbox = observer(() => {
       return;
     }
     const nodeConfig = modelBoardStore.createTempClassNodeForNew() as any;
-    nodeConfig.component = <ClassView />;
+    nodeConfig.component = <EntityView />;
     const node = modelBoardStore.graph.createNode(nodeConfig);
     dnd?.start(node, e.nativeEvent as any)
   }

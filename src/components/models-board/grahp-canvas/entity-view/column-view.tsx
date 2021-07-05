@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function PropertyView(props:{
+export default function ColumnView(props:{
   name:string,
   type:string,
   readOnly?:boolean,

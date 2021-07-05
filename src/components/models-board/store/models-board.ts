@@ -9,7 +9,7 @@ import { LineAction } from "./line-action";
 import { EVENT_RELATION_PRESSED } from "../model-event/events";
 import $bus from "../model-event/bus";
 import { seedId } from "util/seed-id";
-import { ClassStore } from "./class-store";
+import { EntityStore } from "./entity-store";
 import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
 import { Command } from "../command/command";
@@ -17,7 +17,7 @@ import { NODE_INIT_SIZE } from "./node-init-size";
 import { NodeChangeCommand } from "../command/node-change-command";
 import { RelationType } from "../meta/relation-meta";
 
-export type SelectedNode = PackageStore | ClassStore | DiagramStore | ColumnStore | RelationStore | undefined;
+export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
 export class ModelsBoardStore{
   rootStore: PackageStore;

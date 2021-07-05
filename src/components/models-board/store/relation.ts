@@ -7,16 +7,16 @@ export class RelationStore{
   relationType: RelationType;
   sourceId: string;
   targetId: string;
-  nameOnSource: string;
-  nameOnTarget: string;
+  roleOnSource: string;
+  roleOnTarget: string;
 
   constructor(meta:RelationMeta, private rootStore: PackageStore){
     this.id = meta.id;
     this.relationType = meta.relationType;
     this.sourceId = meta.sourceId;
     this.targetId = meta.targetId;
-    this.nameOnSource = meta.roleOnSource;
-    this.nameOnTarget = meta.roleOnTarget;
+    this.roleOnSource = meta.roleOnSource;
+    this.roleOnTarget = meta.roleOnTarget;
     makeAutoObservable(this)
   }
 
@@ -26,8 +26,8 @@ export class RelationStore{
       relationType: this.relationType,
       sourceId: this.sourceId,
       targetId: this.targetId,
-      roleOnSource: this.nameOnSource,
-      roleOnTarget: this.nameOnTarget,
+      roleOnSource: this.roleOnSource,
+      roleOnTarget: this.roleOnTarget,
     }
   }
 }
