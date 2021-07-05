@@ -90,6 +90,22 @@ export const Toolbox = observer(() => {
 
   }
 
+  const handleOneToManyClick = ()=>{
+    if(RelationType.ONE_TO_MANY === modelBoardStore.pressedLineType){
+      modelBoardStore.setPressRelation(undefined);  
+    }else{
+      modelBoardStore.setPressRelation(RelationType.ONE_TO_MANY);      
+    }
+  }
+
+  const handleManyToManyClick = ()=>{
+    if(RelationType.MANY_TO_MANY === modelBoardStore.pressedLineType){
+      modelBoardStore.setPressRelation(undefined);  
+    }else{
+      modelBoardStore.setPressRelation(RelationType.MANY_TO_MANY);      
+    }
+  }
+
   return (
     <div className={classes.root}>
       <div>
@@ -139,13 +155,27 @@ export const Toolbox = observer(() => {
               }
               {intl.get('one-to-one')}
             </div>
-            <div className = {classes.toolItem}>
+            <div 
+              className = {classNames(
+                classes.toolItem, 
+                classes.relationItem,
+                {[classes.selected]:modelBoardStore.pressedLineType === RelationType.ONE_TO_MANY}
+              )}
+              onClick = {handleOneToManyClick}
+            >
               {
                 svgOneToMany
               }
               {intl.get('one-to-many')}
             </div>
-            <div className = {classes.toolItem}>
+            <div 
+              className = {classNames(
+                classes.toolItem, 
+                classes.relationItem,
+                {[classes.selected]:modelBoardStore.pressedLineType === RelationType.MANY_TO_MANY}
+              )}
+              onClick = {handleManyToManyClick}            
+            >
               {
                 svgManyToMany
               }
