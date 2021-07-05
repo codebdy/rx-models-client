@@ -72,7 +72,7 @@ export const PackageNode = observer((props:{
         })
       }
       {
-        packageStore.classes.map(aClass=>{
+        packageStore.entities.map(aClass=>{
           return (
             <ClassNode key={aClass.id} classStore = {aClass} />
           )

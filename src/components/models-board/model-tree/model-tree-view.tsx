@@ -80,7 +80,7 @@ export const ModelTreeView = observer(() => {
           })
         }
         {
-          modelStore.classes.map(aClass=>{
+          modelStore.entities.map(aClass=>{
             return (
               <ClassNode key={aClass.id} classStore = {aClass} />
             )

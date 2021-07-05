@@ -16,7 +16,7 @@ export class PackageStore{
   name: string;
   parent: PackageStore | undefined;
   packages: PackageStore[] = [];
-  classes: EntityStore[] = [];
+  entities: EntityStore[] = [];
   diagrams: DiagramStore[] = [];
   relations: RelationStore[] = [];
   
@@ -24,14 +24,14 @@ export class PackageStore{
     this.id = meta?.id || 'root';
     this.name = meta?.name || intl.get('root-models');
     this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
-    this.classes = meta?.classMetas?.map(meta=>new EntityStore(meta, this.rootStore||this, this))||[];
+    this.entities = meta?.entityMetas?.map(meta=>new EntityStore(meta, this.rootStore||this, this))||[];
     this.diagrams = meta?.diagramMetas?.map(meta=>new DiagramStore(meta, this.rootStore||this, this))||[];
     makeAutoObservable(this)
   }
 
   initAsRoot(meta:RootMeta){
     this.packages = meta.packageMetas?.map(meta=>new PackageStore(meta, this))||[];
-    this.classes = meta.classMetas?.map(meta=>new EntityStore(meta, this))||[];
+    this.entities = meta.classMetas?.map(meta=>new EntityStore(meta, this))||[];
     this.diagrams = meta.diagramMetas?.map(meta=>new DiagramStore(meta, this, this))||[];
     this.relations = meta.relationMetas?.map(relation=>new RelationStore(relation, this));
   }
@@ -41,7 +41,7 @@ export class PackageStore{
   }
 
   getClassById(id:string): EntityStore|undefined{
-    const classStore = this.classes.find(classStore=>classStore.id === id);
+    const classStore = this.entities.find(classStore=>classStore.id === id);
     if(classStore){
       return classStore;
     }
@@ -91,12 +91,12 @@ export class PackageStore{
 
   addNewEntity(entityMeta: EntityMeta){
     const newClass = new EntityStore(entityMeta, this.rootStore||this, this);
-    this.classes.push(newClass);
+    this.entities.push(newClass);
     return newClass;
   }
 
   deleteClass(id:string){
-    _.remove(this.classes, (classStore)=> classStore.id === id);
+    _.remove(this.entities, (classStore)=> classStore.id === id);
   }
 
   //只供根节点使用

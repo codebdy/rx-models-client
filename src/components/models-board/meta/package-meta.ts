@@ -6,6 +6,6 @@ export interface PackageMeta{
   name: string;
   parent?: PackageMeta;
   packages?: PackageMeta[];
-  classMetas?: EntityMeta[];
+  entityMetas?: EntityMeta[];
   diagramMetas?: DiagramMeta[];
 }

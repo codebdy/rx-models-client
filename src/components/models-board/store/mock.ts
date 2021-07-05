@@ -9,7 +9,7 @@ export const rootMeta:RootMeta = {
       name: 'System',
       parent: undefined,
       packages: [],
-      classMetas: [
+      entityMetas: [
         {
           id: '2',
           name: 'RxUser',
