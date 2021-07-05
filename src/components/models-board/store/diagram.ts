@@ -58,7 +58,6 @@ export class DiagramStore{
           edges.push(edge);
         }else{
           const newEdge = {id:relation.id};
-          this.edges.push(newEdge);
           edges.push(newEdge)
         }
       }
