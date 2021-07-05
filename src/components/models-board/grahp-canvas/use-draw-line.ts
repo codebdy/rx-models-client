@@ -25,12 +25,12 @@ export function useDrawLine(){
     const{edge, x, y} = arg;
     const [targetNode] = modelStore.graph?.getNodesFromPoint(x,y)||[];
     if(modelStore.drawingLine && targetNode && modelStore.drawingLine?.tempEdge){
-      modelStore.rootStore.createRelation(
+      const relation = modelStore.rootStore.createRelation(
         modelStore.drawingLine.relationType,
         modelStore.rootStore.getClassById(modelStore.drawingLine.sourceNodeId),
         modelStore.rootStore.getClassById(targetNode.id)
       )
-      
+      relation && modelStore.openedDiagram?.addEdge({id:relation.id, vertices: modelStore.drawingLine?.tempEdge.getVertices()});
       modelStore.drawingLine?.tempEdge?.remove();    
       modelStore.setPressRelation(undefined);
       modelStore.setDrawingLine(undefined);

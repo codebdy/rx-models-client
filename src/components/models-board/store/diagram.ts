@@ -49,23 +49,19 @@ export class DiagramStore{
   getAndMakeEdges(){
     const edges: X6EdgeMeta[] = [];
     //处理继承关系
-    this.nodes.forEach(node=>{
-      const classStore = this.rootStore.getClassById(node.id);
-      /*if(classStore?.inheritFromId){
-        const parentNode = this.nodes.find(aNode=>aNode.id === classStore?.inheritFromId);
-        //如果父类在本图
-        if(parentNode){
-          const edgeId = classStore.id + '&' + parentNode.id;
-          const edge =this.edges.find(edge=>edge.id === edgeId);
-          if(edge){
-            edges.push();
-          }else{
-            const edgeData = {id:edgeId, edgeType:EdgeType.inherit};
-            this.edges.push(edgeData);
-            edges.push(edgeData);
-          }
+    this.rootStore.relations?.forEach(relation=>{
+      const source = this.nodes.find(node=>node.id === relation.sourceId);
+      const target = this.nodes.find(node=>node.id === relation.targetId);
+      if(source && target){
+        const edge = this.edges.find(edge=>edge.id === relation.id);
+        if(edge){
+          edges.push(edge);
+        }else{
+          const newEdge = {id:relation.id};
+          this.edges.push(newEdge);
+          edges.push(newEdge)
         }
-      }*/
+      }
     })
 
     return edges;
@@ -93,6 +89,10 @@ export class DiagramStore{
 
   setName(name:string){
     this.name = name;
+  }
+
+  addEdge(edge:X6EdgeMeta){
+    this.edges.push(edge);
   }
 
   toMeta(){

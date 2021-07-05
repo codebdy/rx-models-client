@@ -68,6 +68,10 @@ export class PackageStore{
     return undefined;
   }
 
+  getRelationById(id: string){
+    return this.relations.find(relation=>relation.id === id);
+  }
+
   setParent(parent:PackageStore){
     this.parent = parent;
   }
@@ -104,13 +108,15 @@ export class PackageStore{
     if(!source || !taget){
       return;
     }
-    this.relations.push(new RelationStore({
+    const relation = new RelationStore({
       id: createId(),
       relationType: relationType,
       sourceId: source.id,
       targetId: taget.id,
       roleOnSource: taget.name.toLowerCase() + seedId(),
       roleOnTarget: source.name.toLowerCase() + seedId(),
-    }, this));
+    }, this);
+    this.relations.push(relation);
+    return relation;
   }
 }
