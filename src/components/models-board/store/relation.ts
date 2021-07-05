@@ -1,11 +1,10 @@
 import { makeAutoObservable } from "mobx";
-import { ConstraintType, RelationMeta, RelationType } from "../meta/relation-meta";
+import { RelationType, RelationMeta } from "../meta/relation-meta";
 import { PackageStore } from "./package";
 
 export class RelationStore{
   id: string;
   relationType: RelationType;
-  constraintType: ConstraintType;
   sourceId: string;
   targetId: string;
   nameOnSource: string;
@@ -14,11 +13,10 @@ export class RelationStore{
   constructor(meta:RelationMeta, private rootStore: PackageStore){
     this.id = meta.id;
     this.relationType = meta.relationType;
-    this.constraintType = meta.constraintType;
     this.sourceId = meta.sourceId;
     this.targetId = meta.targetId;
-    this.nameOnSource = meta.nameOnSource;
-    this.nameOnTarget = meta.nameOnTarget;
+    this.nameOnSource = meta.roleOnSource;
+    this.nameOnTarget = meta.roleOnTarget;
     makeAutoObservable(this)
   }
 
@@ -26,11 +24,10 @@ export class RelationStore{
     return {
       id: this.id,
       relationType: this.relationType,
-      constraintType: this.constraintType,
       sourceId: this.sourceId,
       targetId: this.targetId,
-      nameOnSource: this.nameOnSource,
-      nameOnTarget: this.nameOnTarget,
+      roleOnSource: this.nameOnSource,
+      roleOnTarget: this.nameOnTarget,
     }
   }
 }

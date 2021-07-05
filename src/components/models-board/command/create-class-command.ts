@@ -12,7 +12,7 @@ export class CreateClassCommand implements Command{
   ){}
   
   excute():SelectedNode{
-    const classStore = this.diagramStore?.belongsToPackage?.addNewClass(this.classMeta);
+    const classStore = this.diagramStore?.belongsToPackage?.addNewEntity(this.classMeta);
     this.diagramStore?.addNode(this.nodeMeta);
     return classStore;
   }

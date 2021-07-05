@@ -3,7 +3,6 @@ import { EntityMeta } from "../meta/entity-meta";
 import { DiagramMeta } from "../meta/diagram-meta";
 import { RelationMeta } from "../meta/relation-meta";
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
-import { EdgeType } from "../meta/edge-type";
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { PackageStore } from "./package";
 import _ from "lodash";
@@ -52,7 +51,7 @@ export class DiagramStore{
     //处理继承关系
     this.nodes.forEach(node=>{
       const classStore = this.rootStore.getClassById(node.id);
-      if(classStore?.inheritFromId){
+      /*if(classStore?.inheritFromId){
         const parentNode = this.nodes.find(aNode=>aNode.id === classStore?.inheritFromId);
         //如果父类在本图
         if(parentNode){
@@ -66,7 +65,7 @@ export class DiagramStore{
             edges.push(edgeData);
           }
         }
-      }
+      }*/
     })
 
     return edges;

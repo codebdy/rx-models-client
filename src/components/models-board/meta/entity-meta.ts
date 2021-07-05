@@ -5,7 +5,6 @@ export enum EntityType{
 }
 
 export interface EntityMeta{
-  inheritFromId?: string;
   id: string;
   name: string;
   entityType?: EntityType;

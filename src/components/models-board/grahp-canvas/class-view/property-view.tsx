@@ -49,19 +49,21 @@ export default function PropertyView(props:{
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
+  const isId = name === 'id';
+
   return (
     <div className = {classNames(classes.property, {[classes.hover]:!readOnly&&hover})}
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}   
     >
       {
-        name === 'id'&&
-        <div className = {classes.pk}><MdiIcon iconClass = "mdi-key" size={14}/></div> 
+        isId &&
+        <div className = {classes.pk}><MdiIcon iconClass = "mdi-key" size={14} color="green" /></div> 
       }
       
       <span className = {classes.name}>{name}</span>: <span className = {classes.typeText}>{type}</span>
       {
-        hover && !readOnly&&
+        hover && !readOnly&& !isId && 
         <div className = {classes.propertyTools}>
           <IconButton className = {classes.propertyButton}>
             <MdiIcon iconClass="mdi-pencil-outline" size={16}></MdiIcon>

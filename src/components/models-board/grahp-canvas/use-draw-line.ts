@@ -32,7 +32,7 @@ export function useDrawLine(){
     const [targetNode] = modelStore.graph?.getNodesFromPoint(p?.x||0, p?.y||0)||[];
     if(modelStore.drawingLink && targetNode){
       if(modelStore.drawingLink.sourceNode.id !== targetNode.id){
-        modelStore.rootStore.getClassById(modelStore.drawingLink.sourceNode.id)?.setInheritId(targetNode.id);
+        //modelStore.rootStore.getClassById(modelStore.drawingLink.sourceNode.id)?.setInheritId(targetNode.id);
         modelStore.setPressInherit(false);
       }
     }

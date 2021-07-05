@@ -88,8 +88,8 @@ export class PackageStore{
     _.remove(this.packages, (packageStore)=> packageStore.id === id);
   }
 
-  addNewClass(classMeta: EntityMeta){
-    const newClass = new ClassStore(classMeta, this.rootStore||this, this);
+  addNewEntity(entityMeta: EntityMeta){
+    const newClass = new ClassStore(entityMeta, this.rootStore||this, this);
     this.classes.push(newClass);
     return newClass;
   }

@@ -75,7 +75,7 @@ export class ModelsBoardStore{
       shape: 'react-shape', 
       data:{
         id,
-        name:'NewClass' + seedId(),
+        name:'NewEntity' + seedId(),
         columns: [
           {
             id: createId(),
