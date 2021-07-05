@@ -6,7 +6,7 @@ import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 import { RootMeta } from "../meta/root-meta";
 import { LineAction } from "./line-action";
-import { EVENT_INHERIT_PRESSED } from "../model-event/events";
+import { EVENT_RELATION_PRESSED } from "../model-event/events";
 import $bus from "../model-event/bus";
 import { seedId } from "util/seed-id";
 import { ClassStore } from "./class-store";
@@ -15,6 +15,7 @@ import { RelationStore } from "./relation";
 import { Command } from "../command/command";
 import { NODE_INIT_SIZE } from "./node-init-size";
 import { NodeChangeCommand } from "../command/node-change-command";
+import { RelationType } from "../meta/relation-meta";
 
 export type SelectedNode = PackageStore | ClassStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
@@ -22,7 +23,7 @@ export class ModelsBoardStore{
   rootStore: PackageStore;
   openedDiagram?: DiagramStore;
   graph?: Graph;
-  isInheritPressed = false;
+  pressedLineType?: RelationType;
   drawingLink: LineAction | undefined;
   selectedNode: SelectedNode;
 
@@ -62,9 +63,9 @@ export class ModelsBoardStore{
     this.drawingLink = drawingLink;
   }
 
-  setPressInherit(isInheritPressed:boolean){
-    this.isInheritPressed = isInheritPressed;
-    $bus.emit(EVENT_INHERIT_PRESSED, this.isInheritPressed);
+  setPressRelation(pressedLineType?:RelationType){
+    this.pressedLineType = pressedLineType;
+    $bus.emit(EVENT_RELATION_PRESSED, this.pressedLineType);
   }
 
   createTempClassNodeForNew(){

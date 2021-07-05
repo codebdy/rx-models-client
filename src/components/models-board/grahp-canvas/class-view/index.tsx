@@ -6,7 +6,7 @@ import { ClassNodeData } from '../../store/diagram';
 import PropertyView from './property-view';
 import { useEffect } from 'react';
 import $bus from 'components/models-board/model-event/bus';
-import { EVENT_BEGIN_LNIK, EVENT_INHERIT_PRESSED } from 'components/models-board/model-event/events';
+import { EVENT_BEGIN_LNIK, EVENT_RELATION_PRESSED } from 'components/models-board/model-event/events';
 import { EdgeType } from "components/models-board/meta/edge-type";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -95,9 +95,9 @@ export const ClassView = (props:{
   const disableHover = isInheritPressed;
 
   useEffect(()=>{
-    $bus.on(EVENT_INHERIT_PRESSED, handlePressInheritEvent);
+    $bus.on(EVENT_RELATION_PRESSED, handlePressInheritEvent);
     return ()=>{
-      $bus.off(EVENT_INHERIT_PRESSED, handlePressInheritEvent);
+      $bus.off(EVENT_RELATION_PRESSED, handlePressInheritEvent);
     }
   },[])
 

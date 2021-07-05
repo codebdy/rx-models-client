@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { ClassView } from '../grahp-canvas/class-view';
 import { svgManyToMany, svgOneToMany, svgOneToOne } from './const-svg';
-import { PRIMARY_COLOR } from 'util/consts';
+import { RelationType } from '../meta/relation-meta';
 const { Dnd } = Addon
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,11 +35,17 @@ const useStyles = makeStyles((theme: Theme) =>
     firstItem:{
       marginTop: theme.spacing(0),
     },
+    relationItem:{
+      cursor:'pointer',
+    },
     moveable:{
       cursor:'move',
     },
     clickable:{
       cursor:'pointer',
+    },
+    selected:{
+      color:theme.palette.primary.main,
     }
   }),
 );
@@ -75,11 +81,14 @@ export const Toolbox = observer(() => {
     dnd?.start(node, e.nativeEvent as any)
   }
 
-  const handleIneritClick = ()=>{
-    modelBoardStore.setPressInherit(!modelBoardStore.isInheritPressed);
-  }
+  const handleOneToOneClick = ()=>{
+    if(RelationType.ONE_TO_ONE === modelBoardStore.pressedLineType){
+      modelBoardStore.setPressRelation(undefined);  
+    }else{
+      modelBoardStore.setPressRelation(RelationType.ONE_TO_ONE);      
+    }
 
-  const inheritColor = modelBoardStore.isInheritPressed ? PRIMARY_COLOR : undefined;
+  }
 
   return (
     <div className={classes.root}>
@@ -90,7 +99,10 @@ export const Toolbox = observer(() => {
           </AccordionSummary>
           <AccordionDetails>
             <div 
-              className = {classNames(classes.toolItem, classes.firstItem, classes.moveable)}
+              className = {classNames(
+                classes.toolItem, 
+                classes.firstItem, classes.moveable,
+              )}
               data-type="rect"
               onMouseDown={startDrag}
             >
@@ -113,7 +125,15 @@ export const Toolbox = observer(() => {
             <Typography>{intl.get('relation')}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <div className = {classNames(classes.toolItem, classes.firstItem)}>
+            <div 
+              className = {classNames(
+                classes.toolItem, 
+                classes.firstItem,
+                classes.relationItem,
+                {[classes.selected]:modelBoardStore.pressedLineType === RelationType.ONE_TO_ONE}
+              )}
+              onClick = {handleOneToOneClick}
+            >
               {
                 svgOneToOne
               }

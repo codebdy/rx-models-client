@@ -33,7 +33,7 @@ export function useDrawLine(){
     if(modelStore.drawingLink && targetNode){
       if(modelStore.drawingLink.sourceNode.id !== targetNode.id){
         //modelStore.rootStore.getClassById(modelStore.drawingLink.sourceNode.id)?.setInheritId(targetNode.id);
-        modelStore.setPressInherit(false);
+        modelStore.setPressRelation(undefined);
       }
     }
     modelStore.drawingLink?.tempEdge && modelStore.graph?.removeEdge(modelStore.drawingLink?.tempEdge);
