@@ -86,7 +86,7 @@ export const Toolbox = observer(() => {
       <div>
         <Accordion square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>{intl.get('class')}</Typography>
+            <Typography>{intl.get('entity')}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <div 
@@ -104,39 +104,21 @@ export const Toolbox = observer(() => {
               }}>
                 <div style={{height:'30%', width:'47px', borderBottom:'solid 1px', marginLeft:'-1px'}}></div>
               </div>
-              {intl.get('class')}
-            </div>
-            <div className = {classNames(classes.toolItem, classes.moveable)}>
-              <div style={{
-                width:'45px', 
-                height:'30px', 
-                border:'solid 2px', 
-                display:'flex', 
-                flexFlow:'column', 
-                padding:'0'
-              }}>
-              </div>
-              {intl.get('enum-class')}
-            </div>
-            <div 
-              className = {classNames(classes.toolItem, classes.clickable)}
-              onClick = {handleIneritClick}
-              style = {{color:inheritColor}}
-            >
-              {svgInherit(inheritColor)}
-              {intl.get('inherit')}
+              {intl.get('entity')}
             </div>
           </AccordionDetails>
         </Accordion>
         <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>{intl.get('association')}</Typography>
+            <Typography>{intl.get('relation')}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <div className = {classNames(classes.toolItem, classes.firstItem)}>
-              {
-                svgAssociation
-              }
+              <svg style={{width:'40px', height:'40px'}} viewBox="0 0 24 24">
+                <path 
+                  fill="currentColor" strokeWidth="1"
+                  d="M21 15V13H19V15H18.79A2.5 2.5 0 0 0 14.21 15H13V7H9.79A2.5 2.5 0 0 0 5.21 7H5V5H3V7H2V9H3V11H5V9H5.21A2.5 2.5 0 0 0 9.79 9H11V17H14.21A2.5 2.5 0 0 0 18.79 17H19V19H21V17H22V15M7.5 9A1 1 0 1 1 8.5 8A1 1 0 0 1 7.5 9M16.5 17A1 1 0 1 1 17.5 16A1 1 0 0 1 16.5 17Z" />
+              </svg>
               {intl.get('one-to-one')}
             </div>
             <div className = {classes.toolItem}>
@@ -150,44 +132,6 @@ export const Toolbox = observer(() => {
                 svgAssociation
               }
               {intl.get('many-to-many')}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion square expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography>{intl.get('aggregation')}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className = {classNames(classes.toolItem, classes.firstItem)}>
-              {
-                svgAggregation
-              }
-              {intl.get('one-to-one')}
-            </div>
-            <div className = {classes.toolItem}>
-              {
-                svgAggregation
-              }
-              {intl.get('many-to-one')}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion square expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-          <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-            <Typography>{intl.get('combination')}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-          <div className = {classNames(classes.toolItem, classes.firstItem)}>
-              {
-                svgCombination
-              }
-              {intl.get('one-to-one')}
-            </div>
-            <div className = {classes.toolItem}>
-              {
-                svgCombination
-              }
-              {intl.get('many-to-one')}
             </div>
           </AccordionDetails>
         </Accordion>

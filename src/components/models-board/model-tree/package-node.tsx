@@ -57,6 +57,14 @@ export const PackageNode = observer((props:{
       </TreeNodeLabel>
     }>
       {
+        packageStore.diagrams.map(diagram=>{
+          return (
+            <DiagramNode key={diagram.id} diagramStore = {diagram} />
+          )
+        })
+      }
+
+      {
         packageStore.packages.map(aPackage=>{
           return (
             <PackageNode key={aPackage.id} packageStore = {aPackage} />
@@ -70,13 +78,7 @@ export const PackageNode = observer((props:{
           )
         })
       }
-      {
-        packageStore.diagrams.map(diagram=>{
-          return (
-            <DiagramNode key={diagram.id} diagramStore = {diagram} />
-          )
-        })
-      }
+
     </TreeItem>
   )
 })
