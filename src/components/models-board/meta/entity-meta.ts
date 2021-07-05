@@ -1,13 +1,13 @@
 import { ColumnMeta } from "./column-meta";
 
-export enum ClassType{
+export enum EntityType{
   enum = "Enum",
 }
 
-export interface ClassMeta{
+export interface EntityMeta{
   inheritFromId?: string;
   id: string;
   name: string;
-  classType?: ClassType;
+  entityType?: EntityType;
   columns: ColumnMeta[];
 }

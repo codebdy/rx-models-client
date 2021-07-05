@@ -7,7 +7,7 @@ import { RelationStore } from "./relation";
 import { RootMeta } from "../meta/root-meta";
 import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
-import { ClassMeta } from "../meta/class-meta";
+import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
 
 export class PackageStore{
@@ -88,7 +88,7 @@ export class PackageStore{
     _.remove(this.packages, (packageStore)=> packageStore.id === id);
   }
 
-  addNewClass(classMeta: ClassMeta){
+  addNewClass(classMeta: EntityMeta){
     const newClass = new ClassStore(classMeta, this.rootStore||this, this);
     this.classes.push(newClass);
     return newClass;

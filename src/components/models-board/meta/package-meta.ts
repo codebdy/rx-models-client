@@ -1,4 +1,4 @@
-import { ClassMeta } from "./class-meta";
+import { EntityMeta } from "./entity-meta";
 import { DiagramMeta } from "./diagram-meta";
 
 export interface PackageMeta{
@@ -6,6 +6,6 @@ export interface PackageMeta{
   name: string;
   parent?: PackageMeta;
   packages?: PackageMeta[];
-  classMetas?: ClassMeta[];
+  classMetas?: EntityMeta[];
   diagramMetas?: DiagramMeta[];
 }

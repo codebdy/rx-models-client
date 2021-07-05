@@ -127,8 +127,8 @@ export const ClassView = (props:{
       <div className={classes.container}>
         <div className={classes.entityName}>
           {
-            data?.classType && 
-            <div className = {classNames(classes.nameItem, classes.smFont)}>&lt;&lt; { data?.classType} &gt;&gt;</div>
+            data?.entityType && 
+            <div className = {classNames(classes.nameItem, classes.smFont)}>&lt;&lt; { data?.entityType} &gt;&gt;</div>
           }
           <div className = {classes.nameItem}>{data?.name}</div>
           {

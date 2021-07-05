@@ -1,5 +1,5 @@
 import { makeAutoObservable, toJS } from "mobx";
-import { ClassMeta } from "../meta/class-meta";
+import { EntityMeta } from "../meta/entity-meta";
 import { DiagramMeta } from "../meta/diagram-meta";
 import { RelationMeta } from "../meta/relation-meta";
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
@@ -12,7 +12,7 @@ export type InheritMeta = {
   parentId: string,
   childId: string,
 }
-export type ClassNodeData = ClassMeta & {packageName?:string, isTempForNew?:boolean, isTempForDrag?: boolean};
+export type ClassNodeData = EntityMeta & {packageName?:string, isTempForNew?:boolean, isTempForDrag?: boolean};
 export type NodeConfig = X6NodeMeta & {data: ClassNodeData};
 export type EdgeConfig = X6EdgeMeta & {data: RelationMeta|InheritMeta};
 

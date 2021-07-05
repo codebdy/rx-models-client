@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme: Theme) =>
     hover:{
       background:'rgba(80,111,226,0.1)',
     },
+    name:{
+      marginLeft: '3px',
+    },
     property:{
       position:'relative',
       fontSize: '0.9rem',
@@ -30,9 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: '5px',
     },
 
-    plus:{
+    pk:{
       fontSize: '1rem',
-      marginRight: '3px',
       marginLeft: '3px',
     }
   }),
@@ -52,7 +54,12 @@ export default function PropertyView(props:{
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}   
     >
-      <div className = {classes.plus}>+</div> {name}: <span className = {classes.typeText}>{type}</span>
+      {
+        name === 'id'&&
+        <div className = {classes.pk}><MdiIcon iconClass = "mdi-key" size={14}/></div> 
+      }
+      
+      <span className = {classes.name}>{name}</span>: <span className = {classes.typeText}>{type}</span>
       {
         hover && !readOnly&&
         <div className = {classes.propertyTools}>

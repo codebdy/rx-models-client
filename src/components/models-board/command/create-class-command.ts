@@ -1,4 +1,4 @@
-import { ClassMeta } from "../meta/class-meta";
+import { EntityMeta } from "../meta/entity-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { DiagramStore } from "../store/diagram";
 import { SelectedNode } from "../store/models-board";
@@ -7,7 +7,7 @@ import { Command } from "./command";
 export class CreateClassCommand implements Command{
   constructor(
     private readonly diagramStore: DiagramStore,
-    private readonly classMeta: ClassMeta,
+    private readonly classMeta: EntityMeta,
     private readonly nodeMeta: X6NodeMeta,
   ){}
   
