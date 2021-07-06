@@ -11,7 +11,7 @@ import { Addon } from '@antv/x6'
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { EntityView } from '../grahp-canvas/entity-view';
-import { svgManyToMany, svgOneToMany, svgOneToOne } from './const-svg';
+import { svgManyToMany, svgManyToOne, svgOneToMany, svgOneToOne } from './const-svg';
 import { RelationType } from '../meta/relation-meta';
 const { Dnd } = Addon
 
@@ -52,11 +52,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Toolbox = observer(() => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState<string | false>('panel1');
+  const [expandEntites, setExpandEntites] = React.useState(true);
+  const [expandRelations, setExpandRelations] = React.useState(true);
   const [dnd, setDnd] = React.useState<any>();
   const modelBoardStore = useModelsBoardStore();
-  const handleChange = (panel: string) => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-    setExpanded(newExpanded ? panel : false);
+  const handleEneitiesChange = () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+    setExpandEntites(!expandEntites);
+  };
+
+  const handleRelationsChange = () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+    setExpandRelations(!expandRelations);
   };
 
   useEffect(()=>{
@@ -98,6 +103,14 @@ export const Toolbox = observer(() => {
     }
   }
 
+  const handleManyToOneClick = ()=>{
+    if(RelationType.MANY_TO_ONE === modelBoardStore.pressedLineType){
+      modelBoardStore.setPressRelation(undefined);  
+    }else{
+      modelBoardStore.setPressRelation(RelationType.MANY_TO_ONE);      
+    }   
+  }
+
   const handleManyToManyClick = ()=>{
     if(RelationType.MANY_TO_MANY === modelBoardStore.pressedLineType){
       modelBoardStore.setPressRelation(undefined);  
@@ -109,7 +122,7 @@ export const Toolbox = observer(() => {
   return (
     <div className={classes.root}>
       <div>
-        <Accordion square expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <Accordion square expanded={expandEntites} onChange={handleEneitiesChange()}>
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
             <Typography>{intl.get('entity')}</Typography>
           </AccordionSummary>
@@ -136,7 +149,7 @@ export const Toolbox = observer(() => {
             </div>
           </AccordionDetails>
         </Accordion>
-        <Accordion square expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <Accordion square expanded={expandRelations} onChange={handleRelationsChange()}>
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
             <Typography>{intl.get('relation')}</Typography>
           </AccordionSummary>
@@ -168,6 +181,20 @@ export const Toolbox = observer(() => {
               }
               {intl.get('one-to-many')}
             </div>
+            <div 
+              className = {classNames(
+                classes.toolItem, 
+                classes.relationItem,
+                {[classes.selected]:modelBoardStore.pressedLineType === RelationType.MANY_TO_ONE}
+              )}
+              onClick = {handleManyToOneClick}
+            >
+              {
+                svgManyToOne
+              }
+              {intl.get('many-to-one')}
+            </div>
+
             <div 
               className = {classNames(
                 classes.toolItem, 

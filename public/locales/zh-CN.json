@@ -36,6 +36,7 @@
   "relation": "关系",
   "one-to-one": "1 对 1",
   "one-to-many": "1 对 多",
+  "many-to-one": "多 对 1",
   "many-to-many": "多 对 多",
   "association": "关联",
   "aggregation": "聚合",
