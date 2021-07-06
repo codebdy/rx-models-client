@@ -9,7 +9,6 @@ export function useShowEdges(){
   const edges = modelStore.openedDiagram?.getAndMakeEdges();
   useEffect(()=>{
     edges?.forEach((edgeMeta)=>{
-      const relation = modelStore.rootStore.getRelationById(edgeMeta.id);
       let grahpEdge =  modelStore.graph?.getCellById(edgeMeta.id) as Edge<Edge.Properties>|undefined;
       if(grahpEdge){
         if(!_.isEqual(grahpEdge.getVertices(), edgeMeta.vertices) && edgeMeta.vertices){
@@ -17,14 +16,14 @@ export function useShowEdges(){
         }
       }
       else{
-        grahpEdge = relation && modelStore.graph?.addEdge({
-          id: relation.id,
-          source: relation.sourceId,
-          target: relation.targetId,
+        grahpEdge = modelStore.graph?.addEdge({
+          id: edgeMeta.id,
+          source: edgeMeta.sourceId,
+          target: edgeMeta.targetId,
           vertices: edgeMeta.vertices,
           connector: { name: 'rounded' },
           tools: [],
-          attrs: getRelationGraphAttrs(relation.relationType),
+          attrs: getRelationGraphAttrs(edgeMeta.relationType),
         })
       }
 

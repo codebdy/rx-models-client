@@ -5,14 +5,11 @@ import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { PackageStore } from "./package";
 import _ from "lodash";
+import { RelationMeta } from "../meta/relation-meta";
 
-export type InheritMeta = {
-  parentId: string,
-  childId: string,
-}
-export type ClassNodeData = EntityMeta & {packageName?:string, isTempForNew?:boolean, isTempForDrag?: boolean};
-export type NodeConfig = X6NodeMeta & {data: ClassNodeData};
-export type EdgeConfig = X6EdgeMeta & {roleOnSource:string, roleOnTarget:string};
+export type EntityNodeData = EntityMeta & {packageName?:string, isTempForNew?:boolean, isTempForDrag?: boolean};
+export type NodeConfig = X6NodeMeta & {data: EntityNodeData};
+export type EdgeConfig = X6EdgeMeta & RelationMeta;
 
 export class DiagramStore{
   id: string;
@@ -48,15 +45,21 @@ export class DiagramStore{
       const target = this.nodes.find(node=>node.id === relation.targetId);
       if(source && target){
         const edge = this.edges.find(edge=>edge.id === relation.id);
+        const relationMeta = relation.toMeta();
         if(edge){
-          edges.push({...edge, roleOnSource:relation.roleOnSource, roleOnTarget: relation.roleOnTarget});
+          edges.push({
+            ...edge, 
+            ...relationMeta
+          });
         }else{
           const newEdge = {id:relation.id};
-          edges.push({...newEdge, roleOnSource:relation.roleOnSource, roleOnTarget: relation.roleOnTarget})
+          edges.push({
+            ...newEdge, 
+            ...relationMeta
+          })
         }
       }
     })
-
     return edges;
   }
 

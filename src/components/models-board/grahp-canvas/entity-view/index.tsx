@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
 import classNames from 'classnames';
 import MdiIcon from 'components/common/mdi-icon';
-import { ClassNodeData } from '../../store/diagram';
+import { EntityNodeData } from '../../store/diagram';
 import ColumnView from './column-view';
 import { useEffect } from 'react';
 import $bus from 'components/models-board/model-event/bus';
@@ -86,7 +86,7 @@ export const EntityView = (props:{
   const {node, onHidden} = props;
   const [pressedRelation, setPressedRelation] = useState<RelationType>();
   const [hover, setHover] = useState(false);
-  const data : ClassNodeData|undefined = node?.data;
+  const data : EntityNodeData|undefined = node?.data;
 
   const canLink = pressedRelation;
   const handlePressRelation = (relationType:RelationType)=>{
