@@ -28,8 +28,8 @@ export class DiagramStore{
   
   constructor(
     meta:DiagramMeta, 
-    private rootStore: PackageStore, 
-    public belongsToPackage: PackageStore
+    public readonly rootStore: PackageStore, 
+    public readonly belongsToPackage: PackageStore
   ){
     this.id = meta.id;
     this.name = meta.name;
@@ -70,6 +70,10 @@ export class DiagramStore{
     return this.nodes.find(node=>node.id === id);
   }
 
+  getEdgeById(id:string){
+    return this.edges.find(edge=>edge.id === id);
+  }
+
   addNode(node:X6NodeMeta){
     this.nodes.push(node);
   }
@@ -78,10 +82,22 @@ export class DiagramStore{
     _.remove(this.nodes, (node)=>node.id ===id);
   }
 
+  deleteEdge(id:string){
+    _.remove(this.edges, (edge)=>edge.id ===id);
+  }
+
   updateNode(node:X6NodeMeta){
     for(let i = 0; i< this.nodes.length; i++){
       if(this.nodes[i].id === node.id){
         this.nodes[i] = node;
+      }
+    }
+  }
+
+  updageEdge(edge:X6EdgeMeta){
+    for(let i = 0; i< this.edges.length; i++){
+      if(this.edges[i].id === edge.id){
+        this.edges[i] = edge;
       }
     }
   }

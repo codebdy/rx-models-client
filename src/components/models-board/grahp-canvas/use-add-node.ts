@@ -1,6 +1,6 @@
 import { useModelsBoardStore } from "../store";
 import { Node } from '@antv/x6';
-import { CreateClassCommand } from "../command/create-class-command";
+import { CreateEntityCommand } from "../command/create-entity-command";
 import { AddClassCommand } from "../command/add-class-command";
 import { useEffect } from "react";
 
@@ -16,7 +16,7 @@ export function useAddNode(){
 
     if(isTempForNew){
       node.remove({disconnectEdges:true});
-      const command = new CreateClassCommand(modelStore.openedDiagram, classMeta, 
+      const command = new CreateEntityCommand(modelStore.openedDiagram, classMeta, 
         {
           //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
           id:classMeta.id||'', 

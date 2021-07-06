@@ -3,6 +3,9 @@ import { useModelsBoardStore } from "../store";
 import { LineAction } from "../store/line-action";
 import { Edge, Node } from '@antv/x6';
 import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
+import { CreateRelationCommand } from "../command/create-relation-command";
+import { createId } from "util/creat-id";
+import { seedId } from "util/seed-id";
 
 export function useDrawLine(){
   const modelStore = useModelsBoardStore();
@@ -21,20 +24,41 @@ export function useDrawLine(){
     }
   }
 
+
   const handleEdgeMouseUp = (arg: { x:number, y:number, edge:Edge})=>{
     const{edge, x, y} = arg;
     const [targetNode] = modelStore.graph?.getNodesFromPoint(x,y)||[];
+    //
+
+    if(!modelStore.openedDiagram){
+      return;
+    }
+
     if(modelStore.drawingLine && targetNode && modelStore.drawingLine?.tempEdge){
-      const relation = modelStore.rootStore.createRelation(
-        modelStore.drawingLine.relationType,
-        modelStore.rootStore.getClassById(modelStore.drawingLine.sourceNodeId),
-        modelStore.rootStore.getClassById(targetNode.id)
+      const relationId = createId();
+      const source = modelStore.rootStore.getClassById(modelStore.drawingLine.sourceNodeId);
+      const target = modelStore.rootStore.getClassById(targetNode.id);
+
+      if(!source || !target){
+        return;
+      }
+
+      const comamnd = new CreateRelationCommand(
+        modelStore.openedDiagram,
+        {
+          id: relationId,
+          relationType: modelStore.drawingLine.relationType,
+          sourceId: source.id,
+          targetId: target.id,
+          roleOnSource: target.name.toLowerCase() + seedId(),
+          roleOnTarget: source.name.toLowerCase() + seedId(),
+        },
+        {id:relationId, vertices: modelStore.drawingLine?.tempEdge.getVertices()},
       )
-      relation && modelStore.openedDiagram?.addEdge({id:relation.id, vertices: modelStore.drawingLine?.tempEdge.getVertices()});
+      modelStore.excuteCommand(comamnd);
       modelStore.drawingLine?.tempEdge?.remove();    
       modelStore.setPressRelation(undefined);
       modelStore.setDrawingLine(undefined);
-      modelStore.setSelectedCell(relation);
       return;
     }
     if(edge?.id === modelStore.drawingLine?.tempEdge?.id){

@@ -9,7 +9,7 @@ import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
-import { RelationType } from "../meta/relation-meta";
+import { RelationMeta, RelationType } from "../meta/relation-meta";
 
 export class PackageStore{
   id: string;
@@ -99,24 +99,19 @@ export class PackageStore{
     return newClass;
   }
 
-  deleteClass(id:string){
-    _.remove(this.entities, (classStore)=> classStore.id === id);
+  deleteEntity(id:string){
+    _.remove(this.entities, (entityStore)=> entityStore.id === id);
   }
 
   //只供根节点使用
-  createRelation(relationType: RelationType, source?: EntityStore, taget?: EntityStore){
-    if(!source || !taget){
-      return;
-    }
-    const relation = new RelationStore({
-      id: createId(),
-      relationType: relationType,
-      sourceId: source.id,
-      targetId: taget.id,
-      roleOnSource: taget.name.toLowerCase() + seedId(),
-      roleOnTarget: source.name.toLowerCase() + seedId(),
-    }, this);
-    this.relations.push(relation);
-    return relation;
+  addNewRelation(relation:RelationMeta){
+    const relationStore = new RelationStore(relation, this);
+    this.relations.push(relationStore);
+    return relationStore;
   }
+
+  deleteRelation(id:string){
+    _.remove(this.relations, (relationStore)=> relationStore.id === id);
+  }
+
 }

@@ -14,7 +14,6 @@ import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
 import { Command } from "../command/command";
 import { NODE_INIT_SIZE } from "./node-init-size";
-import { NodeChangeCommand } from "../command/node-change-command";
 import { RelationType } from "../meta/relation-meta";
 
 export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
