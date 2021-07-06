@@ -4,7 +4,7 @@ import { EntityStore } from '../store/entity-store';
 import intl from "react-intl-universal";
 import { Grid } from '@material-ui/core';
 import { useModelsBoardStore } from '../store';
-import LayzyTextField from 'components/common/layzy-text-field';
+import LayzyTextField from 'components/models-board/property-box/layzy-text-field';
 import { NameChangeCommand } from '../command/name-change-command';
 
 export const EntityPanel = observer((
@@ -20,7 +20,7 @@ export const EntityPanel = observer((
   }
   return(
     <>
-      <Grid item>
+      <Grid item xs={12}>
         <LayzyTextField 
           label = {intl.get('name')} 
           value = {entityStore.name || ''} 

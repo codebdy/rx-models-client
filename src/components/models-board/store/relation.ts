@@ -28,6 +28,9 @@ export class RelationStore{
     this.roleOnTarget = roleName;
   }
 
+  setFieldValue(field:string, value:any){
+    (this as any)[field] = value;
+  }
 
   toMeta(): RelationMeta{
     return {

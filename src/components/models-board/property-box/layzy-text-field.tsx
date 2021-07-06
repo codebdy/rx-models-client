@@ -15,9 +15,11 @@ export interface PropsInputProps{
 export default function LayzyTextField(props:PropsInputProps){
   const {label, value, onChange, disabled, size = 'small', ...rest} = props;
   const [inputValue, setInputValue] = useState<any>();
+  const [oldValue, setOldValue] = useState<any>();
 
   useEffect(()=>{
     setInputValue(value);
+    setOldValue(value);
   },[value])
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -26,7 +28,11 @@ export default function LayzyTextField(props:PropsInputProps){
   }; 
 
   const handleFinishEdit = ()=>{
-    onChange(inputValue);  
+    if(oldValue !== inputValue){
+      onChange(inputValue); 
+      setOldValue(inputValue);       
+    }
+
   }
 
   return (

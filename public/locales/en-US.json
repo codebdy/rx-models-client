@@ -48,5 +48,6 @@
   "add-diagram":"New diagram",
   "no-selected":"Nothing selected!",
   "role-name": "Role name",
-  "side": "side"
+  "side": "side",
+  "relation-type":"Relation type"
 }

@@ -48,5 +48,6 @@
   "add-diagram":"新建类图",
   "no-selected":"没有选中任何元素！",
   "role-name": "角色名",
-  "side": "端"
+  "side": "端",
+  "relation-type":"关系类型"
 }
