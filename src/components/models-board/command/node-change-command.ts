@@ -6,11 +6,13 @@ import { Command } from "./command";
 
 export class NodeChangeCommand implements Command{
   private newNodeMeta: X6NodeMeta|undefined;
+  private oldNodeMeta?: X6NodeMeta;
   constructor(
     private readonly diagramStore: DiagramStore,
-    private readonly oldNodeMeta: X6NodeMeta,
     private readonly classStore?: EntityStore,
-  ){}
+  ){
+    classStore && (this.oldNodeMeta = diagramStore.getNodeById(classStore?.id));
+  }
 
   setNewNodeMeta(meta:X6NodeMeta){
     this.newNodeMeta = meta;
@@ -24,7 +26,7 @@ export class NodeChangeCommand implements Command{
     return this.classStore;
   }
   undo():SelectedNode{
-    this.diagramStore.updateNode(this.oldNodeMeta);
+    this.oldNodeMeta && this.diagramStore.updateNode(this.oldNodeMeta);
     return this.classStore;
   };
 }

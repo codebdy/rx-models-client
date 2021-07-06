@@ -7,9 +7,10 @@ import { useSelectNode } from './use-select-node';
 import { useCreateGraph } from './use-create-grahp';
 import { useDrawLine } from './use-draw-line';
 import { useShowEdges } from './use-show-edges';
-import { useNodeMoveOrResize } from './use-node-move-or-resize';
+import { useNodeChange } from './use-node-change';
 import { useAddNode } from './use-add-node';
 import { useSelectEdge } from './use-select-edge';
+import { useEdgeChange } from './use-edge-change';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +32,8 @@ export const GraphCanvas = observer(()=>{
   useShowNodes();
   useDrawLine();
   useShowEdges();
-  useNodeMoveOrResize();
+  useNodeChange();
+  useEdgeChange();
   useAddNode();
 
   return (

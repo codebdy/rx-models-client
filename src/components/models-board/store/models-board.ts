@@ -27,8 +27,6 @@ export class ModelsBoardStore{
   drawingLine: LineAction | undefined;
   selectedCell: SelectedNode;
 
-  changingCommand?:NodeChangeCommand;
-
   undoList: Array<Command> = [];
   redoList: Array<Command> = [];
   
@@ -36,10 +34,6 @@ export class ModelsBoardStore{
     this.rootStore = new PackageStore();
     this.rootStore.initAsRoot(meta);
     makeAutoObservable(this);
-  }
-
-  setChangingCommand(command:NodeChangeCommand|undefined){
-    this.changingCommand = command;
   }
 
   setOpendDiagram(openedDiagram?: DiagramStore){

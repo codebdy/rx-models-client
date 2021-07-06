@@ -22,6 +22,7 @@ export function useShowEdges(){
           source: relation.sourceId,
           target: relation.targetId,
           vertices: edgeMeta.vertices,
+          connector: { name: 'rounded' },
           tools: [],
           attrs: getRelationGraphAttrs(relation.relationType),
         })

@@ -63,6 +63,7 @@ export function useDrawLine(){
       tempEdge: modelStore.graph?.addEdge({
         source: node.id,
         target: p,
+        connector: { name: 'rounded' },
         attrs: getRelationGraphAttrs(modelStore.pressedLineType),
       })
     }
