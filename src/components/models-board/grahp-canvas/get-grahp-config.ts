@@ -1,6 +1,9 @@
+import { getGraphSize } from "./get-grahp-size";
+
 export const getGraphConfig = ()=>{
   const containerDiv = document.getElementById('container')||undefined;
   containerDiv?.getBoundingClientRect()
+  const graphSize = getGraphSize();
   return {
     container: containerDiv,
     interacting: true,
@@ -11,8 +14,8 @@ export const getGraphConfig = ()=>{
       minWidth: 160,
       minHeight: 50,
     },
-    width: containerDiv?.getBoundingClientRect().width||800,
-    height: containerDiv?.getBoundingClientRect().height||600 - 10,
+    width: graphSize.width,
+    height: graphSize.height,
     grid: {
       size: 10,      // 网格大小 10px
       visible: true, // 渲染网格背景
