@@ -20,6 +20,15 @@ export class RelationStore{
     makeAutoObservable(this)
   }
 
+  setRoleOnSource(roleName:string){
+    this.roleOnSource = roleName;
+  }
+
+  setRoleOnTarget(roleName:string){
+    this.roleOnTarget = roleName;
+  }
+
+
   toMeta(): RelationMeta{
     return {
       id: this.id,
