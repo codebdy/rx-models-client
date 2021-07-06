@@ -1,7 +1,6 @@
 import { makeAutoObservable, toJS } from "mobx";
 import { EntityMeta } from "../meta/entity-meta";
 import { DiagramMeta } from "../meta/diagram-meta";
-import { RelationMeta } from "../meta/relation-meta";
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { PackageStore } from "./package";
@@ -13,12 +12,7 @@ export type InheritMeta = {
 }
 export type ClassNodeData = EntityMeta & {packageName?:string, isTempForNew?:boolean, isTempForDrag?: boolean};
 export type NodeConfig = X6NodeMeta & {data: ClassNodeData};
-export type EdgeConfig = X6EdgeMeta & {data: RelationMeta|InheritMeta};
-
-export interface GraphData{
-  nodes: NodeConfig[];
-  edges: EdgeConfig[];
-}
+export type EdgeConfig = X6EdgeMeta & {roleOnSource:string, roleOnTarget:string};
 
 export class DiagramStore{
   id: string;
@@ -47,7 +41,7 @@ export class DiagramStore{
   }
 
   getAndMakeEdges(){
-    const edges: X6EdgeMeta[] = [];
+    const edges: EdgeConfig[] = [];
     //处理继承关系
     this.rootStore.relations?.forEach(relation=>{
       const source = this.nodes.find(node=>node.id === relation.sourceId);
@@ -55,10 +49,10 @@ export class DiagramStore{
       if(source && target){
         const edge = this.edges.find(edge=>edge.id === relation.id);
         if(edge){
-          edges.push(edge);
+          edges.push({...edge, roleOnSource:relation.roleOnSource, roleOnTarget: relation.roleOnTarget});
         }else{
           const newEdge = {id:relation.id};
-          edges.push(newEdge)
+          edges.push({...newEdge, roleOnSource:relation.roleOnSource, roleOnTarget: relation.roleOnTarget})
         }
       }
     })

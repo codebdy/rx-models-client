@@ -33,7 +33,7 @@ export function useShowEdges(){
           {
             attrs: {
               text: {
-                text: relation?.roleOnSource,
+                text: edgeMeta.roleOnSource,
               },
             },
             position: {
@@ -44,7 +44,7 @@ export function useShowEdges(){
           {
             attrs: {
               text: {
-                text: relation?.roleOnTarget,
+                text: edgeMeta.roleOnTarget,
               },
             },
             position: {
@@ -55,6 +55,7 @@ export function useShowEdges(){
         ]
       )
     })
+
     modelStore.graph?.getEdges().forEach(edge=>{
       if(!edges?.find(aEdge=>aEdge.id === edge.id) && edge.id !== modelStore.drawingLine?.tempEdge?.id){
         modelStore.graph?.removeEdge(edge.id);

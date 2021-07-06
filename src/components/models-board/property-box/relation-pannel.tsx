@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { RelationStore } from '../store/relation';
 import intl from "react-intl-universal";
-import { Grid, TextField, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { useModelsBoardStore } from '../store';
 import LayzyTextField from 'components/common/layzy-text-field';
 
