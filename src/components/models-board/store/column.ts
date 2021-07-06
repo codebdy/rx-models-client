@@ -17,6 +17,10 @@ export class ColumnStore{
     makeAutoObservable(this)
   }
 
+  setName(name:string){
+    this.name = name;
+  }
+
   toMeta(): ColumnMeta{
     return {
       id: this.id,

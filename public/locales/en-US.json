@@ -45,5 +45,7 @@
   "add-package":"New package",
   "add-class":"New class",
   "add-diagram":"New diagram",
-  "no-selected":"Nothing selected!"
+  "no-selected":"Nothing selected!",
+  "role-name": "Role name",
+  "side": "side"
 }

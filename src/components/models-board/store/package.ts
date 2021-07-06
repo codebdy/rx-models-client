@@ -9,7 +9,7 @@ import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
-import { RelationMeta, RelationType } from "../meta/relation-meta";
+import { RelationMeta } from "../meta/relation-meta";
 
 export class PackageStore{
   id: string;
@@ -40,14 +40,14 @@ export class PackageStore{
     this.name = name;
   }
 
-  getClassById(id:string): EntityStore|undefined{
+  getEntityById(id:string): EntityStore|undefined{
     const classStore = this.entities.find(classStore=>classStore.id === id);
     if(classStore){
       return classStore;
     }
 
     for(const pkg of this.packages){
-      const clsStore = pkg.getClassById(id);
+      const clsStore = pkg.getEntityById(id);
       if(clsStore){
         return clsStore;
       }

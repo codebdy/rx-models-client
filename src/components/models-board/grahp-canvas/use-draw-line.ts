@@ -36,8 +36,8 @@ export function useDrawLine(){
 
     if(modelStore.drawingLine && targetNode && modelStore.drawingLine?.tempEdge){
       const relationId = createId();
-      const source = modelStore.rootStore.getClassById(modelStore.drawingLine.sourceNodeId);
-      const target = modelStore.rootStore.getClassById(targetNode.id);
+      const source = modelStore.rootStore.getEntityById(modelStore.drawingLine.sourceNodeId);
+      const target = modelStore.rootStore.getEntityById(targetNode.id);
 
       if(!source || !target){
         return;

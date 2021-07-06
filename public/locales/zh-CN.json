@@ -45,5 +45,7 @@
   "add-package":"新建包",
   "add-class":"新建类",
   "add-diagram":"新建类图",
-  "no-selected":"没有选中任何元素！"
+  "no-selected":"没有选中任何元素！",
+  "role-name": "角色名",
+  "side": "端"
 }

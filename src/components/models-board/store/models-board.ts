@@ -40,7 +40,7 @@ export class ModelsBoardStore{
   }
 
   selectClass(id:string){
-    const classStore = this.rootStore.getClassById(id);
+    const classStore = this.rootStore.getEntityById(id);
     this.setSelectedElement(classStore);
   }
 

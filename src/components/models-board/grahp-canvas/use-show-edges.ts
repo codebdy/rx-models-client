@@ -37,7 +37,7 @@ export function useShowEdges(){
               },
             },
             position: {
-              distance: 60,
+              distance: 40,
               offset: 20,
             },
           },
@@ -48,7 +48,7 @@ export function useShowEdges(){
               },
             },
             position: {
-              distance: -60,
+              distance: -40,
               offset: 20,
             },
           }

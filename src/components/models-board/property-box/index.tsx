@@ -8,7 +8,7 @@ import { useModelsBoardStore } from '../store';
 import { PackageStore } from '../store/package';
 import { PackagePanel } from './package-pannel';
 import { EntityStore } from '../store/entity-store';
-import { ClassPanel } from './class-pannel';
+import { EntityPanel } from './entity-pannel';
 import { ColumnStore } from '../store/column';
 import { ColumnPanel } from './column-pannel';
 import { RelationStore } from '../store/relation';
@@ -47,7 +47,7 @@ export const PropertyBox = observer(()=>{
           }
           {
             boardStore?.selectedElement instanceof EntityStore &&
-            <ClassPanel classStore = {boardStore.selectedElement} />            
+            <EntityPanel entityStore = {boardStore.selectedElement} />            
           }
           {
             boardStore?.selectedElement instanceof ColumnStore &&

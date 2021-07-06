@@ -12,7 +12,7 @@ export function useNodeChange(){
       return;
     }
     const command = new NodeChangeCommand(modelStore.openedDiagram,
-      modelStore.rootStore.getClassById(node.id),
+      modelStore.rootStore.getEntityById(node.id),
     )
 
     command.setNewNodeMeta({
