@@ -10,14 +10,14 @@ export function useShowEdges(){
   useEffect(()=>{
     edges?.forEach((edgeMeta)=>{
       const relation = modelStore.rootStore.getRelationById(edgeMeta.id);
-      const grahpEdge =  modelStore.graph?.getCellById(edgeMeta.id) as Edge<Edge.Properties>;
+      let grahpEdge =  modelStore.graph?.getCellById(edgeMeta.id) as Edge<Edge.Properties>|undefined;
       if(grahpEdge){
         if(!_.isEqual(grahpEdge.getVertices(), edgeMeta.vertices) && edgeMeta.vertices){
           grahpEdge.setVertices(edgeMeta.vertices);
         }
       }
       else{
-        relation && modelStore.graph?.addEdge({
+        grahpEdge = relation && modelStore.graph?.addEdge({
           id: relation.id,
           source: relation.sourceId,
           target: relation.targetId,
@@ -27,6 +27,33 @@ export function useShowEdges(){
           attrs: getRelationGraphAttrs(relation.relationType),
         })
       }
+
+      grahpEdge?.setLabels(
+        [
+          {
+            attrs: {
+              text: {
+                text: relation?.roleOnSource,
+              },
+            },
+            position: {
+              distance: 60,
+              offset: 20,
+            },
+          },
+          {
+            attrs: {
+              text: {
+                text: relation?.roleOnTarget,
+              },
+            },
+            position: {
+              distance: -60,
+              offset: 20,
+            },
+          }
+        ]
+      )
     })
     modelStore.graph?.getEdges().forEach(edge=>{
       if(!edges?.find(aEdge=>aEdge.id === edge.id) && edge.id !== modelStore.drawingLine?.tempEdge?.id){
