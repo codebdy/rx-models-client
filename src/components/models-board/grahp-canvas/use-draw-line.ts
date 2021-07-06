@@ -6,6 +6,7 @@ import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
 import { CreateRelationCommand } from "../command/create-relation-command";
 import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
+import { RelationStore } from "../store/relation";
 
 export function useDrawLine(){
   const modelStore = useModelsBoardStore();
@@ -45,14 +46,14 @@ export function useDrawLine(){
 
       const comamnd = new CreateRelationCommand(
         modelStore.openedDiagram,
-        {
+        new RelationStore({
           id: relationId,
           relationType: modelStore.drawingLine.relationType,
           sourceId: source.id,
           targetId: target.id,
           roleOnSource: target.name.toLowerCase() + seedId(),
           roleOnTarget: source.name.toLowerCase() + seedId(),
-        },
+        }, modelStore.rootStore),
         {id:relationId, vertices: modelStore.drawingLine?.tempEdge.getVertices()},
       )
       modelStore.excuteCommand(comamnd);

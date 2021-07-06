@@ -9,7 +9,6 @@ import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
-import { RelationMeta } from "../meta/relation-meta";
 
 export class PackageStore{
   id: string;
@@ -104,10 +103,9 @@ export class PackageStore{
   }
 
   //只供根节点使用
-  addNewRelation(relation:RelationMeta){
-    const relationStore = new RelationStore(relation, this);
-    this.relations.push(relationStore);
-    return relationStore;
+  addNewRelation(relation: RelationStore){
+    this.relations.push(relation);
+    return relation;
   }
 
   deleteRelation(id:string){
