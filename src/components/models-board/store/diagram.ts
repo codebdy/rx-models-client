@@ -32,7 +32,12 @@ export class DiagramStore{
   getNodes(){
     return this.nodes.map(node=>{
       const classStore = this.rootStore.getEntityById(node.id);
-      const data = {...classStore?.toMeta(), packageName:classStore?.package?.name}
+      const data = {
+        ...classStore?.toMeta(), 
+        packageName:(this.belongsToPackage.id !== classStore?.package?.id)
+         ? (classStore?.package?.name)
+         : ''
+      }
       return{...node, data};
     })
   }

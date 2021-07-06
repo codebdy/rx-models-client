@@ -14,6 +14,7 @@ export const getGraphConfig = ()=>{
       minWidth: 160,
       minHeight: 50,
     },
+    //autoResize:true,
     width: graphSize.width,
     height: graphSize.height,
     grid: {
