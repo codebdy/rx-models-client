@@ -9,6 +9,8 @@ export class RelationStore{
   targetId: string;
   roleOnSource: string;
   roleOnTarget: string;
+  joinColumnAt?: string;
+  joinTableAt?: string;
 
   constructor(meta:RelationMeta, private rootStore: PackageStore){
     this.id = meta.id;
@@ -17,7 +19,16 @@ export class RelationStore{
     this.targetId = meta.targetId;
     this.roleOnSource = meta.roleOnSource;
     this.roleOnTarget = meta.roleOnTarget;
-    makeAutoObservable(this)
+    this.joinColumnAt = meta.joinColumnAt;
+    this.joinTableAt = meta.joinTableAt;
+    if(this.relationType === RelationType.ONE_TO_ONE && !this.joinColumnAt){
+      this.joinColumnAt = this.sourceId
+    }
+
+    if(this.relationType === RelationType.MANY_TO_MANY && !this.joinTableAt){
+      this.joinTableAt = this.sourceId
+    }
+    makeAutoObservable(this);
   }
 
   setRoleOnSource(roleName:string){
@@ -40,6 +51,8 @@ export class RelationStore{
       targetId: this.targetId,
       roleOnSource: this.roleOnSource,
       roleOnTarget: this.roleOnTarget,
+      joinColumnAt: this.joinColumnAt,
+      joinTableAt: this.joinTableAt 
     }
   }
 }

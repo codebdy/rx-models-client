@@ -12,4 +12,6 @@ export interface RelationMeta {
   targetId: string;
   roleOnSource: string;
   roleOnTarget: string;
+  joinColumnAt?: string;
+  joinTableAt?: string;
 }

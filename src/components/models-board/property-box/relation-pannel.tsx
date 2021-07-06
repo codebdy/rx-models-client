@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { RelationStore } from '../store/relation';
 import intl from "react-intl-universal";
-import { FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
+import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch, Typography } from '@material-ui/core';
 import { useModelsBoardStore } from '../store';
 import LayzyTextField from 'components/models-board/property-box/layzy-text-field';
 import { RelationType } from '../meta/relation-meta';
@@ -32,6 +32,30 @@ export const RelationPanel = observer((
     const command = new RelationChangeCommand(relationStore, 'roleOnTarget' , value);
     boardStore.excuteCommand(command);
   }
+
+  const handleSourceJoinColumnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.checked ? relationStore.sourceId : relationStore.targetId;
+    const command = new RelationChangeCommand(relationStore, 'joinColumnAt' , value);
+    boardStore.excuteCommand(command);
+  };
+
+  const handleTargetJoinColumnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.checked ? relationStore.targetId : relationStore.sourceId;
+    const command = new RelationChangeCommand(relationStore, 'joinColumnAt' , value);
+    boardStore.excuteCommand(command);
+  };
+
+  const handleSourceJoinTableChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.checked ? relationStore.sourceId : relationStore.targetId;
+    const command = new RelationChangeCommand(relationStore, 'joinTableAt' , value);
+    boardStore.excuteCommand(command);
+  };
+
+  const handleTargetJoinTableChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.checked ? relationStore.targetId : relationStore.sourceId;
+    const command = new RelationChangeCommand(relationStore, 'joinTableAt' , value);
+    boardStore.excuteCommand(command);
+  };
 
   return(
     <>
@@ -63,6 +87,34 @@ export const RelationPanel = observer((
         />
       </Grid> 
       <Grid item xs={12}>
+        {
+          relationStore.relationType === RelationType.ONE_TO_ONE &&
+          <FormControlLabel
+            control={
+              <Switch
+                checked={relationStore.joinColumnAt === relationStore.sourceId || !relationStore.joinColumnAt}
+                onChange={handleSourceJoinColumnChange}
+                color="primary"
+              />
+            }
+            label="Join Column"
+          />
+        }
+        {
+          relationStore.relationType === RelationType.MANY_TO_MANY &&
+          <FormControlLabel
+            control={
+              <Switch
+                checked={relationStore.joinTableAt === relationStore.sourceId || !relationStore.joinTableAt}
+                onChange={handleSourceJoinTableChange}
+                color="primary"
+              />
+            }
+            label="Join Table"
+          />
+        }
+      </Grid>
+      <Grid item xs={12}>
         <Typography variant = 'subtitle1'>
           {target?.name} {intl.get('side')}
         </Typography>
@@ -74,6 +126,34 @@ export const RelationPanel = observer((
           onChange={handleTargetRoleChange}
         />
       </Grid>  
+      <Grid item xs={12}>
+        {
+          relationStore.relationType === RelationType.ONE_TO_ONE &&
+          <FormControlLabel
+            control={
+              <Switch
+                checked={relationStore.joinColumnAt === relationStore.targetId}
+                onChange={handleTargetJoinColumnChange}
+                color="primary"
+              />
+            }
+            label="Join Column"
+          />
+        }
+        {
+          relationStore.relationType === RelationType.MANY_TO_MANY &&
+          <FormControlLabel
+            control={
+              <Switch
+                checked={relationStore.joinTableAt === relationStore.targetId}
+                onChange={handleTargetJoinTableChange}
+                color="primary"
+              />
+            }
+            label="Join Table"
+          />
+        }        
+      </Grid>
     </>
   )
 })
