@@ -10,7 +10,7 @@ import { TreeNodeLabel } from './tree-node-label';
 import MdiIcon from 'components/common/mdi-icon';
 import { useModelsBoardStore } from '../store';
 import { PackageNode } from './package-node';
-import { ClassNode } from './class-node';
+import { EntityNode } from './entity-node';
 import { DiagramNode } from './diagram-node';
 import PackageAction from './package-action';
 import { observer } from 'mobx-react';
@@ -31,7 +31,7 @@ export const ModelTreeView = observer(() => {
 
   const handleAddPackage = ()=>{
     const newPackage = modelStore.addNewPackage();
-    bordStore.setSelectedCell(newPackage);
+    bordStore.setSelectedElement(newPackage);
   }
   
   const handleAddClass = ()=>{
@@ -48,7 +48,7 @@ export const ModelTreeView = observer(() => {
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpanded={['root']}
       defaultExpandIcon={<ChevronRightIcon />}
-      selected = {[bordStore?.selectedCell?.id || '', bordStore?.openedDiagram?.id || '']}
+      selected = {[bordStore?.selectedElement?.id || '', bordStore?.openedDiagram?.id || '']}
     >
       <TreeItem nodeId='root' label={
         <TreeNodeLabel
@@ -82,7 +82,7 @@ export const ModelTreeView = observer(() => {
         {
           modelStore.entities.map(aClass=>{
             return (
-              <ClassNode key={aClass.id} classStore = {aClass} />
+              <EntityNode key={aClass.id} entityStore = {aClass} />
             )
           })
         }

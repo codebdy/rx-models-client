@@ -15,11 +15,11 @@ import { EntityView } from "../grahp-canvas/entity-view";
 import { NODE_INIT_SIZE } from "../store/node-init-size";
 const { Dnd } = Addon
 
-export const ClassNode = observer((props:{
+export const EntityNode = observer((props:{
   key?:string,
-  classStore: EntityStore
+  entityStore: EntityStore
 })=>{
-  const {classStore} = props;
+  const {entityStore} = props;
   const [dnd, setDnd] = React.useState<any>();
   const bordStore = useModelsBoardStore();
 
@@ -45,19 +45,20 @@ export const ClassNode = observer((props:{
       isTempForDrag:true,
       shape: 'react-shape', 
       component: <EntityView />,
-      data: {...classStore.toMeta(), isTempForDrag: true}
+      data: {...entityStore.toMeta(), isTempForDrag: true}
     });
     dnd?.start(node, e.nativeEvent as any)
   }
 
   const handleClick = (event:React.MouseEvent)=>{
-    bordStore.setSelectedCell(classStore);
+    bordStore.setSelectedElement(entityStore);
     event.stopPropagation();
   }
-  const relations = classStore.getRelations();
+  const sourceRelations = entityStore.getSourceRelations();
+  const targetRelations = entityStore.getTargetRelations();
 
   return(
-    <TreeItem nodeId= {classStore.id} label={
+    <TreeItem nodeId= {entityStore.id} label={
       <TreeNodeLabel
         action = {
           <IconButton size = "small">
@@ -78,10 +79,10 @@ export const ClassNode = observer((props:{
             L 14,11
           " stroke="#000" strokeWidth="1" fill="#fff"></path>
         </SvgIcon>
-        <NodeText><div style={{marginLeft:'-8px'}}>{classStore.name}</div></NodeText>
+        <NodeText><div style={{marginLeft:'-8px'}}>{entityStore.name}</div></NodeText>
       </TreeNodeLabel>
     }>
-      <TreeItem nodeId= {classStore.id + 'columns'} label={
+      <TreeItem nodeId= {entityStore.id + 'columns'} label={
         <TreeNodeLabel
           action = {
             <IconButton size = "small">
@@ -93,7 +94,7 @@ export const ClassNode = observer((props:{
         </TreeNodeLabel>
       }>
         {
-          classStore.columns.map(column=>{
+          entityStore.columns.map(column=>{
             return (
               <ColumnNode key={column.id} columnStore = {column} />
             )
@@ -101,16 +102,23 @@ export const ClassNode = observer((props:{
         }
       </TreeItem>
       {
-        relations.length > 0 &&
-        <TreeItem nodeId= {classStore.id + 'relations'} label={
+        (sourceRelations.length > 0 || targetRelations.length > 0)  &&
+        <TreeItem nodeId= {entityStore.id + 'relations'} label={
           <TreeNodeLabel>
             <NodeText>{intl.get('relations')}</NodeText>
           </TreeNodeLabel>
         }>
           {
-            relations.map(relation=>{
+            sourceRelations.map(relation=>{
               return (
-                <RelationNode key={relation.id} relation = {relation} />
+                <RelationNode key={relation.id} relation = {relation} isSource />
+              )
+            })
+          }
+          {
+            targetRelations.map(relation=>{
+              return (
+                <RelationNode key={relation.id} relation = {relation} isSource = {false} />
               )
             })
           }

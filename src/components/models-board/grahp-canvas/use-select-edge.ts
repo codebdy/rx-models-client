@@ -7,28 +7,28 @@ export function useSelectEdge(){
   const modelStore = useModelsBoardStore();
   const [selectedRelation, setSelectedRelation] = useState<RelationStore>();
   useEffect(()=>{
-    if(modelStore.selectedCell && modelStore.selectedCell instanceof RelationStore)
+    if(modelStore.selectedElement && modelStore.selectedElement instanceof RelationStore)
     {
-      setSelectedRelation(modelStore.selectedCell as RelationStore);
-      const edge = modelStore.graph?.getCellById(modelStore.selectedCell.id) as Edge;
+      setSelectedRelation(modelStore.selectedElement as RelationStore);
+      const edge = modelStore.graph?.getCellById(modelStore.selectedElement.id) as Edge;
       edge?.addTools(['vertices', 'boundary', 'segments']);
     }
     modelStore.graph?.getEdges().forEach(edge=>{
-      if(modelStore.selectedCell?.id !== edge.id){
+      if(modelStore.selectedElement?.id !== edge.id){
         edge.removeTools(['boundary', 'vertices', 'segments']);
       }
     })
 
-  },[modelStore.graph, modelStore.selectedCell, selectedRelation])
+  },[modelStore.graph, modelStore.selectedElement, selectedRelation])
 
   const handleBlankClick = ()=>{
-    modelStore.setSelectedCell(undefined);
+    modelStore.setSelectedElement(undefined);
   }
 
   const handleEdgeClick = (arg: { edge: Edge<Edge.Properties> })=>{
     const { edge } = arg; 
     if(edge && edge.id !== modelStore?.drawingLine?.tempEdge?.id){
-      modelStore.setSelectedCell(modelStore.rootStore.getRelationById(edge.id));
+      modelStore.setSelectedElement(modelStore.rootStore.getRelationById(edge.id));
     }
   }
 

@@ -24,7 +24,7 @@ export class ModelsBoardStore{
   graph?: Graph;
   pressedLineType?: RelationType;
   drawingLine: LineAction | undefined;
-  selectedCell: SelectedNode;
+  selectedElement: SelectedNode;
 
   undoList: Array<Command> = [];
   redoList: Array<Command> = [];
@@ -41,11 +41,11 @@ export class ModelsBoardStore{
 
   selectClass(id:string){
     const classStore = this.rootStore.getClassById(id);
-    this.setSelectedCell(classStore);
+    this.setSelectedElement(classStore);
   }
 
-  setSelectedCell(selectedCell : SelectedNode){
-    this.selectedCell = selectedCell;
+  setSelectedElement(selectedElement : SelectedNode){
+    this.selectedElement = selectedElement;
   }
 
   setGraph(graph?:Graph){
@@ -88,7 +88,7 @@ export class ModelsBoardStore{
     const node = command.excute();
     this.undoList.push(command);
     this.redoList = [];
-    this.setSelectedCell(node);
+    this.setSelectedElement(node);
   }
 
   undo(){
@@ -97,7 +97,7 @@ export class ModelsBoardStore{
     if(cmd){
       this.redoList.push(cmd);
     }
-    this.setSelectedCell(selectedNode);
+    this.setSelectedElement(selectedNode);
   }
 
   redo(){
@@ -106,7 +106,7 @@ export class ModelsBoardStore{
     if(cmd){
       this.undoList.push(cmd);
     }
-    this.setSelectedCell(selectedNode);
+    this.setSelectedElement(selectedNode);
   }
 
 }

@@ -1,14 +1,8 @@
 import { makeAutoObservable } from "mobx";
-import { createId } from "util/creat-id";
 import { EntityMeta, EntityType } from "../meta/entity-meta";
 import { ColumnStore } from "./column";
 import { PackageStore } from "./package";
-
-export interface RelationOfClass{
-  id: string;
-  relationId: string;
-  name: string;
-}
+import { RelationStore } from "./relation";
 
 export class EntityStore{
   id: string;
@@ -38,22 +32,21 @@ export class EntityStore{
     this.package = belongsToPackage;
   }
 
-  getRelations():RelationOfClass[]{
-    const relations: RelationOfClass[] = [];
+  getSourceRelations():RelationStore[]{
+    const relations: RelationStore[] = [];
     this.rootStore.relations.forEach(relation=>{
       if(relation.sourceId === this.id){
-        relations.push({
-          id: createId(),
-          relationId: relation.id,
-          name: relation.roleOnSource
-        })
+        relations.push(relation)
       }
+    });
+    return relations;
+  }
+
+  getTargetRelations():RelationStore[]{
+    const relations: RelationStore[] = [];
+    this.rootStore.relations.forEach(relation=>{
       if(relation.targetId === this.id){
-        relations.push({
-          id: createId(),
-          relationId: relation.id,
-          name: relation.roleOnTarget
-        })
+        relations.push(relation)
       }
     });
     return relations;

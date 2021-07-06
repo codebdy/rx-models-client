@@ -5,22 +5,22 @@ import { Node } from '@antv/x6';
 export function useSelectNode(){
   const modelStore = useModelsBoardStore();
   useEffect(()=>{
-    if(modelStore.selectedCell)
+    if(modelStore.selectedElement)
     {
-      const selectionId = modelStore.selectedCell?.id;
+      const selectionId = modelStore.selectedElement?.id;
       modelStore.graph?.cleanSelection();
       modelStore.graph?.select( modelStore.graph?.getCellById(selectionId));
     }
 
-  },[ modelStore.graph, modelStore.selectedCell])
+  },[ modelStore.graph, modelStore.selectedElement])
 
   const handleNodeSelected = (arg: { node: Node<Node.Properties>; })=>{
     modelStore.selectClass(arg.node.id);
   }
 
   const handleNodeUnselected = ()=>{
-    if(modelStore.openedDiagram?.getNodeById(modelStore.selectedCell?.id||'')){
-      modelStore.setSelectedCell(undefined);      
+    if(modelStore.openedDiagram?.getNodeById(modelStore.selectedElement?.id||'')){
+      modelStore.setSelectedElement(undefined);      
     }
   }
 

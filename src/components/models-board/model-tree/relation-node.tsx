@@ -2,18 +2,21 @@ import { IconButton } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
-import { RelationOfClass } from "../store/entity-store";
+import { useModelsBoardStore } from "../store";
+import { RelationStore } from "../store/relation";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 
 
 export const RelationNode = observer((props:{
   key?:string,
-  relation: RelationOfClass
+  relation: RelationStore,
+  isSource: boolean,
 })=>{
-  const {relation} = props;
+  const {relation, isSource} = props;
+  const bordStore = useModelsBoardStore();
   const handleClick = ()=>{
-    
+    bordStore.setSelectedElement(relation);
   }
   return(
     <TreeItem nodeId= {relation.id} label={
@@ -26,7 +29,11 @@ export const RelationNode = observer((props:{
         onClick = {handleClick}
       >
         <MdiIcon iconClass = "mdi-relation-many-to-many" size={12} />
-        <NodeText>{relation.name}</NodeText>
+        <NodeText>{
+          isSource 
+            ? relation.roleOnSource
+            : relation.roleOnTarget
+        }</NodeText>
       </TreeNodeLabel>
     }>
     </TreeItem>

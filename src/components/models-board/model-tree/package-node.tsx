@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import React from "react";
 import { useModelsBoardStore } from "../store";
 import { PackageStore } from "../store/package";
-import { ClassNode } from "./class-node";
+import { EntityNode } from "./entity-node";
 import { DiagramNode } from "./diagram-node";
 import { NodeText } from "./node-text";
 import PackageAction from "./package-action";
@@ -18,7 +18,7 @@ export const PackageNode = observer((props:{
   const bordStore = useModelsBoardStore();
 
   const handleClick = (event:React.MouseEvent)=>{
-    bordStore.setSelectedCell(packageStore);
+    bordStore.setSelectedElement(packageStore);
     event.stopPropagation();
   }
 
@@ -74,7 +74,7 @@ export const PackageNode = observer((props:{
       {
         packageStore.entities.map(aClass=>{
           return (
-            <ClassNode key={aClass.id} classStore = {aClass} />
+            <EntityNode key={aClass.id} entityStore = {aClass} />
           )
         })
       }
