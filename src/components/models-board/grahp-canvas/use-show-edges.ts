@@ -28,5 +28,12 @@ export function useShowEdges(){
         })
       }
     })
+    modelStore.graph?.getEdges().forEach(edge=>{
+      if(!edges?.find(aEdge=>aEdge.id === edge.id) && edge.id !== modelStore.drawingLine?.tempEdge?.id){
+        modelStore.graph?.removeEdge(edge.id);
+      }
+    })
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[edges, modelStore.graph, modelStore.rootStore])
 }

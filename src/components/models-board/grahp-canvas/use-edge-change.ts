@@ -17,17 +17,18 @@ export function useEdgeChange(){
     if(edge.id === modelStore.drawingLine?.tempEdge?.id){
       return;
     } 
-
-    console.log('哈哈 mouse leave', );
     
     const edageData = modelStore.openedDiagram?.getEdgeById(edge.id);
 
-    ////使用mouseleave代替完成事件，需要判断是否有修改
-    if(_.isEqual(edageData?.vertices, edge.getVertices())){
+    //如果是新建或者没有节点的线，不需要记录
+    if(!edageData?.vertices){
       return;
     }
 
-    console.log('哈哈 handleEdgeChange')
+    //使用mouseleave代替完成事件，需要判断是否有修改
+    if(_.isEqual(edageData?.vertices, edge.getVertices())){
+      return;
+    }
 
     const command = new EdgeChangeCommand(modelStore.openedDiagram, 
       modelStore.rootStore.getRelationById(edge.id)
