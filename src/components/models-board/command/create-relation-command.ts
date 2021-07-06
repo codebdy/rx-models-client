@@ -14,7 +14,6 @@ export class CreateRelationCommand implements Command{
   excute():SelectedNode{
     const relationStore = this.diagramStore?.rootStore.addNewRelation(this.relationMeta);
     this.diagramStore?.addEdge(this.edgeMeta);
-
     return relationStore;
   }
   undo():SelectedNode{

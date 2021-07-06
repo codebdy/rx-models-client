@@ -85,9 +85,10 @@ export class ModelsBoardStore{
   }
 
   excuteCommand(command: Command){
-    command.excute();
+    const node = command.excute();
     this.undoList.push(command);
     this.redoList = [];
+    this.setSelectedCell(node);
   }
 
   undo(){
