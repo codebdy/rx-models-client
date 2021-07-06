@@ -14,6 +14,11 @@ export function useShowEdges(){
         if(!_.isEqual(grahpEdge.getVertices(), edgeMeta.vertices) && edgeMeta.vertices){
           grahpEdge.setVertices(edgeMeta.vertices);
         }
+
+        if(grahpEdge.data.relationType !== edgeMeta.relationType){
+          grahpEdge.setData({relationType:edgeMeta.relationType});
+          grahpEdge.setAttrs(getRelationGraphAttrs(edgeMeta.relationType));
+        }
       }
       else{
         grahpEdge = modelStore.graph?.addEdge({
@@ -24,6 +29,7 @@ export function useShowEdges(){
           connector: { name: 'rounded' },
           tools: [],
           attrs: getRelationGraphAttrs(edgeMeta.relationType),
+          data:{relationType:edgeMeta.relationType}
         })
       }
 
