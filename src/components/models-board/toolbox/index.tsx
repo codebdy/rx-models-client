@@ -70,7 +70,6 @@ export const Toolbox = observer(() => {
       target: modelBoardStore.graph,
       scaled: false,
       animation: true,
-
     })
     : undefined;
     setDnd(theDnd);

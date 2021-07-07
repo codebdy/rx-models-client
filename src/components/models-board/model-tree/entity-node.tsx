@@ -42,6 +42,7 @@ export const EntityNode = observer((props:{
 
     const node = bordStore.graph.createNode({
       ...NODE_INIT_SIZE,
+      height: 50 + entityStore.columns.length * 26,
       isTempForDrag:true,
       shape: 'react-shape', 
       component: <EntityView />,

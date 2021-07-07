@@ -4,7 +4,7 @@ import { DiagramStore } from "../store/diagram";
 import { SelectedNode } from "../store/models-board";
 import { Command } from "./command";
 
-export class AddClassCommand implements Command{
+export class AddEntityCommand implements Command{
   constructor(
     private readonly diagramStore: DiagramStore,
     private readonly entityStore: EntityStore|undefined,

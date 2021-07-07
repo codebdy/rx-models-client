@@ -1,7 +1,7 @@
 import { useModelsBoardStore } from "../store";
 import { Node } from '@antv/x6';
 import { CreateEntityCommand } from "../command/create-entity-command";
-import { AddClassCommand } from "../command/add-class-command";
+import { AddEntityCommand } from "../command/add-entity-command";
 import { useEffect } from "react";
 
 export function useAddNode(){
@@ -33,7 +33,7 @@ export function useAddNode(){
       if(modelStore.graph?.getCellById(classMeta.id)){
         return;
       }
-      const command = new AddClassCommand(modelStore.openedDiagram, modelStore?.rootStore.getEntityById(classMeta.id),
+      const command = new AddEntityCommand(modelStore.openedDiagram, modelStore?.rootStore.getEntityById(classMeta.id),
       {
         //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
         id:classMeta.id||'', 

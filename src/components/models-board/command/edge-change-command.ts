@@ -21,9 +21,7 @@ export class EdgeChangeCommand implements Command{
       }else{
         this.diagramStore.addEdge(this.newEdgeMeta);
       }
-   
     }
-
     return this.relationStore;
   }
   undo():SelectedNode{

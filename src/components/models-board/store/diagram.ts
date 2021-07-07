@@ -46,6 +46,7 @@ export class DiagramStore{
          selectedId: selectedId,
          isPressedRelation: isPressedRelation,
       }
+
       return{...node, data};
     })
   }
