@@ -12,23 +12,22 @@ import { TREE_ROOT_ID } from "util/consts";
 export class PackageStore{
   id: string;
   name: string;
-  parent: PackageStore | undefined;
   packages: PackageStore[] = [];
   entities: EntityStore[] = [];
   diagrams: DiagramStore[] = [];
   relations: RelationStore[] = [];
   
-  constructor(meta?:PackageMeta, public rootStore?: PackageStore){
+  constructor(meta?:PackageMeta,  public parent?: PackageStore, public rootStore?: PackageStore){
     this.id = meta?.id || TREE_ROOT_ID;
     this.name = meta?.name || intl.get('root-models');
-    this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
+    this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this, this.rootStore||this))||[];
     this.entities = meta?.entityMetas?.map(meta=>new EntityStore(meta, this.rootStore||this, this))||[];
     this.diagrams = meta?.diagramMetas?.map(meta=>new DiagramStore(meta, this.rootStore||this, this))||[];
     makeAutoObservable(this)
   }
 
   initAsRoot(meta:RootMeta){
-    this.packages = meta.packageMetas?.map(meta=>new PackageStore(meta, this))||[];
+    this.packages = meta.packageMetas?.map(meta=>new PackageStore(meta, this, this))||[];
     this.entities = meta.classMetas?.map(meta=>new EntityStore(meta, this))||[];
     this.diagrams = meta.diagramMetas?.map(meta=>new DiagramStore(meta, this, this))||[];
     this.relations = meta.relationMetas?.map(relation=>new RelationStore(relation, this));
@@ -122,6 +121,10 @@ export class PackageStore{
 
   addDiagram(diagramStore: DiagramStore){
     this.diagrams.push(diagramStore);
+  }
+
+  insertPackage(packageStore: PackageStore, index:number){
+    this.packages.splice(index, 0, packageStore);
   }
 
   deletePackage(id:string){

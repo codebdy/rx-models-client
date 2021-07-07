@@ -43,7 +43,7 @@ export const ModelTreeView = observer(() => {
       new PackageStore({
         id:createId(), 
         name: getNewPackageName(rootStore),
-      }, rootStore), 
+      }, rootStore, rootStore), 
       rootStore
     )
     bordStore.excuteCommand(command);

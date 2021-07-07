@@ -16,6 +16,7 @@ import { creatNewEntityMeta } from "../store/create-new-entity-meta";
 import { getNewPackageName } from "../store/get-new-package-name";
 import { DiagramCreateCommand } from "../command/diagram-create-command";
 import { getNewDiagramName } from "../store/get-new-diagram-name";
+import { PackageDeleteCommand } from "../command/package-delete-command";
 
 export const PackageNode = observer((props:{
   key?:string,
@@ -35,7 +36,7 @@ export const PackageNode = observer((props:{
       new PackageStore({
         id:createId(), 
         name: getNewPackageName(rootStore),
-      }, rootStore), 
+      }, packageStore, rootStore), 
       packageStore
     )
     bordStore.excuteCommand(command);
@@ -57,7 +58,8 @@ export const PackageNode = observer((props:{
   }
 
   const handleDelete = ()=>{
-
+    const command = new PackageDeleteCommand(packageStore);
+    bordStore.excuteCommand(command);
   }
 
   return(
