@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { EntityView } from "./entity-view";
 import _ from "lodash";
 import { ColumnStore } from "../store/column";
+import { HideEntityCommand } from "../command/hide-entity-command";
 
 export function useShowNodes(){
   const modelStore = useModelsBoardStore();
@@ -18,6 +19,21 @@ export function useShowNodes(){
   const handleColumnSelect = (entityId:string, columnId:string)=>{
     const entity = modelStore.rootStore.getEntityById(entityId);
     modelStore.setSelectedElement(entity?.columns.find(column=>column.id === columnId));
+  }
+
+  const handleHideEntity = (entityId:string)=>{
+    if(!modelStore.openedDiagram){
+      return;
+    }
+
+    const entityStore = modelStore.rootStore.getEntityById(entityId);
+    const nodeMeta = modelStore.openedDiagram.getNodeById(entityId);
+    if(!entityStore || !nodeMeta){
+      return;
+    }
+    const command = new HideEntityCommand(modelStore.openedDiagram, nodeMeta, entityStore);
+
+    modelStore.excuteCommand(command);
   }
 
   useEffect(()=>{
@@ -43,6 +59,7 @@ export function useShowNodes(){
           shape: 'react-shape', 
           component: <EntityView 
             onColumnSelect = {handleColumnSelect}
+            onHide = {handleHideEntity}
           />
         });
       }

@@ -37,11 +37,11 @@ export class DiagramStore{
 
   getNodes(selectedId:string|undefined, isPressedRelation:boolean|undefined){
     return this.nodes.map(node=>{
-      const classStore = this.rootStore.getEntityById(node.id);
+      const entityStore = this.rootStore.getEntityById(node.id);
       const data = {
-        ...classStore?.toMeta(), 
-        packageName:(this.belongsToPackage.id !== classStore?.package?.id)
-         ? (classStore?.package?.name)
+        ...entityStore?.toMeta(), 
+        packageName:(this.belongsToPackage.id !== entityStore?.package?.id)
+         ? (entityStore?.package?.name)
          : '',
          selectedId: selectedId,
          isPressedRelation: isPressedRelation,

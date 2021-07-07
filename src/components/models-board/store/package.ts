@@ -40,9 +40,9 @@ export class PackageStore{
   }
 
   getEntityById(id:string): EntityStore|undefined{
-    const classStore = this.entities.find(classStore=>classStore.id === id);
-    if(classStore){
-      return classStore;
+    const entityStore = this.entities.find(entityStore=>entityStore.id === id);
+    if(entityStore){
+      return entityStore;
     }
 
     for(const pkg of this.packages){

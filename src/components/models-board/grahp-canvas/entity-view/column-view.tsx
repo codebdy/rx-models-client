@@ -84,9 +84,6 @@ export default function ColumnView(props:{
         hover && !readOnly&& !isId && 
         <div className = {classes.propertyTools}>
           <IconButton className = {classes.propertyButton}>
-            <MdiIcon iconClass="mdi-pencil-outline" size={16}></MdiIcon>
-          </IconButton>
-          <IconButton className = {classes.propertyButton}>
             <MdiIcon iconClass="mdi-trash-can-outline" size={16}></MdiIcon>
           </IconButton>
         </div>        
