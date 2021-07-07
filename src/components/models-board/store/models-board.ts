@@ -6,8 +6,6 @@ import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 import { RootMeta } from "../meta/root-meta";
 import { LineAction } from "./line-action";
-import { EVENT_RELATION_PRESSED } from "../model-event/events";
-import $bus from "../model-event/bus";
 import { seedId } from "util/seed-id";
 import { EntityStore } from "./entity-store";
 import { ColumnStore } from "./column";
@@ -58,7 +56,6 @@ export class ModelsBoardStore{
 
   setPressRelation(pressedLineType?:RelationType){
     this.pressedLineType = pressedLineType;
-    $bus.emit(EVENT_RELATION_PRESSED, this.pressedLineType);
   }
 
   createTempClassNodeForNew(){

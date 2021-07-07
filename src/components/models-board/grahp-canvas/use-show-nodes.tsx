@@ -11,7 +11,8 @@ export function useShowNodes(){
   const nodes = modelStore.openedDiagram?.getNodes(
     modelStore.selectedElement instanceof ColumnStore 
      ? (modelStore.selectedElement?.id)
-     : undefined
+     : undefined,
+     !!modelStore.pressedLineType
   );
 
   const handleColumnSelect = (entityId:string, columnId:string)=>{

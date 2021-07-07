@@ -4,10 +4,6 @@ import classNames from 'classnames';
 import MdiIcon from 'components/common/mdi-icon';
 import { EntityNodeData } from '../../store/diagram';
 import ColumnView from './column-view';
-import { useEffect } from 'react';
-import $bus from 'components/models-board/model-event/bus';
-import { EVENT_RELATION_PRESSED } from 'components/models-board/model-event/events';
-import { RelationType } from 'components/models-board/meta/relation-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,22 +80,12 @@ export const EntityView = (props:{
 }) =>{
   const classes = useStyles();
   const {node, onColumnSelect, onHidden} = props;
-  const [pressedRelation, setPressedRelation] = useState<RelationType>();
   const [hover, setHover] = useState(false);
   const data : EntityNodeData|undefined = node?.data;
 
-  const canLink = pressedRelation;
-  const handlePressRelation = (relationType:RelationType)=>{
-    setPressedRelation(relationType);
-  }
-  const disableHover = !!pressedRelation;
+  const canLink = node.data.isPressedRelation;
 
-  useEffect(()=>{
-    $bus.on(EVENT_RELATION_PRESSED, handlePressRelation);
-    return ()=>{
-      $bus.off(EVENT_RELATION_PRESSED, handlePressRelation);
-    }
-  },[])
+  const disableHover = !!node.data.isPressedRelation;
 
   const handleHidden = ()=>{
     onHidden && onHidden();

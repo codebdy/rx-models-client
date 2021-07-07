@@ -12,6 +12,7 @@ export type EntityNodeData = EntityMeta & {
     isTempForNew?:boolean, 
     isTempForDrag?: boolean,
     selectedId?:string,
+    isPressedRelation?:boolean,
   };
 export type NodeConfig = X6NodeMeta & {data: EntityNodeData};
 export type EdgeConfig = X6EdgeMeta & RelationMeta;
@@ -34,7 +35,7 @@ export class DiagramStore{
     makeAutoObservable(this)
   }
 
-  getNodes(selectedId:string|undefined){
+  getNodes(selectedId:string|undefined, isPressedRelation:boolean|undefined){
     return this.nodes.map(node=>{
       const classStore = this.rootStore.getEntityById(node.id);
       const data = {
@@ -42,7 +43,8 @@ export class DiagramStore{
         packageName:(this.belongsToPackage.id !== classStore?.package?.id)
          ? (classStore?.package?.name)
          : '',
-         selectedId:selectedId,
+         selectedId: selectedId,
+         isPressedRelation: isPressedRelation,
       }
       return{...node, data};
     })
