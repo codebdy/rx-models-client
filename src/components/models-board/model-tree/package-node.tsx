@@ -14,6 +14,8 @@ import { EntityCreateOnTreeCommand } from "../command/entity-create-on-tree-comm
 import { PackageCreateCommand } from "../command/package-create-command";
 import { creatNewEntityMeta } from "../store/create-new-entity-meta";
 import { getNewPackageName } from "../store/get-new-package-name";
+import { DiagramCreateCommand } from "../command/diagram-create-command";
+import { getNewDiagramName } from "../store/get-new-diagram-name";
 
 export const PackageNode = observer((props:{
   key?:string,
@@ -45,7 +47,13 @@ export const PackageNode = observer((props:{
   }
 
   const handleAddDiagram = ()=>{
-
+    const command = new DiagramCreateCommand({
+      id: createId(),
+      name: getNewDiagramName(rootStore),
+      nodes:[],
+      edges:[]
+    }, packageStore, bordStore.rootStore);
+    bordStore.excuteCommand(command);
   }
 
   const handleDelete = ()=>{

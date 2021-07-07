@@ -21,6 +21,8 @@ import { PackageStore } from '../store/package';
 import { EntityCreateOnTreeCommand } from '../command/entity-create-on-tree-command';
 import { creatNewEntityMeta } from '../store/create-new-entity-meta';
 import { TREE_ROOT_ID } from 'util/consts';
+import { DiagramCreateCommand } from '../command/diagram-create-command';
+import { getNewDiagramName } from '../store/get-new-diagram-name';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +55,13 @@ export const ModelTreeView = observer(() => {
   }
   
   const handleAddDiagram = ()=>{
-  
+    const command = new DiagramCreateCommand({
+      id: createId(),
+      name: getNewDiagramName(rootStore),
+      nodes:[],
+      edges:[]
+    }, bordStore.rootStore, bordStore.rootStore);
+    bordStore.excuteCommand(command);
   }
   
   return (

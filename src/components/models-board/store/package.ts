@@ -18,7 +18,7 @@ export class PackageStore{
   diagrams: DiagramStore[] = [];
   relations: RelationStore[] = [];
   
-  constructor(meta?:PackageMeta, private rootStore?: PackageStore){
+  constructor(meta?:PackageMeta, public rootStore?: PackageStore){
     this.id = meta?.id || TREE_ROOT_ID;
     this.name = meta?.name || intl.get('root-models');
     this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
@@ -120,9 +120,16 @@ export class PackageStore{
     this.packages.push(packageStore);
   }
 
+  addDiagram(diagramStore: DiagramStore){
+    this.diagrams.push(diagramStore);
+  }
 
   deletePackage(id:string){
     _.remove(this.packages, (packageStore)=> packageStore.id === id);
+  }
+
+  deleteDiagram(id:string){
+    _.remove(this.diagrams, (diagramStore)=> diagramStore.id === id);
   }
 
   createNewEntity(entityMeta: EntityMeta){

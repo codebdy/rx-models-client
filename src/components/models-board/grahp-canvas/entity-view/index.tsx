@@ -138,7 +138,7 @@ export const EntityView = (props:{
           )
         }>
           {
-            data?.columns.map(column=>{
+            data?.columns?.map(column=>{
               return (<ColumnView 
                 key = {column.id} 
                 column= {column}

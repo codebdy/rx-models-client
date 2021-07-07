@@ -3,11 +3,12 @@ import { SelectedNode } from "../store/models-board";
 import { Command } from "./command";
 import { EntityStore } from "../store/entity-store";
 import { ColumnStore } from "../store/column";
+import { DiagramStore } from "../store/diagram";
 
 export class NameChangeCommand implements Command{
   private oldName: string;
   constructor(
-    private readonly store: PackageStore | EntityStore | ColumnStore,
+    private readonly store: PackageStore | EntityStore | ColumnStore | DiagramStore,
     private readonly newName: string,
   ){
     this.oldName = store.name;

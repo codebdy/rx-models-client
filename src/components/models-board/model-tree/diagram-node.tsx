@@ -3,7 +3,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import React, { useState } from "react";
-import { DiagramNameCommand } from "../command/diagram-name-command";
+import { NameChangeCommand } from "../command/name-change-command";
 import { useModelsBoardStore } from "../store";
 import { DiagramStore } from "../store/diagram";
 import { NodeText } from "./node-text";
@@ -25,7 +25,7 @@ export const DiagramNode = observer((props:{
   }
 
   const handleNameChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
-    const command = new DiagramNameCommand(diagramStore, event.target.value as string);
+    const command = new NameChangeCommand(diagramStore, event.target.value as string);
     bordStore.excuteCommand(command);
   }
 
