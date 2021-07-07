@@ -38,10 +38,11 @@ export class EntityStore{
   createdColumn(){
     let index = 1;
     const namePrefix = 'newColumn';
-    while(this.columns.find(column=>column.name === namePrefix + 1)){
+    // eslint-disable-next-line no-loop-func
+    while(this.columns.find(column=>column.name === namePrefix + index)){
       index ++
     }
-
+    
     const columnStore = new ColumnStore({
       id:createId(),
       name: namePrefix + index,
