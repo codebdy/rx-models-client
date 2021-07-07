@@ -4,7 +4,7 @@ import { EntityStore } from "../store/entity-store";
 import { SelectedNode } from "../store/models-board";
 import { Command } from "./command";
 
-export class HideEntityCommand implements Command{
+export class EntityHideCommand implements Command{
   private newNodeMeta: X6NodeMeta|undefined;
   constructor(
     private readonly diagramStore: DiagramStore,

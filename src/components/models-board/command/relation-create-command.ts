@@ -4,7 +4,7 @@ import { SelectedNode } from "../store/models-board";
 import { RelationStore } from "../store/relation";
 import { Command } from "./command";
 
-export class CreateRelationCommand implements Command{
+export class RelationCreateCommand implements Command{
   constructor(
     private readonly diagramStore: DiagramStore,
     private readonly relationStore: RelationStore,

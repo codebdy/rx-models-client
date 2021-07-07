@@ -73,13 +73,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EntityView = (props:{
   onColumnSelect?:(entityId:string, columnId:string)=>void,  
+  onColumnDelete?:(entityId:string, columnId:string)=>void,  
   onHide?:(entityId:string)=>void,
   onDeleteProperty?:(id:string)=>void,
   onAddProperty?:()=>void,
   node?:any,
 }) =>{
   const classes = useStyles();
-  const {node, onColumnSelect, onHide} = props;
+  const {node, onColumnSelect, onColumnDelete,  onHide} = props;
   const [hover, setHover] = useState(false);
   const data : EntityNodeData|undefined = node?.data;
 
@@ -93,6 +94,10 @@ export const EntityView = (props:{
 
   const handleColumnClick = (id:string)=>{
     onColumnSelect && onColumnSelect(node.id, id);
+  }
+
+  const handleColumnDelete = (id:string)=>{
+    onColumnDelete && onColumnDelete(node.id, id);
   }
 
   return (
@@ -133,6 +138,7 @@ export const EntityView = (props:{
                 key = {column.id} 
                 column= {column}
                 onClick = {handleColumnClick}
+                onDelete = {handleColumnDelete}
                 isSelected = {data.selectedId === column.id}
                 readOnly = {disableHover}
               />)

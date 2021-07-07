@@ -5,7 +5,8 @@ import { useEffect } from "react";
 import { EntityView } from "./entity-view";
 import _ from "lodash";
 import { ColumnStore } from "../store/column";
-import { HideEntityCommand } from "../command/hide-entity-command";
+import { EntityHideCommand } from "../command/entity-hide-command";
+import { ColumnDeleteCommand } from "../command/column-delete-command";
 
 export function useShowNodes(){
   const modelStore = useModelsBoardStore();
@@ -21,6 +22,14 @@ export function useShowNodes(){
     modelStore.setSelectedElement(entity?.columns.find(column=>column.id === columnId));
   }
 
+  const handleColumnDelete = (entityId:string, columnId:string)=>{
+    const entity = modelStore.rootStore.getEntityById(entityId);
+    if(entity){
+      const command = new ColumnDeleteCommand(entity, columnId);
+      modelStore.excuteCommand(command);
+    }
+  }
+
   const handleHideEntity = (entityId:string)=>{
     if(!modelStore.openedDiagram){
       return;
@@ -31,7 +40,7 @@ export function useShowNodes(){
     if(!entityStore || !nodeMeta){
       return;
     }
-    const command = new HideEntityCommand(modelStore.openedDiagram, nodeMeta, entityStore);
+    const command = new EntityHideCommand(modelStore.openedDiagram, nodeMeta, entityStore);
 
     modelStore.excuteCommand(command);
   }
@@ -42,6 +51,7 @@ export function useShowNodes(){
       if(grahpNode) {
         //Update by diff
         if(!_.isEqual(node.data, grahpNode.data)){
+          grahpNode.removeData();
           grahpNode.setData(node.data);
         }
         if(node.x !== grahpNode.getPosition().x 
@@ -59,6 +69,7 @@ export function useShowNodes(){
           shape: 'react-shape', 
           component: <EntityView 
             onColumnSelect = {handleColumnSelect}
+            onColumnDelete = {handleColumnDelete}
             onHide = {handleHideEntity}
           />
         });

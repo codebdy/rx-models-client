@@ -47,10 +47,11 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ColumnView(props:{
   column:ColumnMeta,
   onClick:(id:string)=>void,
+  onDelete:(id:string)=>void,
   isSelected?:boolean,
   readOnly?:boolean,
 }){
-  const {column, onClick, isSelected, readOnly = false} = props;
+  const {column, onClick, onDelete, isSelected, readOnly = false} = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
@@ -59,6 +60,10 @@ export default function ColumnView(props:{
   const handleClick = ()=>{
     onClick(column.id);
   }
+
+  const handleDeleteClick = ()=>{
+    onDelete(column.id);
+  } 
 
   return (
     <div className = {
@@ -83,7 +88,10 @@ export default function ColumnView(props:{
       {
         hover && !readOnly&& !isId && 
         <div className = {classes.propertyTools}>
-          <IconButton className = {classes.propertyButton}>
+          <IconButton 
+            className = {classes.propertyButton}
+            onClick = {handleDeleteClick}
+          >
             <MdiIcon iconClass="mdi-trash-can-outline" size={16}></MdiIcon>
           </IconButton>
         </div>        

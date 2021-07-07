@@ -3,7 +3,7 @@ import { useModelsBoardStore } from "../store";
 import { LineAction } from "../store/line-action";
 import { Edge, Node } from '@antv/x6';
 import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
-import { CreateRelationCommand } from "../command/create-relation-command";
+import { RelationCreateCommand } from "../command/relation-create-command";
 import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { RelationStore } from "../store/relation";
@@ -44,7 +44,7 @@ export function useDrawLine(){
         return;
       }
 
-      const comamnd = new CreateRelationCommand(
+      const comamnd = new RelationCreateCommand(
         modelStore.openedDiagram,
         new RelationStore({
           id: relationId,

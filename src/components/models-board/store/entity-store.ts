@@ -3,6 +3,7 @@ import { EntityMeta, EntityType } from "../meta/entity-meta";
 import { ColumnStore } from "./column";
 import { PackageStore } from "./package";
 import { RelationStore } from "./relation";
+import _ from 'lodash';
 
 export class EntityStore{
   id: string;
@@ -30,6 +31,18 @@ export class EntityStore{
 
   setPackage(belongsToPackage:PackageStore){
     this.package = belongsToPackage;
+  }
+
+  deleteColumn(id: string){
+    _.remove(this.columns, column=>column.id === id);
+  }
+
+  insertColumn(columnStore: ColumnStore, index:number){
+    this.columns.splice(index, 0, columnStore);
+  }
+
+  getColumnById(id:string){
+    return this.columns.find(column=>column.id === id);
   }
 
   getSourceRelations():RelationStore[]{
