@@ -41,11 +41,8 @@ export const DiagramNode = observer((props:{
   }
 
   const handleDelete = (event:React.MouseEvent)=>{
-    const command = new DiagramDeleteCommand(diagramStore);
+    const command = new DiagramDeleteCommand(diagramStore, bordStore);
     bordStore.excuteCommand(command);
-    if(bordStore.openedDiagram?.id === diagramStore.id){
-      bordStore.setOpendDiagram(undefined);
-    }
     event.stopPropagation();
   }
 
