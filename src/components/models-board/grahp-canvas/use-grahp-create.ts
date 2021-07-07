@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useModelsBoardStore } from '../store';
 import { getGraphConfig } from './get-grahp-config';
 
-export function useCreateGraph(){
+export function useGraphCreate(){
   const modelStore = useModelsBoardStore();
 
   useEffect(()=>{

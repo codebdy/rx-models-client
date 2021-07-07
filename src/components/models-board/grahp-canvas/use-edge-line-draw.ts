@@ -8,7 +8,7 @@ import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { RelationStore } from "../store/relation";
 
-export function useDrawLine(){
+export function useEdgeLineDraw(){
   const modelStore = useModelsBoardStore();
 
   const handleMouseMove = (e: MouseEvent) => {

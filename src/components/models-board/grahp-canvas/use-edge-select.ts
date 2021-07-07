@@ -3,7 +3,7 @@ import { useModelsBoardStore } from "../store";
 import { Edge } from '@antv/x6';
 import { RelationStore } from "../store/relation";
 
-export function useSelectEdge(){
+export function useEdgeSelect(){
   const modelStore = useModelsBoardStore();
   const [selectedRelation, setSelectedRelation] = useState<RelationStore>();
   useEffect(()=>{

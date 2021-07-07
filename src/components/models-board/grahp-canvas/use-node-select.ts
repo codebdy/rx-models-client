@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useModelsBoardStore } from "../store";
 import { Node } from '@antv/x6';
 
-export function useSelectNode(){
+export function useNodeSelect(){
   const modelStore = useModelsBoardStore();
   useEffect(()=>{
     if(modelStore.selectedElement)

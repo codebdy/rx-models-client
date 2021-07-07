@@ -1,15 +1,15 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { observer } from 'mobx-react';
-import { useShowNodes } from './use-show-nodes';
-import { useHideExplorerScrollbar } from './use-hide-explorer-scrollbar';
-import { useSelectNode } from './use-select-node';
-import { useCreateGraph } from './use-create-grahp';
-import { useDrawLine } from './use-draw-line';
-import { useShowEdges } from './use-show-edges';
+import { useNodesShow } from './use-nodes-show';
+import { useExplorerScrollbarHide } from './use-explorer-scrollbar-hide';
+import { useNodeSelect } from './use-node-select';
+import { useGraphCreate } from './use-grahp-create';
+import { useEdgeLineDraw } from './use-edge-line-draw';
+import { useEdgesShow } from './use-edges-show';
 import { useNodeChange } from './use-node-change';
-import { useAddNode } from './use-add-node';
-import { useSelectEdge } from './use-select-edge';
+import { useNodeAdd } from './use-node-add';
+import { useEdgeSelect } from './use-edge-select';
 import { useEdgeChange } from './use-edge-change';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,16 +25,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const GraphCanvas = observer(()=>{
   const classes = useStyles();
-  useHideExplorerScrollbar();
-  useSelectNode();
-  useSelectEdge();
-  useCreateGraph();
-  useShowNodes();
-  useDrawLine();
-  useShowEdges();
+  useExplorerScrollbarHide();
+  useNodeSelect();
+  useEdgeSelect();
+  useGraphCreate();
+  useNodesShow();
+  useEdgeLineDraw();
+  useEdgesShow();
   useNodeChange();
   useEdgeChange();
-  useAddNode();
+  useNodeAdd();
 
   return (
     <div className={classes.root} id="container">

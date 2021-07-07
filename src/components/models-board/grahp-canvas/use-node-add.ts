@@ -4,7 +4,7 @@ import { EntityCreateCommand } from "../command/entity-create-command";
 import { EntityAddCommand } from "../command/entity-add-command";
 import { useEffect } from "react";
 
-export function useAddNode(){
+export function useNodeAdd(){
   const modelStore = useModelsBoardStore();
   
   const nodeAdded = (arg: { node: Node<Node.Properties>; })=>{

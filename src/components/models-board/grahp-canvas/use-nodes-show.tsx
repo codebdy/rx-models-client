@@ -9,7 +9,7 @@ import { EntityHideCommand } from "../command/entity-hide-command";
 import { ColumnDeleteCommand } from "../command/column-delete-command";
 import { ColumnCreateCommand } from "../command/column-create-command";
 
-export function useShowNodes(){
+export function useNodesShow(){
   const modelStore = useModelsBoardStore();
   const nodes = modelStore.openedDiagram?.getNodes(
     modelStore.selectedElement instanceof ColumnStore 

@@ -4,7 +4,7 @@ import { useModelsBoardStore } from "../store";
 import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
 import _ from 'lodash';
 
-export function useShowEdges(){
+export function useEdgesShow(){
   const modelStore = useModelsBoardStore();
   const edges = modelStore.openedDiagram?.getAndMakeEdges();
   
@@ -49,7 +49,7 @@ export function useShowEdges(){
                 text: edgeMeta.roleOnSource,
               },
             },
-            position: {
+            position: edgeMeta.roleOnSourcePosition || {
               distance: 40,
               offset: 20,
             },
@@ -60,7 +60,7 @@ export function useShowEdges(){
                 text: edgeMeta.roleOnTarget,
               },
             },
-            position: {
+            position: edgeMeta.roleOnTargetPosition || {
               distance: -40,
               offset: 20,
             },
