@@ -6,7 +6,6 @@ import { X6NodeMeta } from "../meta/x6-node-meta";
 import { PackageStore } from "./package";
 import _ from "lodash";
 import { RelationMeta } from "../meta/relation-meta";
-import { TREE_ROOT_ID } from "util/consts";
 
 export type EntityNodeData = EntityMeta & {
     packageName?:string, 

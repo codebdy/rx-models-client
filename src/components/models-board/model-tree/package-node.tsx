@@ -9,6 +9,11 @@ import { DiagramNode } from "./diagram-node";
 import { NodeText } from "./node-text";
 import PackageAction from "./package-action";
 import { TreeNodeLabel } from "./tree-node-label";
+import { createId } from "util/creat-id";
+import { EntityCreateOnTreeCommand } from "../command/entity-create-on-tree-command";
+import { PackageCreateCommand } from "../command/package-create-command";
+import { creatNewEntityMeta } from "../store/create-new-entity-meta";
+import { getNewPackageName } from "../store/get-new-package-name";
 
 export const PackageNode = observer((props:{
   key?:string,
@@ -16,6 +21,7 @@ export const PackageNode = observer((props:{
 })=>{
   const {packageStore} = props;
   const bordStore = useModelsBoardStore();
+  const rootStore = bordStore.rootStore;
 
   const handleClick = (event:React.MouseEvent)=>{
     bordStore.setSelectedElement(packageStore);
@@ -23,11 +29,19 @@ export const PackageNode = observer((props:{
   }
 
   const handleAddPackage = ()=>{
-
-  }
-
-  const handleEntityClass = ()=>{
-
+    const command = new PackageCreateCommand(
+      new PackageStore({
+        id:createId(), 
+        name: getNewPackageName(rootStore),
+      }, rootStore), 
+      packageStore
+    )
+    bordStore.excuteCommand(command);
+  } 
+  
+  const handleAddEntity = ()=>{
+    const command = new EntityCreateOnTreeCommand(packageStore, creatNewEntityMeta(bordStore.rootStore))
+    bordStore.excuteCommand(command);
   }
 
   const handleAddDiagram = ()=>{
@@ -45,7 +59,7 @@ export const PackageNode = observer((props:{
           <PackageAction 
             canEdit 
             onAddPackage = {handleAddPackage} 
-            onAddClass = {handleEntityClass}
+            onAddClass = {handleAddEntity}
             onAddDiagram = {handleAddDiagram}
             onDelete = {handleDelete}          
           />
