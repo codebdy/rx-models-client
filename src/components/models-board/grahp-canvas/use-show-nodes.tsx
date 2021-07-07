@@ -7,6 +7,7 @@ import _ from "lodash";
 import { ColumnStore } from "../store/column";
 import { EntityHideCommand } from "../command/entity-hide-command";
 import { ColumnDeleteCommand } from "../command/column-delete-command";
+import { ColumnCreateCommand } from "../command/column-create-command";
 
 export function useShowNodes(){
   const modelStore = useModelsBoardStore();
@@ -26,6 +27,14 @@ export function useShowNodes(){
     const entity = modelStore.rootStore.getEntityById(entityId);
     if(entity){
       const command = new ColumnDeleteCommand(entity, columnId);
+      modelStore.excuteCommand(command);
+    }
+  }
+
+  const handleColumnCreate = (entityId:string)=>{
+    const entity = modelStore.rootStore.getEntityById(entityId);
+    if(entity){
+      const command = new ColumnCreateCommand(entity);
       modelStore.excuteCommand(command);
     }
   }
@@ -70,6 +79,7 @@ export function useShowNodes(){
           component: <EntityView 
             onColumnSelect = {handleColumnSelect}
             onColumnDelete = {handleColumnDelete}
+            onColumnCreate = {handleColumnCreate}
             onHide = {handleHideEntity}
           />
         });

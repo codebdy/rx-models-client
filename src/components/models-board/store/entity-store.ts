@@ -4,6 +4,8 @@ import { ColumnStore } from "./column";
 import { PackageStore } from "./package";
 import { RelationStore } from "./relation";
 import _ from 'lodash';
+import { createId } from "util/creat-id";
+import { ColumnType } from "../meta/column-meta";
 
 export class EntityStore{
   id: string;
@@ -31,6 +33,24 @@ export class EntityStore{
 
   setPackage(belongsToPackage:PackageStore){
     this.package = belongsToPackage;
+  }
+
+  createdColumn(){
+    let index = 1;
+    const namePrefix = 'newColumn';
+    while(this.columns.find(column=>column.name === namePrefix + 1)){
+      index ++
+    }
+
+    const columnStore = new ColumnStore({
+      id:createId(),
+      name: namePrefix + index,
+      type: ColumnType.String,
+    })
+
+    this.columns.push(columnStore);
+
+    return columnStore;
   }
 
   deleteColumn(id: string){

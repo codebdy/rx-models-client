@@ -59,11 +59,11 @@ const useStyles = makeStyles((theme: Theme) =>
     smFont:{
       fontSize: '0.9rem',
     },
-    propertyPlus:{
+    columnPuls:{
       display: 'flex',
       justifyContent: 'center',
     },
-    propertyButton:{
+    columnButton:{
       width: '24px',
       height: '24px',
     },
@@ -72,15 +72,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );  
 
 export const EntityView = (props:{
-  onColumnSelect?:(entityId:string, columnId:string)=>void,  
-  onColumnDelete?:(entityId:string, columnId:string)=>void,  
-  onHide?:(entityId:string)=>void,
-  onDeleteProperty?:(id:string)=>void,
-  onAddProperty?:()=>void,
-  node?:any,
+  onColumnSelect?: (entityId:string, columnId:string)=>void,  
+  onColumnDelete?: (entityId:string, columnId:string)=>void, 
+  onColumnCreate?: (entityId:string)=>void, 
+  onHide?: (entityId:string)=>void,
+  onDeleteProperty?: (id:string)=>void,
+  onAddProperty?: ()=>void,
+  node?: any,
 }) =>{
   const classes = useStyles();
-  const {node, onColumnSelect, onColumnDelete,  onHide} = props;
+  const {node, onColumnSelect, onColumnDelete, onColumnCreate, onHide} = props;
   const [hover, setHover] = useState(false);
   const data : EntityNodeData|undefined = node?.data;
 
@@ -98,6 +99,10 @@ export const EntityView = (props:{
 
   const handleColumnDelete = (id:string)=>{
     onColumnDelete && onColumnDelete(node.id, id);
+  }
+
+  const handleColumnCreate = ()=>{
+    onColumnCreate && onColumnCreate(node.id);
   }
 
   return (
@@ -146,8 +151,11 @@ export const EntityView = (props:{
           }
           {
             hover && !disableHover &&
-            <div className = {classes.propertyPlus}>
-              <IconButton className = {classes.propertyButton}>
+            <div className = {classes.columnPuls}>
+              <IconButton 
+                className = {classes.columnButton}
+                onClick = {handleColumnCreate}
+              >
                 <MdiIcon iconClass="mdi-plus" size={20}></MdiIcon>
               </IconButton>
             </div>
