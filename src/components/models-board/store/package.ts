@@ -7,6 +7,7 @@ import { RelationStore } from "./relation";
 import { RootMeta } from "../meta/root-meta";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
+import { TREE_ROOT_ID } from "util/consts";
 
 export class PackageStore{
   id: string;
@@ -18,7 +19,7 @@ export class PackageStore{
   relations: RelationStore[] = [];
   
   constructor(meta?:PackageMeta, private rootStore?: PackageStore){
-    this.id = meta?.id || 'root';
+    this.id = meta?.id || TREE_ROOT_ID;
     this.name = meta?.name || intl.get('root-models');
     this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this.rootStore||this))||[];
     this.entities = meta?.entityMetas?.map(meta=>new EntityStore(meta, this.rootStore||this, this))||[];

@@ -20,6 +20,7 @@ import { getNewPackageName } from '../store/get-new-package-name';
 import { PackageStore } from '../store/package';
 import { EntityCreateOnTreeCommand } from '../command/entity-create-on-tree-command';
 import { creatNewEntityMeta } from '../store/create-new-entity-meta';
+import { TREE_ROOT_ID } from 'util/consts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,11 +60,11 @@ export const ModelTreeView = observer(() => {
     <TreeView
       className={classes.root}
       defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpanded={['root']}
+      defaultExpanded={[TREE_ROOT_ID]}
       defaultExpandIcon={<ChevronRightIcon />}
       selected = {[bordStore?.selectedElement?.id || '', bordStore?.openedDiagram?.id || '']}
     >
-      <TreeItem nodeId='root' label={
+      <TreeItem nodeId={TREE_ROOT_ID} label={
         <TreeNodeLabel
           action = {
             <PackageAction 
