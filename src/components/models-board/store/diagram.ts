@@ -53,7 +53,7 @@ export class DiagramStore{
 
   getAndMakeEdges(){
     const edges: EdgeConfig[] = [];
-    //处理继承关系
+
     this.rootStore.relations?.forEach(relation=>{
       const source = this.nodes.find(node=>node.id === relation.sourceId);
       const target = this.nodes.find(node=>node.id === relation.targetId);
