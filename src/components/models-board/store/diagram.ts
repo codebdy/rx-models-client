@@ -7,7 +7,12 @@ import { PackageStore } from "./package";
 import _ from "lodash";
 import { RelationMeta } from "../meta/relation-meta";
 
-export type EntityNodeData = EntityMeta & {packageName?:string, isTempForNew?:boolean, isTempForDrag?: boolean};
+export type EntityNodeData = EntityMeta & {
+    packageName?:string, 
+    isTempForNew?:boolean, 
+    isTempForDrag?: boolean,
+    selectedId?:string,
+  };
 export type NodeConfig = X6NodeMeta & {data: EntityNodeData};
 export type EdgeConfig = X6EdgeMeta & RelationMeta;
 
@@ -29,14 +34,15 @@ export class DiagramStore{
     makeAutoObservable(this)
   }
 
-  getNodes(){
+  getNodes(selectedId:string|undefined){
     return this.nodes.map(node=>{
       const classStore = this.rootStore.getEntityById(node.id);
       const data = {
         ...classStore?.toMeta(), 
         packageName:(this.belongsToPackage.id !== classStore?.package?.id)
          ? (classStore?.package?.name)
-         : ''
+         : '',
+         selectedId:selectedId,
       }
       return{...node, data};
     })

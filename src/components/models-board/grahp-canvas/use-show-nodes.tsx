@@ -4,10 +4,21 @@ import { Node } from '@antv/x6';
 import { useEffect } from "react";
 import { EntityView } from "./entity-view";
 import _ from "lodash";
+import { ColumnStore } from "../store/column";
 
 export function useShowNodes(){
   const modelStore = useModelsBoardStore();
-  const nodes = modelStore.openedDiagram?.getNodes();
+  const nodes = modelStore.openedDiagram?.getNodes(
+    modelStore.selectedElement instanceof ColumnStore 
+     ? (modelStore.selectedElement?.id)
+     : undefined
+  );
+
+  const handleColumnSelect = (entityId:string, columnId:string)=>{
+    const entity = modelStore.rootStore.getEntityById(entityId);
+    modelStore.setSelectedElement(entity?.columns.find(column=>column.id === columnId));
+  }
+
   useEffect(()=>{
     nodes?.forEach(node=>{
       const grahpNode =  modelStore.graph?.getCellById(node.id) as Node<Node.Properties>;
@@ -29,7 +40,9 @@ export function useShowNodes(){
         modelStore.graph?.addNode({
           ...node, 
           shape: 'react-shape', 
-          component: <EntityView />
+          component: <EntityView 
+            onColumnSelect = {handleColumnSelect}
+          />
         });
       }
     })

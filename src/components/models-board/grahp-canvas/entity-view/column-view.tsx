@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
 import MdiIcon from 'components/common/mdi-icon';
 import classNames from 'classnames';
+import { ColumnMeta } from 'components/models-board/meta/column-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     hover:{
+      background:'rgba(80,111,226,0.05)',
+    },
+    selected:{
       background:'rgba(80,111,226,0.1)',
     },
     name:{
@@ -41,27 +45,41 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ColumnView(props:{
-  name:string,
-  type:string,
+  column:ColumnMeta,
+  onClick:(id:string)=>void,
+  isSelected?:boolean,
   readOnly?:boolean,
 }){
-  const {name, type, readOnly = false} = props;
+  const {column, onClick, isSelected, readOnly = false} = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
-  const isId = name === 'id';
+  const isId = column.name === 'id';
+
+  const handleClick = ()=>{
+    onClick(column.id);
+  }
 
   return (
-    <div className = {classNames(classes.property, {[classes.hover]:!readOnly&&hover})}
+    <div className = {
+        classNames(
+          classes.property, 
+          {
+            [classes.hover]:!readOnly&&hover,
+            [classes.selected]:isSelected
+          }
+        )
+      }
       onMouseOver = {()=>setHover(true)}
       onMouseLeave = {()=>setHover(false)}   
+      onClick = {handleClick}
     >
       {
         isId &&
         <div className = {classes.pk}><MdiIcon iconClass = "mdi-key" size={14} color="green" /></div> 
       }
       
-      <span className = {classes.name}>{name}</span>: <span className = {classes.typeText}>{type}</span>
+      <span className = {classes.name}>{column.name}</span>: <span className = {classes.typeText}>{column.type}</span>
       {
         hover && !readOnly&& !isId && 
         <div className = {classes.propertyTools}>
