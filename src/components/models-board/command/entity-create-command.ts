@@ -12,7 +12,7 @@ export class EntityCreateCommand implements Command{
   ){}
   
   excute():SelectedNode{
-    const entityStore = this.diagramStore?.belongsToPackage?.addNewEntity(this.entityMeta);
+    const entityStore = this.diagramStore?.belongsToPackage?.createNewEntity(this.entityMeta);
     this.diagramStore?.addNode(this.nodeMeta);
     return entityStore;
   }

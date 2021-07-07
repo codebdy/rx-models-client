@@ -6,13 +6,13 @@ import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 import { RootMeta } from "../meta/root-meta";
 import { LineAction } from "./line-action";
-import { seedId } from "util/seed-id";
 import { EntityStore } from "./entity-store";
 import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
 import { Command } from "../command/command";
 import { NODE_INIT_SIZE } from "./node-init-size";
 import { RelationType } from "../meta/relation-meta";
+import { getNewEntityName } from "./get-new-entity-name";
 
 export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
@@ -66,7 +66,7 @@ export class ModelsBoardStore{
       shape: 'react-shape', 
       data:{
         id,
-        name:'NewEntity' + seedId(),
+        name: getNewEntityName(this.rootStore),
         columns: [
           {
             id: createId(),

@@ -39,6 +39,20 @@ export class PackageStore{
     this.name = name;
   }
 
+  getEntityByName(name:string): EntityStore|undefined{
+    const entityStore = this.entities.find(entityStore=>entityStore.name === name);
+    if(entityStore){
+      return entityStore;
+    }
+
+    for(const pkg of this.packages){
+      const clsStore = pkg.getEntityByName(name);
+      if(clsStore){
+        return clsStore;
+      }
+    }
+  }  
+
   getEntityById(id:string): EntityStore|undefined{
     const entityStore = this.entities.find(entityStore=>entityStore.id === id);
     if(entityStore){
@@ -92,7 +106,7 @@ export class PackageStore{
     _.remove(this.packages, (packageStore)=> packageStore.id === id);
   }
 
-  addNewEntity(entityMeta: EntityMeta){
+  createNewEntity(entityMeta: EntityMeta){
     const newClass = new EntityStore(entityMeta, this.rootStore||this, this);
     this.entities.push(newClass);
     return newClass;
