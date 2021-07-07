@@ -29,10 +29,12 @@ export function useSelectNode(){
     graph?.on('node:click', handleNodeSelected);
     graph?.on('node:selected', handleNodeSelected);
     graph?.on('node:unselected', handleNodeUnselected);
+    graph?.on('blank:mouseup', handleNodeUnselected);
     return ()=>{
       graph?.off('node:click', handleNodeSelected);
       graph?.off('node:selected', handleNodeSelected);
       graph?.off('node:unselected', handleNodeUnselected);
+      graph?.off('blank:mouseup', handleNodeUnselected);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[modelStore.graph])
