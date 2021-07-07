@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display:'flex',
       height:'0',
     },
+    canvasShell:{
+      flex:1,
+      display:'flex',
+    },
     empertyCanvas: {
       flex: 1,
     }
@@ -44,7 +48,10 @@ export const ModelsBoard = observer(()=>{
           modelStore.openedDiagram 
           ? <>
               <Toolbox></Toolbox>
-              <GraphCanvas></GraphCanvas>
+              <div className = {classes.canvasShell}>
+                <GraphCanvas></GraphCanvas>
+              </div>
+              
             </>
           : <div className={classes.empertyCanvas}></div>
         }

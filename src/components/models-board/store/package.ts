@@ -127,6 +127,15 @@ export class PackageStore{
     this.packages.splice(index, 0, packageStore);
   }
 
+  insertEntity(entityStore: EntityStore, index:number){
+    this.entities.splice(index, 0, entityStore);
+  }
+
+
+  insertDiagram(diagramStore: DiagramStore, index:number){
+    this.diagrams.splice(index, 0, diagramStore);
+  }
+
   deletePackage(id:string){
     _.remove(this.packages, (packageStore)=> packageStore.id === id);
   }

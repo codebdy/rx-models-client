@@ -13,6 +13,7 @@ import { useModelsBoardStore } from "../store";
 import { Addon } from '@antv/x6'
 import { EntityView } from "../grahp-canvas/entity-view";
 import { NODE_INIT_SIZE } from "../store/node-init-size";
+import { EntityDeleteCommand } from "../command/entity-delete-command";
 const { Dnd } = Addon
 
 export const EntityNode = observer((props:{
@@ -58,11 +59,16 @@ export const EntityNode = observer((props:{
   const sourceRelations = entityStore.getSourceRelations();
   const targetRelations = entityStore.getTargetRelations();
 
+  const handleDelete = ()=>{
+    const command = new EntityDeleteCommand(entityStore);
+    bordStore.excuteCommand(command);
+  }
+
   return(
     <TreeItem nodeId= {entityStore.id} label={
       <TreeNodeLabel
         action = {
-          <IconButton size = "small">
+          <IconButton size = "small" onClick = {handleDelete}>
             <MdiIcon className="mdi-trash-can-outline" size="16" />
           </IconButton>
         }

@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const GraphCanvas = observer(()=>{
   const classes = useStyles();
+  useGraphCreate();
   useExplorerScrollbarHide();
   useNodeSelect();
   useEdgeSelect();
-  useGraphCreate();
   useNodesShow();
   useEdgeLineDraw();
   useEdgesShow();

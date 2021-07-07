@@ -3,6 +3,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import React, { useState } from "react";
+import { DiagramDeleteCommand } from "../command/diagram-delete-command";
 import { NameChangeCommand } from "../command/name-change-command";
 import { useModelsBoardStore } from "../store";
 import { DiagramStore } from "../store/diagram";
@@ -38,6 +39,16 @@ export const DiagramNode = observer((props:{
       setEditing(false);
     }
   }
+
+  const handleDelete = (event:React.MouseEvent)=>{
+    const command = new DiagramDeleteCommand(diagramStore);
+    bordStore.excuteCommand(command);
+    if(bordStore.openedDiagram?.id === diagramStore.id){
+      bordStore.setOpendDiagram(undefined);
+    }
+    event.stopPropagation();
+  }
+
   return(
     <TreeItem nodeId= {diagramStore.id} label={
       <TreeNodeLabel
@@ -47,7 +58,9 @@ export const DiagramNode = observer((props:{
             <IconButton size = "small" onClick={handleEdit}>
               <MdiIcon className="mdi-pencil-outline" size="16" />
             </IconButton>
-            <IconButton size = "small">
+            <IconButton size = "small"
+              onClick = {handleDelete}
+            >
               <MdiIcon className="mdi-trash-can-outline" size="16" />
             </IconButton>
           </>
