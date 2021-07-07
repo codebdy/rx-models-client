@@ -6,9 +6,9 @@ import intl from "react-intl-universal";
 import { RelationStore } from "./relation";
 import { RootMeta } from "../meta/root-meta";
 import { createId } from "util/creat-id";
-import { seedId } from "util/seed-id";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
+import { getNewPackageName } from "./get-new-package-name";
 
 export class PackageStore{
   id: string;
@@ -39,6 +39,20 @@ export class PackageStore{
     this.name = name;
   }
 
+  getPackageByName(name:string): DiagramStore|undefined{
+    const packageStore = this.diagrams.find(pgkStore=>pgkStore.name === name);
+    if(packageStore){
+      return packageStore;
+    }
+    for(const pkg of this.packages){
+      const pkgStore = pkg.getPackageByName(name);
+      if(pkgStore){
+        return pkgStore;
+      }
+    }
+    return undefined;
+  }
+
   getEntityByName(name:string): EntityStore|undefined{
     const entityStore = this.entities.find(entityStore=>entityStore.name === name);
     if(entityStore){
@@ -67,6 +81,20 @@ export class PackageStore{
     }
   }
 
+  getDiagramByName(name:string): DiagramStore|undefined{
+    const diagramStore = this.diagrams.find(diagStore=>diagStore.name === name);
+    if(diagramStore){
+      return diagramStore;
+    }
+    for(const pkg of this.packages){
+      const diagStore = pkg.getDiagramByName(name);
+      if(diagStore){
+        return diagStore;
+      }
+    }
+    return undefined;
+  }
+
   getDiagramById(id:string): DiagramStore|undefined{
     const diagramStore = this.diagrams.find(diagStore=>diagStore.id === id);
     if(diagramStore){
@@ -89,11 +117,11 @@ export class PackageStore{
     this.parent = parent;
   }
 
-  addNewPackage(){
+  createNewPackage(){
     const packageStore = new PackageStore(
       {
         id:createId(), 
-        name:intl.get('add-package') + seedId(),
+        name: getNewPackageName(this),
       }, 
       this.rootStore||this
     );

@@ -30,7 +30,7 @@ export const ModelTreeView = observer(() => {
   const modelStore = bordStore.rootStore;
 
   const handleAddPackage = ()=>{
-    const newPackage = modelStore.addNewPackage();
+    const newPackage = modelStore.createNewPackage();
     bordStore.setSelectedElement(newPackage);
   }
   
