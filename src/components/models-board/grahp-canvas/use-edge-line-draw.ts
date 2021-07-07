@@ -29,7 +29,6 @@ export function useEdgeLineDraw(){
   const handleEdgeMouseUp = (arg: { x:number, y:number, edge:Edge})=>{
     const{edge, x, y} = arg;
     const [targetNode] = modelStore.graph?.getNodesFromPoint(x,y)||[];
-    //
 
     if(!modelStore.openedDiagram){
       return;

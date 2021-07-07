@@ -87,14 +87,6 @@ export const ModelTreeView = observer(() => {
         </TreeNodeLabel>
       }>
         {
-          rootStore.diagrams.map(diagram=>{
-            return (
-              <DiagramNode key={diagram.id} diagramStore = {diagram} />
-            )
-          })
-        }
-
-        {
           rootStore.packages.map(aPackage=>{
             return (
               <PackageNode key={aPackage.id} packageStore = {aPackage} />
@@ -105,6 +97,13 @@ export const ModelTreeView = observer(() => {
           rootStore.entities.map(aClass=>{
             return (
               <EntityNode key={aClass.id} entityStore = {aClass} />
+            )
+          })
+        }
+        {
+          rootStore.diagrams.map(diagram=>{
+            return (
+              <DiagramNode key={diagram.id} diagramStore = {diagram} />
             )
           })
         }

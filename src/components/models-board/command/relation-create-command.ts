@@ -12,12 +12,12 @@ export class RelationCreateCommand implements Command{
   ){}
   
   excute():SelectedNode{
-    const relationStore = this.diagramStore?.belongsToPackage?.rootStore?.addNewRelation(this.relationStore);
+    const relationStore = this.diagramStore?.rootStore?.addNewRelation(this.relationStore);
     this.diagramStore?.addEdge(this.edgeMeta);
     return relationStore;
   }
   undo():SelectedNode{
-    this.diagramStore?.belongsToPackage?.rootStore?.deleteRelation(this.relationStore.id)
+    this.diagramStore?.rootStore?.deleteRelation(this.relationStore.id)
     this.diagramStore?.deleteEdge(this.edgeMeta.id);
     return undefined;
   };
