@@ -39,8 +39,8 @@ export class PackageStore{
     this.name = name;
   }
 
-  getPackageByName(name:string): DiagramStore|undefined{
-    const packageStore = this.diagrams.find(pgkStore=>pgkStore.name === name);
+  getPackageByName(name:string): PackageStore|undefined{
+    const packageStore = this.packages.find(pgkStore=>pgkStore.name === name);
     if(packageStore){
       return packageStore;
     }
