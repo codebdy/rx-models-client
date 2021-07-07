@@ -12,7 +12,7 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 5, 0
             a 4 4 0 1 1 0 1 z
           `,
         },
@@ -22,7 +22,7 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 5, 0
             a 4 4 0 1 1 0 1 z
           `,
        },
@@ -41,7 +41,7 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 5, 0
             a 4 4 0 1 1 0 1 z
           `,
         },
@@ -51,11 +51,11 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 16, 0
             a 4 4 0 1 1 0 1 z
-            M 12,0
+            M 16,0
             L 0,6
-            M 12,0
+            M 16,0
             L 0,-6
           `,
        },
@@ -74,11 +74,11 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 16, 0
             a 4 4 0 1 1 0 1 z
-            M 12,0
+            M 16,0
             L 0,6
-            M 12,0
+            M 16,0
             L 0,-6
           `,
         },
@@ -88,7 +88,7 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 5, 0
             a 4 4 0 1 1 0 1 z
           `,
         },
@@ -108,11 +108,11 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 16, 0
             a 4 4 0 1 1 0 1 z
-            M 12,0
+            M 16,0
             L 0,6
-            M 12,0
+            M 16,0
             L 0,-6
           `,
         },
@@ -122,11 +122,11 @@ export function getRelationGraphAttrs(relationType: RelationType){
           stroke: '#000', 
           strokeWidth: 1,
           d:`
-            M 12, 0
+            M 16, 0
             a 4 4 0 1 1 0 1 z
-            M 12,0
+            M 16,0
             L 0,6
-            M 12,0
+            M 16,0
             L 0,-6
           `,
        },

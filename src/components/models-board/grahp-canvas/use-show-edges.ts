@@ -7,6 +7,7 @@ import _ from 'lodash';
 export function useShowEdges(){
   const modelStore = useModelsBoardStore();
   const edges = modelStore.openedDiagram?.getAndMakeEdges();
+  
   useEffect(()=>{
     edges?.forEach((edgeMeta)=>{
       let grahpEdge =  modelStore.graph?.getCellById(edgeMeta.id) as Edge<Edge.Properties>|undefined;
@@ -27,10 +28,17 @@ export function useShowEdges(){
           target: edgeMeta.targetId,
           vertices: edgeMeta.vertices,
           connector: { name: 'rounded' },
-          tools: [],
+          //解决直连时，不能显示选中状态的bug
+          tools: modelStore.selectedElement?.id === edgeMeta.id? ['boundary', 'vertices', 'segments'] : [],
           attrs: getRelationGraphAttrs(edgeMeta.relationType),
           data:{relationType:edgeMeta.relationType}
         })
+      }
+
+      //如果是跟自己连接，那么需要增加2个中间点
+      if(edgeMeta.sourceId === edgeMeta.targetId && (!edgeMeta.vertices || edgeMeta.vertices?.length === 0)){
+        grahpEdge?.appendVertex({x:grahpEdge?.getTargetPoint().x + 200, y:grahpEdge?.getTargetPoint().y -150});
+        grahpEdge?.appendVertex({x:grahpEdge?.getTargetPoint().x + 200, y:grahpEdge?.getTargetPoint().y});
       }
 
       grahpEdge?.setLabels(
