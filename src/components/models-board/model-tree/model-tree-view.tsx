@@ -18,6 +18,8 @@ import { PackageCreateCommand } from '../command/package-create-command';
 import { createId } from 'util/creat-id';
 import { getNewPackageName } from '../store/get-new-package-name';
 import { PackageStore } from '../store/package';
+import { EntityCreateOnTreeCommand } from '../command/entity-create-on-tree-command';
+import { creatNewEntityMeta } from '../store/create-new-entity-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,8 +46,9 @@ export const ModelTreeView = observer(() => {
     bordStore.excuteCommand(command);
   } 
   
-  const handleAddClass = ()=>{
-  
+  const handleAddEntity = ()=>{
+    const command = new EntityCreateOnTreeCommand(bordStore.rootStore, creatNewEntityMeta(bordStore.rootStore))
+    bordStore.excuteCommand(command);
   }
   
   const handleAddDiagram = ()=>{
@@ -65,7 +68,7 @@ export const ModelTreeView = observer(() => {
           action = {
             <PackageAction 
               onAddPackage = {handleAddPackage} 
-              onAddClass = {handleAddClass}
+              onAddClass = {handleAddEntity}
               onAddDiagram = {handleAddDiagram}
             />
           }

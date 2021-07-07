@@ -44,7 +44,7 @@
   "properties": "Properties",
   "relations": "Relations",
   "add-package":"New package",
-  "add-class":"New class",
+  "add-entity":"New entity",
   "add-diagram":"New diagram",
   "no-selected":"Nothing selected!",
   "role-name": "Role name",

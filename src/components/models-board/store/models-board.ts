@@ -2,8 +2,6 @@ import { makeAutoObservable } from "mobx";
 import { DiagramStore } from "./diagram";
 import { PackageStore } from "./package";
 import { Graph } from "@antv/x6";
-import { createId } from "util/creat-id";
-import { ColumnType } from "../meta/column-meta";
 import { RootMeta } from "../meta/root-meta";
 import { LineAction } from "./line-action";
 import { EntityStore } from "./entity-store";
@@ -12,7 +10,7 @@ import { RelationStore } from "./relation";
 import { Command } from "../command/command";
 import { NODE_INIT_SIZE } from "./node-init-size";
 import { RelationType } from "../meta/relation-meta";
-import { getNewEntityName } from "./get-new-entity-name";
+import { creatNewEntityMeta } from "./create-new-entity-meta";
 
 export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
@@ -59,23 +57,13 @@ export class ModelsBoardStore{
   }
 
   createTempClassNodeForNew(){
-    const id = createId()
+    const entityMeta = creatNewEntityMeta(this.rootStore)
     return {
-      id: id,
+      id: entityMeta.id,
       ...NODE_INIT_SIZE,
       shape: 'react-shape', 
       data:{
-        id,
-        name: getNewEntityName(this.rootStore),
-        columns: [
-          {
-            id: createId(),
-            name: 'id',
-            type: ColumnType.Number,
-            primary: true,
-            generated: true,
-          },
-        ],
+        ...entityMeta,
         isTempForNew: true,
       }
     }

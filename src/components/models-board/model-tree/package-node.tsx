@@ -26,7 +26,7 @@ export const PackageNode = observer((props:{
 
   }
 
-  const handleAddClass = ()=>{
+  const handleEntityClass = ()=>{
 
   }
 
@@ -45,7 +45,7 @@ export const PackageNode = observer((props:{
           <PackageAction 
             canEdit 
             onAddPackage = {handleAddPackage} 
-            onAddClass = {handleAddClass}
+            onAddClass = {handleEntityClass}
             onAddDiagram = {handleAddDiagram}
             onDelete = {handleDelete}          
           />

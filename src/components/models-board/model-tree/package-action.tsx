@@ -87,7 +87,7 @@ export default function PackageAction(props:{
             {intl.get('add-package')} 
           </MenuItem>
           <MenuItem onClick={handleAddClass} className = {classes.menuItem}>
-            {intl.get('add-class')} 
+            {intl.get('add-entity')} 
           </MenuItem>
           <MenuItem onClick={handleAddDiagram} className = {classes.menuItem}>
             {intl.get('add-diagram')} 
