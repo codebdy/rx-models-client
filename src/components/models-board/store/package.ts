@@ -5,10 +5,8 @@ import { DiagramStore } from "./diagram";
 import intl from "react-intl-universal";
 import { RelationStore } from "./relation";
 import { RootMeta } from "../meta/root-meta";
-import { createId } from "util/creat-id";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
-import { getNewPackageName } from "./get-new-package-name";
 
 export class PackageStore{
   id: string;
@@ -117,16 +115,8 @@ export class PackageStore{
     this.parent = parent;
   }
 
-  createNewPackage(){
-    const packageStore = new PackageStore(
-      {
-        id:createId(), 
-        name: getNewPackageName(this),
-      }, 
-      this.rootStore||this
-    );
+  addPackge(packageStore: PackageStore){
     this.packages.push(packageStore);
-    return packageStore;
   }
 
 

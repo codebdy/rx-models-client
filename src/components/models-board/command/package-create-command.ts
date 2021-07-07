@@ -1,24 +1,22 @@
-import { EntityMeta } from "../meta/entity-meta";
-import { X6NodeMeta } from "../meta/x6-node-meta";
-import { DiagramStore } from "../store/diagram";
 import { SelectedNode } from "../store/models-board";
+import { PackageStore } from "../store/package";
 import { Command } from "./command";
 
 export class PackageCreateCommand implements Command{
   constructor(
-    private readonly diagramStore: DiagramStore,
-    private readonly entityMeta: EntityMeta,
-    private readonly nodeMeta: X6NodeMeta,
+    private readonly packageStore: PackageStore,
+    private readonly parentPackage: PackageStore,
   ){}
   
   excute():SelectedNode{
-    const entityStore = this.diagramStore?.belongsToPackage?.createNewEntity(this.entityMeta);
-    this.diagramStore?.addNode(this.nodeMeta);
-    return entityStore;
+   this.parentPackage.addPackge(this.packageStore);
+    return this.packageStore;
   }
   undo():SelectedNode{
-    this.diagramStore?.belongsToPackage?.deleteEntity(this.entityMeta.id)
-    this.diagramStore?.deleteNode(this.nodeMeta.id);
+    if(!this.packageStore){
+      return;
+    }
+    this.parentPackage.deletePackage(this.packageStore.id);
     return undefined;
   };
 }

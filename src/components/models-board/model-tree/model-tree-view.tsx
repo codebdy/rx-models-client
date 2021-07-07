@@ -14,6 +14,10 @@ import { EntityNode } from './entity-node';
 import { DiagramNode } from './diagram-node';
 import PackageAction from './package-action';
 import { observer } from 'mobx-react';
+import { PackageCreateCommand } from '../command/package-create-command';
+import { createId } from 'util/creat-id';
+import { getNewPackageName } from '../store/get-new-package-name';
+import { PackageStore } from '../store/package';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,12 +31,18 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ModelTreeView = observer(() => {
   const classes = useStyles();
   const bordStore = useModelsBoardStore();
-  const modelStore = bordStore.rootStore;
+  const rootStore = bordStore.rootStore;
 
   const handleAddPackage = ()=>{
-    const newPackage = modelStore.createNewPackage();
-    bordStore.setSelectedElement(newPackage);
-  }
+    const command = new PackageCreateCommand(
+      new PackageStore({
+        id:createId(), 
+        name: getNewPackageName(rootStore),
+      }, rootStore), 
+      rootStore
+    )
+    bordStore.excuteCommand(command);
+  } 
   
   const handleAddClass = ()=>{
   
@@ -65,7 +75,7 @@ export const ModelTreeView = observer(() => {
         </TreeNodeLabel>
       }>
         {
-          modelStore.diagrams.map(diagram=>{
+          rootStore.diagrams.map(diagram=>{
             return (
               <DiagramNode key={diagram.id} diagramStore = {diagram} />
             )
@@ -73,14 +83,14 @@ export const ModelTreeView = observer(() => {
         }
 
         {
-          modelStore.packages.map(aPackage=>{
+          rootStore.packages.map(aPackage=>{
             return (
               <PackageNode key={aPackage.id} packageStore = {aPackage} />
             )
           })
         }
         {
-          modelStore.entities.map(aClass=>{
+          rootStore.entities.map(aClass=>{
             return (
               <EntityNode key={aClass.id} entityStore = {aClass} />
             )
