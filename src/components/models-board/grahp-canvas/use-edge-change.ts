@@ -31,13 +31,12 @@ export function useEdgeChange(){
     }
 
     const command = new EdgeChangeCommand(modelStore.openedDiagram, 
+      {
+        id:edge.id,
+        vertices: edge.getVertices()
+      },
       modelStore.rootStore.getRelationById(edge.id)
     );
-
-    command.setNewEdgeMeta({
-      id:edge.id,
-      vertices: edge.getVertices()
-    })
 
     modelStore.excuteCommand(command);
   }

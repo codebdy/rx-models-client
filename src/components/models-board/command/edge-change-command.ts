@@ -5,28 +5,33 @@ import { Command } from "./command";
 import { RelationStore } from "../store/relation";
 
 export class EdgeChangeCommand implements Command{
-  private newEdgeMeta: X6EdgeMeta|undefined;
   private oldEdgeMeta?: X6EdgeMeta;
   constructor(
     private readonly diagramStore: DiagramStore,
+    private readonly newEdgeMeta: X6EdgeMeta,
     private readonly relationStore?: RelationStore,
   ){
     relationStore && (this.oldEdgeMeta = diagramStore.getEdgeById(relationStore?.id));
   }
 
-  setNewEdgeMeta(meta:X6EdgeMeta){
-    this.newEdgeMeta = meta;
-  }
-  
   excute():SelectedNode{
     if(this.newEdgeMeta){
-      this.diagramStore.updageEdge(this.newEdgeMeta);      
+      if(this.oldEdgeMeta){
+        this.diagramStore.updageEdge(this.newEdgeMeta);           
+      }else{
+        this.diagramStore.addEdge(this.newEdgeMeta);
+      }
+   
     }
 
     return this.relationStore;
   }
   undo():SelectedNode{
-    this.oldEdgeMeta && this.diagramStore.updageEdge(this.oldEdgeMeta);
+    if(this.oldEdgeMeta){
+      this.diagramStore.updageEdge(this.oldEdgeMeta);
+    }else{
+      this.diagramStore.deleteEdge(this.newEdgeMeta.id);
+    }
     return this.relationStore;
   };
 }
