@@ -1,4 +1,4 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
@@ -15,7 +15,7 @@ import useShadows from './util/use-shadows';
 
 function App() {
   const [langLoading] = useIntl();
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       type: 'light',
       primary:{

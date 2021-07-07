@@ -9,7 +9,7 @@ import { makeStyles,
   IconButton, 
   InputLabel, 
   OutlinedInput, 
-  createMuiTheme, 
+  createTheme, 
   ThemeProvider, 
 } from '@material-ui/core';
 import background from "assets/img/background1.jpg";
@@ -110,7 +110,7 @@ export const Install = observer(()=>{
   },[appStore.loggedUser, history]);
 
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       type: 'light',
       primary:{

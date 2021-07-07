@@ -12,7 +12,7 @@ import { makeStyles,
   OutlinedInput, 
   Checkbox, 
   FormControlLabel, 
-  createMuiTheme, 
+  createTheme, 
   ThemeProvider, 
 } from '@material-ui/core';
 import background from "assets/img/background1.jpg";
@@ -127,7 +127,7 @@ export const Login = observer(()=>{
   },[appStore.loggedUser, history]);
 
 
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       type: 'light',
       primary:{
