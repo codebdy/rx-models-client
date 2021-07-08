@@ -67,7 +67,6 @@ export const PackageNode = observer((props:{
       <TreeNodeLabel
         action = {
           <PackageAction 
-            canEdit 
             onAddPackage = {handleAddPackage} 
             onAddClass = {handleAddEntity}
             onAddDiagram = {handleAddDiagram}

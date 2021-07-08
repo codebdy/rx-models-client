@@ -8,20 +8,19 @@ const useStyles = makeStyles((theme: Theme) =>
     menuItem:{
       padding:theme.spacing(1, 3),
     },
-    deleteText:{
+    text:{
       marginLeft:'16px',
     }
   }),
 );
 
 export default function PackageAction(props:{
-  canEdit?:boolean,
   onAddPackage:()=>void,
   onAddClass:()=>void,
   onAddDiagram:()=>void,
   onDelete?:()=>void,
 }){
-  const {canEdit, onAddPackage, onAddClass, onAddDiagram, onDelete} = props
+  const {onAddPackage, onAddClass, onAddDiagram, onDelete} = props
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -92,16 +91,19 @@ export default function PackageAction(props:{
           <MenuItem onClick={handleAddDiagram} className = {classes.menuItem}>
             {intl.get('add-diagram')} 
           </MenuItem>
-          {
-            canEdit&&
-            <div>
-              <Divider/>
-              <MenuItem onClick={handleDelete} className = {classes.menuItem}>
-                <MdiIcon iconClass = "mdi-trash-can-outline"  color = "red" size={16}/>
-                <span className = {classes.deleteText}>{intl.get('delete')} </span>
-              </MenuItem> 
-            </div>           
-          }
+          <MenuItem onClick={handleDelete} className = {classes.menuItem}>
+            <MdiIcon iconClass = "mdi-trash-can-outline"  color = "red" size={16}/>
+            <span className = {classes.text}>{intl.get('delete')} </span>
+          </MenuItem> 
+          <Divider/>
+          <MenuItem  className = {classes.menuItem}>
+            <MdiIcon iconClass = "mdi-database-refresh-outline"  size={16} />
+            <span className = {classes.text}>{intl.get('database-sync')} </span>
+          </MenuItem>
+          <MenuItem className = {classes.menuItem}>
+            <MdiIcon iconClass = "mdi-file-export-outline"  size={16}/>
+            <span className = {classes.text}>{intl.get('export-inteface')} </span>
+          </MenuItem>
 
       </Menu>
     </>

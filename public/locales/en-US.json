@@ -50,5 +50,6 @@
   "role-name": "Role name",
   "side": "side",
   "relation-type":"Relation type",
-  "installed":"Already installed, if reinstall pleass delete dbconfig.json file"
+  "installed":"Already installed, if reinstall pleass delete dbconfig.json file",
+  "import-package":"Import package"
 }

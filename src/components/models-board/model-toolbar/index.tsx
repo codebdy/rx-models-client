@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, IconButton, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, IconButton, Button, Tooltip } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
@@ -13,7 +13,6 @@ import { ColumnStore } from '../store/column';
 import { ColumnDeleteCommand } from '../command/column-delete-command';
 import { RelationStore } from '../store/relation';
 import { RelationDeleteCommand } from '../command/relation-delete-command';
-import { ServerActionMenu } from './server-action-menu';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,7 +79,11 @@ export const ModelToolbar = observer(()=>{
   return (
     <div className = {classes.toolbar}>
       <div className = {classes.toolbarInner}>
-        <ServerActionMenu />
+        <Tooltip title={intl.get('import-package')}>
+          <IconButton 
+            className={classes.iconButton}
+          ><MdiIcon iconClass = "mdi-database-import-outline" /></IconButton>
+        </Tooltip>
         <Spacer />
         <IconButton 
           className={classes.iconButton}
