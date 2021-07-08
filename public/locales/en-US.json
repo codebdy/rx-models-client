@@ -51,5 +51,7 @@
   "side": "side",
   "relation-type":"Relation type",
   "installed":"Already installed, if reinstall pleass delete dbconfig.json file",
-  "import-package":"Import package"
+  "import-package":"Import package",
+  "next-step":"Next",
+  "previous-step":"Previous"
 }
