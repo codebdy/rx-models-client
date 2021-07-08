@@ -7,10 +7,11 @@ export class ColumnCreateCommand implements Command{
   private columnStore?: ColumnStore;
   constructor(
     private readonly entityStore: EntityStore,
+    private readonly id:string,
   ){}
   
   excute():SelectedNode{
-    this.columnStore = this.entityStore.createdColumn();
+    this.columnStore = this.entityStore.createdColumn(this.id);
     return this.columnStore;
   }
 

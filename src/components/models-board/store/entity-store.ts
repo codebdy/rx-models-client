@@ -4,7 +4,6 @@ import { ColumnStore } from "./column";
 import { PackageStore } from "./package";
 import { RelationStore } from "./relation";
 import _ from 'lodash';
-import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 
 export class EntityStore{
@@ -35,7 +34,7 @@ export class EntityStore{
     this.package = belongsToPackage;
   }
 
-  createdColumn(){
+  createdColumn(id:string){
     let index = 1;
     const namePrefix = 'newColumn';
     // eslint-disable-next-line no-loop-func
@@ -44,7 +43,7 @@ export class EntityStore{
     }
     
     const columnStore = new ColumnStore({
-      id:createId(),
+      id,
       name: namePrefix + index,
       type: ColumnType.String,
     })

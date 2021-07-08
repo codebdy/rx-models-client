@@ -14,6 +14,8 @@ import { Addon } from '@antv/x6'
 import { EntityView } from "../grahp-canvas/entity-view";
 import { NODE_INIT_SIZE } from "../store/node-init-size";
 import { EntityDeleteCommand } from "../command/entity-delete-command";
+import { ColumnCreateCommand } from "../command/column-create-command";
+import { createId } from "util/creat-id";
 const { Dnd } = Addon
 
 export const EntityNode = observer((props:{
@@ -64,6 +66,12 @@ export const EntityNode = observer((props:{
     bordStore.excuteCommand(command);
   }
 
+  const handlePlusColumn = (event:React.MouseEvent)=>{
+    const command = new ColumnCreateCommand(entityStore, createId());
+    bordStore.excuteCommand(command);
+    event.stopPropagation();
+  }
+
   return(
     <TreeItem nodeId= {entityStore.id} label={
       <TreeNodeLabel
@@ -92,7 +100,10 @@ export const EntityNode = observer((props:{
       <TreeItem nodeId= {entityStore.id + 'columns'} label={
         <TreeNodeLabel
           action = {
-            <IconButton size = "small">
+            <IconButton 
+              size = "small"
+              onClick = {handlePlusColumn}
+            >
               <MdiIcon className="mdi-plus" size="16" />
             </IconButton>
           }
@@ -103,7 +114,7 @@ export const EntityNode = observer((props:{
         {
           entityStore.columns.map(column=>{
             return (
-              <ColumnNode key={column.id} columnStore = {column} />
+              <ColumnNode key={column.id} columnStore = {column} entityStore = {entityStore}/>
             )
           })
         }

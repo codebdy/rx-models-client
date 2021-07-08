@@ -8,6 +8,7 @@ import { ColumnStore } from "../store/column";
 import { EntityHideCommand } from "../command/entity-hide-command";
 import { ColumnDeleteCommand } from "../command/column-delete-command";
 import { ColumnCreateCommand } from "../command/column-create-command";
+import { createId } from "util/creat-id";
 
 export function useNodesShow(){
   const modelStore = useModelsBoardStore();
@@ -34,7 +35,7 @@ export function useNodesShow(){
   const handleColumnCreate = (entityId:string)=>{
     const entity = modelStore.rootStore.getEntityById(entityId);
     if(entity){
-      const command = new ColumnCreateCommand(entity);
+      const command = new ColumnCreateCommand(entity, createId());
       modelStore.excuteCommand(command);
     }
   }
