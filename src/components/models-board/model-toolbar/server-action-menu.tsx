@@ -38,7 +38,7 @@ export const ServerActionMenu = observer(()=>{
       <IconButton className = {classes.iconButton}
         onClick = {handleMenuOpen}
       >
-        <MdiIcon className="mdi-dots-horizontal" />
+        <MdiIcon className="mdi-cog-transfer-outline" />
       </IconButton>
 
       <Menu
@@ -57,8 +57,8 @@ export const ServerActionMenu = observer(()=>{
           
         >
           <MenuItem  className = {classes.menuItem}>
-            <MdiIcon iconClass = "mdi-database-cog-outline" />
-            <span className = {classes.text}>{intl.get('database-settings')} </span>
+            <MdiIcon iconClass = "mdi-database-refresh-outline" />
+            <span className = {classes.text}>{intl.get('database-sync')} </span>
           </MenuItem>
           <MenuItem className = {classes.menuItem}>
             <MdiIcon iconClass = "mdi-file-export-outline"/>

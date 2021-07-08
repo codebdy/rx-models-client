@@ -23,7 +23,7 @@
   "auth-management": "Auth",
   "report-bug": "Report Bug",
   "logout":"Logout",
-  "database-settings": "Database settings",
+  "database-sync": "Database sync",
   "operation-confirm":"Operation Confirm",
   "undo": "Undo",
   "redo": "Redo",
