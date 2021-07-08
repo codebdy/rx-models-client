@@ -5,7 +5,6 @@ import { makeStyles,
   Grid, 
   createTheme, 
   ThemeProvider,
-  Button,
 } from '@material-ui/core';
 import background from "assets/img/background1.jpg";
 import rightImage from "assets/img/install3.png";
@@ -53,6 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     leftInstall:{
+      display:'flex',
+      flexFlow:'column',
       padding:theme.spacing(4),
     },
 
@@ -138,7 +139,7 @@ export const Install = observer(()=>{
   return (
     <ThemeProvider theme={theme}>
 
-      <form onSubmit = {handleLogin} className={classes.root}>
+      <div className={classes.root}>
         <Grid container justifyContent = "center">
           <Grid 
             container 
@@ -148,19 +149,13 @@ export const Install = observer(()=>{
             className = {classes.installBox} 
             alignContent = "stretch"
           >
-            <Grid container item lg={6} 
+            <Grid item lg={6} 
               className = {classes.leftInstall} 
             >
-              <Grid container item lg={12} 
-                justifyContent = "space-between" 
-                alignItems="flex-start" 
-                alignContent = "flex-start"
-                spacing = {3}
-              >  
-                <Grid item xs={12}>
+                <div >
                   <h2 className = {classes.title} >{intl.get('install') + " rxModels"}</h2>
                   {errorMessage&&<span style={{color:'red'}}>{errorMessage}</span>}
-                </Grid>
+                </div>
                 {
                   checking && 
                   <div>Install checking...</div>
@@ -188,7 +183,6 @@ export const Install = observer(()=>{
                     
                   </>
                 }
-              </Grid>
             </Grid>
             <Grid item lg={6} className = {classes.rightImage}>
               <img src={rightImage} alt="" width="100%"/>
@@ -196,7 +190,7 @@ export const Install = observer(()=>{
           </Grid>
 
         </Grid>
-      </form>
+      </div>
     </ThemeProvider>
   )
 })

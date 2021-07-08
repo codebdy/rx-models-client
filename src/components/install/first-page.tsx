@@ -2,6 +2,7 @@ import { Grid, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import React, { useState } from 'react';
 import intl from "react-intl-universal";
+import { PageLayout } from './page-layout';
 
 export const FirstPage=(props:{
   onNextPage:()=>void
@@ -30,7 +31,16 @@ export const FirstPage=(props:{
   };
   
   return (
-    <>
+    <PageLayout
+      action = {
+        <Button variant="contained" color="primary" size = "large" 
+          onClick = {onNextPage}
+          type = "button"
+        >
+          {intl.get('next-step')}
+        </Button>
+      }
+    >
       <Grid item xs={6}>
         <TextField
           fullWidth
@@ -110,14 +120,6 @@ export const FirstPage=(props:{
           />
         </FormControl>
       </Grid>           
-      <Grid item xs={12} container justifyContent="flex-end">
-        <Button variant="contained" color="primary" size = "large" 
-          onClick = {onNextPage}
-          type = "button"
-        >
-          {intl.get('next-step')}
-        </Button>
-      </Grid> 
-    </>
+    </PageLayout>
   )
 }
