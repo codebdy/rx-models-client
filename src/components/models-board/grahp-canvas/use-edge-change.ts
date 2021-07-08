@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { EdgeChangeCommand } from '../command/edge-change-command';
 import { useModelsBoardStore } from '../store';
 import _ from 'lodash';
+import { ROLE_SOURCE_TARGET_CONST } from './const-label-position';
 
 export function useEdgeChange(){
   const modelStore = useModelsBoardStore();
@@ -20,12 +21,14 @@ export function useEdgeChange(){
     
     const edageData = modelStore.openedDiagram?.getEdgeById(edge.id);
 
-    //如果是新建或者没有节点的线，不需要记录
-    if(!edageData?.vertices && !edageData?.roleOnSourcePosition && !edageData?.roleOnTargetPosition){
+    const [roleOnSource, roleOnTarget] = edge.getLabels();
+
+    //如果是没有修改过的并且是新建的线
+    if(!edageData && edge.getVertices().length === 0 
+      && _.isEqual(roleOnSource.position, ROLE_SOURCE_SOURCE_CONST)
+      && _.isEqual(roleOnTarget.position, ROLE_SOURCE_TARGET_CONST)){
       return;
     }
-
-    const [roleOnSource, roleOnTarget] = edge.getLabels();
 
     //使用mouseleave代替完成事件，需要判断是否有修改
     if(
@@ -59,4 +62,8 @@ export function useEdgeChange(){
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[modelStore.graph])
+}
+
+function ROLE_SOURCE_SOURCE_CONST(position: Edge.LabelPosition | undefined, ROLE_SOURCE_SOURCE_CONST: any) {
+  throw new Error('Function not implemented.');
 }
