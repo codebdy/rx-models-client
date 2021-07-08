@@ -60,7 +60,7 @@ export const ModelTreeView = observer(() => {
       name: getNewDiagramName(rootStore),
       nodes:[],
       edges:[]
-    }, bordStore.rootStore, bordStore.rootStore);
+    }, bordStore.rootStore, bordStore);
     bordStore.excuteCommand(command);
   }
   

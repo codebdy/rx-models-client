@@ -53,7 +53,7 @@ export const PackageNode = observer((props:{
       name: getNewDiagramName(rootStore),
       nodes:[],
       edges:[]
-    }, packageStore, bordStore.rootStore);
+    }, packageStore, bordStore);
     bordStore.excuteCommand(command);
   }
 
