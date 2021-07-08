@@ -12,17 +12,13 @@ import { useModelsBoardStore } from '../store';
 import { PackageNode } from './package-node';
 import { EntityNode } from './entity-node';
 import { DiagramNode } from './diagram-node';
-import PackageAction from './package-action';
 import { observer } from 'mobx-react';
 import { PackageCreateCommand } from '../command/package-create-command';
 import { createId } from 'util/creat-id';
 import { getNewPackageName } from '../store/get-new-package-name';
 import { PackageStore } from '../store/package';
-import { EntityCreateOnTreeCommand } from '../command/entity-create-on-tree-command';
-import { creatNewEntityMeta } from '../store/create-new-entity-meta';
 import { TREE_ROOT_ID } from 'util/consts';
-import { DiagramCreateCommand } from '../command/diagram-create-command';
-import { getNewDiagramName } from '../store/get-new-diagram-name';
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +34,7 @@ export const ModelTreeView = observer(() => {
   const bordStore = useModelsBoardStore();
   const rootStore = bordStore.rootStore;
 
-  const handleAddPackage = ()=>{
+  const handleAddPackage = (event: React.MouseEvent)=>{
     const command = new PackageCreateCommand(
       new PackageStore({
         id:createId(), 
@@ -47,22 +43,8 @@ export const ModelTreeView = observer(() => {
       rootStore
     )
     bordStore.excuteCommand(command);
+    event.stopPropagation();
   } 
-  
-  const handleAddEntity = ()=>{
-    const command = new EntityCreateOnTreeCommand(bordStore.rootStore, creatNewEntityMeta(bordStore.rootStore))
-    bordStore.excuteCommand(command);
-  }
-  
-  const handleAddDiagram = ()=>{
-    const command = new DiagramCreateCommand({
-      id: createId(),
-      name: getNewDiagramName(rootStore),
-      nodes:[],
-      edges:[]
-    }, bordStore.rootStore, bordStore);
-    bordStore.excuteCommand(command);
-  }
   
   return (
     <TreeView
@@ -75,11 +57,13 @@ export const ModelTreeView = observer(() => {
       <TreeItem nodeId={TREE_ROOT_ID} label={
         <TreeNodeLabel
           action = {
-            <PackageAction 
-              onAddPackage = {handleAddPackage} 
-              onAddClass = {handleAddEntity}
-              onAddDiagram = {handleAddDiagram}
-            />
+            <IconButton 
+            size = "small"
+            onClick = {handleAddPackage}
+          >
+            <MdiIcon className="mdi-plus" size="16" />
+          </IconButton>
+
           }
         >
           <MdiIcon iconClass = "mdi-cube-outline" size={18} />
