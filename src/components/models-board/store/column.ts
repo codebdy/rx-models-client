@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { ColumnMeta, ColumnType } from "../meta/column-meta";
+import { EntityStore } from "./entity-store";
 
 export class ColumnStore{
   id: string;
@@ -8,7 +9,7 @@ export class ColumnStore{
   primary?: boolean;
   generated?: boolean;
   
-  constructor(meta:ColumnMeta){
+  constructor(meta:ColumnMeta, public readonly entityStore: EntityStore){
     this.id = meta.id;
     this.name = meta.name;
     this.type = meta.type;

@@ -26,8 +26,9 @@ export function useNodesShow(){
 
   const handleColumnDelete = (entityId:string, columnId:string)=>{
     const entity = modelStore.rootStore.getEntityById(entityId);
-    if(entity){
-      const command = new ColumnDeleteCommand(entity, columnId);
+    const columnStore = entity?.getColumnById(columnId);
+    if(entity && columnStore){
+      const command = new ColumnDeleteCommand(columnStore);
       modelStore.excuteCommand(command);
     }
   }

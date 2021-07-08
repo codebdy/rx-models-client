@@ -5,6 +5,14 @@ import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
 import Spacer from 'components/common/spacer';
 import { useModelsBoardStore } from '../store';
+import { PackageStore } from '../store/package';
+import { PackageDeleteCommand } from '../command/package-delete-command';
+import { EntityStore } from '../store/entity-store';
+import { EntityDeleteCommand } from '../command/entity-delete-command';
+import { ColumnStore } from '../store/column';
+import { ColumnDeleteCommand } from '../command/column-delete-command';
+import { RelationStore } from '../store/relation';
+import { RelationDeleteCommand } from '../command/relation-delete-command';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,7 +54,26 @@ export const ModelToolbar = observer(()=>{
   }
 
   const handleDelete = ()=>{
-    
+    if(boardStore.selectedElement instanceof PackageStore){
+      const command = new PackageDeleteCommand(boardStore.selectedElement);
+      boardStore.excuteCommand(command);
+    }
+
+    if(boardStore.selectedElement instanceof EntityStore){
+      const command = new EntityDeleteCommand(boardStore.selectedElement);
+      boardStore.excuteCommand(command);
+    }
+
+    if(boardStore.selectedElement instanceof ColumnStore){
+      const command = new ColumnDeleteCommand(boardStore.selectedElement);
+      boardStore.excuteCommand(command);
+    }
+
+    if(boardStore.selectedElement instanceof RelationStore){
+      const command = new RelationDeleteCommand(boardStore.selectedElement, boardStore.rootStore);
+      boardStore.excuteCommand(command);
+    }
+
   }
 
   return (
@@ -71,7 +98,7 @@ export const ModelToolbar = observer(()=>{
         ><MdiIcon iconClass = "mdi-redo" /></IconButton>
         <IconButton 
           className={classes.iconButton}
-          disabled = {!boardStore.selectedElement}
+          disabled = {!boardStore.selectedElement || (boardStore.selectedElement as any).name === 'id'}
           onClick = {handleDelete}
         ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         <div className={classes.saveButtonShell}>

@@ -20,7 +20,7 @@ export class EntityStore{
     this.package = belongsTopackage;
 
     this.columns = meta.columns 
-      ? meta.columns.map(column=>new ColumnStore(column))
+      ? meta.columns.map(column=>new ColumnStore(column, this))
       :[];
     
     makeAutoObservable(this)
@@ -46,7 +46,7 @@ export class EntityStore{
       id,
       name: namePrefix + index,
       type: ColumnType.String,
-    })
+    }, this)
 
     this.columns.push(columnStore);
 

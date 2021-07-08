@@ -5,17 +5,14 @@ import { observer } from "mobx-react";
 import { ColumnDeleteCommand } from "../command/column-delete-command";
 import { useModelsBoardStore } from "../store";
 import { ColumnStore } from "../store/column";
-import { EntityStore } from "../store/entity-store";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
-
 
 export const ColumnNode = observer((props:{
   key?:string,
   columnStore: ColumnStore,
-  entityStore: EntityStore,
 })=>{
-  const {columnStore, entityStore} = props;
+  const {columnStore} = props;
   const bordStore = useModelsBoardStore();
 
   const handleClick = ()=>{
@@ -23,7 +20,7 @@ export const ColumnNode = observer((props:{
   }
 
   const handleDelete = ()=>{
-    const command = new ColumnDeleteCommand(entityStore, columnStore.id);
+    const command = new ColumnDeleteCommand(columnStore);
     bordStore.excuteCommand(command);
   }
   return(

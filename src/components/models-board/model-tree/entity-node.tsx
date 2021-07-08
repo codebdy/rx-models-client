@@ -114,7 +114,7 @@ export const EntityNode = observer((props:{
         {
           entityStore.columns.map(column=>{
             return (
-              <ColumnNode key={column.id} columnStore = {column} entityStore = {entityStore}/>
+              <ColumnNode key={column.id} columnStore = {column}/>
             )
           })
         }
