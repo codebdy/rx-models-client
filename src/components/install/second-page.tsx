@@ -42,7 +42,10 @@ export const SecondPage=(
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-  
+
+  const handleInstall = ()=>{
+    install({data:values})
+  }
 
   return (
       <PageLayout
@@ -55,9 +58,10 @@ export const SecondPage=(
               {intl.get('previous-step')}
             </Button>
             <SubmitButton fullWidth variant="contained" color="primary" size = "large" 
-              //submitting = {loading}
+              submitting = {loading}
               disabled = {!values.admin || !values.adminPassword}
               type = "button"
+              onClick = {handleInstall}
             >
               {intl.get('install')}
             </SubmitButton>
