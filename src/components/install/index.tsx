@@ -11,11 +11,10 @@ import rightImage from "assets/img/install3.png";
 import intl from "react-intl-universal";
 import { useHistory } from 'react-router';
 import { observer } from 'mobx-react';
-import { INDEX_URL, LOGIN_URL, PRIMARY_COLOR } from '../../util/consts';
-import useLayzyAxios from '../../data/use-layzy-axios';
+import { INDEX_URL, PRIMARY_COLOR } from '../../util/consts';
 import { useAppStore } from '../../store/app-store';
 import useShadows from '../../util/use-shadows';
-import { API_INSTALL, API_IS_INSTALLED } from 'apis/install';
+import { API_IS_INSTALLED } from 'apis/install';
 import { useSWRQuery } from 'data/use-swr-query';
 import { Alert } from '@material-ui/lab';
 import { FirstPage } from './first-page';
@@ -66,7 +65,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Install = observer(()=>{
   const classes = useStyles();
-  const [errorMessage, setErroMessage] = useState('');
   const appStore = useAppStore();
   const history = useHistory();
   const [pageNumber, setPageNumber] = useState(1);
@@ -86,21 +84,6 @@ export const Install = observer(()=>{
   };
 
   const{data, loading: checking, error} = useSWRQuery<{installed:boolean}>(API_IS_INSTALLED);
-
-  const [install, { loading }] = useLayzyAxios<any>(API_INSTALL,{
-    onCompleted(data){
-      if(data && data){
-        history.push(LOGIN_URL);
-      }      
-    },
-    onError(error){
-      setErroMessage(error.message);
-    }
-  });
-
-  useEffect(()=>{
-    setErroMessage('');
-  },[values]);
 
   useEffect(()=>{
     if(appStore.loggedUser){
@@ -139,7 +122,6 @@ export const Install = observer(()=>{
             >
                 <div >
                   <h2 className = {classes.title} >{intl.get('install') + " rxModels"}</h2>
-                  {errorMessage&&<span style={{color:'red'}}>{errorMessage}</span>}
                 </div>
                 {
                   checking && 

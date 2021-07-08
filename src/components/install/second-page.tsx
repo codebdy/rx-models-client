@@ -1,10 +1,13 @@
 import { Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { API_INSTALL } from 'apis/install';
 import SubmitButton from 'components/common/submit-button';
+import useLayzyAxios from 'data/use-layzy-axios';
 import React, { useState } from 'react';
 import intl from "react-intl-universal";
 import { PageLayout } from './page-layout';
-
+import { useHistory } from 'react-router';
+import { LOGIN_URL } from 'util/consts';
 
 export const SecondPage=(
   props:{
@@ -15,6 +18,18 @@ export const SecondPage=(
 )=>{
   const {values, onPreviousPage, onValuesChange} = props;
   const [showPassword, setShowPassword] = useState(false);
+  const history = useHistory();
+
+  const [install, { loading }] = useLayzyAxios<any>(API_INSTALL,{
+    onCompleted(data){
+      if(data && data){
+        history.push(LOGIN_URL);
+      }      
+    },
+    onError(error){
+      //setErroMessage(error.message);
+    }
+  });
   
   const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
     onValuesChange({ ...values, [prop]: event.target.value });
