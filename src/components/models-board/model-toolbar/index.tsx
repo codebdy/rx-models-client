@@ -45,6 +45,10 @@ export const ModelToolbar = observer(()=>{
     boardStore.redo();
   }
 
+  const handleDelete = ()=>{
+    
+  }
+
   return (
     <div className = {classes.toolbar}>
       <div className = {classes.toolbarInner}>
@@ -68,6 +72,7 @@ export const ModelToolbar = observer(()=>{
         <IconButton 
           className={classes.iconButton}
           disabled = {!boardStore.selectedElement}
+          onClick = {handleDelete}
         ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         <div className={classes.saveButtonShell}>
           <Button 

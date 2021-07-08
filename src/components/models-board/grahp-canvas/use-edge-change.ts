@@ -25,16 +25,16 @@ export function useEdgeChange(){
 
     //如果是没有修改过的并且是新建的线
     if(!edageData && edge.getVertices().length === 0 
-      && _.isEqual(roleOnSource.position, ROLE_SOURCE_SOURCE_CONST)
-      && _.isEqual(roleOnTarget.position, ROLE_SOURCE_TARGET_CONST)){
+      && (!roleOnSource?.position || _.isEqual(roleOnSource?.position, ROLE_SOURCE_SOURCE_CONST))
+      && (!roleOnTarget?.position || _.isEqual(roleOnTarget?.position, ROLE_SOURCE_TARGET_CONST))){
       return;
     }
 
     //使用mouseleave代替完成事件，需要判断是否有修改
     if(
       _.isEqual(edageData?.vertices, edge.getVertices()) 
-      && _.isEqual(edageData?.roleOnSourcePosition, roleOnSource.position)
-      && _.isEqual(edageData?.roleOnTargetPosition, roleOnTarget.position)
+      && _.isEqual(edageData?.roleOnSourcePosition, roleOnSource?.position)
+      && _.isEqual(edageData?.roleOnTargetPosition, roleOnTarget?.position)
     ){
       return;
     }
@@ -43,8 +43,8 @@ export function useEdgeChange(){
       {
         id:edge.id,
         vertices: edge.getVertices(),
-        roleOnSourcePosition: roleOnSource.position as any,
-        roleOnTargetPosition: roleOnTarget.position as any
+        roleOnSourcePosition: roleOnSource?.position as any,
+        roleOnTargetPosition: roleOnTarget?.position as any
       },
       modelStore.rootStore.getRelationById(edge.id)
     );
