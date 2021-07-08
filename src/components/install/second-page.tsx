@@ -43,6 +43,7 @@ export const SecondPage=(
             </Button>
             <SubmitButton fullWidth variant="contained" color="primary" size = "large" 
               //submitting = {loading}
+              disabled = {!values.admin || !values.adminPassword}
               type = "button"
             >
               {intl.get('install')}

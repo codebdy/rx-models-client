@@ -117,25 +117,6 @@ export const Install = observer(()=>{
     shadows:[...useShadows()] as any
   });
 
-  const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-  
-  const handleLogin = (event?: React.FormEvent<HTMLFormElement>)=>{
-    install({
-      data:{
-        username:values.account, 
-        password:values.password
-      }
-    }); 
-    event && event.preventDefault();
-  }
-
-  const handleNextPage = ()=>{
-    setPageNumber(2);
-  }
-
-
   return (
     <ThemeProvider theme={theme}>
 

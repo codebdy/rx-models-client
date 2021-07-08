@@ -36,6 +36,7 @@ export const FirstPage=(props:{
         <Button variant="contained" color="primary" size = "large" 
           onClick = {onNextPage}
           type = "button"
+          disabled = {!values.type || !values.host || !values.port || !values.database || !values.username}
         >
           {intl.get('next-step')}
         </Button>
