@@ -49,5 +49,6 @@
   "no-selected":"Nothing selected!",
   "role-name": "Role name",
   "side": "side",
-  "relation-type":"Relation type"
+  "relation-type":"Relation type",
+  "installed":"Already installed, if reinstall pleass delete dbconfig.json file"
 }
