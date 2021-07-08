@@ -2,6 +2,7 @@ import { IconButton } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
+import { RelationDeleteCommand } from "../command/relation-delete-command";
 import { useModelsBoardStore } from "../store";
 import { RelationStore } from "../store/relation";
 import { NodeText } from "./node-text";
@@ -18,11 +19,20 @@ export const RelationNode = observer((props:{
   const handleClick = ()=>{
     bordStore.setSelectedElement(relation);
   }
+
+  const handleDelete = ()=>{
+    const command = new RelationDeleteCommand(relation, bordStore.rootStore);
+    bordStore.excuteCommand(command);
+  }
+
   return(
     <TreeItem nodeId= {relation.id} label={
       <TreeNodeLabel
         action = {
-          <IconButton size = "small">
+          <IconButton 
+            size = "small"
+            onClick = {handleDelete}
+          >
             <MdiIcon className="mdi-trash-can-outline" size="16" />
           </IconButton>
         }

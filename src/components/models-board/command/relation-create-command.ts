@@ -12,7 +12,7 @@ export class RelationCreateCommand implements Command{
   ){}
   
   excute():SelectedNode{
-    const relationStore = this.diagramStore?.rootStore?.addNewRelation(this.relationStore);
+    const relationStore = this.diagramStore?.rootStore?.addRelation(this.relationStore);
     this.diagramStore?.addEdge(this.edgeMeta);
     return relationStore;
   }

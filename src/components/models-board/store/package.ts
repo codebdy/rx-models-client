@@ -155,7 +155,7 @@ export class PackageStore{
   }
 
   //只供根节点使用
-  addNewRelation(relation: RelationStore){
+  addRelation(relation: RelationStore){
     this.relations.push(relation);
     return relation;
   }
