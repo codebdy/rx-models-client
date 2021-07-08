@@ -148,7 +148,7 @@ export const Install = observer(()=>{
     <ThemeProvider theme={theme}>
       <form onSubmit = {handleLogin} className={classes.root}>
         
-          <Grid container justify = "center">
+          <Grid container justifyContent = "center">
             <Grid 
               container 
               item md={7} 
@@ -166,7 +166,7 @@ export const Install = observer(()=>{
                 className = {classes.leftInstall} 
               >
                 <Grid container item lg={12} 
-                  justify = "space-between" 
+                  justifyContent = "space-between" 
                   alignItems="flex-start" 
                   alignContent = "flex-start"
                   spacing = {3}
