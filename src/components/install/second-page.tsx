@@ -84,7 +84,7 @@ export const SecondPage=(
           <InputLabel htmlFor="standard-adornment-password" style={{background:"#fff",padding:"0 8px"}}>{intl.get('password')}</InputLabel>
           <OutlinedInput
             id="standard-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             value={values.adminPassword}
             required
             onChange={handleChange('adminPassword')}
