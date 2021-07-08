@@ -5,25 +5,19 @@ import intl from "react-intl-universal";
 import { PageLayout } from './page-layout';
 
 export const FirstPage=(props:{
-  onNextPage:()=>void
+  values:any,
+  onNextPage:()=>void,
+  onValuesChange:(values:any)=>void,
 })=>{
-  const {onNextPage} = props;
-  const [values, setValues] = useState<any>({
-    type:'mysql',
-    host:'localhost',
-    port:'3306',
-    database:'',
-    username: 'root',
-    password: '',
-    showPassword: false,
-  });
-  
+  const {values, onNextPage, onValuesChange} = props;
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value });
+    onValuesChange({ ...values, [prop]: event.target.value });
   };
   
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setShowPassword(!showPassword)
   };
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -104,7 +98,7 @@ export const FirstPage=(props:{
           <InputLabel htmlFor="standard-adornment-password" style={{background:"#fff",padding:"0 8px"}}>{intl.get('password')}</InputLabel>
           <OutlinedInput
             id="standard-adornment-password"
-            type={values.showPassword ? 'text' : 'password'}
+            type={showPassword ? 'text' : 'password'}
             value={values.password}
             onChange={handleChange('password')}
             endAdornment={

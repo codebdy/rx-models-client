@@ -66,6 +66,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Install = observer(()=>{
   const classes = useStyles();
+  const [errorMessage, setErroMessage] = useState('');
+  const appStore = useAppStore();
+  const history = useHistory();
+  const [pageNumber, setPageNumber] = useState(1);
   const [values, setValues] = useState<any>({
     type:'mysql',
     host:'localhost',
@@ -73,13 +77,13 @@ export const Install = observer(()=>{
     database:'',
     username: 'root',
     password: '',
-    showPassword: false,
+    admin: 'admin',
+    adminPassword: '',
   });
-
-  const [errorMessage, setErroMessage] = useState('');
-  const appStore = useAppStore();
-  const history = useHistory();
-  const [pageNumber, setPageNumber] = useState(1);
+  
+  const handleChange = (values:any) => {
+    setValues({ ...values});
+  };
 
   const{data, loading: checking, error} = useSWRQuery<{installed:boolean}>(API_IS_INSTALLED);
 
@@ -154,12 +158,20 @@ export const Install = observer(()=>{
                   <>
                     {
                       pageNumber === 1
-                      ? <FirstPage onNextPage = {()=>{
-                        setPageNumber(2)
-                      }}/>
-                      : <SecondPage onPreviousPage = {()=>{
-                        setPageNumber(1)
-                      }}/>
+                      ? <FirstPage 
+                          values = {values}
+                          onValuesChange = {handleChange}
+                          onNextPage = {()=>{
+                          setPageNumber(2)
+                          }}
+                        />
+                      : <SecondPage 
+                          values = {values}
+                          onValuesChange = {handleChange}
+                          onPreviousPage = {()=>{
+                            setPageNumber(1)
+                          }}
+                        />
                     }
                     
                   </>

@@ -8,22 +8,20 @@ import { PageLayout } from './page-layout';
 
 export const SecondPage=(
   props:{
-    onPreviousPage:()=>void
+    values:any,
+    onPreviousPage:()=>void,
+    onValuesChange:(values:any)=>void,
   }
 )=>{
-  const {onPreviousPage} = props;
-  const [values, setValues] = useState<any>({
-    admin: 'admin',
-    adminPassword: '',
-    showPassword: false,
-  });
+  const {values, onPreviousPage, onValuesChange} = props;
+  const [showPassword, setShowPassword] = useState(false);
   
   const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [prop]: event.target.value });
+    onValuesChange({ ...values, [prop]: event.target.value });
   };
   
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setShowPassword(!showPassword)
   };
 
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
