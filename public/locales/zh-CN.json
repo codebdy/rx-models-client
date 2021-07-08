@@ -53,5 +53,6 @@
   "installed":"应用已经安装，若要重新安装，请删除dbconfig.json文件",
   "import-package":"导入包",
   "next-step":"下一步",
-  "previous-step":"上一步"
+  "previous-step":"上一步",
+  "admin-name":"管理员名"
 }
