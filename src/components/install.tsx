@@ -11,7 +11,6 @@ import { makeStyles,
   OutlinedInput, 
   createTheme, 
   ThemeProvider,
-  CircularProgress, 
 } from '@material-ui/core';
 import background from "assets/img/background1.jpg";
 import rightImage from "assets/img/install3.png";
