@@ -54,5 +54,6 @@
   "import-package":"导入包",
   "next-step":"下一步",
   "previous-step":"上一步",
-  "admin-name":"管理员名"
+  "admin-name":"管理员名",
+  "server-error":"Server error"
 }

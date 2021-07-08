@@ -54,5 +54,6 @@
   "import-package":"Import package",
   "next-step":"Next",
   "previous-step":"Previous",
-  "admin-name":"Admin name"
+  "admin-name":"Admin name",
+  "server-error":"Server error"
 }
