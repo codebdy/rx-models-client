@@ -57,5 +57,6 @@
   "admin-name":"管理员名",
   "server-error":"服务器错误",
   "export-json":"导出JSON文件",
-  "owner": "拥有者"
+  "owner": "拥有者",
+  "with-demo":"安装演示账号"
 }

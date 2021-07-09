@@ -57,5 +57,6 @@
   "admin-name":"Admin name",
   "server-error":"Server error",
   "export-json":"Export JSON",
-  "owner":"Owner"
+  "owner":"Owner",
+  "with-demo":"With demo"
 }

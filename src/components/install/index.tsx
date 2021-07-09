@@ -77,6 +77,7 @@ export const Install = observer(()=>{
     password: '',
     admin: 'admin',
     adminPassword: '',
+    withDemo: false,
   });
   
   const handleChange = (values:any) => {

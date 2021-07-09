@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from '@material-ui/core';
+import { Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { API_INSTALL } from 'apis/install';
 import SubmitButton from 'components/common/submit-button';
@@ -34,6 +34,10 @@ export const SecondPage=(
   const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
     onValuesChange({ ...values, [prop]: event.target.value });
   };
+
+  const handleWithDemoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onValuesChange({ ...values, withDemo: event.target.checked });
+  };
   
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
@@ -48,26 +52,26 @@ export const SecondPage=(
   }
 
   return (
-      <PageLayout
-        action = {
-          <>
-            <Button variant="contained" size = "large" 
-              onClick = {onPreviousPage}
-              style={{marginRight:'16px'}}
-            >
-              {intl.get('previous-step')}
-            </Button>
-            <SubmitButton fullWidth variant="contained" color="primary" size = "large" 
-              submitting = {loading}
-              disabled = {!values.admin || !values.adminPassword}
-              type = "button"
-              onClick = {handleInstall}
-            >
-              {intl.get('install')}
-            </SubmitButton>
-          </>
-        }
-      >
+    <PageLayout
+      action = {
+        <>
+          <Button variant="contained" size = "large" 
+            onClick = {onPreviousPage}
+            style={{marginRight:'16px'}}
+          >
+            {intl.get('previous-step')}
+          </Button>
+          <SubmitButton fullWidth variant="contained" color="primary" size = "large" 
+            submitting = {loading}
+            disabled = {!values.admin || !values.adminPassword}
+            type = "button"
+            onClick = {handleInstall}
+          >
+            {intl.get('install')}
+          </SubmitButton>
+        </>
+      }
+    >
       <Grid item xs={12}>
         <TextField
           fullWidth
@@ -101,7 +105,19 @@ export const SecondPage=(
             }
           />
         </FormControl>
-      </Grid>           
-      </PageLayout>
+      </Grid> 
+      <Grid item xs = {12}>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={values.withDemo}
+              onChange={handleWithDemoChange}
+              color="primary"
+            />
+          }
+          label={intl.get('with-demo')}
+        />
+      </Grid>          
+    </PageLayout>
   )
 }
