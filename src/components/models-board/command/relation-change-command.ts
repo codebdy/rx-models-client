@@ -1,24 +1,28 @@
 import { SelectedNode } from "../store/models-board";
 import { Command } from "./command";
-import { RelationType } from "../meta/relation-meta";
 import { RelationStore } from "../store/relation";
 
 export class RelationChangeCommand implements Command{
-  private oldValue: RelationType;
+  private oldValue: any = {};
   constructor(
     private readonly relation: RelationStore,
-    private readonly field: string,
-    private readonly newValue: any,
+    private readonly valueMeta: any,
   ){
-    this.oldValue = (relation as any)[field];
+    for(const field in this.valueMeta){
+      this.oldValue[field] = (this.relation as any)[field];
+    }
   }
   
   excute():SelectedNode{
-    this.relation.setFieldValue(this.field, this.newValue);
+    for(const field in this.valueMeta){
+      this.relation.setFieldValue(field, this.valueMeta[field]);
+    }
     return this.relation;
   }
   undo():SelectedNode{
-    this.relation.setFieldValue(this.field, this.oldValue);
+    for(const field in this.oldValue){
+      this.relation.setFieldValue(field, this.oldValue[field]);
+    }
     return this.relation;
   };
 }

@@ -56,5 +56,6 @@
   "previous-step":"上一步",
   "admin-name":"管理员名",
   "server-error":"服务器错误",
-  "export-json":"导出JSON文件"
+  "export-json":"导出JSON文件",
+  "owner": "拥有者"
 }
