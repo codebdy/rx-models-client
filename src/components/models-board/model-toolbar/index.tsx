@@ -92,7 +92,7 @@ export const ModelToolbar = observer(()=>{
         ><MdiIcon iconClass = "mdi-redo" /></IconButton>
         <IconButton 
           className={classes.iconButton}
-          disabled = {!boardStore.selectedElement || (boardStore.selectedElement as any).name === 'uuid'}
+          disabled = {!boardStore.selectedElement || (boardStore.selectedElement as any).name === 'id'}
           onClick = {handleDelete}
         ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         <div className={classes.saveButtonShell}>

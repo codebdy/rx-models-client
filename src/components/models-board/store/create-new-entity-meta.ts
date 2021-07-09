@@ -11,7 +11,7 @@ export function creatNewEntityMeta(rootStore:PackageStore | ModelsBoardStore){
     columns: [
       {
         uuid: createId(),
-        name: 'uuid',
+        name: 'id',
         type: ColumnType.Number,
         primary: true,
         generated: true,

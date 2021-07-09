@@ -55,7 +55,7 @@ export default function ColumnView(props:{
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
-  const isId = column.name === 'uuid';
+  const isId = column.name === 'id';
 
   const handleClick = ()=>{
     onClick(column.uuid);

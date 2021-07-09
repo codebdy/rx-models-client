@@ -27,7 +27,7 @@ export const ColumnNode = observer((props:{
     <TreeItem nodeId= {columnStore.uuid} label={
       <TreeNodeLabel
         action = {
-          columnStore.name !== 'uuid' &&
+          columnStore.name !== 'id' &&
           <IconButton 
             size = "small"
             onClick = {handleDelete}

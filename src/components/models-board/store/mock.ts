@@ -15,7 +15,7 @@ export const packages = [
           columns: [
             {
               uuid: '3',
-              name: 'uuid',
+              name: 'id',
               type: ColumnType.Number,
               primary: true,
               generated: true,
@@ -43,7 +43,7 @@ export const packages = [
           columns: [
             {
               uuid: '13',
-              name: 'uuid',
+              name: 'id',
               type: ColumnType.Number,
               primary: true,
               generated: true,
