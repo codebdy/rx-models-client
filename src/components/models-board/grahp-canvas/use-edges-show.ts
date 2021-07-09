@@ -71,5 +71,5 @@ export function useEdgesShow(){
     })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[edges, modelStore.graph, modelStore.rootStore])
+  },[edges, modelStore.graph, modelStore])
 }

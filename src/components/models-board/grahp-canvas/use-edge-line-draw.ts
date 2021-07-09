@@ -36,8 +36,8 @@ export function useEdgeLineDraw(){
 
     if(modelStore.drawingLine && targetNode && modelStore.drawingLine?.tempEdge){
       const relationId = createId();
-      const source = modelStore.rootStore.getEntityById(modelStore.drawingLine.sourceNodeId);
-      const target = modelStore.rootStore.getEntityById(targetNode.id);
+      const source = modelStore.getEntityById(modelStore.drawingLine.sourceNodeId);
+      const target = modelStore.getEntityById(targetNode.id);
 
       if(!source || !target){
         return;
@@ -52,7 +52,7 @@ export function useEdgeLineDraw(){
           targetId: target.uuid,
           roleOnSource: target.name.toLowerCase() + seedId(),
           roleOnTarget: source.name.toLowerCase() + seedId(),
-        }, modelStore.rootStore),
+        }),
         {id:relationId, vertices: modelStore.drawingLine?.tempEdge.getVertices()},
       )
       modelStore.excuteCommand(comamnd);

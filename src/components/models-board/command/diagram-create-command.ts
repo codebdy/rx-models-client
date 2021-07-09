@@ -13,7 +13,7 @@ export class DiagramCreateCommand implements Command{
   ){ }
   
   excute():SelectedNode{
-    this.diagramStore = new DiagramStore(this.meta, this.bordStore.rootStore, this.packageStore)
+    this.diagramStore = new DiagramStore(this.meta, this.bordStore, this.packageStore)
     this.packageStore.addDiagram(this.diagramStore);
     return undefined;
   }

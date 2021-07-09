@@ -5,11 +5,11 @@ import { GraphCanvas } from './grahp-canvas';
 import classNames from 'classnames';
 import { ModelsBoardStore } from './store/models-board';
 import { ModelStoreProvider } from './store';
-import { rootMeta } from './store/mock';
 import { Toolbox } from './toolbox';
 import { PropertyBox } from './property-box';
 import { ModelToolbar } from './model-toolbar';
 import { observer } from 'mobx-react';
+import { packages } from './store/mock';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const ModelsBoard = observer(()=>{
-  const [modelStore] = useState(new ModelsBoardStore(rootMeta));
+  const [modelStore] = useState(new ModelsBoardStore(packages as any));
   const classes = useStyles();
   return (
     <ModelStoreProvider value = {modelStore}>

@@ -15,8 +15,8 @@ export const RelationPanel = observer((
 )=>{
   const {relationStore} = props;
   const boardStore = useModelsBoardStore();
-  const source = boardStore.rootStore.getEntityById(relationStore.sourceId);
-  const target = boardStore.rootStore.getEntityById(relationStore.targetId);
+  const source = boardStore.getEntityById(relationStore.sourceId);
+  const target = boardStore.getEntityById(relationStore.targetId);
 
   const handleTypeChange = (event:React.ChangeEvent<{ value: unknown }>)=>{
     const command = new RelationChangeCommand(relationStore, 'relationType' , event.target.value as RelationType);
@@ -92,7 +92,7 @@ export const RelationPanel = observer((
           <FormControlLabel
             control={
               <Switch
-                checked={relationStore.joinColumnAt === relationStore.sourceId || !relationStore.joinColumnAt}
+                checked={relationStore.ownerId === relationStore.sourceId || !relationStore.ownerId}
                 onChange={handleSourceJoinColumnChange}
                 color="primary"
               />
@@ -105,7 +105,7 @@ export const RelationPanel = observer((
           <FormControlLabel
             control={
               <Switch
-                checked={relationStore.joinTableAt === relationStore.sourceId || !relationStore.joinTableAt}
+                checked={relationStore.ownerId === relationStore.sourceId || !relationStore.ownerId}
                 onChange={handleSourceJoinTableChange}
                 color="primary"
               />
@@ -132,7 +132,7 @@ export const RelationPanel = observer((
           <FormControlLabel
             control={
               <Switch
-                checked={relationStore.joinColumnAt === relationStore.targetId}
+                checked={relationStore.ownerId === relationStore.targetId}
                 onChange={handleTargetJoinColumnChange}
                 color="primary"
               />
@@ -145,7 +145,7 @@ export const RelationPanel = observer((
           <FormControlLabel
             control={
               <Switch
-                checked={relationStore.joinTableAt === relationStore.targetId}
+                checked={relationStore.ownerId === relationStore.targetId}
                 onChange={handleTargetJoinTableChange}
                 color="primary"
               />

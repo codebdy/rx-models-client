@@ -28,7 +28,7 @@ export function useEdgeSelect(){
   const handleEdgeClick = (arg: { edge: Edge<Edge.Properties> })=>{
     const { edge } = arg; 
     if(edge && edge.id !== modelStore?.drawingLine?.tempEdge?.id){
-      modelStore.setSelectedElement(modelStore.rootStore.getRelationById(edge.id));
+      modelStore.setSelectedElement(modelStore.getRelationById(edge.id));
     }
   }
 

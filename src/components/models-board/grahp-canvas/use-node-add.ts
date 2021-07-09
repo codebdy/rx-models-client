@@ -33,7 +33,7 @@ export function useNodeAdd(){
       if(modelStore.graph?.getCellById(classMeta.id)){
         return;
       }
-      const command = new EntityAddCommand(modelStore.openedDiagram, modelStore?.rootStore.getEntityById(classMeta.id),
+      const command = new EntityAddCommand(modelStore.openedDiagram, modelStore?.getEntityById(classMeta.id),
       {
         //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
         id:classMeta.id||'', 

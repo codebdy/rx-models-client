@@ -21,7 +21,7 @@ export const RelationNode = observer((props:{
   }
 
   const handleDelete = ()=>{
-    const command = new RelationDeleteCommand(relation, bordStore.rootStore);
+    const command = new RelationDeleteCommand(relation);
     bordStore.excuteCommand(command);
   }
 

@@ -1,27 +1,27 @@
-import { SelectedNode } from "../store/models-board";
+import { ModelsBoardStore, SelectedNode } from "../store/models-board";
 import { PackageStore } from "../store/package";
 import { Command } from "./command";
 
 export class PackageDeleteCommand implements Command{
-  private parentPackage?: PackageStore;
+  private rootStore?: ModelsBoardStore;
   private index: number;
   constructor(
     private readonly packageStore: PackageStore,
   ){
-    this.parentPackage = packageStore.parent;
-    this.index = this.parentPackage?.packages.indexOf(packageStore)||0;
+    this.rootStore = packageStore.rootStore;
+    this.index = this.rootStore?.packages.indexOf(packageStore)||0;
   }
   
   excute():SelectedNode{
-    this.parentPackage?.deletePackage(this.packageStore.uuid);
+    this.rootStore?.deletePackage(this.packageStore.uuid);
     return undefined;
   }
 
   undo():SelectedNode{
-    if(!this.parentPackage){
+    if(!this.rootStore){
       return;
     }
-    this.parentPackage.insertPackage(this.packageStore, this.index);
+    this.rootStore.insertPackage(this.packageStore, this.index);
     return this.packageStore;
   };
 }

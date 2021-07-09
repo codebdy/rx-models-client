@@ -70,7 +70,7 @@ export const ModelToolbar = observer(()=>{
     }
 
     if(boardStore.selectedElement instanceof RelationStore){
-      const command = new RelationDeleteCommand(boardStore.selectedElement, boardStore.rootStore);
+      const command = new RelationDeleteCommand(boardStore.selectedElement);
       boardStore.excuteCommand(command);
     }
 

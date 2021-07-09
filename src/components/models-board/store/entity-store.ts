@@ -5,6 +5,7 @@ import { PackageStore } from "./package";
 import { RelationStore } from "./relation";
 import _ from 'lodash';
 import { ColumnType } from "../meta/column-meta";
+import { ModelsBoardStore } from "./models-board";
 
 export class EntityStore{
   uuid: string;
@@ -13,7 +14,7 @@ export class EntityStore{
   package: PackageStore | undefined;
   columns: ColumnStore[];
 
-  constructor(meta:EntityMeta, private rootStore: PackageStore, belongsTopackage?: PackageStore){
+  constructor(meta:EntityMeta, private rootStore: ModelsBoardStore, belongsTopackage?: PackageStore){
     this.uuid = meta.uuid;
     this.name = meta.name;
     this.entityType = meta.entityType;
@@ -67,7 +68,7 @@ export class EntityStore{
 
   getSourceRelations():RelationStore[]{
     const relations: RelationStore[] = [];
-    this.rootStore.relations.forEach(relation=>{
+    this.rootStore.getRelations().forEach(relation=>{
       if(relation.sourceId === this.uuid){
         relations.push(relation)
       }
@@ -77,7 +78,7 @@ export class EntityStore{
 
   getTargetRelations():RelationStore[]{
     const relations: RelationStore[] = [];
-    this.rootStore.relations.forEach(relation=>{
+    this.rootStore.getRelations().forEach(relation=>{
       if(relation.targetId === this.uuid){
         relations.push(relation)
       }

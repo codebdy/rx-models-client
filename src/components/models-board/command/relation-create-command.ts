@@ -1,23 +1,34 @@
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { DiagramStore } from "../store/diagram";
 import { SelectedNode } from "../store/models-board";
+import { PackageStore } from "../store/package";
 import { RelationStore } from "../store/relation";
 import { Command } from "./command";
 
 export class RelationCreateCommand implements Command{
+  private ownerPackage?:PackageStore;
   constructor(
     private readonly diagramStore: DiagramStore,
     private readonly relationStore: RelationStore,
     private readonly edgeMeta: X6EdgeMeta,
-  ){}
+  ){
+    this.ownerPackage = this.diagramStore?.rootStore.getPackgeById(this.relationStore.ownerId);
+  }
   
   excute():SelectedNode{
-    const relationStore = this.diagramStore?.rootStore?.addRelation(this.relationStore);
+    if(!this.ownerPackage){
+      return;
+    }
+    this.ownerPackage.addRelation(this.relationStore);
     this.diagramStore?.addEdge(this.edgeMeta);
-    return relationStore;
+    return this.relationStore;
   }
   undo():SelectedNode{
-    this.diagramStore?.rootStore?.deleteRelation(this.relationStore.uuid)
+    if(!this.ownerPackage){
+      return;
+    }
+    this.relationStore.setPakage(undefined);
+    this.ownerPackage?.deleteRelation(this.relationStore.uuid)
     this.diagramStore?.deleteEdge(this.edgeMeta.id);
     return undefined;
   };

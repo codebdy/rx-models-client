@@ -46,7 +46,7 @@ export function useEdgeChange(){
         roleOnSourcePosition: roleOnSource?.position as any,
         roleOnTargetPosition: roleOnTarget?.position as any
       },
-      modelStore.rootStore.getRelationById(edge.id)
+      modelStore.getRelationById(edge.id)
     );
 
     modelStore.excuteCommand(command);

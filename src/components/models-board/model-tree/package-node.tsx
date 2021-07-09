@@ -21,11 +21,10 @@ export const PackageNode = observer((props:{
   packageStore: PackageStore
 })=>{
   const {packageStore} = props;
-  const bordStore = useModelsBoardStore();
-  const rootStore = bordStore.rootStore;
+  const rootStore = useModelsBoardStore();
 
   const handleClick = (event:React.MouseEvent)=>{
-    bordStore.setSelectedElement(packageStore);
+    rootStore.setSelectedElement(packageStore);
     event.stopPropagation();
   }
 
@@ -41,23 +40,23 @@ export const PackageNode = observer((props:{
   } */
   
   const handleAddEntity = ()=>{
-    const command = new EntityCreateOnTreeCommand(packageStore, creatNewEntityMeta(bordStore.rootStore))
-    bordStore.excuteCommand(command);
+    const command = new EntityCreateOnTreeCommand(packageStore, creatNewEntityMeta(rootStore))
+    rootStore.excuteCommand(command);
   }
 
   const handleAddDiagram = ()=>{
     const command = new DiagramCreateCommand({
       uuid: createId(),
-      name: getNewDiagramName(rootStore),
+      name: getNewDiagramName(packageStore),
       nodes:[],
       edges:[]
-    }, packageStore, bordStore);
-    bordStore.excuteCommand(command);
+    }, packageStore, rootStore);
+    rootStore.excuteCommand(command);
   }
 
   const handleDelete = ()=>{
     const command = new PackageDeleteCommand(packageStore);
-    bordStore.excuteCommand(command);
+    rootStore.excuteCommand(command);
   }
 
   return(
@@ -77,13 +76,6 @@ export const PackageNode = observer((props:{
         <NodeText>{packageStore.name}</NodeText>
       </TreeNodeLabel>
     }>
-      {
-        packageStore.packages.map(aPackage=>{
-          return (
-            <PackageNode key={aPackage.uuid} packageStore = {aPackage} />
-          )
-        })
-      }
       {
         packageStore.entities.map(aClass=>{
           return (

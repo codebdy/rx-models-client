@@ -1,15 +1,14 @@
 import { ColumnType } from "../meta/column-meta";
+import { PackageStatus } from "../meta/package-meta";
 import { RelationType } from "../meta/relation-meta";
-import { RootMeta } from "../meta/root-meta";
 
-export const rootMeta:RootMeta = {
-  packageMetas:[
+export const packages = [
     {
       uuid: '1',
       name: 'System',
       parent: undefined,
-      packages: [],
-      entityMetas: [
+      status: PackageStatus.EDITING,
+      entities: [
         {
           uuid: '2',
           name: 'RxUser',
@@ -62,7 +61,7 @@ export const rootMeta:RootMeta = {
           ],
         }
       ],
-      diagramMetas: [
+      diagrams: [
         {
           uuid: '999',
           name: 'ER图',
@@ -77,19 +76,16 @@ export const rootMeta:RootMeta = {
           ],
           edges: [],
         }
-      ]
+      ],
+      relations:[
+        {
+          uuid: 'relation1',
+          relationType: RelationType.MANY_TO_MANY,
+          sourceId: '2',
+          targetId: '11',
+          roleOnSource: 'roles',
+          roleOnTarget: 'users'
+        }
+      ],
     }
-  ],
-  classMetas:[],
-  diagramMetas:[],
-  relationMetas:[
-    {
-      uuid: 'relation1',
-      relationType: RelationType.MANY_TO_MANY,
-      sourceId: '2',
-      targetId: '11',
-      roleOnSource: 'roles',
-      roleOnTarget: 'users'
-    }
-  ],
-}
+  ]

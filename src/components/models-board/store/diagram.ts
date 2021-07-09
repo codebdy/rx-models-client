@@ -6,6 +6,7 @@ import { X6NodeMeta } from "../meta/x6-node-meta";
 import { PackageStore } from "./package";
 import _ from "lodash";
 import { RelationMeta } from "../meta/relation-meta";
+import { ModelsBoardStore } from "./models-board";
 
 export type EntityNodeData = EntityMeta & {
     packageName?:string, 
@@ -25,7 +26,7 @@ export class DiagramStore{
   
   constructor(
     meta:DiagramMeta, 
-    public readonly rootStore: PackageStore, 
+    public readonly rootStore: ModelsBoardStore, 
     public readonly belongsToPackage: PackageStore
   ){
     this.uuid = meta.uuid;
@@ -54,7 +55,7 @@ export class DiagramStore{
   getAndMakeEdges(){
     const edges: EdgeConfig[] = [];
 
-    this.rootStore.relations?.forEach(relation=>{
+    this.rootStore.getRelations()?.forEach(relation=>{
       const source = this.nodes.find(node=>node.id === relation.sourceId);
       const target = this.nodes.find(node=>node.id === relation.targetId);
       if(source && target){

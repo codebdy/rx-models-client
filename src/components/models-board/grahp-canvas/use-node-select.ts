@@ -15,7 +15,7 @@ export function useNodeSelect(){
   },[ modelStore.graph, modelStore.selectedElement])
 
   const handleNodeSelected = (arg: { node: Node<Node.Properties>; })=>{
-    modelStore.selectClass(arg.node.id);
+    modelStore.selectEntity(arg.node.id);
   }
 
   const handleNodeUnselected = ()=>{

@@ -10,8 +10,6 @@ import { TreeNodeLabel } from './tree-node-label';
 import MdiIcon from 'components/common/mdi-icon';
 import { useModelsBoardStore } from '../store';
 import { PackageNode } from './package-node';
-import { EntityNode } from './entity-node';
-import { DiagramNode } from './diagram-node';
 import { observer } from 'mobx-react';
 import { PackageCreateCommand } from '../command/package-create-command';
 import { createId } from 'util/creat-id';
@@ -19,6 +17,7 @@ import { getNewPackageName } from '../store/get-new-package-name';
 import { PackageStore } from '../store/package';
 import { TREE_ROOT_ID } from 'util/consts';
 import RootAction from './root-action';
+import { PackageStatus } from '../meta/package-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,18 +30,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ModelTreeView = observer(() => {
   const classes = useStyles();
-  const bordStore = useModelsBoardStore();
-  const rootStore = bordStore.rootStore;
+  const rootStore = useModelsBoardStore();
 
   const handleAddPackage = ()=>{
     const command = new PackageCreateCommand(
       new PackageStore({
         uuid:createId(), 
         name: getNewPackageName(rootStore),
-      }, rootStore, rootStore), 
+        status: PackageStatus.EDITING
+      }, rootStore), 
       rootStore
     )
-    bordStore.excuteCommand(command);
+    rootStore.excuteCommand(command);
   } 
   
   return (
@@ -51,7 +50,7 @@ export const ModelTreeView = observer(() => {
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpanded={[TREE_ROOT_ID]}
       defaultExpandIcon={<ChevronRightIcon />}
-      selected = {[bordStore?.selectedElement?.uuid || '', bordStore?.openedDiagram?.uuid || '']}
+      selected = {[rootStore?.selectedElement?.uuid || '', rootStore?.openedDiagram?.uuid || '']}
     >
       <TreeItem nodeId={TREE_ROOT_ID} label={
         <TreeNodeLabel
@@ -67,20 +66,6 @@ export const ModelTreeView = observer(() => {
           rootStore.packages.map(aPackage=>{
             return (
               <PackageNode key={aPackage.uuid} packageStore = {aPackage} />
-            )
-          })
-        }
-        {
-          rootStore.entities.map(aClass=>{
-            return (
-              <EntityNode key={aClass.uuid} entityStore = {aClass} />
-            )
-          })
-        }
-        {
-          rootStore.diagrams.map(diagram=>{
-            return (
-              <DiagramNode key={diagram.uuid} diagramStore = {diagram} />
             )
           })
         }

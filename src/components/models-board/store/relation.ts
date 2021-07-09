@@ -3,32 +3,36 @@ import { RelationType, RelationMeta } from "../meta/relation-meta";
 import { PackageStore } from "./package";
 
 export class RelationStore{
+  public packageStore?: PackageStore
   uuid: string;
   relationType: RelationType;
   sourceId: string;
   targetId: string;
   roleOnSource: string;
   roleOnTarget: string;
-  joinColumnAt?: string;
-  joinTableAt?: string;
+  ownerId?: string;
 
-  constructor(meta:RelationMeta, private rootStore: PackageStore){
+  constructor(meta:RelationMeta, packageStore?:PackageStore){
     this.uuid = meta.uuid;
     this.relationType = meta.relationType;
     this.sourceId = meta.sourceId;
     this.targetId = meta.targetId;
     this.roleOnSource = meta.roleOnSource;
     this.roleOnTarget = meta.roleOnTarget;
-    this.joinColumnAt = meta.joinColumnAt;
-    this.joinTableAt = meta.joinTableAt;
-    if(this.relationType === RelationType.ONE_TO_ONE && !this.joinColumnAt){
-      this.joinColumnAt = this.sourceId
+    this.ownerId = meta.ownerId;
+    if(this.relationType === RelationType.ONE_TO_ONE && !this.ownerId){
+      this.ownerId = this.sourceId
     }
 
-    if(this.relationType === RelationType.MANY_TO_MANY && !this.joinTableAt){
-      this.joinTableAt = this.sourceId
+    if(this.relationType === RelationType.MANY_TO_MANY && !this.ownerId){
+      this.ownerId = this.sourceId
     }
+    this.packageStore = packageStore;
     makeAutoObservable(this);
+  }
+
+  setPakage(packageStore:PackageStore|undefined){
+    this.packageStore = packageStore;
   }
 
   setRoleOnSource(roleName:string){
@@ -51,8 +55,7 @@ export class RelationStore{
       targetId: this.targetId,
       roleOnSource: this.roleOnSource,
       roleOnTarget: this.roleOnTarget,
-      joinColumnAt: this.joinColumnAt,
-      joinTableAt: this.joinTableAt 
+      ownerId: this.ownerId,
     }
   }
 }

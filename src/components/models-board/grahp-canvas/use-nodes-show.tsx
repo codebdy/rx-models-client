@@ -20,12 +20,12 @@ export function useNodesShow(){
   );
 
   const handleColumnSelect = (entityId:string, columnId:string)=>{
-    const entity = modelStore.rootStore.getEntityById(entityId);
+    const entity = modelStore.getEntityById(entityId);
     modelStore.setSelectedElement(entity?.columns.find(column=>column.uuid === columnId));
   }
 
   const handleColumnDelete = (entityId:string, columnId:string)=>{
-    const entity = modelStore.rootStore.getEntityById(entityId);
+    const entity = modelStore.getEntityById(entityId);
     const columnStore = entity?.getColumnById(columnId);
     if(entity && columnStore){
       const command = new ColumnDeleteCommand(columnStore);
@@ -34,7 +34,7 @@ export function useNodesShow(){
   }
 
   const handleColumnCreate = (entityId:string)=>{
-    const entity = modelStore.rootStore.getEntityById(entityId);
+    const entity = modelStore.getEntityById(entityId);
     if(entity){
       const command = new ColumnCreateCommand(entity, createId());
       modelStore.excuteCommand(command);
@@ -46,7 +46,7 @@ export function useNodesShow(){
       return;
     }
 
-    const entityStore = modelStore.rootStore.getEntityById(entityId);
+    const entityStore = modelStore.getEntityById(entityId);
     const nodeMeta = modelStore.openedDiagram.getNodeById(entityId);
     if(!entityStore || !nodeMeta){
       return;
