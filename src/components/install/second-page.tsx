@@ -23,7 +23,7 @@ export const SecondPage=(
 
   const [install, { loading, error}] = useLayzyAxios<any>(API_INSTALL,{
     onCompleted(data){
-      if(data && data){
+      if(data && data.success){
         history.push(LOGIN_URL);
       }      
     },
