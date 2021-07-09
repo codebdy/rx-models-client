@@ -34,7 +34,7 @@ export const ModelTreeView = observer(() => {
   const bordStore = useModelsBoardStore();
   const rootStore = bordStore.rootStore;
 
-  const handleAddPackage = (event: React.MouseEvent)=>{
+  const handleAddPackage = ()=>{
     const command = new PackageCreateCommand(
       new PackageStore({
         id:createId(), 
@@ -43,7 +43,6 @@ export const ModelTreeView = observer(() => {
       rootStore
     )
     bordStore.excuteCommand(command);
-    event.stopPropagation();
   } 
   
   return (

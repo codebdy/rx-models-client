@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function RootAction(props:{
-  onAddPackage:(event:React.MouseEvent)=>void
+  onAddPackage:()=>void
 }){
   const {onAddPackage} = props;
   const classes = useStyles();
@@ -31,6 +31,12 @@ export default function RootAction(props:{
     setAnchorEl(null);
     event.stopPropagation();
   };
+
+  const handleAddPackage = (event: React.MouseEvent<HTMLElement>) =>{
+    onAddPackage();
+    setAnchorEl(null);
+    event.stopPropagation();
+  }
 
   return (
     <>
@@ -54,7 +60,7 @@ export default function RootAction(props:{
           onClose={handleMenuClose}
           
         >
-          <MenuItem onClick={onAddPackage} className = {classes.menuItem}>
+          <MenuItem onClick={handleAddPackage} className = {classes.menuItem}>
             <MdiIcon iconClass = "mdi-folder-plus-outline"  size={16}/>
             <span className = {classes.text}>{intl.get('add-package')} </span>
           </MenuItem>
