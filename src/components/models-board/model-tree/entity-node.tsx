@@ -129,14 +129,14 @@ export const EntityNode = observer((props:{
           {
             sourceRelations.map(relation=>{
               return (
-                <RelationNode key={relation.uuid} relation = {relation} isSource />
+                <RelationNode key={relation.uuid} relation = {relation} isSource entityStore = {entityStore} />
               )
             })
           }
           {
             targetRelations.map(relation=>{
               return (
-                <RelationNode key={relation.uuid} relation = {relation} isSource = {false} />
+                <RelationNode key={relation.uuid} relation = {relation} isSource = {false} entityStore = {entityStore} />
               )
             })
           }
