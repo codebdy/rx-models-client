@@ -7,6 +7,7 @@ import { RelationCreateCommand } from "../command/relation-create-command";
 import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { RelationStore } from "../store/relation";
+import { RelationType } from "../meta/relation-meta";
 
 export function useEdgeLineDraw(){
   const modelStore = useModelsBoardStore();
@@ -43,6 +44,11 @@ export function useEdgeLineDraw(){
         return;
       }
 
+      let ownerId = source.uuid;
+      if(modelStore.drawingLine.relationType === RelationType.ONE_TO_MANY){
+        ownerId = target.uuid;
+      }
+      
       const comamnd = new RelationCreateCommand(
         modelStore.openedDiagram,
         new RelationStore({
@@ -52,6 +58,7 @@ export function useEdgeLineDraw(){
           targetId: target.uuid,
           roleOnSource: target.name.toLowerCase() + seedId(),
           roleOnTarget: source.name.toLowerCase() + seedId(),
+          ownerId: ownerId,
         }),
         {id:relationId, vertices: modelStore.drawingLine?.tempEdge.getVertices()},
       )

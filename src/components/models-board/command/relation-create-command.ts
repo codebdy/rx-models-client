@@ -12,7 +12,7 @@ export class RelationCreateCommand implements Command{
     private readonly relationStore: RelationStore,
     private readonly edgeMeta: X6EdgeMeta,
   ){
-    this.ownerPackage = this.diagramStore?.rootStore.getPackgeById(this.relationStore.ownerId);
+    this.ownerPackage = this.diagramStore?.rootStore.getEntityById(this.relationStore.ownerId)?.package;
   }
   
   excute():SelectedNode{
