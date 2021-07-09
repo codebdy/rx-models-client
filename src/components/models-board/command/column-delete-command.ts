@@ -16,7 +16,7 @@ export class ColumnDeleteCommand implements Command{
     if(!this.columnStore){
       return;
     }
-    this.columnStore.entityStore.deleteColumn(this.columnStore.id)
+    this.columnStore.entityStore.deleteColumn(this.columnStore.uuid)
     return this.columnStore.entityStore;
   }
 

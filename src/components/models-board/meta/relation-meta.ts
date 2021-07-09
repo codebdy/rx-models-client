@@ -6,7 +6,7 @@ export enum RelationType {
 }
 
 export interface RelationMeta {
-  id: string;
+  uuid: string;
   relationType: RelationType;
   sourceId: string;
   targetId: string;

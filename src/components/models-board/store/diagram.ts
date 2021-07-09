@@ -18,7 +18,7 @@ export type NodeConfig = X6NodeMeta & {data: EntityNodeData};
 export type EdgeConfig = X6EdgeMeta & RelationMeta;
 
 export class DiagramStore{
-  id: string;
+  uuid: string;
   name: string;
   nodes: X6NodeMeta[] = [];
   edges: X6EdgeMeta[] = [];
@@ -28,7 +28,7 @@ export class DiagramStore{
     public readonly rootStore: PackageStore, 
     public readonly belongsToPackage: PackageStore
   ){
-    this.id = meta.id;
+    this.uuid = meta.uuid;
     this.name = meta.name;
     this.nodes = meta.nodes;
     this.edges = meta.edges;
@@ -40,7 +40,7 @@ export class DiagramStore{
       const entityStore = this.rootStore.getEntityById(node.id);
       const data = {
         ...entityStore?.toMeta(), 
-        packageName:(this.belongsToPackage.id !== entityStore?.package?.id)
+        packageName:(this.belongsToPackage.uuid !== entityStore?.package?.uuid)
          ? (entityStore?.package?.name)
          : '',
          selectedId: selectedId,
@@ -58,7 +58,7 @@ export class DiagramStore{
       const source = this.nodes.find(node=>node.id === relation.sourceId);
       const target = this.nodes.find(node=>node.id === relation.targetId);
       if(source && target){
-        const edge = this.edges.find(edge=>edge.id === relation.id);
+        const edge = this.edges.find(edge=>edge.id === relation.uuid);
         const relationMeta = relation.toMeta();
         if(edge){
           edges.push({
@@ -66,7 +66,7 @@ export class DiagramStore{
             ...relationMeta
           });
         }else{
-          const newEdge = {id:relation.id};
+          const newEdge = {id:relation.uuid};
           edges.push({
             ...newEdge, 
             ...relationMeta
@@ -123,7 +123,7 @@ export class DiagramStore{
 
   toMeta(){
     return {
-      id: this.id,
+      id: this.uuid,
       nodes: toJS(this.nodes),
       edges: toJS(this.edges)
     };

@@ -14,7 +14,7 @@ export class EntityCreateOnTreeCommand implements Command{
     return entityStore;
   }
   undo():SelectedNode{
-    this.packageStore.deleteEntity(this.entityMeta.id);
+    this.packageStore.deleteEntity(this.entityMeta.uuid);
     return undefined;
   };
 }

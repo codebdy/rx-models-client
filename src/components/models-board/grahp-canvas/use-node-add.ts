@@ -19,7 +19,7 @@ export function useNodeAdd(){
       const command = new EntityCreateCommand(modelStore.openedDiagram, classMeta, 
         {
           //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
-          id:classMeta.id||'', 
+          id:classMeta.uuid||'', 
           x:node.getPosition().x, 
           y:node.getPosition().y, 
           width: node.getSize().width, 

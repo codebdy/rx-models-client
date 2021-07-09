@@ -59,7 +59,7 @@ export class ModelsBoardStore{
   createTempClassNodeForNew(){
     const entityMeta = creatNewEntityMeta(this.rootStore)
     return {
-      id: entityMeta.id,
+      uuid: entityMeta.uuid,
       ...NODE_INIT_SIZE,
       shape: 'react-shape', 
       data:{

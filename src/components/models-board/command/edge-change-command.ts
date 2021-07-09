@@ -11,7 +11,7 @@ export class EdgeChangeCommand implements Command{
     private readonly newEdgeMeta: X6EdgeMeta,
     private readonly relationStore?: RelationStore,
   ){
-    relationStore && (this.oldEdgeMeta = diagramStore.getEdgeById(relationStore?.id));
+    relationStore && (this.oldEdgeMeta = diagramStore.getEdgeById(relationStore?.uuid));
   }
 
   excute():SelectedNode{

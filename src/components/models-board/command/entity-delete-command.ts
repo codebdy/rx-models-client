@@ -14,7 +14,7 @@ export class EntityDeleteCommand implements Command{
   }
   
   excute():SelectedNode{
-    this.packageStore?.deleteEntity(this.entityStore.id);
+    this.packageStore?.deleteEntity(this.entityStore.uuid);
     return undefined;
   }
 

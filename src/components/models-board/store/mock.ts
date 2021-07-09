@@ -5,57 +5,57 @@ import { RootMeta } from "../meta/root-meta";
 export const rootMeta:RootMeta = {
   packageMetas:[
     {
-      id: '1',
+      uuid: '1',
       name: 'System',
       parent: undefined,
       packages: [],
       entityMetas: [
         {
-          id: '2',
+          uuid: '2',
           name: 'RxUser',
           columns: [
             {
-              id: '3',
-              name: 'id',
+              uuid: '3',
+              name: 'uuid',
               type: ColumnType.Number,
               primary: true,
               generated: true,
             },
             {
-              id: '4',
+              uuid: '4',
               name: 'name',
               type: ColumnType.String,
             },
             {
-              id: '5',
+              uuid: '5',
               name: 'content',
               type: ColumnType.String,
             },
             {
-              id: '6',
+              uuid: '6',
               name: 'title',
               type: ColumnType.String,
             },
           ],
         },
         {
-          id: '11',
+          uuid: '11',
           name: 'RxRole',
           columns: [
             {
-              id: '13',
-              name: 'id',
+              uuid: '13',
+              name: 'uuid',
               type: ColumnType.Number,
               primary: true,
               generated: true,
             },
             {
-              id: '14',
+              uuid: '14',
               name: 'name',
               type: ColumnType.String,
             },
             {
-              id: '15',
+              uuid: '15',
               name: 'description',
               type: ColumnType.String,
             },
@@ -64,7 +64,7 @@ export const rootMeta:RootMeta = {
       ],
       diagramMetas: [
         {
-          id: '999',
+          uuid: '999',
           name: 'ER图',
           nodes: [
             {
@@ -84,7 +84,7 @@ export const rootMeta:RootMeta = {
   diagramMetas:[],
   relationMetas:[
     {
-      id: 'relation1',
+      uuid: 'relation1',
       relationType: RelationType.MANY_TO_MANY,
       sourceId: '2',
       targetId: '11',

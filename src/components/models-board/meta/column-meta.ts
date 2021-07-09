@@ -4,7 +4,7 @@ export enum ColumnType{
   String = "String",
 }
 export interface ColumnMeta{
-  id: string;
+  uuid: string;
   name: string;
   type: ColumnType;
   primary?: boolean;

@@ -5,12 +5,12 @@ import { PackageStore } from "./package";
 
 export function creatNewEntityMeta(rootStore:PackageStore){
   return {
-    id:createId(),
+    uuid:createId(),
     name: getNewEntityName(rootStore),
     columns: [
       {
-        id: createId(),
-        name: 'id',
+        uuid: createId(),
+        name: 'uuid',
         type: ColumnType.Number,
         primary: true,
         generated: true,

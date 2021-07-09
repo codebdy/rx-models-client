@@ -11,7 +11,7 @@ export class NodeChangeCommand implements Command{
     private readonly diagramStore: DiagramStore,
     private readonly entityStore?: EntityStore,
   ){
-    entityStore && (this.oldNodeMeta = diagramStore.getNodeById(entityStore?.id));
+    entityStore && (this.oldNodeMeta = diagramStore.getNodeById(entityStore?.uuid));
   }
 
   setNewNodeMeta(meta:X6NodeMeta){

@@ -73,7 +73,7 @@ export const EntityNode = observer((props:{
   }
 
   return(
-    <TreeItem nodeId= {entityStore.id} label={
+    <TreeItem nodeId= {entityStore.uuid} label={
       <TreeNodeLabel
         action = {
           <IconButton size = "small" onClick = {handleDelete}>
@@ -97,7 +97,7 @@ export const EntityNode = observer((props:{
         <NodeText><div style={{marginLeft:'-8px'}}>{entityStore.name}</div></NodeText>
       </TreeNodeLabel>
     }>
-      <TreeItem nodeId= {entityStore.id + 'columns'} label={
+      <TreeItem nodeId= {entityStore.uuid + 'columns'} label={
         <TreeNodeLabel
           action = {
             <IconButton 
@@ -114,14 +114,14 @@ export const EntityNode = observer((props:{
         {
           entityStore.columns.map(column=>{
             return (
-              <ColumnNode key={column.id} columnStore = {column}/>
+              <ColumnNode key={column.uuid} columnStore = {column}/>
             )
           })
         }
       </TreeItem>
       {
         (sourceRelations.length > 0 || targetRelations.length > 0)  &&
-        <TreeItem nodeId= {entityStore.id + 'relations'} label={
+        <TreeItem nodeId= {entityStore.uuid + 'relations'} label={
           <TreeNodeLabel>
             <NodeText>{intl.get('relations')}</NodeText>
           </TreeNodeLabel>
@@ -129,14 +129,14 @@ export const EntityNode = observer((props:{
           {
             sourceRelations.map(relation=>{
               return (
-                <RelationNode key={relation.id} relation = {relation} isSource />
+                <RelationNode key={relation.uuid} relation = {relation} isSource />
               )
             })
           }
           {
             targetRelations.map(relation=>{
               return (
-                <RelationNode key={relation.id} relation = {relation} isSource = {false} />
+                <RelationNode key={relation.uuid} relation = {relation} isSource = {false} />
               )
             })
           }

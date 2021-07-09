@@ -10,11 +10,11 @@ export function useEdgeSelect(){
     if(modelStore.selectedElement && modelStore.selectedElement instanceof RelationStore)
     {
       setSelectedRelation(modelStore.selectedElement as RelationStore);
-      const edge = modelStore.graph?.getCellById(modelStore.selectedElement.id) as Edge;
+      const edge = modelStore.graph?.getCellById(modelStore.selectedElement.uuid) as Edge;
       edge?.addTools(['vertices', 'boundary', 'segments']);
     }
     modelStore.graph?.getEdges().forEach(edge=>{
-      if(modelStore.selectedElement?.id !== edge.id){
+      if(modelStore.selectedElement?.uuid !== edge.id){
         edge.removeTools(['boundary', 'vertices', 'segments']);
       }
     })

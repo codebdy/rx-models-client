@@ -13,7 +13,7 @@ export class PackageDeleteCommand implements Command{
   }
   
   excute():SelectedNode{
-    this.parentPackage?.deletePackage(this.packageStore.id);
+    this.parentPackage?.deletePackage(this.packageStore.uuid);
     return undefined;
   }
 

@@ -10,7 +10,7 @@ import _ from 'lodash';
 import { TREE_ROOT_ID } from "util/consts";
 
 export class PackageStore{
-  id: string;
+  uuid: string;
   name: string;
   packages: PackageStore[] = [];
   entities: EntityStore[] = [];
@@ -18,7 +18,7 @@ export class PackageStore{
   relations: RelationStore[] = [];
   
   constructor(meta?:PackageMeta,  public parent?: PackageStore, public rootStore?: PackageStore){
-    this.id = meta?.id || TREE_ROOT_ID;
+    this.uuid = meta?.uuid || TREE_ROOT_ID;
     this.name = meta?.name || intl.get('root-models');
     this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this, this.rootStore||this))||[];
     this.entities = meta?.entityMetas?.map(meta=>new EntityStore(meta, this.rootStore||this, this))||[];
@@ -66,7 +66,7 @@ export class PackageStore{
   }  
 
   getEntityById(id:string): EntityStore|undefined{
-    const entityStore = this.entities.find(entityStore=>entityStore.id === id);
+    const entityStore = this.entities.find(entityStore=>entityStore.uuid === id);
     if(entityStore){
       return entityStore;
     }
@@ -94,7 +94,7 @@ export class PackageStore{
   }
 
   getDiagramById(id:string): DiagramStore|undefined{
-    const diagramStore = this.diagrams.find(diagStore=>diagStore.id === id);
+    const diagramStore = this.diagrams.find(diagStore=>diagStore.uuid === id);
     if(diagramStore){
       return diagramStore;
     }
@@ -108,7 +108,7 @@ export class PackageStore{
   }
 
   getRelationById(id: string){
-    return this.relations.find(relation=>relation.id === id);
+    return this.relations.find(relation=>relation.uuid === id);
   }
 
   setParent(parent:PackageStore){
@@ -137,11 +137,11 @@ export class PackageStore{
   }
 
   deletePackage(id:string){
-    _.remove(this.packages, (packageStore)=> packageStore.id === id);
+    _.remove(this.packages, (packageStore)=> packageStore.uuid === id);
   }
 
   deleteDiagram(id:string){
-    _.remove(this.diagrams, (diagramStore)=> diagramStore.id === id);
+    _.remove(this.diagrams, (diagramStore)=> diagramStore.uuid === id);
   }
 
   createNewEntity(entityMeta: EntityMeta){
@@ -151,7 +151,7 @@ export class PackageStore{
   }
 
   deleteEntity(id:string){
-    _.remove(this.entities, (entityStore)=> entityStore.id === id);
+    _.remove(this.entities, (entityStore)=> entityStore.uuid === id);
   }
 
   //只供根节点使用
@@ -161,7 +161,7 @@ export class PackageStore{
   }
 
   deleteRelation(id:string){
-    _.remove(this.relations, (relationStore)=> relationStore.id === id);
+    _.remove(this.relations, (relationStore)=> relationStore.uuid === id);
   }
 
 }

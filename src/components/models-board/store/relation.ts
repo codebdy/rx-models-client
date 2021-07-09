@@ -3,7 +3,7 @@ import { RelationType, RelationMeta } from "../meta/relation-meta";
 import { PackageStore } from "./package";
 
 export class RelationStore{
-  id: string;
+  uuid: string;
   relationType: RelationType;
   sourceId: string;
   targetId: string;
@@ -13,7 +13,7 @@ export class RelationStore{
   joinTableAt?: string;
 
   constructor(meta:RelationMeta, private rootStore: PackageStore){
-    this.id = meta.id;
+    this.uuid = meta.uuid;
     this.relationType = meta.relationType;
     this.sourceId = meta.sourceId;
     this.targetId = meta.targetId;
@@ -45,7 +45,7 @@ export class RelationStore{
 
   toMeta(): RelationMeta{
     return {
-      id: this.id,
+      uuid: this.uuid,
       relationType: this.relationType,
       sourceId: this.sourceId,
       targetId: this.targetId,

@@ -16,7 +16,7 @@ export class PackageCreateCommand implements Command{
     if(!this.packageStore){
       return;
     }
-    this.parentPackage.deletePackage(this.packageStore.id);
+    this.parentPackage.deletePackage(this.packageStore.uuid);
     return undefined;
   };
 }

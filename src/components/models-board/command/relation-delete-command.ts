@@ -10,7 +10,7 @@ export class RelationDeleteCommand implements Command{
   ){}
   
   excute(): SelectedNode{
-    this.rootStore.deleteRelation(this.relationStore.id);
+    this.rootStore.deleteRelation(this.relationStore.uuid);
     return undefined;
   }
   undo(): SelectedNode{

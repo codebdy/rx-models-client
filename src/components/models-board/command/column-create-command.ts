@@ -19,7 +19,7 @@ export class ColumnCreateCommand implements Command{
     if(!this.columnStore){
       return;
     }
-    this.entityStore.deleteColumn(this.columnStore.id);
+    this.entityStore.deleteColumn(this.columnStore.uuid);
     return this.entityStore;
   };
 }

@@ -17,7 +17,7 @@ export class EntityCreateCommand implements Command{
     return entityStore;
   }
   undo():SelectedNode{
-    this.diagramStore?.belongsToPackage?.deleteEntity(this.entityMeta.id)
+    this.diagramStore?.belongsToPackage?.deleteEntity(this.entityMeta.uuid)
     this.diagramStore?.deleteNode(this.nodeMeta.id);
     return undefined;
   };

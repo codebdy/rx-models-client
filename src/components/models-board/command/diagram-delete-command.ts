@@ -15,8 +15,8 @@ export class DiagramDeleteCommand implements Command{
   }
   
   excute():SelectedNode{
-    this.packageStore?.deleteDiagram(this.diagramStore.id);
-    if(this.bordStore.openedDiagram?.id === this.diagramStore.id){
+    this.packageStore?.deleteDiagram(this.diagramStore.uuid);
+    if(this.bordStore.openedDiagram?.uuid === this.diagramStore.uuid){
       this.bordStore.setOpendDiagram(undefined);
     }
     return undefined;

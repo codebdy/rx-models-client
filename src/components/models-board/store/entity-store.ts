@@ -7,14 +7,14 @@ import _ from 'lodash';
 import { ColumnType } from "../meta/column-meta";
 
 export class EntityStore{
-  id: string;
+  uuid: string;
   name: string;
   entityType?: EntityType;
   package: PackageStore | undefined;
   columns: ColumnStore[];
 
   constructor(meta:EntityMeta, private rootStore: PackageStore, belongsTopackage?: PackageStore){
-    this.id = meta.id;
+    this.uuid = meta.uuid;
     this.name = meta.name;
     this.entityType = meta.entityType;
     this.package = belongsTopackage;
@@ -43,7 +43,7 @@ export class EntityStore{
     }
     
     const columnStore = new ColumnStore({
-      id,
+      uuid: id,
       name: namePrefix + index,
       type: ColumnType.String,
     }, this)
@@ -54,7 +54,7 @@ export class EntityStore{
   }
 
   deleteColumn(id: string){
-    _.remove(this.columns, column=>column.id === id);
+    _.remove(this.columns, column=>column.uuid === id);
   }
 
   insertColumn(columnStore: ColumnStore, index:number){
@@ -62,13 +62,13 @@ export class EntityStore{
   }
 
   getColumnById(id:string){
-    return this.columns.find(column=>column.id === id);
+    return this.columns.find(column=>column.uuid === id);
   }
 
   getSourceRelations():RelationStore[]{
     const relations: RelationStore[] = [];
     this.rootStore.relations.forEach(relation=>{
-      if(relation.sourceId === this.id){
+      if(relation.sourceId === this.uuid){
         relations.push(relation)
       }
     });
@@ -78,7 +78,7 @@ export class EntityStore{
   getTargetRelations():RelationStore[]{
     const relations: RelationStore[] = [];
     this.rootStore.relations.forEach(relation=>{
-      if(relation.targetId === this.id){
+      if(relation.targetId === this.uuid){
         relations.push(relation)
       }
     });
@@ -87,7 +87,7 @@ export class EntityStore{
 
   toMeta(){
     return {
-      id: this.id,
+      id: this.uuid,
       name: this.name,
       classType: this.entityType,
       columns: this.columns.map(column=>column.toMeta()),

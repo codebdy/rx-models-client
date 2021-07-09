@@ -14,14 +14,14 @@ export function useNodesShow(){
   const modelStore = useModelsBoardStore();
   const nodes = modelStore.openedDiagram?.getNodes(
     modelStore.selectedElement instanceof ColumnStore 
-     ? (modelStore.selectedElement?.id)
+     ? (modelStore.selectedElement?.uuid)
      : undefined,
      !!modelStore.pressedLineType
   );
 
   const handleColumnSelect = (entityId:string, columnId:string)=>{
     const entity = modelStore.rootStore.getEntityById(entityId);
-    modelStore.setSelectedElement(entity?.columns.find(column=>column.id === columnId));
+    modelStore.setSelectedElement(entity?.columns.find(column=>column.uuid === columnId));
   }
 
   const handleColumnDelete = (entityId:string, columnId:string)=>{

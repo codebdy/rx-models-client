@@ -47,7 +47,7 @@ export const PackageNode = observer((props:{
 
   const handleAddDiagram = ()=>{
     const command = new DiagramCreateCommand({
-      id: createId(),
+      uuid: createId(),
       name: getNewDiagramName(rootStore),
       nodes:[],
       edges:[]
@@ -61,7 +61,7 @@ export const PackageNode = observer((props:{
   }
 
   return(
-    <TreeItem nodeId= {packageStore.id} label={
+    <TreeItem nodeId= {packageStore.uuid} label={
       <TreeNodeLabel
         action = {
           <PackageAction 
@@ -80,21 +80,21 @@ export const PackageNode = observer((props:{
       {
         packageStore.packages.map(aPackage=>{
           return (
-            <PackageNode key={aPackage.id} packageStore = {aPackage} />
+            <PackageNode key={aPackage.uuid} packageStore = {aPackage} />
           )
         })
       }
       {
         packageStore.entities.map(aClass=>{
           return (
-            <EntityNode key={aClass.id} entityStore = {aClass} />
+            <EntityNode key={aClass.uuid} entityStore = {aClass} />
           )
         })
       }
       {
         packageStore.diagrams.map(diagram=>{
           return (
-            <DiagramNode key={diagram.id} diagramStore = {diagram} />
+            <DiagramNode key={diagram.uuid} diagramStore = {diagram} />
           )
         })
       }

@@ -37,7 +37,7 @@ export const ModelTreeView = observer(() => {
   const handleAddPackage = ()=>{
     const command = new PackageCreateCommand(
       new PackageStore({
-        id:createId(), 
+        uuid:createId(), 
         name: getNewPackageName(rootStore),
       }, rootStore, rootStore), 
       rootStore
@@ -51,7 +51,7 @@ export const ModelTreeView = observer(() => {
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpanded={[TREE_ROOT_ID]}
       defaultExpandIcon={<ChevronRightIcon />}
-      selected = {[bordStore?.selectedElement?.id || '', bordStore?.openedDiagram?.id || '']}
+      selected = {[bordStore?.selectedElement?.uuid || '', bordStore?.openedDiagram?.uuid || '']}
     >
       <TreeItem nodeId={TREE_ROOT_ID} label={
         <TreeNodeLabel
@@ -66,21 +66,21 @@ export const ModelTreeView = observer(() => {
         {
           rootStore.packages.map(aPackage=>{
             return (
-              <PackageNode key={aPackage.id} packageStore = {aPackage} />
+              <PackageNode key={aPackage.uuid} packageStore = {aPackage} />
             )
           })
         }
         {
           rootStore.entities.map(aClass=>{
             return (
-              <EntityNode key={aClass.id} entityStore = {aClass} />
+              <EntityNode key={aClass.uuid} entityStore = {aClass} />
             )
           })
         }
         {
           rootStore.diagrams.map(diagram=>{
             return (
-              <DiagramNode key={diagram.id} diagramStore = {diagram} />
+              <DiagramNode key={diagram.uuid} diagramStore = {diagram} />
             )
           })
         }

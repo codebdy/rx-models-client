@@ -5,7 +5,7 @@ export enum EntityType{
 }
 
 export interface EntityMeta{
-  id: string;
+  uuid: string;
   name: string;
   entityType?: EntityType;
   columns: ColumnMeta[];

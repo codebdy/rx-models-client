@@ -55,14 +55,14 @@ export default function ColumnView(props:{
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
-  const isId = column.name === 'id';
+  const isId = column.name === 'uuid';
 
   const handleClick = ()=>{
-    onClick(column.id);
+    onClick(column.uuid);
   }
 
   const handleDeleteClick = ()=>{
-    onDelete(column.id);
+    onDelete(column.uuid);
   } 
 
   return (

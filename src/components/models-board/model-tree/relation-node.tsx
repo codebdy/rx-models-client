@@ -26,7 +26,7 @@ export const RelationNode = observer((props:{
   }
 
   return(
-    <TreeItem nodeId= {relation.id} label={
+    <TreeItem nodeId= {relation.uuid} label={
       <TreeNodeLabel
         action = {
           <IconButton 

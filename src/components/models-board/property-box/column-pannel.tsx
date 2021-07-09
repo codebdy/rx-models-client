@@ -27,7 +27,7 @@ export const ColumnPanel = observer((
             label = {intl.get('name')} 
             value = {columnStore.name || ''} 
             onChange={handleNameChange}
-            disabled = {columnStore.name === 'id'}
+            disabled = {columnStore.name === 'uuid'}
           />
       </Grid>   
     </>

@@ -17,7 +17,7 @@ export class RelationCreateCommand implements Command{
     return relationStore;
   }
   undo():SelectedNode{
-    this.diagramStore?.rootStore?.deleteRelation(this.relationStore.id)
+    this.diagramStore?.rootStore?.deleteRelation(this.relationStore.uuid)
     this.diagramStore?.deleteEdge(this.edgeMeta.id);
     return undefined;
   };

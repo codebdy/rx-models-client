@@ -24,10 +24,10 @@ export const ColumnNode = observer((props:{
     bordStore.excuteCommand(command);
   }
   return(
-    <TreeItem nodeId= {columnStore.id} label={
+    <TreeItem nodeId= {columnStore.uuid} label={
       <TreeNodeLabel
         action = {
-          columnStore.name !== 'id' &&
+          columnStore.name !== 'uuid' &&
           <IconButton 
             size = "small"
             onClick = {handleDelete}

@@ -3,14 +3,14 @@ import { ColumnMeta, ColumnType } from "../meta/column-meta";
 import { EntityStore } from "./entity-store";
 
 export class ColumnStore{
-  id: string;
+  uuid: string;
   name: string;
   type: ColumnType;
   primary?: boolean;
   generated?: boolean;
   
   constructor(meta:ColumnMeta, public readonly entityStore: EntityStore){
-    this.id = meta.id;
+    this.uuid = meta.uuid;
     this.name = meta.name;
     this.type = meta.type;
     this.primary = meta.primary;
@@ -24,7 +24,7 @@ export class ColumnStore{
 
   toMeta(): ColumnMeta{
     return {
-      id: this.id,
+      uuid: this.uuid,
       name: this.name,
       type: this.type,
       primary: this.primary,

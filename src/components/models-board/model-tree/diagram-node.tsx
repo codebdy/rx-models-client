@@ -47,7 +47,7 @@ export const DiagramNode = observer((props:{
   }
 
   return(
-    <TreeItem nodeId= {diagramStore.id} label={
+    <TreeItem nodeId= {diagramStore.uuid} label={
       <TreeNodeLabel
         action = {
           !editing &&

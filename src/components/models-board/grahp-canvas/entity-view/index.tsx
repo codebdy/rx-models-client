@@ -140,11 +140,11 @@ export const EntityView = (props:{
           {
             data?.columns?.map(column=>{
               return (<ColumnView 
-                key = {column.id} 
+                key = {column.uuid} 
                 column= {column}
                 onClick = {handleColumnClick}
                 onDelete = {handleColumnDelete}
-                isSelected = {data.selectedId === column.id}
+                isSelected = {data.selectedId === column.uuid}
                 readOnly = {disableHover}
               />)
             })

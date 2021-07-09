@@ -46,10 +46,10 @@ export function useEdgeLineDraw(){
       const comamnd = new RelationCreateCommand(
         modelStore.openedDiagram,
         new RelationStore({
-          id: relationId,
+          uuid: relationId,
           relationType: modelStore.drawingLine.relationType,
-          sourceId: source.id,
-          targetId: target.id,
+          sourceId: source.uuid,
+          targetId: target.uuid,
           roleOnSource: target.name.toLowerCase() + seedId(),
           roleOnTarget: source.name.toLowerCase() + seedId(),
         }, modelStore.rootStore),

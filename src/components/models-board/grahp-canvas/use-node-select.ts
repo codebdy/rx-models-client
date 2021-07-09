@@ -7,7 +7,7 @@ export function useNodeSelect(){
   useEffect(()=>{
     if(modelStore.selectedElement)
     {
-      const selectionId = modelStore.selectedElement?.id;
+      const selectionId = modelStore.selectedElement?.uuid;
       modelStore.graph?.cleanSelection();
       modelStore.graph?.select( modelStore.graph?.getCellById(selectionId));
     }
@@ -19,7 +19,7 @@ export function useNodeSelect(){
   }
 
   const handleNodeUnselected = ()=>{
-    if(modelStore.openedDiagram?.getNodeById(modelStore.selectedElement?.id||'')){
+    if(modelStore.openedDiagram?.getNodeById(modelStore.selectedElement?.uuid||'')){
       modelStore.setSelectedElement(undefined);      
     }
   }
