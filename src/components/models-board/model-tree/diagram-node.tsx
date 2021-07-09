@@ -65,7 +65,7 @@ export const DiagramNode = observer((props:{
 
         onClick = {handleClick}
       >
-        <MdiIcon iconClass = "mdi-arrange-send-backward" size={15} />
+        <MdiIcon iconClass = "mdi-file-outline" size={15} />
         <NodeText>
           {
             editing

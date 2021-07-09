@@ -11,9 +11,7 @@ import PackageAction from "./package-action";
 import { TreeNodeLabel } from "./tree-node-label";
 import { createId } from "util/creat-id";
 import { EntityCreateOnTreeCommand } from "../command/entity-create-on-tree-command";
-import { PackageCreateCommand } from "../command/package-create-command";
 import { creatNewEntityMeta } from "../store/create-new-entity-meta";
-import { getNewPackageName } from "../store/get-new-package-name";
 import { DiagramCreateCommand } from "../command/diagram-create-command";
 import { getNewDiagramName } from "../store/get-new-diagram-name";
 import { PackageDeleteCommand } from "../command/package-delete-command";
@@ -31,7 +29,7 @@ export const PackageNode = observer((props:{
     event.stopPropagation();
   }
 
-  const handleAddPackage = ()=>{
+ /* const handleAddPackage = ()=>{
     const command = new PackageCreateCommand(
       new PackageStore({
         id:createId(), 
@@ -40,7 +38,7 @@ export const PackageNode = observer((props:{
       packageStore
     )
     bordStore.excuteCommand(command);
-  } 
+  } */
   
   const handleAddEntity = ()=>{
     const command = new EntityCreateOnTreeCommand(packageStore, creatNewEntityMeta(bordStore.rootStore))
@@ -67,7 +65,7 @@ export const PackageNode = observer((props:{
       <TreeNodeLabel
         action = {
           <PackageAction 
-            onAddPackage = {handleAddPackage} 
+            //onAddPackage = {handleAddPackage} 
             onAddClass = {handleAddEntity}
             onAddDiagram = {handleAddDiagram}
             onDelete = {handleDelete}          

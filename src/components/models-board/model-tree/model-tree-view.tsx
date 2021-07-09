@@ -18,7 +18,7 @@ import { createId } from 'util/creat-id';
 import { getNewPackageName } from '../store/get-new-package-name';
 import { PackageStore } from '../store/package';
 import { TREE_ROOT_ID } from 'util/consts';
-import { IconButton } from '@material-ui/core';
+import RootAction from './root-action';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,13 +57,7 @@ export const ModelTreeView = observer(() => {
       <TreeItem nodeId={TREE_ROOT_ID} label={
         <TreeNodeLabel
           action = {
-            <IconButton 
-            size = "small"
-            onClick = {handleAddPackage}
-          >
-            <MdiIcon className="mdi-plus" size="16" />
-          </IconButton>
-
+            <RootAction onAddPackage = {handleAddPackage} />
           }
         >
           <MdiIcon iconClass = "mdi-cube-outline" size={18} />

@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function PackageAction(props:{
-  onAddPackage:()=>void,
+  //onAddPackage:()=>void,
   onAddClass:()=>void,
   onAddDiagram:()=>void,
   onDelete?:()=>void,
 }){
-  const {onAddPackage, onAddClass, onAddDiagram, onDelete} = props
+  const {onAddClass, onAddDiagram, onDelete} = props
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -34,11 +34,12 @@ export default function PackageAction(props:{
     event.stopPropagation();
   };
 
+  /*暂时删除包嵌套功能
   const handleAddPackage = (event: React.MouseEvent<HTMLElement>)=>{
     onAddPackage();
     setAnchorEl(null);
     event.stopPropagation();
-  }
+  }*/
   
   const handleAddClass = (event: React.MouseEvent<HTMLElement>)=>{
     onAddClass();
@@ -82,17 +83,16 @@ export default function PackageAction(props:{
           onClose={handleMenuClose}
           
         >
-          <MenuItem onClick={handleAddPackage} className = {classes.menuItem}>
-            {intl.get('add-package')} 
-          </MenuItem>
           <MenuItem onClick={handleAddClass} className = {classes.menuItem}>
-            {intl.get('add-entity')} 
+            <MdiIcon iconClass = "mdi-shape-square-rounded-plus"  size={16}/>
+            <span className = {classes.text}>{intl.get('add-entity')}  </span>
           </MenuItem>
           <MenuItem onClick={handleAddDiagram} className = {classes.menuItem}>
-            {intl.get('add-diagram')} 
+            <MdiIcon iconClass = "mdi-file-plus-outline"  size={16}/>
+            <span className = {classes.text}>{intl.get('add-diagram')}   </span>
           </MenuItem>
           <MenuItem onClick={handleDelete} className = {classes.menuItem}>
-            <MdiIcon iconClass = "mdi-trash-can-outline"  color = "red" size={16}/>
+            <MdiIcon iconClass = "mdi-trash-can-outline"  size={16}/>
             <span className = {classes.text}>{intl.get('delete')} </span>
           </MenuItem> 
           <Divider/>
