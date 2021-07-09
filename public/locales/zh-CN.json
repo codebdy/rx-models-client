@@ -55,5 +55,6 @@
   "next-step":"下一步",
   "previous-step":"上一步",
   "admin-name":"管理员名",
-  "server-error":"Server error"
+  "server-error":"服务器错误",
+  "export-json":"导出JSON文件"
 }

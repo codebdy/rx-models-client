@@ -100,6 +100,10 @@ export default function PackageAction(props:{
             <MdiIcon iconClass = "mdi-database-refresh-outline"  size={16} />
             <span className = {classes.text}>{intl.get('database-sync')} </span>
           </MenuItem>
+          <MenuItem  className = {classes.menuItem}>
+            <MdiIcon iconClass = "mdi-database-arrow-down-outline"  size={16} />
+            <span className = {classes.text}>{intl.get('export-json')} </span>
+          </MenuItem>
           <MenuItem className = {classes.menuItem}>
             <MdiIcon iconClass = "mdi-file-export-outline"  size={16}/>
             <span className = {classes.text}>{intl.get('export-inteface')} </span>

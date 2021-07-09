@@ -55,5 +55,6 @@
   "next-step":"Next",
   "previous-step":"Previous",
   "admin-name":"Admin name",
-  "server-error":"Server error"
+  "server-error":"Server error",
+  "export-json":"Export JSON"
 }
