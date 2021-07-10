@@ -88,7 +88,7 @@ export class EntityStore{
 
   toMeta(){
     return {
-      id: this.uuid,
+      uuid: this.uuid,
       name: this.name,
       classType: this.entityType,
       columns: this.columns.map(column=>column.toMeta()),

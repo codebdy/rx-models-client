@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { PackageMeta } from "../meta/package-meta";
+import { PackageMeta, PackageStatus } from "../meta/package-meta";
 import { EntityStore } from "./entity-store";
 import { DiagramStore } from "./diagram";
 import intl from "react-intl-universal";
@@ -15,6 +15,7 @@ export class PackageStore{
   entities: EntityStore[] = [];
   diagrams: DiagramStore[] = [];
   relations: RelationStore[] = [];
+  status: PackageStatus;
   
   constructor(meta:PackageMeta, public rootStore: ModelsBoardStore){
     this.uuid = meta?.uuid || TREE_ROOT_ID;
@@ -23,6 +24,7 @@ export class PackageStore{
     this.entities = meta?.entities?.map(meta=>new EntityStore(meta, this.rootStore, this))||[];
     this.diagrams = meta?.diagrams?.map(meta=>new DiagramStore(meta, this.rootStore, this))||[];
     this.relations = meta?.relations?.map(meta=>new RelationStore(meta, this))||[];
+    this.status = meta.status;
     makeAutoObservable(this)
   }
 
@@ -101,4 +103,14 @@ export class PackageStore{
     _.remove(this.relations, (relationStore)=> relationStore.uuid === id);
   }
 
+  toMeta(): PackageMeta {
+    return {
+      uuid: this.uuid,
+      name: this.name,
+      entities: this.entities.map(entity=>entity.toMeta()),
+      diagrams: this.diagrams.map(diagram=>diagram.toMeta()),
+      relations: this.relations.map(relation=>relation.toMeta()),
+      status: this.status,
+    }
+  }
 }

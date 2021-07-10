@@ -89,26 +89,21 @@ export const Studio = observer(() => {
           >
             {intl.get('auth-management')}
           </NavLink>
-          <NavLink
-            className = {classes.navLink}
-            activeClassName = {classes.activeLink}
-            to="/studio/commands"
-          >
-            {intl.get('commands')}
-          </NavLink>
+          {
+            //<NavLink
+            //  className = {classes.navLink}
+            //  activeClassName = {classes.activeLink}
+            //  to="/studio/commands"
+            //>
+            //  {intl.get('commands')}
+            ///NavLink>
+          }
           <Link
             className = {classes.navLink}
             target = "_blank"
             href= "https://rxdrag.com/document"
           >
             {intl.get('document')}
-          </Link>
-          <Link
-            className = {classes.navLink}
-            target = "_blank"
-            href= "https://github.com/rxdrag/rx-models/issues"
-          >
-            {intl.get('report-bug')}
           </Link>
           <Link
             className = {classes.navLink}

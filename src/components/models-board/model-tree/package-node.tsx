@@ -16,6 +16,21 @@ import { DiagramCreateCommand } from "../command/diagram-create-command";
 import { getNewDiagramName } from "../store/get-new-diagram-name";
 import { PackageDeleteCommand } from "../command/package-delete-command";
 
+const downloadFile = function (filename:string, content:string) {
+  // 创建隐藏的可下载链接
+  var eleLink = document.createElement('a');
+  eleLink.download = filename;
+  eleLink.style.display = 'none';
+  // 字符内容转变成blob地址
+  var blob = new Blob([content]);
+  eleLink.href = URL.createObjectURL(blob);
+  // 触发点击
+  document.body.appendChild(eleLink);
+  eleLink.click();
+  // 然后移除
+  document.body.removeChild(eleLink);
+};
+
 export const PackageNode = observer((props:{
   key?:string,
   packageStore: PackageStore
@@ -28,17 +43,6 @@ export const PackageNode = observer((props:{
     event.stopPropagation();
   }
 
- /* const handleAddPackage = ()=>{
-    const command = new PackageCreateCommand(
-      new PackageStore({
-        id:createId(), 
-        name: getNewPackageName(rootStore),
-      }, packageStore, rootStore), 
-      packageStore
-    )
-    bordStore.excuteCommand(command);
-  } */
-  
   const handleAddEntity = ()=>{
     const command = new EntityCreateOnTreeCommand(packageStore, creatNewEntityMeta(rootStore))
     rootStore.excuteCommand(command);
@@ -59,15 +63,19 @@ export const PackageNode = observer((props:{
     rootStore.excuteCommand(command);
   }
 
+  const handleDownloadJson = ()=>{
+    downloadFile(packageStore.uuid + '.json', JSON.stringify(packageStore.toMeta(), null, 2));
+  }
+
   return(
     <TreeItem nodeId= {packageStore.uuid} label={
       <TreeNodeLabel
         action = {
           <PackageAction 
-            //onAddPackage = {handleAddPackage} 
             onAddClass = {handleAddEntity}
             onAddDiagram = {handleAddDiagram}
-            onDelete = {handleDelete}          
+            onDelete = {handleDelete} 
+            onDownloadJson = {handleDownloadJson}         
           />
         }
         onClick = {handleClick}

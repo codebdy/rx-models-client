@@ -15,12 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function PackageAction(props:{
-  //onAddPackage:()=>void,
   onAddClass:()=>void,
   onAddDiagram:()=>void,
   onDelete?:()=>void,
+  onDownloadJson?:()=>void,
 }){
-  const {onAddClass, onAddDiagram, onDelete} = props
+  const {onAddClass, onAddDiagram, onDelete, onDownloadJson} = props
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -34,14 +34,7 @@ export default function PackageAction(props:{
     event.stopPropagation();
   };
 
-  /*暂时删除包嵌套功能
-  const handleAddPackage = (event: React.MouseEvent<HTMLElement>)=>{
-    onAddPackage();
-    setAnchorEl(null);
-    event.stopPropagation();
-  }*/
-  
-  const handleAddClass = (event: React.MouseEvent<HTMLElement>)=>{
+  const handleAddEntity = (event: React.MouseEvent<HTMLElement>)=>{
     onAddClass();
     setAnchorEl(null);
     event.stopPropagation();
@@ -60,6 +53,11 @@ export default function PackageAction(props:{
     event.stopPropagation();
   }
   
+  const handleDownloadJson = (event: React.MouseEvent<HTMLElement>) => {
+    onDownloadJson && onDownloadJson();
+    setAnchorEl(null);
+    event.stopPropagation();
+  }
 
   return (
     <>
@@ -83,7 +81,7 @@ export default function PackageAction(props:{
           onClose={handleMenuClose}
           
         >
-          <MenuItem onClick={handleAddClass} className = {classes.menuItem}>
+          <MenuItem onClick={handleAddEntity} className = {classes.menuItem}>
             <MdiIcon iconClass = "mdi-shape-square-rounded-plus"  size={16}/>
             <span className = {classes.text}>{intl.get('add-entity')}  </span>
           </MenuItem>
@@ -100,7 +98,9 @@ export default function PackageAction(props:{
             <MdiIcon iconClass = "mdi-database-arrow-up-outline"  size={16} />
             <span className = {classes.text}>{intl.get('publish-package')} </span>
           </MenuItem>
-          <MenuItem  className = {classes.menuItem}>
+          <MenuItem  className = {classes.menuItem}
+            onClick = {handleDownloadJson}
+          >
             <MdiIcon iconClass = "mdi-database-arrow-down-outline"  size={16} />
             <span className = {classes.text}>{intl.get('export-json')} </span>
           </MenuItem>

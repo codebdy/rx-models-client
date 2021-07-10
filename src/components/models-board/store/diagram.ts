@@ -124,7 +124,8 @@ export class DiagramStore{
 
   toMeta(){
     return {
-      id: this.uuid,
+      uuid: this.uuid,
+      name: this.name,
       nodes: toJS(this.nodes),
       edges: toJS(this.edges)
     };
