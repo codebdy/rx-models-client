@@ -4,7 +4,6 @@ import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
 import { serverUrl } from 'data/server-config';
 import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'apis/magic';
-import { AxiosRequestConfig } from 'axios';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useAppStore } from 'store/app-store';
 import intl from 'react-intl-universal';
@@ -119,8 +118,10 @@ export default function ApiBoard(){
   const handleRun = ()=>{
     try{
       JSON.parse(value);
-      const builder = new MagicQueryBuilder(value);
-      excuteRun(builder.toAxioConfig());
+      if(apiType === ApiType.query){
+        const builder = new MagicQueryBuilder(value);
+        excuteRun(builder.toAxioConfig());
+      }
     }
     catch(error){
       console.error(error);
