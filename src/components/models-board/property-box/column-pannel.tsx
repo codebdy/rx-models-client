@@ -7,6 +7,7 @@ import LayzyTextField from 'components/models-board/property-box/layzy-text-fiel
 import { useModelsBoardStore } from '../store';
 import { NameChangeCommand } from '../command/name-change-command';
 import { ColumnType } from '../meta/column-meta';
+import { ColumnChangeCommand } from '../command/column-change-command';
 
 export const ColumnPanel = observer((
   props:{
@@ -16,13 +17,14 @@ export const ColumnPanel = observer((
   const {columnStore} = props;
   const bordStore = useModelsBoardStore();
   
-  const handleNameChange = (value:string)=>{
-    const command = new NameChangeCommand(columnStore, value);
+  const handleStringChange = (prop: any) => (value: string) => {
+    const command = new ColumnChangeCommand(columnStore, { [prop]: value });
     bordStore.excuteCommand(command);
-  }
+  };
 
-  const handleTypeChange = ()=>{
-
+  const handleTypeChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
+    const command = new ColumnChangeCommand(columnStore, { type: event.target.value });
+    bordStore.excuteCommand(command);
   }
 
   const isId = columnStore.name === 'id';
@@ -32,7 +34,7 @@ export const ColumnPanel = observer((
         <LayzyTextField 
             label = {intl.get('name')} 
             value = {columnStore.name || ''} 
-            onChange={handleNameChange}
+            onChange={handleStringChange('name')}
             disabled = {isId}
           />
       </Grid> 
