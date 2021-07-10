@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
-import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField } from '@material-ui/core';
+import React, { useRef } from 'react';
+import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, CircularProgress, Fab } from '@material-ui/core';
 import MonacoEditor from 'react-monaco-editor';
+import MdiIcon from 'components/common/mdi-icon';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,7 +14,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     left:{
       display:'flex',
-      flexFlow:'column'
+      flexFlow:'column',
+      position:'relative',
     },
     leftApiArea: {
       display:'flex',
@@ -35,6 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     rightJsonShell:{
       border: `${theme.palette.divider} solid 1px`,
+    },
+    send:{
+      position:'absolute',
+      top:'50%',
+      right:'-25px',
+      zIndex:1,
     }
   }),
 );
@@ -99,6 +107,20 @@ export default function ApiBoard(){
               //onChange={::this.onChange}
               editorDidMount={onEditorDidMount}
             />
+          </div>
+          <div className = {classes.send}>
+            {
+              false?
+                <CircularProgress />
+              :
+              <Fab 
+                size="large" 
+                color = "primary"
+                //onClick={handleRun} 
+              >        
+                <MdiIcon iconClass="mdi-play" size={50}/>
+              </Fab>  
+            }   
           </div>
         </Grid>
         <Grid item container md = {6}>
