@@ -72,5 +72,9 @@
   "default-value":"Default value",
   "unique":"Unique",
   "create-date":"Create",
-  "update-date":"Update"
+  "update-date":"Update",
+  "delete-date":"Delete",
+  "hide-field":"Hide field",
+  "length": "Length",
+  "width":"Width"
 }

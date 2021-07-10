@@ -56,6 +56,12 @@ export const ColumnPanel = observer((
     bordStore.excuteCommand(command);
   };
 
+  const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.checked ? false : undefined;
+    const command = new ColumnChangeCommand(columnStore, { ...allValues, select: value });
+    bordStore.excuteCommand(command);
+  };
+
   const isId = columnStore.name === 'id';
   return(
     <>
@@ -160,6 +166,37 @@ export const ColumnPanel = observer((
           />
         </Grid>
       }
+      {
+        columnStore.type === ColumnType.Date &&
+        <Grid item xs = {12}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.deleteDate||false}
+                onChange={handleBooleanChange('deleteDate')}
+                color="primary"
+              />
+            }
+            label= {intl.get('delete-date')}
+          />
+        </Grid>
+      }
+      {
+        !isId && 
+        <Grid item xs = {12}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.select === false ? true : false}
+                onChange={handleSelectChange}
+                color="primary"
+              />
+            }
+            label= {intl.get('hide-field')}
+          />
+        </Grid>
+      }
+      
 
       {
         !isId && 
@@ -171,6 +208,17 @@ export const ColumnPanel = observer((
             />
         </Grid>        
       }     
+
+      {
+        !isId && columnStore.type === ColumnType.String &&
+        <Grid item xs = {12}>
+          <LayzyTextField 
+              label = {intl.get('length')} 
+              value = {columnStore.default || ''} 
+              onChange={handleStringChange('length')}
+            />
+        </Grid>        
+      }  
 
       {
         (columnStore.type === ColumnType.Number || columnStore.type === ColumnType.String) &&
