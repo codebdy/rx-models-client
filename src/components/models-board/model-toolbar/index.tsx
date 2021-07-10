@@ -15,6 +15,10 @@ import { RelationStore } from '../store/relation';
 import { RelationDeleteCommand } from '../command/relation-delete-command';
 import SubmitButton from 'components/common/submit-button';
 import RouterPrompt from 'components/common/router-prompt';
+import { useShowServerError } from 'store/helpers/use-show-server-error';
+import { useAppStore } from 'store/app-store';
+import useLayzyMagicPost from 'data/use-layzy-magic-post';
+import { MagicPostBuilder } from 'data/magic-post-builder';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,6 +50,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ModelToolbar = observer(()=>{
   const classes = useStyles();
   const boardStore = useModelsBoardStore();
+  const appStore = useAppStore();
+  const [excuteSave, {loading, error}] = useLayzyMagicPost({
+    onCompleted(){
+      appStore.setSuccessAlert(true);
+      boardStore.setChanged(false);
+    }
+  });
+
+  useShowServerError(error);
 
   const handleUndo = ()=>{
     boardStore.undo();
@@ -79,7 +92,11 @@ export const ModelToolbar = observer(()=>{
   }
 
   const handleSave = ()=>{
-    boardStore.setChanged(false);
+    const data = new MagicPostBuilder()
+      .setModel('RxPackage')
+      .setDatas(boardStore.getPackeMetas())
+      .toData();
+    excuteSave({data});
   }
 
   return (
@@ -108,6 +125,7 @@ export const ModelToolbar = observer(()=>{
             color = "primary" 
             size = "medium"
             disabled = {!boardStore.changed}
+            submitting = {loading}
             onClick = {handleSave}
           >{intl.get('save')}</SubmitButton>
         </div>

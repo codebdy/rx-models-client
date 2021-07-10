@@ -183,4 +183,7 @@ export class ModelsBoardStore{
     this.setSelectedElement(selectedNode);
   }
 
+  getPackeMetas(){
+    return this.packages.map(packageStore=>packageStore.toMeta());
+  }
 }
