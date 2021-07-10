@@ -58,5 +58,12 @@
   "server-error":"Server error",
   "export-json":"Export JSON",
   "owner":"Owner",
-  "with-demo":"With demo"
+  "with-demo":"With demo",
+  "data-type":"Data type",
+  "string":"String",
+  "boolean":"Boolean",
+  "number":"Number",
+  "date":"Date time",
+  "simple-json":"Simple JSON",
+  "simple-array":"Simple array"
 }

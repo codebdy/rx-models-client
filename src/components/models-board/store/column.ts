@@ -50,6 +50,10 @@ export class ColumnStore{
     this.name = name;
   }
 
+  setFieldValue(field:string, value:any){
+    (this as any)[field] = value;
+  }
+
   toMeta(): ColumnMeta{
     return {
       uuid: this.uuid,

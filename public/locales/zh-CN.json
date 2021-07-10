@@ -58,5 +58,12 @@
   "server-error":"服务器错误",
   "export-json":"导出JSON文件",
   "owner": "拥有者",
-  "with-demo":"安装演示账号"
+  "with-demo":"安装演示账号",
+  "data-type":"数据类型",
+  "string":"字符串",
+  "boolean":"布尔",
+  "number":"数字",
+  "date":"日期时间",
+  "simple-json":"简单JSON",
+  "simple-array":"简单数组"
 }
