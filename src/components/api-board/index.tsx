@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, CircularProgress, Fab } from '@material-ui/core';
 import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
+import { serverUrl } from 'data/server-config';
+import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'apis/magic';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,13 +49,37 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+enum ApiType{
+  query = 1,
+  post,
+  update,
+  delete,
+  upload
+}
+
 export default function ApiBoard(){
   const classes = useStyles();
   const ref = useRef(null);
+  const [apiType, setApiType] = useState(ApiType.query);
   const code = '{\n\n}';
   const optionsLeft = {
     selectOnLineNumbers: true,
   };
+
+  let url = serverUrl + API_MAGIC_QUERY.url;
+
+  if(apiType === ApiType.post){
+    url = serverUrl + API_MAGIC_POST.url;
+  }
+  if(apiType === ApiType.update){
+    url = serverUrl + API_MAGIC_UPDATE.url;
+  }
+  if(apiType === ApiType.delete){
+    url = serverUrl + API_MAGIC_DELETE.url;
+  }
+  if(apiType === ApiType.upload){
+    url = serverUrl + API_MAGIC_UPLOAD.url;
+  }
 
   const optionsRight = {
     selectOnLineNumbers: false,
@@ -70,6 +96,10 @@ export default function ApiBoard(){
     });
   }
 
+  const handleApiChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setApiType(event.target.value as ApiType);
+  };
+
   return (
     <Container className={classes.root} maxWidth="xl">
       <Grid container className={classes.container} spacing ={3}>
@@ -79,30 +109,33 @@ export default function ApiBoard(){
               <FormControl variant="outlined" fullWidth size = "small">
                 <InputLabel >API</InputLabel>
                 <Select
-                  //value={age}
-                  //onChange={handleChange}
+                  value={apiType}
+                  onChange={handleApiChange}
                   label="API"
                 >
-                  <MenuItem value={10}>query</MenuItem>
-                  <MenuItem value={20}>post</MenuItem>
-                  <MenuItem value={201}>update</MenuItem>
-                  <MenuItem value={23}>delete</MenuItem>
-                  <MenuItem value={30}>upload</MenuItem>
+                  <MenuItem value={ApiType.query}>query</MenuItem>
+                  <MenuItem value={ApiType.post}>post</MenuItem>
+                  <MenuItem value={ApiType.update}>update</MenuItem>
+                  <MenuItem value={ApiType.delete}>delete</MenuItem>
+                  <MenuItem value={ApiType.upload}>upload</MenuItem>
                 </Select>
               </FormControl>
             </div>
             <div className = {classes.leftUrl}>
-              <TextField label="URL" variant="outlined" fullWidth size = "small" disabled />
+              <TextField label="URL" variant="outlined" fullWidth size = "small" disabled value = {url} />
             </div>
           </div>
-          <div className = {classes.uploadInputArea}>
-            <input
-              accept="image/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-            />
-          </div>
+          {
+            apiType === ApiType.upload &&
+            <div className = {classes.uploadInputArea}>
+              <input
+                accept="image/*"
+                id="contained-button-file"
+                multiple
+                type="file"
+              />
+            </div>
+          }
           <div className = {classes.leftJsonShell} ref = {ref}>
             <MonacoEditor
               language="json"
