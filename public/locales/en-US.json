@@ -67,5 +67,10 @@
   "simple-json":"Simple JSON",
   "simple-array":"Simple array",
   "primary-key":"Primary",
-  "generated":"Generated"
+  "generated":"Generated",
+  "nullable":"Nullable",
+  "default-value":"Default value",
+  "unique":"Unique",
+  "create-date":"Create",
+  "update-date":"Update"
 }

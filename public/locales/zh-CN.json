@@ -67,5 +67,10 @@
   "simple-json":"简单JSON",
   "simple-array":"简单数组",
   "primary-key":"主键",
-  "generated":"生成"
+  "generated":"生成",
+  "nullable":"可空",
+  "default-value":"默认值",
+  "unique":"唯一",
+  "create-date":"创建",
+  "update-date":"更新"
 }

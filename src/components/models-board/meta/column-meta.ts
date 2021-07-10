@@ -12,27 +12,23 @@ export interface ColumnMeta{
   type: ColumnType;
   primary?: boolean;
   generated?: boolean;
+  nullable?: boolean;
+  default?: any;
+  unique?: boolean;
   createDate?: boolean;
   updateDate?: boolean;
   deleteDate?: boolean;
-  version?: boolean;
+  select?: boolean;
   length?: string | number;
   width?: number;
-  nullable?: boolean;
+  version?: boolean;
   readonly?: boolean;
-  select?: boolean;
-  /**
-   * Specifies if column's value must be unique or not.
-   */
-  unique?: boolean;
+  
   /**
    * Column comment.
    */
   comment?: string;
-  /**
-   * Default database value.
-   */
-  default?: any;
+ 
   /**
    * The precision for a decimal (exact numeric) column (applies only for decimal column), which is the maximum
    * number of digits that are stored for the values.

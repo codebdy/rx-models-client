@@ -8,18 +8,18 @@ export class ColumnChangeCommand implements Command{
     private readonly column: ColumnStore,
     private readonly valueMeta: any,
   ){
-    for(const field in this.valueMeta){
-      this.oldValue[field] = (this.column as any)[field];
-    }
+    this.oldValue = this.column.toMeta();
   }
   
   excute():SelectedNode{
+    this.column.clearValues();
     for(const field in this.valueMeta){
       this.column.setFieldValue(field, this.valueMeta[field]);
     }
     return this.column;
   }
   undo():SelectedNode{
+    this.column.clearValues()
     for(const field in this.oldValue){
       this.column.setFieldValue(field, this.oldValue[field]);
     }

@@ -50,6 +50,25 @@ export class ColumnStore{
     this.name = name;
   }
 
+  clearValues(){
+    this.primary = undefined;
+    this.generated = undefined;
+    this.createDate = undefined;
+    this.updateDate = undefined;
+    this.deleteDate = undefined;
+    this.version = undefined;
+    this.length = undefined;
+    this.width = undefined;
+    this.nullable = undefined;
+    this.readonly = undefined;
+    this.select = undefined;
+    this.unique = undefined;
+    this.comment = undefined;
+    this.default = undefined;
+    this.precision = undefined;
+    this.scale = undefined;
+  }
+
   setFieldValue(field:string, value:any){
     (this as any)[field] = value;
   }

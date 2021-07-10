@@ -15,12 +15,20 @@ export const ColumnPanel = observer((
 )=>{
   const {columnStore} = props;
   const bordStore = useModelsBoardStore();
+  const allValues = columnStore.toMeta();
   
   const handleStringChange = (prop: any) => (value: string) => {
-    const command = new ColumnChangeCommand(columnStore, { [prop]: value });
+    const command = new ColumnChangeCommand(columnStore, {...allValues, [prop]: value });
     bordStore.excuteCommand(command);
   };
 
+  //默认值以后要改成一个单独控件
+  const handleDefaultChange = (value:string)=>{
+    const command = new ColumnChangeCommand(columnStore, {...allValues, default: value === '' ? undefined : value });
+    bordStore.excuteCommand(command);
+  }
+
+  //不设置allValues， 类型改变会清空所有旧设置
   const handleTypeChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
     const type = event.target.value;
     let generated = columnStore.generated;
@@ -39,12 +47,12 @@ export const ColumnPanel = observer((
     if(!value){
       value = undefined;
     }
-    const command = new ColumnChangeCommand(columnStore, { generated: value });
+    const command = new ColumnChangeCommand(columnStore, { ...allValues, generated: value });
     bordStore.excuteCommand(command);
   }
 
   const handleBooleanChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const command = new ColumnChangeCommand(columnStore, { [prop]: event.target.checked });
+    const command = new ColumnChangeCommand(columnStore, { ...allValues, [prop]: event.target.checked });
     bordStore.excuteCommand(command);
   };
 
@@ -92,6 +100,78 @@ export const ColumnPanel = observer((
           />
         </Grid>  
       }
+      {
+        !isId && 
+        <Grid item xs = {6}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.nullable||false}
+                onChange={handleBooleanChange('nullable')}
+                color="primary"
+              />
+            }
+            label= {intl.get('nullable')}
+          />
+        </Grid>
+      }
+      {
+        !isId && 
+        <Grid item xs = {6}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.unique||false}
+                onChange={handleBooleanChange('unique')}
+                color="primary"
+              />
+            }
+            label= {intl.get('unique')}
+          />
+        </Grid>
+      }
+      {
+        columnStore.type === ColumnType.Date &&
+        <Grid item xs = {6}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.createDate||false}
+                onChange={handleBooleanChange('createDate')}
+                color="primary"
+              />
+            }
+            label= {intl.get('create-date')}
+          />
+        </Grid>
+      }
+      {
+        columnStore.type === ColumnType.Date &&
+        <Grid item xs = {6}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.updateDate||false}
+                onChange={handleBooleanChange('updateDate')}
+                color="primary"
+              />
+            }
+            label= {intl.get('update-date')}
+          />
+        </Grid>
+      }
+
+      {
+        !isId && 
+        <Grid item xs = {12}>
+          <LayzyTextField 
+              label = {intl.get('default-value')} 
+              value = {columnStore.default || ''} 
+              onChange={handleDefaultChange}
+            />
+        </Grid>        
+      }     
+
       {
         (columnStore.type === ColumnType.Number || columnStore.type === ColumnType.String) &&
         <Grid item xs={12}>
