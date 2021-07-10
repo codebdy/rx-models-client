@@ -4,6 +4,12 @@ import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
 import { serverUrl } from 'data/server-config';
 import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'apis/magic';
+import { AxiosRequestConfig } from 'axios';
+import { useShowServerError } from 'store/helpers/use-show-server-error';
+import { useAppStore } from 'store/app-store';
+import intl from 'react-intl-universal';
+import { MagicQueryBuilder } from 'data/magic-query-builder';
+import useLayzyAxios from 'data/use-layzy-axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,7 +67,8 @@ export default function ApiBoard(){
   const classes = useStyles();
   const ref = useRef(null);
   const [apiType, setApiType] = useState(ApiType.query);
-  const code = '{\n\n}';
+  const [value, setValue] = useState(JSON.stringify({model:""}, null, 4));
+  const appStore = useAppStore();
   const optionsLeft = {
     selectOnLineNumbers: true,
   };
@@ -90,7 +97,7 @@ export default function ApiBoard(){
     lineNumbersMinChars: 0
   };
 
-  const onEditorDidMount = (monaco: any)=>{
+  const handleEditorDidMount = (monaco: any)=>{
     monaco.languages?.json.jsonDefaults.setDiagnosticsOptions({
       validate: true,
     });
@@ -100,10 +107,31 @@ export default function ApiBoard(){
     setApiType(event.target.value as ApiType);
   };
 
+  const [excuteRun, {data, loading, error}] = useLayzyAxios();
+
+  useShowServerError(error);
+  
+
+  const handleJsonChange =(value:string)=>{
+    setValue(value);
+  }
+
+  const handleRun = ()=>{
+    try{
+      JSON.parse(value);
+      const builder = new MagicQueryBuilder(value);
+      excuteRun(builder.toAxioConfig());
+    }
+    catch(error){
+      console.error(error);
+      appStore.infoError(intl.get('error'), error.message);
+    }
+  }
+
   return (
     <Container className={classes.root} maxWidth="xl">
       <Grid container className={classes.container} spacing ={3}>
-        <Grid item md = {6} className = {classes.left}>
+        <Grid item xs = {6} className = {classes.left}>
           <div className={classes.leftApiArea}>
             <div className = {classes.leftMethod}>
               <FormControl variant="outlined" fullWidth size = "small">
@@ -140,33 +168,33 @@ export default function ApiBoard(){
             <MonacoEditor
               language="json"
               theme="vs"
-              value={code}
+              value={value}
               options={optionsLeft}
-              //onChange={::this.onChange}
-              editorDidMount={onEditorDidMount}
+              onChange={handleJsonChange}
+              editorDidMount={handleEditorDidMount}
             />
           </div>
           <div className = {classes.send}>
             {
-              false?
+              loading?
                 <CircularProgress />
               :
               <Fab 
                 size="large" 
                 color = "primary"
-                //onClick={handleRun} 
+                onClick={handleRun} 
               >        
-                <MdiIcon iconClass="mdi-play" size={50}/>
+                <MdiIcon iconClass="mdi-play" size={46}/>
               </Fab>  
             }   
           </div>
         </Grid>
-        <Grid item container md = {6}>
+        <Grid item container xs = {6}>
           <Grid item xs = {12} className={classes.rightJsonShell}>
             <MonacoEditor
               language="json"
               theme="vs"
-              value={code}
+              value={data ? JSON.stringify(data, null, 2) : ''}
               options={optionsRight}
             />
           </Grid>

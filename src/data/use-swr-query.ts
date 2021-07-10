@@ -24,6 +24,6 @@ export function useSWRQuery<T>(api?:AxiosRequestConfig, options?:any):SWRRespons
       history?.push(LOGIN_URL);
     }
   },[rtValue.error, history, rtValue, onError])
-  const rtError = rtValue.error ? {message:rtValue.error?.message} : undefined;
+  const rtError = rtValue.error ? {message:rtValue.error?.message?.error || rtValue.error?.message} : undefined;
   return {...rtValue, loading: !rtValue.data && !rtValue.error && !!api?.url, error:rtError};
 }
