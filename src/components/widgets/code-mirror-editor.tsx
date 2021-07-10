@@ -18,8 +18,8 @@ const useStyles = (height:string)=>{
   return makeStyles((theme: Theme) =>
     createStyles({
       codemirror:{
-        width:'100%',
-        height:height,
+        flex:1,
+        background: 'blue',
       },
 
     }),
@@ -35,7 +35,7 @@ export const CodeMirrorEditor = (
     height?:string,
   }
 )=>{
-  const {value, mode, lint = true, height = "260px", onChange} = props;
+  const {value, mode, lint = true, height = "500px", onChange} = props;
   const classes = useStyles(height)();
   return (
     <CodeMirror

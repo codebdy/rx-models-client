@@ -1,5 +1,6 @@
-import React from 'react';
-import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, Button } from '@material-ui/core';
+import React, { useRef, useState } from 'react';
+import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField } from '@material-ui/core';
+import MonacoEditor from 'react-monaco-editor';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,12 +27,36 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     uploadInputArea:{
       marginTop:theme.spacing(2),
+    },
+    leftJsonShell:{
+      flex:1,
+      marginTop:theme.spacing(2),
+      border: `${theme.palette.divider} solid 1px`,
+    },
+    rightJsonShell:{
+      border: `${theme.palette.divider} solid 1px`,
     }
   }),
 );
 
 export default function ApiBoard(){
   const classes = useStyles();
+  const ref = useRef(null);
+  const code = '{\n\n}';
+  const optionsLeft = {
+    selectOnLineNumbers: true,
+  };
+
+  const optionsRight = {
+    selectOnLineNumbers: false,
+  };
+
+  const onEditorDidMount = (monaco: any)=>{
+    monaco.languages?.json.jsonDefaults.setDiagnosticsOptions({
+      validate: true,
+    });
+  }
+
   return (
     <Container className={classes.root} maxWidth="xl">
       <Grid container className={classes.container} spacing ={3}>
@@ -65,12 +90,26 @@ export default function ApiBoard(){
               type="file"
             />
           </div>
-          <div>
-
+          <div className = {classes.leftJsonShell} ref = {ref}>
+            <MonacoEditor
+              language="json"
+              theme="vs"
+              value={code}
+              options={optionsLeft}
+              //onChange={::this.onChange}
+              editorDidMount={onEditorDidMount}
+            />
           </div>
         </Grid>
-        <Grid item md = {6}>
-          Right
+        <Grid item container md = {6}>
+          <Grid item xs = {12} className={classes.rightJsonShell}>
+            <MonacoEditor
+              language="json"
+              theme="vs"
+              value={code}
+              options={optionsRight}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Container>
