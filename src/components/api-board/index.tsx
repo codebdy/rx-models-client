@@ -57,6 +57,11 @@ export default function ApiBoard(){
 
   const optionsRight = {
     selectOnLineNumbers: false,
+    lineNumbers: 'off' as any,
+    glyphMargin: false,
+    folding: false,
+    lineDecorationsWidth: 10,
+    lineNumbersMinChars: 0
   };
 
   const onEditorDidMount = (monaco: any)=>{
