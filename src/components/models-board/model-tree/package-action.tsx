@@ -97,8 +97,8 @@ export default function PackageAction(props:{
           </MenuItem> 
           <Divider/>
           <MenuItem  className = {classes.menuItem}>
-            <MdiIcon iconClass = "mdi-database-refresh-outline"  size={16} />
-            <span className = {classes.text}>{intl.get('database-sync')} </span>
+            <MdiIcon iconClass = "mdi-database-arrow-up-outline"  size={16} />
+            <span className = {classes.text}>{intl.get('publish-package')} </span>
           </MenuItem>
           <MenuItem  className = {classes.menuItem}>
             <MdiIcon iconClass = "mdi-database-arrow-down-outline"  size={16} />
