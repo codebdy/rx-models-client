@@ -76,5 +76,6 @@
   "delete-date":"软删标识",
   "hide-field":"查询时隐藏",
   "length": "长度",
-  "width":"宽度"
+  "width":"宽度",
+  "table-name":"数据库表名"
 }

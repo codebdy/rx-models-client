@@ -76,5 +76,6 @@
   "delete-date":"Delete",
   "hide-field":"Hide field",
   "length": "Length",
-  "width":"Width"
+  "width":"Width",
+  "table-name":"Table name"
 }

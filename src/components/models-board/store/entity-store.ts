@@ -10,6 +10,7 @@ import { ModelsBoardStore } from "./models-board";
 export class EntityStore{
   uuid: string;
   name: string;
+  tableName?: string;
   entityType?: EntityType;
   package: PackageStore | undefined;
   columns: ColumnStore[];
@@ -17,6 +18,7 @@ export class EntityStore{
   constructor(meta:EntityMeta, private rootStore: ModelsBoardStore, belongsTopackage?: PackageStore){
     this.uuid = meta.uuid;
     this.name = meta.name;
+    this.tableName = meta.tableName;
     this.entityType = meta.entityType;
     this.package = belongsTopackage;
 
@@ -29,6 +31,10 @@ export class EntityStore{
 
   setName(name:string){
     this.name = name;
+  }
+
+  setTableName(name:string|undefined){
+    this.tableName = name||undefined;
   }
 
   setPackage(belongsToPackage:PackageStore){
@@ -90,6 +96,7 @@ export class EntityStore{
     return {
       uuid: this.uuid,
       name: this.name,
+      tableName: this.tableName,
       classType: this.entityType,
       columns: this.columns.map(column=>column.toMeta()),
     }
