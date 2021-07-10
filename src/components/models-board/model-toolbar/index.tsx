@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, IconButton, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
@@ -13,6 +13,8 @@ import { ColumnStore } from '../store/column';
 import { ColumnDeleteCommand } from '../command/column-delete-command';
 import { RelationStore } from '../store/relation';
 import { RelationDeleteCommand } from '../command/relation-delete-command';
+import SubmitButton from 'components/common/submit-button';
+import RouterPrompt from 'components/common/router-prompt';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,9 +78,14 @@ export const ModelToolbar = observer(()=>{
 
   }
 
+  const handleSave = ()=>{
+    boardStore.setChanged(false);
+  }
+
   return (
     <div className = {classes.toolbar}>
       <div className = {classes.toolbarInner}>
+        <RouterPrompt promptBoolean = {boardStore.changed} message = {intl.get('changing-not-save-message')} />
         <Spacer />
         <IconButton 
           className={classes.iconButton}
@@ -96,11 +103,13 @@ export const ModelToolbar = observer(()=>{
           onClick = {handleDelete}
         ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         <div className={classes.saveButtonShell}>
-          <Button 
+          <SubmitButton 
             variant="contained" 
             color = "primary" 
             size = "medium"
-          >{intl.get('save')}</Button>
+            disabled = {!boardStore.changed}
+            onClick = {handleSave}
+          >{intl.get('save')}</SubmitButton>
         </div>
       </div>
     </div>

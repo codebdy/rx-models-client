@@ -53,28 +53,28 @@ export const ModelsBoard = observer(()=>{
   return (
     <ModelStoreProvider value = {modelStore}>
       <div className={classes.root}>
-      <ModelToolbar />
-      {
-        loading
-        ? <Loading/>
-        : <div className = {classNames(classes.content, 'dragit-scrollbar')}>
-          <ModelTree></ModelTree>
-          {
-            modelStore.openedDiagram 
-            ? <>
-                <Toolbox></Toolbox>
-                <div className = {classes.canvasShell}>
-                  <GraphCanvas></GraphCanvas>
-                </div>
-                
-              </>
-            : <div className={classes.empertyCanvas}></div>
-          }
-          <PropertyBox></PropertyBox>
-        </div>
-      }
+        <ModelToolbar />
+        {
+          loading
+          ? <Loading/>
+          : <div className = {classNames(classes.content, 'dragit-scrollbar')}>
+            <ModelTree></ModelTree>
+            {
+              modelStore.openedDiagram 
+              ? <>
+                  <Toolbox></Toolbox>
+                  <div className = {classes.canvasShell}>
+                    <GraphCanvas></GraphCanvas>
+                  </div>
+                  
+                </>
+              : <div className={classes.empertyCanvas}></div>
+            }
+            <PropertyBox></PropertyBox>
+          </div>
+        }
 
-    </div>
+      </div>
     </ModelStoreProvider>
   )
 })

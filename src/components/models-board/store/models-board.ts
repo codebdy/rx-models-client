@@ -16,6 +16,7 @@ import { PackageMeta } from "../meta/package-meta";
 export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
 export class ModelsBoardStore{
+  changed = false;
   packages: PackageStore[];
   openedDiagram?: DiagramStore;
   graph?: Graph;
@@ -29,6 +30,10 @@ export class ModelsBoardStore{
   constructor(packageMetas:PackageMeta[]) {
     this.packages = packageMetas.map(packageMeta=> new PackageStore(packageMeta,this));
     makeAutoObservable(this);
+  }
+
+  setChanged(changed:boolean){
+    this.changed = changed;
   }
 
   setOpendDiagram(openedDiagram?: DiagramStore){
@@ -151,6 +156,7 @@ export class ModelsBoardStore{
   }
 
   excuteCommand(command: Command){
+    this.changed = true;
     const node = command.excute();
     this.undoList.push(command);
     this.redoList = [];
@@ -158,6 +164,7 @@ export class ModelsBoardStore{
   }
 
   undo(){
+    this.changed = true;
     const cmd = this.undoList.pop();
     const selectedNode = cmd?.undo();
     if(cmd){
@@ -167,6 +174,7 @@ export class ModelsBoardStore{
   }
 
   redo(){
+    this.changed = true;
     const cmd = this.redoList.pop();
     const selectedNode = cmd?.excute();
     if(cmd){

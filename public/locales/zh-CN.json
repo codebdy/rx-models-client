@@ -78,5 +78,7 @@
   "hide-field":"查询时隐藏",
   "length": "长度",
   "width":"宽度",
-  "table-name":"数据库表名"
+  "table-name":"数据库表名",
+  "changing-not-save-message":"修改还没有保存，确实要离开吗？",
+  "confirm-message":"确认消息"
 }

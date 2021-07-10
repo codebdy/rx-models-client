@@ -91,8 +91,8 @@ export default function ApiBoard(){
     selectOnLineNumbers: false,
     lineNumbers: 'off' as any,
     glyphMargin: false,
-    folding: false,
-    lineDecorationsWidth: 10,
+    folding: true,
+    lineDecorationsWidth: 20,
     lineNumbersMinChars: 0
   };
 

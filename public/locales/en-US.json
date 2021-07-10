@@ -78,5 +78,7 @@
   "hide-field":"Hide field",
   "length": "Length",
   "width":"Width",
-  "table-name":"Table name"
+  "table-name":"Table name",
+  "changing-not-save-message":"Changing not be saved, are you sure to leave?",
+  "confirm-message":"Confirm message"
 }
