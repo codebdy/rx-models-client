@@ -65,5 +65,7 @@
   "number":"Number",
   "date":"Date time",
   "simple-json":"Simple JSON",
-  "simple-array":"Simple array"
+  "simple-array":"Simple array",
+  "primary-key":"Primary",
+  "generated":"Generated"
 }

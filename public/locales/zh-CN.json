@@ -65,5 +65,7 @@
   "number":"数字",
   "date":"日期时间",
   "simple-json":"简单JSON",
-  "simple-array":"简单数组"
+  "simple-array":"简单数组",
+  "primary-key":"主键",
+  "generated":"生成"
 }

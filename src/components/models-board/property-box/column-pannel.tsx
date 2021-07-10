@@ -2,10 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { ColumnStore } from '../store/column';
 import intl from "react-intl-universal";
-import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch } from '@material-ui/core';
 import LayzyTextField from 'components/models-board/property-box/layzy-text-field';
 import { useModelsBoardStore } from '../store';
-import { NameChangeCommand } from '../command/name-change-command';
 import { ColumnType } from '../meta/column-meta';
 import { ColumnChangeCommand } from '../command/column-change-command';
 
@@ -23,9 +22,31 @@ export const ColumnPanel = observer((
   };
 
   const handleTypeChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
-    const command = new ColumnChangeCommand(columnStore, { type: event.target.value });
+    const type = event.target.value;
+    let generated = columnStore.generated;
+    if(type !== ColumnType.String && type !== ColumnType.Number){
+      generated = undefined;
+    }
+    const command = new ColumnChangeCommand(columnStore, { type, generated });
     bordStore.excuteCommand(command);
   }
+
+  const handleGeneratedChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
+    let value = event.target.value;
+    if(value === 'true'){
+      value = true;
+    }
+    if(!value){
+      value = undefined;
+    }
+    const command = new ColumnChangeCommand(columnStore, { generated: value });
+    bordStore.excuteCommand(command);
+  }
+
+  const handleBooleanChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const command = new ColumnChangeCommand(columnStore, { [prop]: event.target.checked });
+    bordStore.excuteCommand(command);
+  };
 
   const isId = columnStore.name === 'id';
   return(
@@ -54,7 +75,49 @@ export const ColumnPanel = observer((
             <MenuItem value={ColumnType.SimpleArray}>{intl.get('simple-array')}</MenuItem>
           </Select>
         </FormControl>  
-      </Grid>  
+      </Grid>
+      {
+        isId &&
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.primary||false}
+                onChange={handleBooleanChange('primary')}
+                color="primary"
+              />
+            }
+            disabled
+            label= {intl.get('primary-key')}
+          />
+        </Grid>  
+      }
+      {
+        (columnStore.type === ColumnType.Number || columnStore.type === ColumnType.String) &&
+        <Grid item xs={12}>
+          <FormControl variant="outlined" fullWidth size = "small" disabled = {isId}>
+            <InputLabel>{intl.get('generated')}</InputLabel>
+            <Select
+              value={(columnStore.generated === true ? 'true' : columnStore.generated) ||''}
+              onChange={handleGeneratedChange}
+              label={intl.get('generated')}
+            >
+              <MenuItem value={""}><em>None</em></MenuItem>
+              <MenuItem value={'true'}>True</MenuItem>
+              {
+                columnStore.type === ColumnType.String &&
+                  <MenuItem value={'uuid'}>uuid</MenuItem>
+              }
+              {
+                columnStore.type === ColumnType.String &&
+                  <MenuItem value={'rowid'}>rowid</MenuItem>
+              }
+               
+              <MenuItem value={'increment'}>increment</MenuItem>
+            </Select>
+          </FormControl>  
+        </Grid>
+      }
     </>
   )
 })
