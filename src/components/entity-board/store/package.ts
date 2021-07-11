@@ -2,14 +2,13 @@ import { makeAutoObservable } from "mobx";
 import { PackageMeta, PackageStatus } from "../meta/package-meta";
 import { EntityStore } from "./entity-store";
 import { DiagramStore } from "./diagram";
-import intl from "react-intl-universal";
 import { RelationStore } from "./relation";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
-import { TREE_ROOT_ID } from "util/consts";
 import { EntityBoardStore } from "./entity-board";
 
 export class PackageStore{
+  id?: number;
   uuid: string;
   name: string;
   entities: EntityStore[] = [];
@@ -18,9 +17,9 @@ export class PackageStore{
   status: PackageStatus;
   
   constructor(meta:PackageMeta, public rootStore: EntityBoardStore){
-    this.uuid = meta?.uuid || TREE_ROOT_ID;
-    this.name = meta?.name || intl.get('root-models');
-    //this.packages = meta?.packages?.map(meta=>new PackageStore(meta, this, this.rootStore||this))||[];
+    this.id = meta.id;
+    this.uuid = meta?.uuid;
+    this.name = meta?.name;
     this.entities = meta?.entities?.map(meta=>new EntityStore(meta, this.rootStore, this))||[];
     this.diagrams = meta?.diagrams?.map(meta=>new DiagramStore(meta, this.rootStore, this))||[];
     this.relations = meta?.relations?.map(meta=>new RelationStore(meta, this))||[];
@@ -105,6 +104,7 @@ export class PackageStore{
 
   toMeta(): PackageMeta {
     return {
+      id: this.id,
       uuid: this.uuid,
       name: this.name,
       entities: this.entities.map(entity=>entity.toMeta()),
