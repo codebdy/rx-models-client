@@ -9,7 +9,7 @@ import { NavLink, Redirect, Route, Switch } from "react-router-dom";
 import MdiIcon from "./common/mdi-icon";
 import Spacer from "./common/spacer";
 import ApiBoard from "./api-board";
-import { ModelsBoard } from "./models-board";
+import { ModelsBoard } from "./entity-board";
 import AuthBoard from "./auth-board";
 
 const useStyles = makeStyles((theme: Theme) =>
