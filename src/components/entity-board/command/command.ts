@@ -1,4 +1,4 @@
-import { SelectedNode } from "../store/entity-board";
+import { SelectedNode } from "../store/entity-board-store";
 
 export interface Command{
   //返回selectedNode

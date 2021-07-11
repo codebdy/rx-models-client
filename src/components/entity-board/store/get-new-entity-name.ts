@@ -1,4 +1,4 @@
-import { EntityBoardStore } from "./entity-board";
+import { EntityBoardStore } from "./entity-board-store";
 import { PackageStore } from "./package";
 
 export function getNewEntityName(rootStore: PackageStore|EntityBoardStore){

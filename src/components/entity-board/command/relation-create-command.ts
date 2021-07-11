@@ -1,6 +1,6 @@
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { DiagramStore } from "../store/diagram";
-import { SelectedNode } from "../store/entity-board";
+import { SelectedNode } from "../store/entity-board-store";
 import { PackageStore } from "../store/package";
 import { RelationStore } from "../store/relation";
 import { Command } from "./command";

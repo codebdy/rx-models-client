@@ -1,7 +1,7 @@
 import { EntityMeta } from "../meta/entity-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { DiagramStore } from "../store/diagram";
-import { SelectedNode } from "../store/entity-board";
+import { SelectedNode } from "../store/entity-board-store";
 import { Command } from "./command";
 
 export class EntityCreateCommand implements Command{

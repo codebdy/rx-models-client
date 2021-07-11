@@ -1,6 +1,6 @@
 import { ColumnStore } from "../store/column";
 import { EntityStore } from "../store/entity-store";
-import { SelectedNode } from "../store/entity-board";
+import { SelectedNode } from "../store/entity-board-store";
 import { Command } from "./command";
 
 export class ColumnCreateCommand implements Command{

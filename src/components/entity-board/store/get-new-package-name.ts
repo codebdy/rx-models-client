@@ -1,5 +1,5 @@
 import intl from 'react-intl-universal';
-import { EntityBoardStore } from "./entity-board";
+import { EntityBoardStore } from "./entity-board-store";
 
 export function getNewPackageName(rootStore: EntityBoardStore){
   const prefix = intl.get('add-package');

@@ -1,6 +1,6 @@
 import { ColumnStore } from "../store/column";
 
-import { SelectedNode } from "../store/entity-board";
+import { SelectedNode } from "../store/entity-board-store";
 import { Command } from "./command";
 
 export class ColumnDeleteCommand implements Command{

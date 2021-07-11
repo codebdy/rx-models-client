@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core';
 import { EntityTree } from './entity-tree';
 import { GraphCanvas } from './grahp-canvas';
 import classNames from 'classnames';
-import { EntityBoardStore } from './store/entity-board';
+import { EntityBoardStore } from './store/entity-board-store';
 import { ModelStoreProvider } from './store';
 import { Toolbox } from './toolbox';
 import { PropertyBox } from './property-box';

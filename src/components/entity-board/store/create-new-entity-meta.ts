@@ -1,7 +1,7 @@
 import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
 import { getNewEntityName } from "./get-new-entity-name";
-import { EntityBoardStore } from "./entity-board";
+import { EntityBoardStore } from "./entity-board-store";
 import { PackageStore } from "./package";
 
 export function creatNewEntityMeta(rootStore:PackageStore | EntityBoardStore){

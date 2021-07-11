@@ -5,7 +5,7 @@ import { PackageStore } from "./package";
 import { RelationStore } from "./relation";
 import _ from 'lodash';
 import { ColumnType } from "../meta/column-meta";
-import { EntityBoardStore } from "./entity-board";
+import { EntityBoardStore } from "./entity-board-store";
 
 export class EntityStore{
   uuid: string;

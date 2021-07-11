@@ -1,4 +1,4 @@
-import { EntityBoardStore, SelectedNode } from "../store/entity-board";
+import { EntityBoardStore, SelectedNode } from "../store/entity-board-store";
 import { PackageStore } from "../store/package";
 import { Command } from "./command";
 

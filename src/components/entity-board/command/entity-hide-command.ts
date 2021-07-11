@@ -1,7 +1,7 @@
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { DiagramStore } from "../store/diagram";
 import { EntityStore } from "../store/entity-store";
-import { SelectedNode } from "../store/entity-board";
+import { SelectedNode } from "../store/entity-board-store";
 import { Command } from "./command";
 
 export class EntityHideCommand implements Command{

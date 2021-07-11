@@ -6,7 +6,7 @@ import { X6NodeMeta } from "../meta/x6-node-meta";
 import { PackageStore } from "./package";
 import _ from "lodash";
 import { RelationMeta } from "../meta/relation-meta";
-import { EntityBoardStore } from "./entity-board";
+import { EntityBoardStore } from "./entity-board-store";
 
 export type EntityNodeData = EntityMeta & {
     packageName?:string, 

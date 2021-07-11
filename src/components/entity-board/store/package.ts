@@ -5,7 +5,7 @@ import { DiagramStore } from "./diagram";
 import { RelationStore } from "./relation";
 import { EntityMeta } from "../meta/entity-meta";
 import _ from 'lodash';
-import { EntityBoardStore } from "./entity-board";
+import { EntityBoardStore } from "./entity-board-store";
 
 export class PackageStore{
   id?: number;

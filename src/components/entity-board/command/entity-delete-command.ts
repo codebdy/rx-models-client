@@ -1,5 +1,5 @@
 import { EntityStore } from "../store/entity-store";
-import { SelectedNode } from "../store/entity-board";
+import { SelectedNode } from "../store/entity-board-store";
 import { PackageStore } from "../store/package";
 import { Command } from "./command";
 
