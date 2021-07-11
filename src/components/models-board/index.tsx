@@ -14,6 +14,7 @@ import { MagicQueryBuilder } from 'data/magic-query-builder';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import Loading from 'components/common/loading';
 import { PackageMeta } from './meta/package-meta';
+import EmpertyCanvas from './emperty-canvas';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,9 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
       flex:1,
       display:'flex',
     },
-    empertyCanvas: {
-      flex: 1,
-    }
   }),
 );
 
@@ -68,7 +66,7 @@ export const ModelsBoard = observer(()=>{
                   </div>
                   
                 </>
-              : <div className={classes.empertyCanvas}></div>
+              : <EmpertyCanvas></EmpertyCanvas>
             }
             <PropertyBox></PropertyBox>
           </div>
