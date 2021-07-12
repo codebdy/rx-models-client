@@ -71,6 +71,7 @@ export default function ApiBoard(){
   const [updateString, setUpdateString] = useState(JSON.stringify({EntityName:{fieldName:'', ids:[]}}, null, 2));
   const [deleteString, setDeleteString] = useState(JSON.stringify({EntityName:[]}, null, 2));
   const [uploadString, setUploadString] = useState(JSON.stringify({entity:'RxMedia'}, null, 2));
+  const [uploadFile, setUploadFile] = useState<any>();
   const appStore = useAppStore();
   const optionsLeft = {
     selectOnLineNumbers: true,
@@ -124,6 +125,10 @@ export default function ApiBoard(){
     setApiType(event.target.value as ApiType);
   };
 
+  const handleUploadFileChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
+    setUploadFile(event.target.files ? event.target.files[0] : undefined);
+  }
+
   const [excuteRun, {data, loading, error}] = useLayzyAxios();
 
   useShowServerError(error);
@@ -159,6 +164,25 @@ export default function ApiBoard(){
 
       if(apiType === ApiType.post){
         excuteRun({...API_MAGIC_POST, data:JSON.parse(postString)});
+      }
+
+      if(apiType === ApiType.update){
+        excuteRun({...API_MAGIC_UPDATE, data:JSON.parse(updateString)});
+      }
+
+      if(apiType === ApiType.delete){
+        excuteRun({...API_MAGIC_DELETE, data:JSON.parse(deleteString)});
+      }
+
+      if(apiType === ApiType.upload){
+        excuteRun({
+          ...API_MAGIC_UPLOAD, 
+          headers:{"Content-Type": "multipart/form-data;boundary=" + new Date().getTime()},
+          data:{ 
+            ...JSON.parse(uploadString),
+            file: uploadFile,
+          }
+        });
       }
 
     }
@@ -201,6 +225,7 @@ export default function ApiBoard(){
                 id="contained-button-file"
                 multiple
                 type="file"
+                onChange = {handleUploadFileChange}
               />
             </div>
           }
