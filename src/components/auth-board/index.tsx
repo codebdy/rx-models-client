@@ -117,61 +117,6 @@ export default function AuthBoard(){
                 <div>
                   System
                 </div>
-                <div className = {classes.actions}>
-                  <Grid container alignItems = "center">
-                    <Grid item className={classes.actionGrid}>
-                    </Grid>
-                    <Grid item className={classes.actionGrid}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            //checked={state.checkedB}
-                            //onChange={handleChange}
-                            color="primary"
-                          />
-                        }
-                        label="读取"
-                      />
-                    </Grid>
-                    <Grid item className={classes.actionGrid}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            //checked={state.checkedB}
-                            //onChange={handleChange}
-                            color="primary"
-                          />
-                        }
-                        label="创建"
-                      />
-                    </Grid>
-
-                    <Grid item className={classes.actionGrid}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            //checked={state.checkedB}
-                            //onChange={handleChange}
-                            color="primary"
-                          />
-                        }
-                        label="修改"
-                      />
-                    </Grid>
-                    <Grid item className={classes.actionGrid}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            //checked={state.checkedB}
-                            //onChange={handleChange}
-                            color="primary"
-                          />
-                        }
-                        label="删除"
-                      />
-                    </Grid>
-                  </Grid>
-                </div>
               </div>
             }
           >
@@ -195,9 +140,9 @@ export default function AuthBoard(){
                         />
                       </Grid>
                       <Grid item className={classes.actionGrid}>
-                        <Button style={{fontSize:'1rem'}} size = "small">
-                          条件 <MdiIcon iconClass = "mdi-dots-horizontal" size = {16} />
-                        </Button>
+                        <IconButton size = "small">
+                          <MdiIcon iconClass = "mdi-regex"></MdiIcon>
+                        </IconButton>
                       </Grid>
                       <Grid item className={classes.actionGrid}>
                         <FormControlLabel
@@ -267,7 +212,7 @@ export default function AuthBoard(){
                         </Grid>
                         <Grid item className={classes.actionGrid}>
                           <Button style={{fontSize:'1rem'}} size = "small">
-                            自己
+                            自己的
                           </Button>
                         </Grid>
                         <Grid item className={classes.actionGrid}>
