@@ -158,7 +158,7 @@ export default function ApiBoard(){
     try{
       JSON.parse(value);
       if(apiType === ApiType.query){
-        const builder = new MagicQueryBuilder(value);
+        const builder = new MagicQueryBuilder(queryString);
         excuteRun(builder.toAxioConfig());
       }
 

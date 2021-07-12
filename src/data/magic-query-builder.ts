@@ -23,7 +23,7 @@ export class MagicQueryBuilder{
   constructor(queryString?:string){
     if(queryString){
       this._queryMeta = new MagicQueryMeta(queryString);
-      this._entity = this._queryMeta.model;
+      this._entity = this._queryMeta.entity;
     }
   }
 
