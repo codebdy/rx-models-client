@@ -175,13 +175,16 @@ export default function ApiBoard(){
       }
 
       if(apiType === ApiType.upload){
+        const formData = new FormData()
+        formData.append('file', uploadFile);
+        const inpuJson = JSON.parse(uploadString);
+        for(const key in inpuJson){
+          formData.append(key, inpuJson[key])
+        }
         excuteRun({
           ...API_MAGIC_UPLOAD, 
           headers:{"Content-Type": "multipart/form-data;boundary=" + new Date().getTime()},
-          data:{ 
-            ...JSON.parse(uploadString),
-            file: uploadFile,
-          }
+          data:formData
         });
       }
 
