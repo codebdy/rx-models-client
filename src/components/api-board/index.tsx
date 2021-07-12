@@ -66,7 +66,7 @@ export default function ApiBoard(){
   const classes = useStyles();
   const ref = useRef(null);
   const [apiType, setApiType] = useState(ApiType.query);
-  const [queryString, setQueryString] = useState(JSON.stringify({model:""}, null, 2));
+  const [queryString, setQueryString] = useState(JSON.stringify({entity:""}, null, 2));
   const [postString, setPostString] = useState(JSON.stringify({EntityName:{id:1}}, null, 2));
   const [updateString, setUpdateString] = useState(JSON.stringify({EntityName:{fieldName:'', ids:[]}}, null, 2));
   const [deleteString, setDeleteString] = useState(JSON.stringify({EntityName:[]}, null, 2));
@@ -156,6 +156,11 @@ export default function ApiBoard(){
         const builder = new MagicQueryBuilder(value);
         excuteRun(builder.toAxioConfig());
       }
+
+      if(apiType === ApiType.post){
+        excuteRun({...API_MAGIC_POST, data:JSON.parse(postString)});
+      }
+
     }
     catch(error){
       console.error(error);
