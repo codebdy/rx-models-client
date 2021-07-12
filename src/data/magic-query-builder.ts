@@ -128,7 +128,7 @@ export class MagicQueryBuilder{
     const conditions = this._queryMeta ? {...this._whereGroup.toJSON(), ...this._queryMeta.otherJSON } : this._whereGroup.toJSON();
 
     const pagination = this._isPagination ? `@paginate(${this._pageSize},${this._pageIndex})` :'';
-    queryObj[`model ${this._take} ${this._skip} ${this._fetcher} ${commands.join(' ')} ${pagination}`] = this._entity;
+    queryObj[`entity ${this._take} ${this._skip} ${this._fetcher} ${commands.join(' ')} ${pagination}`] = this._entity;
     this._orderBy && (queryObj[orderBy] = this._orderBy);
     return JSON.stringify({...queryObj, ...conditions, ...this._relations});
   }

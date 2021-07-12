@@ -66,7 +66,11 @@ export default function ApiBoard(){
   const classes = useStyles();
   const ref = useRef(null);
   const [apiType, setApiType] = useState(ApiType.query);
-  const [value, setValue] = useState(JSON.stringify({model:""}, null, 4));
+  const [queryString, setQueryString] = useState(JSON.stringify({model:""}, null, 2));
+  const [postString, setPostString] = useState(JSON.stringify({EntityName:{id:1}}, null, 2));
+  const [updateString, setUpdateString] = useState(JSON.stringify({EntityName:{fieldName:'', ids:[]}}, null, 2));
+  const [deleteString, setDeleteString] = useState(JSON.stringify({EntityName:[]}, null, 2));
+  const [uploadString, setUploadString] = useState(JSON.stringify({entity:'RxMedia'}, null, 2));
   const appStore = useAppStore();
   const optionsLeft = {
     selectOnLineNumbers: true,
@@ -85,6 +89,20 @@ export default function ApiBoard(){
   }
   if(apiType === ApiType.upload){
     url = serverUrl + API_MAGIC_UPLOAD.url;
+  }
+
+  let value = queryString;
+  if(apiType === ApiType.post){
+    value = postString;
+  }
+  if(apiType === ApiType.update){
+    value = updateString;
+  }
+  if(apiType === ApiType.delete){
+    value = deleteString;
+  }
+  if(apiType === ApiType.upload){
+    value = uploadString;
   }
 
   const optionsRight = {
@@ -112,7 +130,23 @@ export default function ApiBoard(){
   
 
   const handleJsonChange =(value:string)=>{
-    setValue(value);
+    if(apiType === ApiType.query){
+      setQueryString(value);
+    }
+
+    if(apiType === ApiType.post){
+      setPostString(value);
+    }
+
+    if(apiType === ApiType.update){
+      setUpdateString(value);
+    }
+    if(apiType === ApiType.delete){
+      setDeleteString(value);
+    }
+    if(apiType === ApiType.upload){
+      setUploadString(value);
+    }
   }
 
   const handleRun = ()=>{
