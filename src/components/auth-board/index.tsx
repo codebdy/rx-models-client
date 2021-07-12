@@ -7,6 +7,9 @@ import { TreeItem, TreeView } from '@material-ui/lab';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MdiIcon from 'components/common/mdi-icon';
+import { API_PUSLISHED_SCHEMA } from 'apis/auth';
+import { useSWRQuery } from 'data/use-swr-query';
+import { useShowServerError } from 'store/helpers/use-show-server-error';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,6 +51,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AuthBoard(){
   const classes = useStyles();
+  const {data, loading, error} = useSWRQuery(API_PUSLISHED_SCHEMA);
+  console.log(data);
+
+  useShowServerError(error);
 
   return (
     <Container className={classNames(classes.root, 'dragit-scrollbar')} >
@@ -192,7 +199,77 @@ export default function AuthBoard(){
                 </div>
               }
   
-            ></TreeItem>
+            >
+              <TreeItem 
+                nodeId = '3' 
+                label = {
+                  <div className={classes.nodeLabel}>
+                    <div>
+                      name
+                    </div>
+                    <div className = {classes.actions}>
+                      <Grid container alignItems = "center">
+                        <Grid item className={classes.actionGrid}>
+                          <Button style={{fontSize:'1rem'}} size = "small">
+                            条件 <MdiIcon iconClass = "mdi-dots-horizontal" size = {16} />
+                          </Button>
+                        </Grid>
+                        <Grid item className={classes.actionGrid}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                //checked={state.checkedB}
+                                //onChange={handleChange}
+                                color="primary"
+                              />
+                            }
+                            label="读取"
+                          />
+                        </Grid>
+                        <Grid item className={classes.actionGrid}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                //checked={state.checkedB}
+                                //onChange={handleChange}
+                                color="primary"
+                              />
+                            }
+                            label="创建"
+                          />
+                        </Grid>
+    
+                        <Grid item className={classes.actionGrid}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                //checked={state.checkedB}
+                                //onChange={handleChange}
+                                color="primary"
+                              />
+                            }
+                            label="修改"
+                          />
+                        </Grid>
+                        <Grid item className={classes.actionGrid}>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                //checked={state.checkedB}
+                                //onChange={handleChange}
+                                color="primary"
+                              />
+                            }
+                            label="删除"
+                          />
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </div>
+                }
+    
+              ></TreeItem>              
+              </TreeItem>
           </TreeItem>
           <TreeItem nodeId = '11' label = {'dddd'}>
             <TreeItem nodeId = '12' label = {'fff'}></TreeItem>
