@@ -93,8 +93,9 @@ export const EntityToolbar = observer(()=>{
 
   const handleSave = ()=>{
     const data = new MagicPostBuilder()
-      .setModel('RxPackage')
-      .setDatas(boardStore.getPackeMetas())
+      .setEntity('RxPackage')
+      .setDatas(boardStore.getPackeMetas())//.addModelCommand('removeOthers')
+      .addEntityCommand('removeOthers')
       .toData();
     excuteSave({data});
   }

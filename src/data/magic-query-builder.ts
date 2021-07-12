@@ -6,7 +6,7 @@ import { WhereBuilder } from "./where-builder";
 const orderBy = 'orderBy'
 export class MagicQueryBuilder{
 
-  private _model: string = "";
+  private _entity: string = "";
   private _commands: string[] = [];
   private _take = "";
   private _skip = "";
@@ -23,12 +23,12 @@ export class MagicQueryBuilder{
   constructor(queryString?:string){
     if(queryString){
       this._queryMeta = new MagicQueryMeta(queryString);
-      this._model = this._queryMeta.model;
+      this._entity = this._queryMeta.model;
     }
   }
 
-  setModel(model:string){
-    this._model = model;
+  setEntity(entity:string){
+    this._entity = entity;
     return this;
   }
 
@@ -62,7 +62,7 @@ export class MagicQueryBuilder{
     return this;
   }
 
-  addModelCommand(command:string){
+  addEntityCommand(command:string){
     this._commands.push(`@${command}`);
     return this;
   }
@@ -128,7 +128,7 @@ export class MagicQueryBuilder{
     const conditions = this._queryMeta ? {...this._whereGroup.toJSON(), ...this._queryMeta.otherJSON } : this._whereGroup.toJSON();
 
     const pagination = this._isPagination ? `@paginate(${this._pageSize},${this._pageIndex})` :'';
-    queryObj[`model ${this._take} ${this._skip} ${this._fetcher} ${commands.join(' ')} ${pagination}`] = this._model;
+    queryObj[`model ${this._take} ${this._skip} ${this._fetcher} ${commands.join(' ')} ${pagination}`] = this._entity;
     this._orderBy && (queryObj[orderBy] = this._orderBy);
     return JSON.stringify({...queryObj, ...conditions, ...this._relations});
   }
