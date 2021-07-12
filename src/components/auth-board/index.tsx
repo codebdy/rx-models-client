@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       marginTop:theme.spacing(2),
       flex: 1,
-      maxWidth:'800px',
+      maxWidth:'1000px',
       display: 'flex',
       flexFlow: 'column',
       height: 0,
@@ -36,6 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between'
+    },
+    actions:{
+      width:'500px',
+    },
+    actionGrid:{
+      width: '20%'
     }
   }),
 );
@@ -51,6 +57,7 @@ export default function AuthBoard(){
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ChevronRightIcon />}
+          selected = ''
         >
           <TreeItem 
             nodeId = '1' 
@@ -59,14 +66,11 @@ export default function AuthBoard(){
                 <div>
                   System
                 </div>
-                <div>
-                  <Grid container>
-                    <Grid item>
-                      <Button style={{fontSize:'1rem'}} size = "small">
-                        条件 <MdiIcon iconClass = "mdi-dots-horizontal" size = {16} />
-                      </Button>
+                <div className = {classes.actions}>
+                  <Grid container alignItems = "center">
+                    <Grid item className={classes.actionGrid}>
                     </Grid>
-                    <Grid item>
+                    <Grid item className={classes.actionGrid}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -78,7 +82,7 @@ export default function AuthBoard(){
                         label="读取"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className={classes.actionGrid}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -91,7 +95,7 @@ export default function AuthBoard(){
                       />
                     </Grid>
 
-                    <Grid item>
+                    <Grid item className={classes.actionGrid}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -103,7 +107,7 @@ export default function AuthBoard(){
                         label="修改"
                       />
                     </Grid>
-                    <Grid item>
+                    <Grid item className={classes.actionGrid}>
                       <FormControlLabel
                         control={
                           <Checkbox
@@ -120,7 +124,75 @@ export default function AuthBoard(){
               </div>
             }
           >
-            <TreeItem nodeId = '2' label = {'fff'}></TreeItem>
+            <TreeItem 
+              nodeId = '2' 
+              label = {
+                <div className={classes.nodeLabel}>
+                  <div>
+                    RxUser
+                  </div>
+                  <div className = {classes.actions}>
+                    <Grid container alignItems = "center">
+                      <Grid item className={classes.actionGrid}>
+                        <Button style={{fontSize:'1rem'}} size = "small">
+                          条件 <MdiIcon iconClass = "mdi-dots-horizontal" size = {16} />
+                        </Button>
+                      </Grid>
+                      <Grid item className={classes.actionGrid}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              //checked={state.checkedB}
+                              //onChange={handleChange}
+                              color="primary"
+                            />
+                          }
+                          label="读取"
+                        />
+                      </Grid>
+                      <Grid item className={classes.actionGrid}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              //checked={state.checkedB}
+                              //onChange={handleChange}
+                              color="primary"
+                            />
+                          }
+                          label="创建"
+                        />
+                      </Grid>
+  
+                      <Grid item className={classes.actionGrid}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              //checked={state.checkedB}
+                              //onChange={handleChange}
+                              color="primary"
+                            />
+                          }
+                          label="修改"
+                        />
+                      </Grid>
+                      <Grid item className={classes.actionGrid}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              //checked={state.checkedB}
+                              //onChange={handleChange}
+                              color="primary"
+                            />
+                          }
+                          label="删除"
+                        />
+                      </Grid>
+                    </Grid>
+                  </div>
+                </div>
+              }
+  
+            ></TreeItem>
           </TreeItem>
           <TreeItem nodeId = '11' label = {'dddd'}>
             <TreeItem nodeId = '12' label = {'fff'}></TreeItem>
