@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Container, FormControlLabel, Checkbox, Grid, FormControl, InputLabel, Select, MenuItem, TextField, IconButton, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Container, FormControlLabel, Checkbox, Grid, FormControl, InputLabel, Select, MenuItem, TextField, IconButton, Button, SvgIcon, Switch } from '@material-ui/core';
 import intl from 'react-intl-universal';
 import Topbar from './topbar';
 import classNames from 'classnames';
@@ -10,13 +10,13 @@ import MdiIcon from 'components/common/mdi-icon';
 import { API_PUSLISHED_SCHEMA } from 'apis/auth';
 import { useSWRQuery } from 'data/use-swr-query';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
+import { PackageMeta } from 'components/entity-board/meta/package-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       marginTop:theme.spacing(2),
       flex: 1,
-      maxWidth:'1000px',
       display: 'flex',
       flexFlow: 'column',
       height: 0,
@@ -41,23 +41,23 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'space-between'
     },
     actions:{
-      width:'500px',
+      width:'800px',
     },
     actionGrid:{
-      width: '20%'
+      width: '16.6%'
     }
   }),
 );
 
 export default function AuthBoard(){
   const classes = useStyles();
-  const {data, loading, error} = useSWRQuery(API_PUSLISHED_SCHEMA);
+  const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
   console.log(data);
 
   useShowServerError(error);
 
   return (
-    <Container className={classNames(classes.root, 'dragit-scrollbar')} >
+    <Container className={classNames(classes.root, 'dragit-scrollbar')} maxWidth = "lg">
       <div className = {classes.container}>
         <Topbar />
         <div className = {classes.belowContent}>
@@ -66,6 +66,50 @@ export default function AuthBoard(){
           defaultExpandIcon={<ChevronRightIcon />}
           selected = ''
         >
+          {
+            data?.map(aPackage=>{
+              return(
+                <TreeItem 
+                  nodeId = {aPackage.uuid} 
+                  label = {
+                      <div className={classes.nodeLabel}>
+                        <div>
+                          <MdiIcon iconClass = "mdi-folder-outline" size={18} />
+                          {aPackage.name}
+                        </div>
+                      </div>
+                  }>
+                    {
+                      aPackage.entities?.map((entity)=>{
+                        return(
+                          <TreeItem 
+                            nodeId = {entity.uuid} 
+                            label = {
+                                <div className={classes.nodeLabel}>
+                                  <div>
+                                    <SvgIcon>
+                                      <path d="
+                                        M 1,6
+                                        L 14,6
+                                        L 14,19
+                                        L 1,19
+                                        L 1,6
+                                        M 1,11
+                                        L 14,11
+                                      " stroke="#000" strokeWidth="1" fill="#fff"></path>
+                                    </SvgIcon>
+                                    {entity.name}
+                                  </div>
+                                </div>
+                            }>
+                          </TreeItem>
+                        )
+                      })
+                    }
+                </TreeItem>
+              )
+            })
+          }
           <TreeItem 
             nodeId = '1' 
             label = {
@@ -141,6 +185,16 @@ export default function AuthBoard(){
                   <div className = {classes.actions}>
                     <Grid container alignItems = "center">
                       <Grid item className={classes.actionGrid}>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              color="primary"
+                            />
+                          }
+                          label="展开"
+                        />
+                      </Grid>
+                      <Grid item className={classes.actionGrid}>
                         <Button style={{fontSize:'1rem'}} size = "small">
                           条件 <MdiIcon iconClass = "mdi-dots-horizontal" size = {16} />
                         </Button>
@@ -210,8 +264,10 @@ export default function AuthBoard(){
                     <div className = {classes.actions}>
                       <Grid container alignItems = "center">
                         <Grid item className={classes.actionGrid}>
+                        </Grid>
+                        <Grid item className={classes.actionGrid}>
                           <Button style={{fontSize:'1rem'}} size = "small">
-                            条件 <MdiIcon iconClass = "mdi-dots-horizontal" size = {16} />
+                            自己
                           </Button>
                         </Grid>
                         <Grid item className={classes.actionGrid}>
