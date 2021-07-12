@@ -47,6 +47,7 @@
   "add-entity":"New entity",
   "add-diagram":"New diagram",
   "no-selected":"Nothing selected!",
+  "role": "Role",
   "role-name": "Role name",
   "side": "side",
   "relation-type":"Relation type",

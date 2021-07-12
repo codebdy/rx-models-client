@@ -47,6 +47,7 @@
   "add-entity":"新建实体",
   "add-diagram":"新建ER图",
   "no-selected":"没有选中任何元素！",
+  "role": "角色",
   "role-name": "角色名",
   "side": "端",
   "relation-type":"关系类型",
