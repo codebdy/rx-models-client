@@ -1,9 +1,9 @@
-import { makeStyles, Theme, createStyles, Grid } from "@material-ui/core";
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ColumnMeta } from "components/entity-board/meta/column-meta";
-import { AuthAction } from "./auth-action";
-import { ExpressArea } from "./express-area";
+import { AbilityActions } from "./ability-actions";
+import { AbilityCondition } from "./express-dialog/ability-condition";
 import { NameLabel } from "./name-label";
 import { NodeLabel } from "./node-label";
 
@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export function ColumnNode(props:{
-  columnMeta:ColumnMeta
+  columnMeta: ColumnMeta,
+  conditions: AbilityCondition[]
 }){
-  const {columnMeta} = props; 
+  const {columnMeta, conditions} = props; 
   const classes = useStyles();
 
   return(
@@ -36,15 +37,7 @@ export function ColumnNode(props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <ExpressArea>
-                <Grid item xs={4}>
-
-                </Grid>
-                <Grid item>
-                  自己的
-                </Grid>
-              </ExpressArea>
-              <AuthAction/>
+              <AbilityActions conditions = {conditions}/>
             </div>
           </NodeLabel>
       }>

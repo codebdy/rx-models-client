@@ -2,7 +2,7 @@ import { createStyles, FormControlLabel, Grid, makeStyles, SvgIcon, Switch, Them
 import { TreeItem } from "@material-ui/lab";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
 import { ActionLabel } from "./action-label";
-import { AuthAction } from "./auth-action";
+import { AbilityActions } from "./ability-actions";
 import { NodeLabel } from "./node-label";
 import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
@@ -74,7 +74,7 @@ export function EntityNode(props:{
             </div>
             <div className = {classes.actionArea} onClick = {(e)=>e.stopPropagation()}>
               <ExpressArea>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                   {
                     (hover||expand) &&
                     <FormControlLabel
@@ -102,7 +102,7 @@ export function EntityNode(props:{
                   }
                 </Grid>
               </ExpressArea>
-              <AuthAction/>
+              <AbilityActions conditions = {conditions}/>
             </div>
           </NodeLabel>
       }>
@@ -111,7 +111,11 @@ export function EntityNode(props:{
         expand && 
         entityMeta.columns.map(column=>{
           return (
-            <ColumnNode key = {column.uuid} columnMeta = {column} />
+            <ColumnNode 
+              key = {column.uuid} 
+              columnMeta = {column} 
+              conditions = {conditions}
+            />
           )
         })
       }

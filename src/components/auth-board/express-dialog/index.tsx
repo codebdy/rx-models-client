@@ -57,7 +57,7 @@ export default function ExpressDialog(
   };
 
   const handleAddNew = ()=>{
-    const newCondition =  {uuid:createId(), name:'new Condtion', expression :''};
+    const newCondition =  {uuid:createId(), name:'new Condition', expression :''};
     setConditions([...conditions,newCondition]);
     setSelectedId(newCondition.uuid);
   }
@@ -94,7 +94,7 @@ export default function ExpressDialog(
   }
 
   const handleConfirm = ()=>{
-    onChange(abilityCondigions);
+    onChange(conditions);
     handleClose();
   }
 
@@ -102,7 +102,7 @@ export default function ExpressDialog(
     <div>
       <Tooltip title={intl.get('express-tip')}>
         <IconButton size = "small" onClick={handleClickOpen}>
-          <MdiIcon iconClass = "mdi-regex" size={18}></MdiIcon>
+          <MdiIcon iconClass = "mdi-function-variant" size={18}></MdiIcon>
         </IconButton>
       </Tooltip>  
       <Dialog
