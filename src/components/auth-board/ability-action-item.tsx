@@ -17,16 +17,17 @@ const useStyles = makeStyles((theme: Theme) =>
 export function AbilityActionItem(props:{
   condition?:AbilityCondition,
   selectedRoleId: number|'',
+  hasSubCondition?: boolean,
 }){
-  const{condition, selectedRoleId} = props;
+  const{condition, selectedRoleId, hasSubCondition} = props;
   const classes = useStyles();
   
   return (
     <Grid container alignItems = "center">
       <Grid item className={classes.actionGrid}>
         {
-          (condition?.name) 
-          ? condition.name
+          (condition) 
+          ? condition.name || condition.uuid
           : <MdiIcon iconClass = "mdi-regex" size={15}></MdiIcon>
         }
         
@@ -35,57 +36,72 @@ export function AbilityActionItem(props:{
         selectedRoleId&&
         <>
           <Grid item className={classes.actionGrid}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  //checked={state.checkedB}
-                  //onChange={handleChange}
-                  color="primary"
-                  size = "small"
-                />
-              }
-              label={<ActionLabel>读取</ActionLabel>}
-            />
-          </Grid>
-          <Grid item className={classes.actionGrid}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  //checked={state.checkedB}
-                  //onChange={handleChange}
-                  color="primary"
-                  size = "small"
-                />
-              }
-              label={<ActionLabel>创建</ActionLabel>}
-            />
-          </Grid>
+            {
+              !condition && 
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //checked={state.checkedB}
+                    //onChange={handleChange}
+                    color="primary"
+                    size = "small"
+                  />
+                }
+                label={<ActionLabel>创建</ActionLabel>}
+              />
+          }
 
-          <Grid item className={classes.actionGrid}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  //checked={state.checkedB}
-                  //onChange={handleChange}
-                  color="primary"
-                  size = "small"
-                />
-              }
-              label={<ActionLabel>修改</ActionLabel>}
-            />
           </Grid>
           <Grid item className={classes.actionGrid}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  //checked={state.checkedB}
-                  //onChange={handleChange}
-                  color="primary"
-                  size = "small"
-                />
-              }
-              label={<ActionLabel>删除</ActionLabel>}
-            />
+            {
+              (condition || !hasSubCondition) && 
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //checked={state.checkedB}
+                    //onChange={handleChange}
+                    color="primary"
+                    size = "small"
+                  />
+                }
+                label={<ActionLabel>读取</ActionLabel>}
+              />
+            }
+
+          </Grid>
+          <Grid item className={classes.actionGrid}>
+            {
+              (condition || !hasSubCondition) && 
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //checked={state.checkedB}
+                    //onChange={handleChange}
+                    color="primary"
+                    size = "small"
+                  />
+                }
+                label={<ActionLabel>修改</ActionLabel>}
+              />
+            }
+
+          </Grid>
+          <Grid item className={classes.actionGrid}>
+            {
+              (condition || !hasSubCondition) && 
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    //checked={state.checkedB}
+                    //onChange={handleChange}
+                    color="primary"
+                    size = "small"
+                  />
+                }
+                label={<ActionLabel>删除</ActionLabel>}
+              />
+            }
+
           </Grid>
         </>
       }

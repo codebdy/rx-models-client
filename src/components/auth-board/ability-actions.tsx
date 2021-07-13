@@ -19,15 +19,15 @@ export function AbilityActions(props:{
 
   return(
     <div className = {classes.root}>
-      {
-        !conditions?.length && 
-        <AbilityActionItem selectedRoleId = {selectedRoleId} />
-      }
-      
+      <AbilityActionItem selectedRoleId = {selectedRoleId} hasSubCondition = {conditions.length > 0}/>
       {
         conditions.map(con=>{
           return (
-            <AbilityActionItem key = {con.uuid} condition = {con} selectedRoleId = {selectedRoleId}  />
+            <AbilityActionItem 
+              key = {con.uuid} 
+              condition = {con} 
+              selectedRoleId = {selectedRoleId} 
+            />
           )
         })
       }
