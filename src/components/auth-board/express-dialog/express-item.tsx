@@ -1,7 +1,7 @@
 import { makeStyles, Theme, createStyles, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import MdiIcon from "components/common/mdi-icon";
-import { AbilityCondition } from "./ability-condition";
+import { AbilityCondition } from "../interface/ability-condition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

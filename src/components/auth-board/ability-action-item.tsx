@@ -1,7 +1,7 @@
 import { makeStyles, Theme, createStyles, Checkbox, FormControlLabel, Grid } from "@material-ui/core";
 import MdiIcon from "components/common/mdi-icon";
 import { ActionLabel } from "./action-label";
-import { AbilityCondition } from "./express-dialog/ability-condition";
+import { AbilityCondition } from "./interface/ability-condition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,6 +1,6 @@
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import { AbilityActionItem } from "./ability-action-item";
-import { AbilityCondition } from "./express-dialog/ability-condition";
+import { AbilityCondition } from "./interface/ability-condition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

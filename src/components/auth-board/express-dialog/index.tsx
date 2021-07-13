@@ -8,7 +8,7 @@ import intl from "react-intl-universal";
 import { Tooltip, IconButton, createStyles, makeStyles, Theme, Grid, TextField } from '@material-ui/core';
 import MdiIcon from 'components/common/mdi-icon';
 import { ExpressItem } from './express-item';
-import { AbilityCondition } from './ability-condition';
+import { AbilityCondition } from '../interface/ability-condition';
 import { createId } from 'util/creat-id';
 
 const useStyles = makeStyles((theme: Theme) =>

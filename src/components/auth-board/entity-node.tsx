@@ -9,7 +9,7 @@ import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
 import ExpressDialog from "./express-dialog";
-import { AbilityCondition } from "./express-dialog/ability-condition";
+import { AbilityCondition } from "./interface/ability-condition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
