@@ -1,4 +1,4 @@
-import { createStyles, FormControlLabel, Grid, IconButton, makeStyles, SvgIcon, Switch, Theme } from "@material-ui/core";
+import { createStyles, FormControlLabel, Grid, IconButton, makeStyles, SvgIcon, Switch, Theme, Tooltip } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
@@ -7,6 +7,8 @@ import { AuthAction } from "./auth-action";
 import { NodeLabel } from "./node-label";
 import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
+import { useState } from "react";
+import intl from 'react-intl-universal';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,12 +31,16 @@ export function EntityNode(props:{
 }){
   const {entityMeta} = props; 
   const classes = useStyles();
+  const [hover, setHover] = useState(false);
 
   return(
      <TreeItem 
         nodeId = {entityMeta.uuid} 
         label = {
-          <NodeLabel>
+          <NodeLabel 
+            onMouseOver = {()=>setHover(true)}
+            onMouseLeave = {()=>setHover(false)}  
+          >
             <div className={classes.nodeName}>
               <SvgIcon>
                 <path d="
@@ -50,23 +56,32 @@ export function EntityNode(props:{
               {entityMeta.name}
               
             </div>
-            <div className = {classes.actionArea}>
+            <div className = {classes.actionArea} onClick = {(e)=>e.stopPropagation()}>
               <ExpressArea>
                 <Grid item xs={4}>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        color="primary"
-                        size = "small"
-                      />
-                    }
-                    label={<ActionLabel>展开</ActionLabel>}
-                  />
+                  {
+                    hover &&
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          color="primary"
+                          size = "small"
+                        />
+                      }
+                      label={<ActionLabel>{intl.get('expand')}</ActionLabel>}
+                    />                    
+                  }
+
                 </Grid>
                 <Grid item>
-                  <IconButton size = "small">
-                    <MdiIcon iconClass = "mdi-regex" size={18}></MdiIcon>
-                  </IconButton>
+                  {
+                    hover &&
+                    <Tooltip title={intl.get('express-tip')}>
+                      <IconButton size = "small">
+                        <MdiIcon iconClass = "mdi-regex" size={18}></MdiIcon>
+                      </IconButton>
+                    </Tooltip>                    
+                  }
                 </Grid>
               </ExpressArea>
               <AuthAction/>

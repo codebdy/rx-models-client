@@ -81,5 +81,7 @@
   "width":"宽度",
   "table-name":"数据库表名",
   "changing-not-save-message":"修改还没有保存，确实要离开吗？",
-  "confirm-message":"确认消息"
+  "confirm-message":"确认消息",
+  "expand":"展开",
+  "express-tip":"条件表达式"
 }

@@ -1,4 +1,5 @@
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import React from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -11,12 +12,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function NodeLabel(props:{
+  onMouseOver?:()=>void,
+  onMouseLeave?:()=>void,
   children:any,
 }){
-  const {children} = props;
+  const {onMouseOver, onMouseLeave, children} = props;
   const classes = useStyles();
   return(
-    <div className = {classes.root}>
+    <div 
+      className = {classes.root}
+      onMouseOver = {onMouseOver}
+      onMouseLeave = {onMouseLeave}  
+    >
       {children}
     </div>
   )
