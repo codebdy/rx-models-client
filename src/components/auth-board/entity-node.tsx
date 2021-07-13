@@ -1,4 +1,4 @@
-import { createStyles, FormControlLabel, Grid, makeStyles, SvgIcon, Switch, Theme } from "@material-ui/core";
+import { CircularProgress, createStyles, FormControlLabel, Grid, makeStyles, SvgIcon, Switch, Theme } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
 import { ActionLabel } from "./action-label";
@@ -10,6 +10,11 @@ import { useState } from "react";
 import intl from 'react-intl-universal';
 import ExpressDialog from "./express-dialog";
 import { AbilityCondition } from "./interface/ability-condition";
+import { EntityAuth } from "./interface/entity-auth";
+import useLayzyMagicPost from "data/use-layzy-magic-post";
+import { useShowServerError } from "store/helpers/use-show-server-error";
+import { MagicPostBuilder } from "data/magic-post-builder";
+import { createId } from "util/creat-id";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,16 +35,25 @@ const useStyles = makeStyles((theme: Theme) =>
 export function EntityNode(props:{
   entityMeta: EntityMeta,
   selectedRoleId: number|'',
+  entityAuth?: EntityAuth
 }){
-  const {entityMeta, selectedRoleId} = props; 
+  const {entityMeta, selectedRoleId, entityAuth} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
-  const [expand, setExpand] = useState(false);
+  //const [expand, setExpand] = useState(false);
   const [expressDlgOpen, setExpressDlgOpen] = useState(false);
   const [conditions, setConditions] = useState<AbilityCondition[]>([]);
+  const [excutePost, {loading, error}] = useLayzyMagicPost();
+
+  useShowServerError(error);
 
   const hanldeExpandChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
-    setExpand(event.target.checked);
+    const auth = entityAuth ? entityAuth : {uuid: createId(), entityUuid: entityMeta.uuid, conditions:[]}
+    const data = new MagicPostBuilder()
+      .setEntity('RxEntityAuth')
+      .setSingleData({...auth, expand:event.target.checked})
+      .toData()
+    excutePost({data});
   }
 
   const handleExpressDlgOpenChange = (open:boolean)=>{
@@ -77,18 +91,22 @@ export function EntityNode(props:{
               <ExpressArea>
                 <Grid item xs={6}>
                   {
-                    (hover||expand) &&
+                    (hover||entityAuth?.expand) && !loading &&
                     <FormControlLabel
                       control={
                         <Switch
                           color="primary"
                           size = "small"
-                          checked = {expand}
+                          checked = {entityAuth?.expand||false}
                           onChange = {hanldeExpandChange}
                         />
                       }
                       label={<ActionLabel>{intl.get('expand')}</ActionLabel>}
                     />                    
+                  }
+                  {
+                    loading && 
+                    <CircularProgress size = { 24 } />
                   }
 
                 </Grid>
@@ -112,7 +130,7 @@ export function EntityNode(props:{
       }>
 
       {
-        expand && 
+        entityAuth?.expand && 
         entityMeta.columns.map(column=>{
           return (
             <ColumnNode 

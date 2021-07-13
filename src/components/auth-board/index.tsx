@@ -12,6 +12,10 @@ import { PackageMeta } from 'components/entity-board/meta/package-meta';
 import { PackageNode } from './package-node';
 import Loading from 'components/common/loading';
 import { useState } from 'react';
+import { useMagicQuery } from 'data/use-magic-query';
+import { EntityAuth } from './interface/entity-auth';
+import { MagicQueryBuilder } from 'data/magic-query-builder';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,9 +57,18 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AuthBoard(){
   const classes = useStyles();
   const [selectedRoleId, setSelectedRoleId] = useState<number|''>('');
+  const [entityAuths, setEntityAuths] = useState<EntityAuth[]>([]);
   const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
+  const {data:authData, loading:authLoading, error:authError} = useMagicQuery<EntityAuth[]>(
+    new MagicQueryBuilder()
+      .setEntity('RxEntityAuth'),
+  )
 
-  useShowServerError(error);
+  useEffect(()=>{
+    setEntityAuths(authData?.data || []);
+  }, [authData])
+
+  useShowServerError(error||authError);
 
   const handleRoleSelect = (roleId:number)=>{
     setSelectedRoleId(roleId);
@@ -64,7 +77,7 @@ export default function AuthBoard(){
   return (
     <Container className={classNames(classes.root, 'dragit-scrollbar')} maxWidth = "lg">
       {
-        loading 
+        loading || authLoading
         ? <Loading />
         : <div className = {classes.container}>
             <Topbar onSelectRole={handleRoleSelect} />
@@ -77,7 +90,12 @@ export default function AuthBoard(){
               {
                 data?.map(aPackage=>{
                   return(
-                    <PackageNode key={aPackage.uuid} packageMeta = {aPackage} selectedRoleId = {selectedRoleId} />
+                    <PackageNode 
+                      key={aPackage.uuid} 
+                      packageMeta = {aPackage} 
+                      selectedRoleId = {selectedRoleId} 
+                      entityAuths = {entityAuths}
+                    />
                   )
                 })
               }
