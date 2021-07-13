@@ -1,7 +1,8 @@
-import { SvgIcon } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { PackageMeta } from "components/entity-board/meta/package-meta";
+import { EntityNode } from "./entity-node";
+import { PackageLabel } from "./package-label";
 
 export function PackageNode(props:{
   packageMeta:PackageMeta
@@ -12,37 +13,17 @@ export function PackageNode(props:{
     <TreeItem 
       nodeId = {packageMeta.uuid} 
       label = {
-          <div>
+          <PackageLabel>
             <div>
               <MdiIcon iconClass = "mdi-folder-outline" size={18} />
               {packageMeta.name}
             </div>
-          </div>
+          </PackageLabel>
       }>
         {
           packageMeta.entities?.map((entity)=>{
             return(
-              <TreeItem 
-                nodeId = {entity.uuid} 
-                label = {
-                    <div>
-                      <div>
-                        <SvgIcon>
-                          <path d="
-                            M 1,6
-                            L 14,6
-                            L 14,19
-                            L 1,19
-                            L 1,6
-                            M 1,11
-                            L 14,11
-                          " stroke="#000" strokeWidth="1" fill="#fff"></path>
-                        </SvgIcon>
-                        {entity.name}
-                      </div>
-                    </div>
-                }>
-              </TreeItem>
+              <EntityNode key ={entity.uuid} entityMeta = {entity} />
             )
           })
         }

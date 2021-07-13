@@ -3,13 +3,12 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display:'flex',
-      justifyContent: 'space-between'
+      padding:theme.spacing(1, 0),
     },
   }),
 );
 
-export function NodeLabel(props:{
+export function PackageLabel(props:{
   children:any,
 }){
   const {children} = props;

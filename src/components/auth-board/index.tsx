@@ -11,6 +11,7 @@ import { API_PUSLISHED_SCHEMA } from 'apis/auth';
 import { useSWRQuery } from 'data/use-swr-query';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { PackageMeta } from 'components/entity-board/meta/package-meta';
+import { PackageNode } from './package-node';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,44 +70,7 @@ export default function AuthBoard(){
           {
             data?.map(aPackage=>{
               return(
-                <TreeItem 
-                  nodeId = {aPackage.uuid} 
-                  label = {
-                      <div className={classes.nodeLabel}>
-                        <div>
-                          <MdiIcon iconClass = "mdi-folder-outline" size={18} />
-                          {aPackage.name}
-                        </div>
-                      </div>
-                  }>
-                    {
-                      aPackage.entities?.map((entity)=>{
-                        return(
-                          <TreeItem 
-                            nodeId = {entity.uuid} 
-                            label = {
-                                <div className={classes.nodeLabel}>
-                                  <div>
-                                    <SvgIcon>
-                                      <path d="
-                                        M 1,6
-                                        L 14,6
-                                        L 14,19
-                                        L 1,19
-                                        L 1,6
-                                        M 1,11
-                                        L 14,11
-                                      " stroke="#000" strokeWidth="1" fill="#fff"></path>
-                                    </SvgIcon>
-                                    {entity.name}
-                                  </div>
-                                </div>
-                            }>
-                          </TreeItem>
-                        )
-                      })
-                    }
-                </TreeItem>
+                <PackageNode key={aPackage.uuid} packageMeta = {aPackage} />
               )
             })
           }
