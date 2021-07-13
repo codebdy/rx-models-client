@@ -6,10 +6,11 @@ import { NameLabel } from "./name-label";
 import { PackageLabel } from "./package-label";
 
 export function PackageNode(props:{
-  packageMeta:PackageMeta
+  packageMeta:PackageMeta,
+  selectedRoleId:number|'',
 }){
 
-  const {packageMeta} = props; 
+  const {packageMeta, selectedRoleId} = props; 
   return(
     <TreeItem 
       nodeId = {packageMeta.uuid} 
@@ -24,7 +25,7 @@ export function PackageNode(props:{
         {
           packageMeta.entities?.map((entity)=>{
             return(
-              <EntityNode key ={entity.uuid} entityMeta = {entity} />
+              <EntityNode key ={entity.uuid} entityMeta = {entity} selectedRoleId = {selectedRoleId} />
             )
           })
         }

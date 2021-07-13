@@ -2,6 +2,11 @@ import React from 'react';
 import { makeStyles, Theme, createStyles, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import SubmitButton from 'components/common/submit-button';
 import intl from 'react-intl-universal';
+import { useMagicQuery } from 'data/use-magic-query';
+import { MagicQueryBuilder } from 'data/magic-query-builder';
+import { useShowServerError } from 'store/helpers/use-show-server-error';
+import { RxRole } from './interface/rx-role';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,8 +22,23 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Topbar(){
+export default function Topbar(
+  props:{
+    onSelectRole:(roleId:number)=>void,
+  }
+){
+  const {onSelectRole} = props;
   const classes = useStyles();
+  const [selectId, setSelectedId] = useState<number|''>('');
+  const {data, error} = useMagicQuery<RxRole[]>(new MagicQueryBuilder().setEntity('RxRole'));
+  useShowServerError(error);
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
+    const roleId = event.target.value as number;
+    setSelectedId(roleId);
+    onSelectRole(roleId)
+  }
+
   const handleSave = ()=>{
 
   }
@@ -27,16 +47,20 @@ export default function Topbar(){
       <FormControl variant="outlined" size= "small" className = {classes.roleSelect}>
         <InputLabel id="demo-simple-select-outlined-label">{intl.get('role')}</InputLabel>
         <Select
-          //value={age}
-          //onChange={handleChange}
+          value={selectId}
+          onChange={handleChange}
           label={intl.get('role')}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>业务员</MenuItem>
-          <MenuItem value={20}>经理</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {
+            data?.data?.map(role=>{
+              return(
+                <MenuItem key = {role.id} value={role.id}>{role.name}</MenuItem>
+              )
+            })
+          }
         </Select>
       </FormControl>
       <SubmitButton 

@@ -22,9 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ColumnNode(props:{
   columnMeta: ColumnMeta,
-  conditions: AbilityCondition[]
+  conditions: AbilityCondition[],
+  selectedRoleId: number|''
 }){
-  const {columnMeta, conditions} = props; 
+  const {columnMeta, conditions, selectedRoleId} = props; 
   const classes = useStyles();
 
   return(
@@ -37,7 +38,7 @@ export function ColumnNode(props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <AbilityActions conditions = {conditions}/>
+              <AbilityActions conditions = {conditions} selectedRoleId = {selectedRoleId} />
             </div>
           </NodeLabel>
       }>

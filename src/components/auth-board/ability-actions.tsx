@@ -11,18 +11,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function AbilityActions(props:{
-  conditions:AbilityCondition[]
+  conditions:AbilityCondition[],
+  selectedRoleId: number|'',
 }){
-  const {conditions} = props;
+  const {conditions, selectedRoleId} = props;
   const classes = useStyles();
 
   return(
     <div className = {classes.root}>
-      <AbilityActionItem />
+      <AbilityActionItem selectedRoleId = {selectedRoleId} />
       {
         conditions.map(con=>{
           return (
-            <AbilityActionItem key = {con.uuid} condition = {con} />
+            <AbilityActionItem key = {con.uuid} condition = {con} selectedRoleId = {selectedRoleId}  />
           )
         })
       }

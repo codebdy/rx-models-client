@@ -28,9 +28,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function EntityNode(props:{
-  entityMeta: EntityMeta
+  entityMeta: EntityMeta,
+  selectedRoleId: number|'',
 }){
-  const {entityMeta} = props; 
+  const {entityMeta, selectedRoleId} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
   const [expand, setExpand] = useState(false);
@@ -102,7 +103,10 @@ export function EntityNode(props:{
                   }
                 </Grid>
               </ExpressArea>
-              <AbilityActions conditions = {conditions}/>
+              { 
+                <AbilityActions conditions = {conditions} selectedRoleId={selectedRoleId} />
+              }
+              
             </div>
           </NodeLabel>
       }>
@@ -115,6 +119,7 @@ export function EntityNode(props:{
               key = {column.uuid} 
               columnMeta = {column} 
               conditions = {conditions}
+              selectedRoleId = {selectedRoleId}
             />
           )
         })

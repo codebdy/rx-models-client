@@ -6,15 +6,19 @@ import { AbilityCondition } from "./interface/ability-condition";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     actionGrid:{
-      width: '20%'
+      width: '20%',
+      minHeight:theme.spacing(5),
+      display:'flex',
+      alignItems:'center',
     }
   }),
 );
 
 export function AbilityActionItem(props:{
-  condition?:AbilityCondition
+  condition?:AbilityCondition,
+  selectedRoleId: number|'',
 }){
-  const{condition} = props;
+  const{condition, selectedRoleId} = props;
   const classes = useStyles();
   
   return (
@@ -27,59 +31,64 @@ export function AbilityActionItem(props:{
         }
         
       </Grid>
-      <Grid item className={classes.actionGrid}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              //checked={state.checkedB}
-              //onChange={handleChange}
-              color="primary"
-              size = "small"
+      {
+        selectedRoleId&&
+        <>
+          <Grid item className={classes.actionGrid}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  //checked={state.checkedB}
+                  //onChange={handleChange}
+                  color="primary"
+                  size = "small"
+                />
+              }
+              label={<ActionLabel>读取</ActionLabel>}
             />
-          }
-          label={<ActionLabel>读取</ActionLabel>}
-        />
-      </Grid>
-      <Grid item className={classes.actionGrid}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              //checked={state.checkedB}
-              //onChange={handleChange}
-              color="primary"
-              size = "small"
+          </Grid>
+          <Grid item className={classes.actionGrid}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  //checked={state.checkedB}
+                  //onChange={handleChange}
+                  color="primary"
+                  size = "small"
+                />
+              }
+              label={<ActionLabel>创建</ActionLabel>}
             />
-          }
-          label={<ActionLabel>创建</ActionLabel>}
-        />
-      </Grid>
+          </Grid>
 
-      <Grid item className={classes.actionGrid}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              //checked={state.checkedB}
-              //onChange={handleChange}
-              color="primary"
-              size = "small"
+          <Grid item className={classes.actionGrid}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  //checked={state.checkedB}
+                  //onChange={handleChange}
+                  color="primary"
+                  size = "small"
+                />
+              }
+              label={<ActionLabel>修改</ActionLabel>}
             />
-          }
-          label={<ActionLabel>修改</ActionLabel>}
-        />
-      </Grid>
-      <Grid item className={classes.actionGrid}>
-        <FormControlLabel
-          control={
-            <Checkbox
-              //checked={state.checkedB}
-              //onChange={handleChange}
-              color="primary"
-              size = "small"
+          </Grid>
+          <Grid item className={classes.actionGrid}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  //checked={state.checkedB}
+                  //onChange={handleChange}
+                  color="primary"
+                  size = "small"
+                />
+              }
+              label={<ActionLabel>删除</ActionLabel>}
             />
-          }
-          label={<ActionLabel>删除</ActionLabel>}
-        />
-      </Grid>
+          </Grid>
+        </>
+      }
     </Grid>
   )
 }

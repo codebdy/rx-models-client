@@ -11,6 +11,7 @@ import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { PackageMeta } from 'components/entity-board/meta/package-meta';
 import { PackageNode } from './package-node';
 import Loading from 'components/common/loading';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,10 +52,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AuthBoard(){
   const classes = useStyles();
+  const [selectedRoleId, setSelectedRoleId] = useState<number|''>('');
   const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
-  console.log(data);
 
   useShowServerError(error);
+
+  const handleRoleSelect = (roleId:number)=>{
+    setSelectedRoleId(roleId);
+  }
 
   return (
     <Container className={classNames(classes.root, 'dragit-scrollbar')} maxWidth = "lg">
@@ -62,7 +67,7 @@ export default function AuthBoard(){
         loading 
         ? <Loading />
         : <div className = {classes.container}>
-            <Topbar />
+            <Topbar onSelectRole={handleRoleSelect} />
             <div className = {classes.belowContent}>
             <TreeView
               defaultCollapseIcon={<ExpandMoreIcon />}
@@ -72,7 +77,7 @@ export default function AuthBoard(){
               {
                 data?.map(aPackage=>{
                   return(
-                    <PackageNode key={aPackage.uuid} packageMeta = {aPackage} />
+                    <PackageNode key={aPackage.uuid} packageMeta = {aPackage} selectedRoleId = {selectedRoleId} />
                   )
                 })
               }
