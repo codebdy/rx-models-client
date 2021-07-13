@@ -1,33 +1,39 @@
+import { makeStyles, Theme, createStyles } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
-import { PackageMeta } from "components/entity-board/meta/package-meta";
-import { EntityNode } from "./entity-node";
+import { ColumnMeta } from "components/entity-board/meta/column-meta";
+import { AuthAction } from "./auth-action";
 import { NameLabel } from "./name-label";
-import { PackageLabel } from "./package-label";
+import { NodeLabel } from "./node-label";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    nodeName:{
+      display:'flex',
+      alignItems:'center',
+    },
+  }),
+);
+
 
 export function ColumnNode(props:{
-  packageMeta:PackageMeta
+  columnMeta:ColumnMeta
 }){
+  const {columnMeta} = props; 
+  const classes = useStyles();
 
-  const {packageMeta} = props; 
   return(
     <TreeItem 
-      nodeId = {packageMeta.uuid} 
+      nodeId = {columnMeta.uuid} 
       label = {
-          <PackageLabel>
-            <>
-              <MdiIcon iconClass = "mdi-folder-outline" size={18} />
-              <NameLabel>{packageMeta.name}</NameLabel>
-            </>
-          </PackageLabel>
+          <NodeLabel>
+            <div className={classes.nodeName}>
+              <MdiIcon iconClass = "mdi-rhombus-outline" size={18} />
+              <NameLabel>{columnMeta.name}</NameLabel>
+            </div>
+            <AuthAction/>
+          </NodeLabel>
       }>
-        {
-          packageMeta.entities?.map((entity)=>{
-            return(
-              <EntityNode key ={entity.uuid} entityMeta = {entity} />
-            )
-          })
-        }
     </TreeItem>
 
   )

@@ -5,6 +5,7 @@ import { EntityMeta } from "components/entity-board/meta/entity-meta";
 import { ActionLabel } from "./action-label";
 import { AuthAction } from "./auth-action";
 import { NodeLabel } from "./node-label";
+import { ColumnNode } from "./column-node";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,6 +18,10 @@ const useStyles = makeStyles((theme: Theme) =>
     nodeName:{
       display:'flex',
       alignItems:'center',
+    },
+    columnOrRelation:{
+      fontSize:'0.9rem',
+      padding:theme.spacing(0.8, 0),
     }
   }),
 );
@@ -70,6 +75,15 @@ export function EntityNode(props:{
             </div>
           </NodeLabel>
       }>
+
+      {
+        entityMeta.columns.map(column=>{
+          return (
+            <ColumnNode key = {column.uuid} columnMeta = {column} />
+          )
+        })
+      }
+
     </TreeItem>
   )
 }
