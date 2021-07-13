@@ -37,9 +37,10 @@ export default function ExpressDialog(
   props:{
     onOpenChange:(open:boolean)=>void,
     abilityCondigions:AbilityCondition[],
+    onChange:(abilityCondigions:AbilityCondition[])=>void,
   }
 ) {
-  const {onOpenChange, abilityCondigions} = props;
+  const {onOpenChange, abilityCondigions, onChange} = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [conditions, setConditions] = useState<AbilityCondition[]>(JSON.parse(JSON.stringify(abilityCondigions)));
@@ -90,6 +91,11 @@ export default function ExpressDialog(
     const expression = event.target.value;
     selectCondition.expression = expression;
     setConditions([...conditions]);
+  }
+
+  const handleConfirm = ()=>{
+    onChange(abilityCondigions);
+    handleClose();
   }
 
   return (
@@ -165,7 +171,7 @@ export default function ExpressDialog(
           <Button onClick={handleClose} >
             {intl.get('cancel')}
           </Button>
-          <Button onClick={handleClose} variant = "contained" color="primary" autoFocus>
+          <Button onClick={handleConfirm} variant = "contained" color="primary" autoFocus>
           {intl.get('confirm')}
           </Button>
         </DialogActions>
