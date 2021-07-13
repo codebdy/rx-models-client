@@ -14,8 +14,8 @@ import Loading from 'components/common/loading';
 import { useState } from 'react';
 import { useMagicQuery } from 'data/use-magic-query';
 import { EntityAuth } from './interface/entity-auth';
-import { MagicQueryBuilder } from 'data/magic-query-builder';
 import { useEffect } from 'react';
+import { ENTITY_AUTH_QUERY } from './consts';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,8 +60,7 @@ export default function AuthBoard(){
   const [entityAuths, setEntityAuths] = useState<EntityAuth[]>([]);
   const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
   const {data:authData, loading:authLoading, error:authError} = useMagicQuery<EntityAuth[]>(
-    new MagicQueryBuilder()
-      .setEntity('RxEntityAuth'),
+    ENTITY_AUTH_QUERY,
   )
 
   useEffect(()=>{

@@ -10,6 +10,14 @@ import MdiIcon from 'components/common/mdi-icon';
 import { ExpressItem } from './express-item';
 import { AbilityCondition } from '../interface/ability-condition';
 import { createId } from 'util/creat-id';
+import SubmitButton from 'components/common/submit-button';
+import { EntityAuth } from '../interface/entity-auth';
+import useLayzyMagicPost from 'data/use-layzy-magic-post';
+import { useShowServerError } from 'store/helpers/use-show-server-error';
+import { ENTITY_AUTH_QUERY } from '../consts';
+import { mutate } from 'swr';
+import { MagicPostBuilder } from 'data/magic-post-builder';
+import { EntityMeta } from 'components/entity-board/meta/entity-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,6 +35,11 @@ const useStyles = makeStyles((theme: Theme) =>
     plus:{
       textAlign:'center',
       marginTop: theme.spacing(1),
+    },
+    actions:{
+      padding:theme.spacing(2),
+      paddingTop:0,
+      paddingRight:theme.spacing(3),
     }
 
   }),
@@ -36,15 +49,32 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ExpressDialog(
   props:{
     onOpenChange:(open:boolean)=>void,
-    abilityCondigions:AbilityCondition[],
-    onChange:(abilityCondigions:AbilityCondition[])=>void,
+    entityMeta: EntityMeta,
+    entityAuth?: EntityAuth,
+    entityAuths: EntityAuth[]
   }
 ) {
-  const {onOpenChange, abilityCondigions, onChange} = props;
+  const {entityMeta, onOpenChange, entityAuth, entityAuths} = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [conditions, setConditions] = useState<AbilityCondition[]>(JSON.parse(JSON.stringify(abilityCondigions)));
-  const [selectedId, setSelectedId] = useState<string|undefined>(abilityCondigions?.length ? abilityCondigions[0].uuid : undefined);
+  const [conditions, setConditions] = useState<AbilityCondition[]>(JSON.parse(JSON.stringify(entityAuth?.conditions||[])));
+  const [selectedId, setSelectedId] = useState<string|undefined>(entityAuth?.conditions?.length ? entityAuth?.conditions[0].uuid : undefined);
+  const [excutePost, {loading, error}] = useLayzyMagicPost({
+    onCompleted(data:any){
+      mutate(
+        ENTITY_AUTH_QUERY.toUrl(), 
+        {
+          data:[
+            ...entityAuths.filter(entithAth=>entithAth.entityUuid !== entityAuth?.entityUuid), 
+            data.RxEntityAuth
+          ]
+        }
+      );
+      handleClose();
+    }
+  });
+
+  useShowServerError(error);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -93,9 +123,13 @@ export default function ExpressDialog(
     setConditions([...conditions]);
   }
 
-  const handleConfirm = ()=>{
-    onChange(conditions);
-    handleClose();
+  const handleSave = ()=>{
+    const auth = entityAuth ? entityAuth : {uuid: createId(), entityUuid: entityMeta.uuid, conditions:[]}
+    const data = new MagicPostBuilder()
+      .setEntity('RxEntityAuth')
+      .setSingleData({...auth, conditions:conditions})
+      .toData()
+    excutePost({data});
   }
 
   return (
@@ -167,13 +201,18 @@ export default function ExpressDialog(
             </Grid>
           </div>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className = {classes.actions}>
           <Button onClick={handleClose} >
             {intl.get('cancel')}
           </Button>
-          <Button onClick={handleConfirm} variant = "contained" color="primary" autoFocus>
-          {intl.get('confirm')}
-          </Button>
+          <SubmitButton 
+            onClick={handleSave} 
+            variant = "contained" 
+            color="primary"
+            submitting = {loading}
+          >
+            {intl.get('save')}
+          </SubmitButton>
         </DialogActions>
       </Dialog>
     </div>

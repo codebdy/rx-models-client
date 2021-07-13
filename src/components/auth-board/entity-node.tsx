@@ -9,12 +9,13 @@ import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
 import ExpressDialog from "./express-dialog";
-import { AbilityCondition } from "./interface/ability-condition";
 import { EntityAuth } from "./interface/entity-auth";
 import useLayzyMagicPost from "data/use-layzy-magic-post";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { MagicPostBuilder } from "data/magic-post-builder";
 import { createId } from "util/creat-id";
+import { mutate } from "swr";
+import { ENTITY_AUTH_QUERY } from "./consts";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -35,15 +36,26 @@ const useStyles = makeStyles((theme: Theme) =>
 export function EntityNode(props:{
   entityMeta: EntityMeta,
   selectedRoleId: number|'',
-  entityAuth?: EntityAuth
+  entityAuth?: EntityAuth,
+  entityAuths: EntityAuth[]
 }){
-  const {entityMeta, selectedRoleId, entityAuth} = props; 
+  const {entityMeta, selectedRoleId, entityAuth, entityAuths} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
-  //const [expand, setExpand] = useState(false);
   const [expressDlgOpen, setExpressDlgOpen] = useState(false);
-  const [conditions, setConditions] = useState<AbilityCondition[]>([]);
-  const [excutePost, {loading, error}] = useLayzyMagicPost();
+  const [excutePost, {loading, error}] = useLayzyMagicPost({
+    onCompleted(data:any){
+      mutate(
+        ENTITY_AUTH_QUERY.toUrl(), 
+        {
+          data:[
+            ...entityAuths.filter(entithAth=>entithAth.entityUuid !== entityAuth?.entityUuid), 
+            data.RxEntityAuth
+          ]
+        }
+      )
+    }
+  });
 
   useShowServerError(error);
 
@@ -58,10 +70,6 @@ export function EntityNode(props:{
 
   const handleExpressDlgOpenChange = (open:boolean)=>{
     setExpressDlgOpen(open);
-  }
-
-  const handleConditionChange = (abilityCondigions:AbilityCondition[])=>{
-    setConditions(abilityCondigions);
   }
 
   return(
@@ -114,15 +122,16 @@ export function EntityNode(props:{
                   {
                     (hover || expressDlgOpen) &&
                     <ExpressDialog 
+                      entityMeta = {entityMeta}
                       onOpenChange = {handleExpressDlgOpenChange}  
-                      abilityCondigions = {conditions} 
-                      onChange = {handleConditionChange}
+                      entityAuth = {entityAuth} 
+                      entityAuths = {entityAuths}
                     />         
                   }
                 </Grid>
               </ExpressArea>
               { 
-                <AbilityActions conditions = {conditions} selectedRoleId={selectedRoleId} />
+                <AbilityActions conditions = {entityAuth?.conditions||[]} selectedRoleId={selectedRoleId} />
               }
               
             </div>
@@ -136,7 +145,7 @@ export function EntityNode(props:{
             <ColumnNode 
               key = {column.uuid} 
               columnMeta = {column} 
-              conditions = {conditions}
+              conditions = {entityAuth?.conditions||[]}
               selectedRoleId = {selectedRoleId}
             />
           )

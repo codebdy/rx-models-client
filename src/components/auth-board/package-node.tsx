@@ -32,6 +32,7 @@ export function PackageNode(props:{
                 entityMeta = {entity} 
                 selectedRoleId = {selectedRoleId} 
                 entityAuth = {entityAuths.find(entityAth=>entityAth.entityUuid === entity.uuid)}
+                entityAuths = {entityAuths}
               />
             )
           })
