@@ -1,5 +1,6 @@
 import { makeStyles, Theme, createStyles, FormControlLabel, Checkbox, Grid, IconButton, Switch } from "@material-ui/core";
 import MdiIcon from "components/common/mdi-icon";
+import { ActionLabel } from "./action-label";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,9 +26,10 @@ export function AuthAction(props:{
                 //checked={state.checkedB}
                 //onChange={handleChange}
                 color="primary"
+                size = "small"
               />
             }
-            label="读取"
+            label={<ActionLabel>读取</ActionLabel>}
           />
         </Grid>
         <Grid item className={classes.actionGrid}>
@@ -37,9 +39,10 @@ export function AuthAction(props:{
                 //checked={state.checkedB}
                 //onChange={handleChange}
                 color="primary"
+                size = "small"
               />
             }
-            label="创建"
+            label={<ActionLabel>创建</ActionLabel>}
           />
         </Grid>
 
@@ -50,9 +53,10 @@ export function AuthAction(props:{
                 //checked={state.checkedB}
                 //onChange={handleChange}
                 color="primary"
+                size = "small"
               />
             }
-            label="修改"
+            label={<ActionLabel>修改</ActionLabel>}
           />
         </Grid>
         <Grid item className={classes.actionGrid}>
@@ -62,9 +66,10 @@ export function AuthAction(props:{
                 //checked={state.checkedB}
                 //onChange={handleChange}
                 color="primary"
+                size = "small"
               />
             }
-            label="删除"
+            label={<ActionLabel>删除</ActionLabel>}
           />
         </Grid>
       </Grid>

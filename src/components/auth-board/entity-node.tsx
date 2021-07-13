@@ -2,6 +2,7 @@ import { createStyles, FormControlLabel, Grid, IconButton, makeStyles, SvgIcon, 
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
+import { ActionLabel } from "./action-label";
 import { AuthAction } from "./auth-action";
 import { NodeLabel } from "./node-label";
 
@@ -11,8 +12,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display:'flex',
     },
     hoverAction: {
-      width:'200px',
+      width:'300px',
     },
+    nodeName:{
+      display:'flex',
+      alignItems:'center',
+    }
   }),
 );
 
@@ -27,7 +32,7 @@ export function EntityNode(props:{
         nodeId = {entityMeta.uuid} 
         label = {
           <NodeLabel>
-            <div>
+            <div className={classes.nodeName}>
               <SvgIcon>
                 <path d="
                   M 1,6
@@ -44,19 +49,20 @@ export function EntityNode(props:{
             </div>
             <div className = {classes.actionArea}>
               <Grid container className = {classes.hoverAction} alignItems = "center">
-                  <Grid item>
+                  <Grid item xs={4}>
                     <FormControlLabel
                       control={
                         <Switch
                           color="primary"
+                          size = "small"
                         />
                       }
-                      label="展开"
+                      label={<ActionLabel>展开</ActionLabel>}
                     />
                   </Grid>
                   <Grid item>
                     <IconButton size = "small">
-                      <MdiIcon iconClass = "mdi-regex"></MdiIcon>
+                      <MdiIcon iconClass = "mdi-regex" size={18}></MdiIcon>
                     </IconButton>
                   </Grid>
               </Grid>
