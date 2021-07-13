@@ -4,7 +4,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display:'flex',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      fontSize:'0.9rem'
     },
   }),
 );

@@ -28,7 +28,7 @@ export function ColumnNode(props:{
       label = {
           <NodeLabel>
             <div className={classes.nodeName}>
-              <MdiIcon iconClass = "mdi-rhombus-outline" size={18} />
+              <MdiIcon iconClass = "mdi-rhombus-outline" size={12} />
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <AuthAction/>

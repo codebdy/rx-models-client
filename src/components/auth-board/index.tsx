@@ -10,6 +10,7 @@ import { useSWRQuery } from 'data/use-swr-query';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { PackageMeta } from 'components/entity-board/meta/package-meta';
 import { PackageNode } from './package-node';
+import Loading from 'components/common/loading';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,24 +58,28 @@ export default function AuthBoard(){
 
   return (
     <Container className={classNames(classes.root, 'dragit-scrollbar')} maxWidth = "lg">
-      <div className = {classes.container}>
-        <Topbar />
-        <div className = {classes.belowContent}>
-        <TreeView
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ChevronRightIcon />}
-          selected = ''
-        >
-          {
-            data?.map(aPackage=>{
-              return(
-                <PackageNode key={aPackage.uuid} packageMeta = {aPackage} />
-              )
-            })
-          }
-        </TreeView>
-        </div>
-      </div>
+      {
+        loading 
+        ? <Loading />
+        : <div className = {classes.container}>
+            <Topbar />
+            <div className = {classes.belowContent}>
+            <TreeView
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              selected = ''
+            >
+              {
+                data?.map(aPackage=>{
+                  return(
+                    <PackageNode key={aPackage.uuid} packageMeta = {aPackage} />
+                  )
+                })
+              }
+            </TreeView>
+            </div>
+          </div>        
+      }
     </Container>
   )
 }
