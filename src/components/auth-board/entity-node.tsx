@@ -118,17 +118,6 @@ export function EntityNode(props:{
                   }
 
                 </Grid>
-                <Grid item>
-                  {
-                    (hover || expressDlgOpen) &&
-                    <ExpressDialog 
-                      entityMeta = {entityMeta}
-                      onOpenChange = {handleExpressDlgOpenChange}  
-                      entityAuth = {entityAuth} 
-                      entityAuths = {entityAuths}
-                    />         
-                  }
-                </Grid>
               </ExpressArea>
               { 
                 <AbilityActions conditions = {entityAuth?.conditions||[]} selectedRoleId={selectedRoleId} />

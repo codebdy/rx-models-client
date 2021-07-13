@@ -1,4 +1,5 @@
-import { makeStyles, Theme, createStyles, Checkbox, FormControlLabel, Grid } from "@material-ui/core";
+import { makeStyles, Theme, createStyles, Checkbox, FormControlLabel, Grid, IconButton } from "@material-ui/core";
+import classNames from "classnames";
 import MdiIcon from "components/common/mdi-icon";
 import { ActionLabel } from "./action-label";
 import { AbilityCondition } from "./interface/ability-condition";
@@ -6,11 +7,14 @@ import { AbilityCondition } from "./interface/ability-condition";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     actionGrid:{
-      width: '20%',
+      width: '25%',
       minHeight:theme.spacing(5),
       display:'flex',
       alignItems:'center',
-    }
+    },
+   createGrid:{
+    width: '20%',
+   }
   }),
 );
 
@@ -24,20 +28,10 @@ export function AbilityActionItem(props:{
   
   return (
     <Grid container alignItems = "center">
-      <Grid item className={classes.actionGrid}>
-        {
-          (condition) 
-          ? condition.name || condition.uuid
-          : <MdiIcon iconClass = "mdi-regex" size={15}></MdiIcon>
-        }
-        
-      </Grid>
       {
         selectedRoleId&&
         <>
-          <Grid item className={classes.actionGrid}>
-            {
-              !condition && 
+          <Grid item className={classNames(classes.actionGrid, classes.createGrid)}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -49,59 +43,58 @@ export function AbilityActionItem(props:{
                 }
                 label={<ActionLabel>创建</ActionLabel>}
               />
-          }
+
 
           </Grid>
           <Grid item className={classes.actionGrid}>
-            {
-              (condition || !hasSubCondition) && 
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    //checked={state.checkedB}
-                    //onChange={handleChange}
-                    color="primary"
-                    size = "small"
-                  />
-                }
-                label={<ActionLabel>读取</ActionLabel>}
-              />
-            }
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  //checked={state.checkedB}
+                  //onChange={handleChange}
+                  color="primary"
+                  size = "small"
+                />
+              }
+              label={<ActionLabel>读取</ActionLabel>}
+            />
+            <IconButton size = "small">
+              <MdiIcon iconClass = "mdi-function-variant" size={16}></MdiIcon>
+            </IconButton>
 
           </Grid>
           <Grid item className={classes.actionGrid}>
-            {
-              (condition || !hasSubCondition) && 
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    //checked={state.checkedB}
-                    //onChange={handleChange}
-                    color="primary"
-                    size = "small"
-                  />
-                }
-                label={<ActionLabel>修改</ActionLabel>}
-              />
-            }
-
+            <FormControlLabel
+              control={
+                <Checkbox
+                  //checked={state.checkedB}
+                  //onChange={handleChange}
+                  color="primary"
+                  size = "small"
+                />
+              }
+              label={<ActionLabel>修改</ActionLabel>}
+            />
+            <IconButton size = "small">
+              <MdiIcon iconClass = "mdi-function-variant" size={16}></MdiIcon>
+            </IconButton>
           </Grid>
           <Grid item className={classes.actionGrid}>
-            {
-              (condition || !hasSubCondition) && 
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    //checked={state.checkedB}
-                    //onChange={handleChange}
-                    color="primary"
-                    size = "small"
-                  />
-                }
-                label={<ActionLabel>删除</ActionLabel>}
-              />
-            }
-
+            <FormControlLabel
+              control={
+                <Checkbox
+                  //checked={state.checkedB}
+                  //onChange={handleChange}
+                  color="primary"
+                  size = "small"
+                />
+              }
+              label={<ActionLabel>删除</ActionLabel>}
+            />
+            <IconButton size = "small">
+              <MdiIcon iconClass = "mdi-function-variant" size={16}></MdiIcon>
+            </IconButton>
           </Grid>
         </>
       }

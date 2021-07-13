@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles, Grid } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     expressAtion: {
-      width:'200px',
+      width:'160px',
     },
   }),
 );
