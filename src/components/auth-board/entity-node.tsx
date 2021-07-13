@@ -32,7 +32,11 @@ export function EntityNode(props:{
   const {entityMeta} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
+  const [expand, setExpand] = useState(false);
 
+  const hanldeExpandChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    setExpand(event.target.checked);
+  }
   return(
      <TreeItem 
         nodeId = {entityMeta.uuid} 
@@ -66,6 +70,8 @@ export function EntityNode(props:{
                         <Switch
                           color="primary"
                           size = "small"
+                          checked = {expand}
+                          onChange = {hanldeExpandChange}
                         />
                       }
                       label={<ActionLabel>{intl.get('expand')}</ActionLabel>}
@@ -90,6 +96,7 @@ export function EntityNode(props:{
       }>
 
       {
+        expand && 
         entityMeta.columns.map(column=>{
           return (
             <ColumnNode key = {column.uuid} columnMeta = {column} />
