@@ -74,7 +74,7 @@ export default function ExpressDialog(
                   {
                     conditions.map(condition=>{
                       return (
-                        <ExpressItem key ={condition.uuid} item = {condition}/>
+                        <ExpressItem key ={condition.uuid} item = {condition} isSelected = {true}/>
                       )
                     })
                   }
