@@ -13,7 +13,7 @@ import { PackageNode } from './package-node';
 import Loading from 'components/common/loading';
 import { useState } from 'react';
 import { useMagicQuery } from 'data/use-magic-query';
-import { EntityAuth } from './interface/entity-auth';
+import { RxEntityAuth } from './interface/rx-entity-auth';
 import { useEffect } from 'react';
 import { ENTITY_AUTH_QUERY } from './consts';
 
@@ -57,9 +57,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function AuthBoard(){
   const classes = useStyles();
   const [selectedRoleId, setSelectedRoleId] = useState<number|''>('');
-  const [entityAuths, setEntityAuths] = useState<EntityAuth[]>([]);
+  const [entityAuths, setEntityAuths] = useState<RxEntityAuth[]>([]);
   const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
-  const {data:authData, loading:authLoading, error:authError} = useMagicQuery<EntityAuth[]>(
+  const {data:authData, loading:authLoading, error:authError} = useMagicQuery<RxEntityAuth[]>(
     ENTITY_AUTH_QUERY,
   )
 

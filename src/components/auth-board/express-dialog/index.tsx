@@ -11,7 +11,7 @@ import { ExpressItem } from './express-item';
 import { AbilityCondition } from '../interface/ability-condition';
 import { createId } from 'util/creat-id';
 import SubmitButton from 'components/common/submit-button';
-import { EntityAuth } from '../interface/entity-auth';
+import { RxEntityAuth } from '../interface/rx-entity-auth';
 import useLayzyMagicPost from 'data/use-layzy-magic-post';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { ENTITY_AUTH_QUERY } from '../consts';
@@ -50,8 +50,8 @@ export default function ExpressDialog(
   props:{
     onOpenChange:(open:boolean)=>void,
     entityMeta: EntityMeta,
-    entityAuth?: EntityAuth,
-    entityAuths: EntityAuth[]
+    entityAuth?: RxEntityAuth,
+    entityAuths: RxEntityAuth[]
   }
 ) {
   const {entityMeta, onOpenChange, entityAuth, entityAuths} = props;

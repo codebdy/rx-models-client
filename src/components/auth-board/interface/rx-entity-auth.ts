@@ -1,6 +1,6 @@
 import { AbilityCondition } from "./ability-condition";
 
-export interface EntityAuth {
+export interface RxEntityAuth {
   id?: number;
   entityUuid: string;
   conditions: AbilityCondition[];
