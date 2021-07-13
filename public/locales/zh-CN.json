@@ -83,5 +83,6 @@
   "changing-not-save-message":"修改还没有保存，确实要离开吗？",
   "confirm-message":"确认消息",
   "expand":"展开",
+  "express-manage":"条件管理",
   "express-tip":"条件表达式"
 }
