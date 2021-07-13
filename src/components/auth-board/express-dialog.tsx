@@ -9,15 +9,22 @@ import intl from "react-intl-universal";
 import { Tooltip, IconButton } from '@material-ui/core';
 import MdiIcon from 'components/common/mdi-icon';
 
-export default function ExpressDialog() {
+export default function ExpressDialog(
+  props:{
+    onOpenChange:(open:boolean)=>void,
+  }
+) {
+  const {onOpenChange} = props;
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+    onOpenChange(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    onOpenChange(false);
   };
 
   return (
@@ -30,21 +37,19 @@ export default function ExpressDialog() {
       <Dialog
         open={open}
         onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle>{"Use Google's location service?"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          <DialogContentText>
             Let Google help apps determine location. This means sending anonymous location data to
             Google, even when no apps are running.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} >
             {intl.get('cancel')}
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleClose} variant = "contained" color="primary" autoFocus>
           {intl.get('confirm')}
           </Button>
         </DialogActions>

@@ -33,10 +33,16 @@ export function EntityNode(props:{
   const classes = useStyles();
   const [hover, setHover] = useState(false);
   const [expand, setExpand] = useState(false);
+  const [expressDlgOpen, setExpressDlgOpen] = useState(false);
 
   const hanldeExpandChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
     setExpand(event.target.checked);
   }
+
+  const handleExpressDlgOpenChange = (open:boolean)=>{
+    setExpressDlgOpen(open);
+  }
+
   return(
      <TreeItem 
         nodeId = {entityMeta.uuid} 
@@ -81,8 +87,8 @@ export function EntityNode(props:{
                 </Grid>
                 <Grid item>
                   {
-                    hover &&
-                    <ExpressDialog />         
+                    (hover || expressDlgOpen) &&
+                    <ExpressDialog onOpenChange = {handleExpressDlgOpenChange} />         
                   }
                 </Grid>
               </ExpressArea>
