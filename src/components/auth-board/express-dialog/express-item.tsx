@@ -29,14 +29,31 @@ const useStyles = makeStyles((theme: Theme) =>
 export function ExpressItem(props:{
   item: AbilityCondition,
   isSelected: boolean,
+  onSelect:(uuid:string)=>void,
+  onDelete:(uuid:string)=>void,
 }){
-  const {item, isSelected} = props;
+  const {item, isSelected, onSelect, onDelete} = props;
   const classes = useStyles();
+  const handleClick = ()=>{
+    onSelect(item.uuid);
+  }
+
+  const handleDelete = (event:React.MouseEvent)=>{
+    onDelete(item.uuid);
+    event.stopPropagation();
+  }
+
   return(
-    <div className = {classNames(classes.item, {[classes.selected]:isSelected})}>
+    <div 
+      className = {classNames(classes.item, {[classes.selected]:isSelected})}
+      onClick = {handleClick}
+    >
       <div>{item.name}</div>
       <div>
-        <IconButton size = 'small'>
+        <IconButton 
+          size = 'small'
+          onClick = {handleDelete}
+        >
           <MdiIcon iconClass ="mdi-trash-can-outline" size = {16}></MdiIcon>
         </IconButton>
       </div>

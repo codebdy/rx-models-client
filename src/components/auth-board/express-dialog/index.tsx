@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -9,6 +9,7 @@ import { Tooltip, IconButton, createStyles, makeStyles, Theme, Grid, TextField }
 import MdiIcon from 'components/common/mdi-icon';
 import { ExpressItem } from './express-item';
 import { AbilityCondition } from './ability-condition';
+import { createId } from 'util/creat-id';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     plus:{
       textAlign:'center',
+      marginTop: theme.spacing(1),
     }
 
   }),
@@ -39,8 +41,9 @@ export default function ExpressDialog(
 ) {
   const {onOpenChange, abilityCondigions} = props;
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const [conditions] = React.useState<AbilityCondition[]>(JSON.parse(JSON.stringify(abilityCondigions)))
+  const [open, setOpen] = useState(false);
+  const [conditions, setConditions] = useState<AbilityCondition[]>(JSON.parse(JSON.stringify(abilityCondigions)));
+  const [selectedId, setSelectedId] = useState<string|undefined>();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,6 +54,25 @@ export default function ExpressDialog(
     setOpen(false);
     onOpenChange(false);
   };
+
+  const handleAddNew = ()=>{
+    const newCondition =  {uuid:createId(), name:'new Condtion', expression :''};
+    setConditions([...conditions,newCondition]);
+    setSelectedId(newCondition.uuid);
+  }
+
+  const handleSelect = (uuid:string)=>{
+    setSelectedId(uuid);
+  }
+
+  const handleDelete  = (uuid:string)=>{
+    setConditions(conditions.filter(con=>con.uuid !== uuid));
+    if(uuid === selectedId){
+      setSelectedId(undefined);      
+    }
+  }
+
+  const selectCondition = conditions.find(con=>con.uuid === selectedId);
 
   return (
     <div>
@@ -74,13 +96,21 @@ export default function ExpressDialog(
                   {
                     conditions.map(condition=>{
                       return (
-                        <ExpressItem key ={condition.uuid} item = {condition} isSelected = {true}/>
+                        <ExpressItem 
+                          key ={condition.uuid} 
+                          item = {condition} 
+                          isSelected = {selectedId === condition.uuid }
+                          onSelect = {handleSelect}
+                          onDelete = {handleDelete}
+                        />
                       )
                     })
                   }
 
                   <div className = {classes.plus}>
-                    <IconButton size = 'small'>
+                    <IconButton size = 'small'
+                      onClick = {handleAddNew}
+                    >
                       <MdiIcon iconClass ="mdi-plus" size = {20}></MdiIcon>
                     </IconButton>
                   </div>
@@ -88,10 +118,24 @@ export default function ExpressDialog(
               </Grid>
               <Grid item container xs={6}>
                 <Grid item xs = {12}>
-                  <TextField fullWidth label={intl.get('name')} variant="outlined" size = "small" />
+                  <TextField 
+                    fullWidth 
+                    label={intl.get('name')} 
+                    variant="outlined" size = "small" 
+                    value = {selectCondition?.name || ''}
+                    autoFocus
+                  />
                 </Grid>
                 <Grid item xs = {12} style={{marginTop:'16px'}}>
-                  <TextField multiline fullWidth rows = {10} label={intl.get('express-tip')} variant="outlined" size = "small" />
+                  <TextField 
+                    multiline 
+                    fullWidth 
+                    rows = {10} 
+                    label={intl.get('express-tip')} 
+                    variant="outlined" 
+                    size = "small"
+                    value = {selectCondition?.expression || ''} 
+                  />
                 </Grid>
               </Grid>
             </Grid>
