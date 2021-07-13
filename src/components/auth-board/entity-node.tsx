@@ -1,6 +1,5 @@
-import { createStyles, FormControlLabel, Grid, IconButton, makeStyles, SvgIcon, Switch, Theme, Tooltip } from "@material-ui/core";
+import { createStyles, FormControlLabel, Grid, makeStyles, SvgIcon, Switch, Theme } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
-import MdiIcon from "components/common/mdi-icon";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
 import { ActionLabel } from "./action-label";
 import { AuthAction } from "./auth-action";
@@ -9,6 +8,7 @@ import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
+import ExpressDialog from "./express-dialog";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,7 +64,7 @@ export function EntityNode(props:{
               <ExpressArea>
                 <Grid item xs={4}>
                   {
-                    hover &&
+                    (hover||expand) &&
                     <FormControlLabel
                       control={
                         <Switch
@@ -82,11 +82,7 @@ export function EntityNode(props:{
                 <Grid item>
                   {
                     hover &&
-                    <Tooltip title={intl.get('express-tip')}>
-                      <IconButton size = "small">
-                        <MdiIcon iconClass = "mdi-regex" size={18}></MdiIcon>
-                      </IconButton>
-                    </Tooltip>                    
+                    <ExpressDialog />         
                   }
                 </Grid>
               </ExpressArea>
