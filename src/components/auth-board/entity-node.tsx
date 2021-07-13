@@ -6,14 +6,12 @@ import { ActionLabel } from "./action-label";
 import { AuthAction } from "./auth-action";
 import { NodeLabel } from "./node-label";
 import { ColumnNode } from "./column-node";
+import { ExpressArea } from "./express-area";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     actionArea:{
       display:'flex',
-    },
-    hoverAction: {
-      width:'300px',
     },
     nodeName:{
       display:'flex',
@@ -53,24 +51,24 @@ export function EntityNode(props:{
               
             </div>
             <div className = {classes.actionArea}>
-              <Grid container className = {classes.hoverAction} alignItems = "center">
-                  <Grid item xs={4}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          color="primary"
-                          size = "small"
-                        />
-                      }
-                      label={<ActionLabel>展开</ActionLabel>}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <IconButton size = "small">
-                      <MdiIcon iconClass = "mdi-regex" size={18}></MdiIcon>
-                    </IconButton>
-                  </Grid>
-              </Grid>
+              <ExpressArea>
+                <Grid item xs={4}>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        color="primary"
+                        size = "small"
+                      />
+                    }
+                    label={<ActionLabel>展开</ActionLabel>}
+                  />
+                </Grid>
+                <Grid item>
+                  <IconButton size = "small">
+                    <MdiIcon iconClass = "mdi-regex" size={18}></MdiIcon>
+                  </IconButton>
+                </Grid>
+              </ExpressArea>
               <AuthAction/>
             </div>
           </NodeLabel>
