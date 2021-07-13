@@ -43,7 +43,7 @@ export default function ExpressDialog(
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [conditions, setConditions] = useState<AbilityCondition[]>(JSON.parse(JSON.stringify(abilityCondigions)));
-  const [selectedId, setSelectedId] = useState<string|undefined>();
+  const [selectedId, setSelectedId] = useState<string|undefined>(abilityCondigions?.length ? abilityCondigions[0].uuid : undefined);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -73,6 +73,24 @@ export default function ExpressDialog(
   }
 
   const selectCondition = conditions.find(con=>con.uuid === selectedId);
+
+  const handleNameChange = (event: React.ChangeEvent<{value:string}>)=>{
+    if(!selectCondition){
+      return;
+    }
+    const name = event.target.value;
+    selectCondition.name = name;
+    setConditions([...conditions]);
+  }
+
+  const handleExpressionChange = (event: React.ChangeEvent<{value:string}>)=>{
+    if(!selectCondition){
+      return;
+    }
+    const expression = event.target.value;
+    selectCondition.expression = expression;
+    setConditions([...conditions]);
+  }
 
   return (
     <div>
@@ -124,6 +142,7 @@ export default function ExpressDialog(
                     variant="outlined" size = "small" 
                     value = {selectCondition?.name || ''}
                     autoFocus
+                    onChange = {handleNameChange}
                   />
                 </Grid>
                 <Grid item xs = {12} style={{marginTop:'16px'}}>
@@ -135,6 +154,7 @@ export default function ExpressDialog(
                     variant="outlined" 
                     size = "small"
                     value = {selectCondition?.expression || ''} 
+                    onChange = {handleExpressionChange}
                   />
                 </Grid>
               </Grid>
