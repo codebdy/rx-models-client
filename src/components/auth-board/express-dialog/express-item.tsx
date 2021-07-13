@@ -1,5 +1,6 @@
 import { makeStyles, Theme, createStyles, IconButton } from "@material-ui/core";
 import MdiIcon from "components/common/mdi-icon";
+import { AbilityCondition } from "./ability-condition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,13 +20,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function ExpressItem(props:{
-  
+  item: AbilityCondition
 }){
-
+  const {item} = props;
   const classes = useStyles();
   return(
     <div className = {classes.item}>
-      <div>wewe</div>
+      <div>{item.name}</div>
       <div>
         <IconButton size = 'small'>
           <MdiIcon iconClass ="mdi-trash-can-outline" size = {16}></MdiIcon>

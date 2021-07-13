@@ -9,6 +9,8 @@ import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
 import ExpressDialog from "./express-dialog";
+import { createId } from "util/creat-id";
+import { AbilityCondition } from "./express-dialog/ability-condition";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,6 +36,14 @@ export function EntityNode(props:{
   const [hover, setHover] = useState(false);
   const [expand, setExpand] = useState(false);
   const [expressDlgOpen, setExpressDlgOpen] = useState(false);
+
+  const entityConditions: AbilityCondition[] = [
+    {
+      uuid: createId(),
+      name:'test',
+      expression:'',
+    }
+  ]
 
   const hanldeExpandChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
     setExpand(event.target.checked);
@@ -88,7 +98,7 @@ export function EntityNode(props:{
                 <Grid item>
                   {
                     (hover || expressDlgOpen) &&
-                    <ExpressDialog onOpenChange = {handleExpressDlgOpenChange} />         
+                    <ExpressDialog onOpenChange = {handleExpressDlgOpenChange}  abilityCondigions = {entityConditions} />         
                   }
                 </Grid>
               </ExpressArea>

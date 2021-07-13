@@ -8,12 +8,13 @@ import intl from "react-intl-universal";
 import { Tooltip, IconButton, createStyles, makeStyles, Theme, Grid, TextField } from '@material-ui/core';
 import MdiIcon from 'components/common/mdi-icon';
 import { ExpressItem } from './express-item';
+import { AbilityCondition } from './ability-condition';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
       minWidth:'600px',
-      minHeight:'300px',
+      minHeight:'260px',
     },
     list:{
       border:` ${theme.palette.divider} solid 1px`,
@@ -33,11 +34,13 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ExpressDialog(
   props:{
     onOpenChange:(open:boolean)=>void,
+    abilityCondigions:AbilityCondition[],
   }
 ) {
-  const {onOpenChange} = props;
+  const {onOpenChange, abilityCondigions} = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [conditions] = React.useState<AbilityCondition[]>(JSON.parse(JSON.stringify(abilityCondigions)))
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -68,8 +71,14 @@ export default function ExpressDialog(
             <Grid container spacing = {2}>
               <Grid item xs={6} >
                 <div className = {classes.list}>
-                  <ExpressItem/>
-                  <ExpressItem/>
+                  {
+                    conditions.map(condition=>{
+                      return (
+                        <ExpressItem key ={condition.uuid} item = {condition}/>
+                      )
+                    })
+                  }
+
                   <div className = {classes.plus}>
                     <IconButton size = 'small'>
                       <MdiIcon iconClass ="mdi-plus" size = {20}></MdiIcon>
