@@ -1,4 +1,4 @@
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import '@antv/x6-react-shape'
 import { Node } from '@antv/x6';
 import { useEffect } from "react";
@@ -11,7 +11,7 @@ import { ColumnCreateCommand } from "../command/column-create-command";
 import { createId } from "util/creat-id";
 
 export function useNodesShow(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
   const nodes = modelStore.openedDiagram?.getNodes(
     modelStore.selectedElement instanceof ColumnStore 
      ? (modelStore.selectedElement?.uuid)

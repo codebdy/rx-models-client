@@ -4,7 +4,7 @@ import { ColumnStore } from '../store/column';
 import intl from "react-intl-universal";
 import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch } from '@material-ui/core';
 import LayzyTextField from 'components/entity-board/property-box/layzy-text-field';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import { ColumnType } from '../meta/column-meta';
 import { ColumnChangeCommand } from '../command/column-change-command';
 
@@ -14,7 +14,7 @@ export const ColumnPanel = observer((
   }
 )=>{
   const {columnStore} = props;
-  const bordStore = useModelsBoardStore();
+  const bordStore = useEntityBoardStore();
   const allValues = columnStore.toMeta();
   
   const handleStringChange = (prop: any) => (value: string) => {

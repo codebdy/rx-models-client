@@ -6,7 +6,7 @@ import intl from 'react-intl-universal';
 import { Accordion } from './accordion';
 import { AccordionSummary } from './accordion-summary';
 import { AccordionDetails } from './accordion-details';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import { Addon } from '@antv/x6'
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
@@ -55,7 +55,7 @@ export const Toolbox = observer(() => {
   const [expandEntites, setExpandEntites] = React.useState(true);
   const [expandRelations, setExpandRelations] = React.useState(true);
   const [dnd, setDnd] = React.useState<any>();
-  const modelBoardStore = useModelsBoardStore();
+  const modelBoardStore = useEntityBoardStore();
   const handleEneitiesChange = () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
     setExpandEntites(!expandEntites);
   };

@@ -4,7 +4,7 @@ import ToolbarArea from './toolbar-area';
 import ToolbarTitle from './toolbar-title';
 import intl from 'react-intl-universal';
 import { observer } from 'mobx-react';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import { PackageStore } from '../store/package';
 import { PackagePanel } from './package-pannel';
 import { EntityStore } from '../store/entity-store';
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const PropertyBox = observer(()=>{
   const classes = useStyles();
-  const boardStore = useModelsBoardStore();
+  const boardStore = useEntityBoardStore();
 
   return (
     <div className={classes.root}>

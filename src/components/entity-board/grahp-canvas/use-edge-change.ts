@@ -1,12 +1,12 @@
 import { Edge } from '@antv/x6';
 import { useEffect } from 'react';
 import { EdgeChangeCommand } from '../command/edge-change-command';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import _ from 'lodash';
 import { ROLE_SOURCE_TARGET_CONST } from './const-label-position';
 
 export function useEdgeChange(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
 
   const handleEdgeChange = (arg: { edge: Edge<Edge.Properties>})=>{
     const { edge } = arg; 

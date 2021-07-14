@@ -5,7 +5,7 @@ import { observer } from "mobx-react";
 import React, { useState } from "react";
 import { DiagramDeleteCommand } from "../command/diagram-delete-command";
 import { NameChangeCommand } from "../command/name-change-command";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { DiagramStore } from "../store/diagram";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
@@ -16,7 +16,7 @@ export const DiagramNode = observer((props:{
 })=>{
   const {diagramStore} = props;
   const [editing, setEditing] = useState(false);
-  const bordStore = useModelsBoardStore();
+  const bordStore = useEntityBoardStore();
   const handleClick = ()=>{
     bordStore.setOpendDiagram(diagramStore);
   }

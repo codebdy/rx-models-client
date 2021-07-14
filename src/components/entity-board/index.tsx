@@ -4,7 +4,7 @@ import { EntityTree } from './entity-tree';
 import { GraphCanvas } from './grahp-canvas';
 import classNames from 'classnames';
 import { EntityBoardStore } from './store/entity-board-store';
-import { ModelStoreProvider } from './store';
+import { EntityStoreProvider } from './store/helper';
 import { Toolbox } from './toolbox';
 import { PropertyBox } from './property-box';
 import { EntityToolbar } from './entity-toolbar';
@@ -52,7 +52,7 @@ export const ModelsBoard = observer(()=>{
   }, [data]);
 
   return (
-    <ModelStoreProvider value = {modelStore}>
+    <EntityStoreProvider value = {modelStore}>
       <div className={classes.root}>
         <EntityToolbar />
         {
@@ -76,6 +76,6 @@ export const ModelsBoard = observer(()=>{
         }
 
       </div>
-    </ModelStoreProvider>
+    </EntityStoreProvider>
   )
 })

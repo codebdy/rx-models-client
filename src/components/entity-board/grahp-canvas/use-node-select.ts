@@ -1,9 +1,9 @@
 import { useEffect } from "react";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { Node } from '@antv/x6';
 
 export function useNodeSelect(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
   useEffect(()=>{
     if(modelStore.selectedElement)
     {

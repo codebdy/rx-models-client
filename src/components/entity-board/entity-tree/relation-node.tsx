@@ -3,7 +3,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import { RelationDeleteCommand } from "../command/relation-delete-command";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { EntityStore } from "../store/entity-store";
 import { RelationStore } from "../store/relation";
 import { NodeText } from "./node-text";
@@ -17,7 +17,7 @@ export const RelationNode = observer((props:{
   entityStore: EntityStore
 })=>{
   const {relation, isSource, entityStore} = props;
-  const bordStore = useModelsBoardStore();
+  const bordStore = useEntityBoardStore();
   const handleClick = ()=>{
     bordStore.setSelectedElement(relation);
   }

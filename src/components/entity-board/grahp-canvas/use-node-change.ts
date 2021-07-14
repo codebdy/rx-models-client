@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { Node } from '@antv/x6';
 import { NodeChangeCommand } from "../command/node-change-command";
 
 export function useNodeChange(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
 
   const handleNodeChanged = (arg: { node: Node<Node.Properties> })=>{
     const {node} = arg;

@@ -9,7 +9,7 @@ import { TreeNodeLabel } from "./tree-node-label";
 import intl from "react-intl-universal";
 import { RelationNode } from "./relation-node";
 import { observer } from "mobx-react";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { Addon } from '@antv/x6'
 import { EntityView } from "../grahp-canvas/entity-view";
 import { NODE_INIT_SIZE } from "../store/node-init-size";
@@ -24,7 +24,7 @@ export const EntityNode = observer((props:{
 })=>{
   const {entityStore} = props;
   const [dnd, setDnd] = React.useState<any>();
-  const bordStore = useModelsBoardStore();
+  const bordStore = useEntityBoardStore();
 
   useEffect(()=>{
     const theDnd = bordStore.graph

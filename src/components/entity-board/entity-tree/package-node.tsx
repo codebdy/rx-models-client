@@ -2,7 +2,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import React from "react";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { PackageStore } from "../store/package";
 import { EntityNode } from "./entity-node";
 import { DiagramNode } from "./diagram-node";
@@ -36,7 +36,7 @@ export const PackageNode = observer((props:{
   packageStore: PackageStore
 })=>{
   const {packageStore} = props;
-  const rootStore = useModelsBoardStore();
+  const rootStore = useEntityBoardStore();
 
   const handleClick = (event:React.MouseEvent)=>{
     rootStore.setSelectedElement(packageStore);

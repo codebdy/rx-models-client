@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { Edge } from '@antv/x6';
 import { RelationStore } from "../store/relation";
 
 export function useEdgeSelect(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
   const [selectedRelation, setSelectedRelation] = useState<RelationStore>();
   useEffect(()=>{
     if(modelStore.selectedElement && modelStore.selectedElement instanceof RelationStore)

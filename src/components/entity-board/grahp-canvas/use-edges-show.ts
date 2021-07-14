@@ -1,12 +1,12 @@
 import { Edge } from "@antv/x6";
 import { useEffect } from "react";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
 import _ from 'lodash';
 import { ROLE_SOURCE_POSITION_CONST, ROLE_SOURCE_TARGET_CONST } from "./const-label-position";
 
 export function useEdgesShow(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
   const edges = modelStore.openedDiagram?.getAndMakeEdges();
   
   useEffect(()=>{

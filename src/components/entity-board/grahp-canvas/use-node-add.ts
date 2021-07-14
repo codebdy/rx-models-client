@@ -1,4 +1,4 @@
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { Node } from '@antv/x6';
 import { EntityCreateCommand } from "../command/entity-create-command";
 import { EntityAddCommand } from "../command/entity-add-command";
@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { EntityMeta } from "../meta/entity-meta";
 
 export function useNodeAdd(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
   
   const nodeAdded = (arg: { node: Node<Node.Properties>; })=>{
     const node = arg.node;

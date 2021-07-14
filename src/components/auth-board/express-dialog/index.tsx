@@ -89,6 +89,7 @@ export default function ExpressDialog(
                   variant="outlined" 
                   size = "small"
                   value = {exp||''} 
+                  autoFocus
                   onChange = {handleExpressionChange}
                 />
               </Grid>

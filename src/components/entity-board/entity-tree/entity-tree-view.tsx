@@ -8,7 +8,7 @@ import intl from 'react-intl-universal';
 import { NodeText } from './node-text';
 import { TreeNodeLabel } from './tree-node-label';
 import MdiIcon from 'components/common/mdi-icon';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import { PackageNode } from './package-node';
 import { observer } from 'mobx-react';
 import { PackageCreateCommand } from '../command/package-create-command';
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EntityTreeView = observer(() => {
   const classes = useStyles();
-  const rootStore = useModelsBoardStore();
+  const rootStore = useEntityBoardStore();
 
   const handleAddPackage = ()=>{
     const command = new PackageCreateCommand(

@@ -1,10 +1,10 @@
 import { Graph } from '@antv/x6';
 import { useEffect } from 'react';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import { getGraphConfig } from './get-grahp-config';
 
 export function useGraphCreate(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
 
   useEffect(()=>{
     const config = getGraphConfig();

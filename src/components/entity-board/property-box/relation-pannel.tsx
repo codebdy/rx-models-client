@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { RelationStore } from '../store/relation';
 import intl from "react-intl-universal";
 import { FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import LayzyTextField from 'components/entity-board/property-box/layzy-text-field';
 import { RelationType } from '../meta/relation-meta';
 import { RelationChangeCommand } from '../command/relation-change-command';
@@ -14,7 +14,7 @@ export const RelationPanel = observer((
   }
 )=>{
   const {relationStore} = props;
-  const boardStore = useModelsBoardStore();
+  const boardStore = useEntityBoardStore();
   const source = boardStore.getEntityById(relationStore.sourceId);
   const target = boardStore.getEntityById(relationStore.targetId);
 

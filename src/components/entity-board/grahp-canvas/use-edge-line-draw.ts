@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { LineAction } from "../store/line-action";
 import { Edge, Node } from '@antv/x6';
 import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
@@ -10,7 +10,7 @@ import { RelationStore } from "../store/relation";
 import { RelationType } from "../meta/relation-meta";
 
 export function useEdgeLineDraw(){
-  const modelStore = useModelsBoardStore();
+  const modelStore = useEntityBoardStore();
 
   const handleMouseMove = (e: MouseEvent) => {
     const { clientX, clientY } = e;

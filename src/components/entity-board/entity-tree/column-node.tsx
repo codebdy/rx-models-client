@@ -3,7 +3,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import { ColumnDeleteCommand } from "../command/column-delete-command";
-import { useModelsBoardStore } from "../store";
+import { useEntityBoardStore } from "../store/helper";
 import { ColumnStore } from "../store/column";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
@@ -13,7 +13,7 @@ export const ColumnNode = observer((props:{
   columnStore: ColumnStore,
 })=>{
   const {columnStore} = props;
-  const bordStore = useModelsBoardStore();
+  const bordStore = useEntityBoardStore();
 
   const handleClick = ()=>{
     bordStore.setSelectedElement(columnStore);

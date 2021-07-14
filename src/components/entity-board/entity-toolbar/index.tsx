@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
 import Spacer from 'components/common/spacer';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import { PackageStore } from '../store/package';
 import { PackageDeleteCommand } from '../command/package-delete-command';
 import { EntityStore } from '../store/entity-store';
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EntityToolbar = observer(()=>{
   const classes = useStyles();
-  const boardStore = useModelsBoardStore();
+  const boardStore = useEntityBoardStore();
   const appStore = useAppStore();
   const [excuteSave, {loading, error}] = useLayzyMagicPost({
     onCompleted(){

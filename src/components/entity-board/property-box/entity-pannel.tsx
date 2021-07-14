@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { EntityStore } from '../store/entity-store';
 import intl from "react-intl-universal";
 import { Grid } from '@material-ui/core';
-import { useModelsBoardStore } from '../store';
+import { useEntityBoardStore } from '../store/helper';
 import LayzyTextField from 'components/entity-board/property-box/layzy-text-field';
 import { NameChangeCommand } from '../command/name-change-command';
 import { EntityTableNameChangeCommand } from '../command/entity-table-name-change-command';
@@ -14,7 +14,7 @@ export const EntityPanel = observer((
   }
 )=>{
   const {entityStore} = props;
-  const bordStore = useModelsBoardStore();
+  const bordStore = useEntityBoardStore();
   const handleNameChange = (value:string)=>{
     const command = new NameChangeCommand(entityStore, value);
     bordStore.excuteCommand(command);

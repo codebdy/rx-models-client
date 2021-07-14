@@ -36,7 +36,10 @@ export default function Topbar(
   const {data, error, loading} = useMagicQuery<RxRole[]>(
     new MagicQueryBuilder()
       .setEntity('RxRole')
+      .addRelation('abilities')
   );
+
+  console.log(data)
 
   useShowServerError(error);
 
