@@ -87,5 +87,6 @@
   "express-tip":"条件表达式",
   "create":"创建",
   "read":"读取",
-  "update":"修改"
+  "update":"修改",
+  "enum":"枚举"
 }

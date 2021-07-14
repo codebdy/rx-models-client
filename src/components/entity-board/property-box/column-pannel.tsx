@@ -87,6 +87,7 @@ export const ColumnPanel = observer((
             <MenuItem value={ColumnType.Date}>{intl.get('date')}</MenuItem>
             <MenuItem value={ColumnType.SimpleJson}>{intl.get('simple-json')}</MenuItem>
             <MenuItem value={ColumnType.SimpleArray}>{intl.get('simple-array')}</MenuItem>
+            <MenuItem value={ColumnType.Enum}>{intl.get('enum')}</MenuItem>
           </Select>
         </FormControl>  
       </Grid>

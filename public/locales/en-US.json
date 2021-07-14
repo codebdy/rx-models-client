@@ -87,5 +87,6 @@
   "express-tip":"Expresses",
   "create":"Create",
   "read":"Read",
-  "update":"Update"
+  "update":"Update",
+  "enum":"Enum"
 }
