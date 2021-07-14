@@ -9,8 +9,6 @@ import { Tooltip, IconButton, createStyles, makeStyles, Theme, Grid, TextField }
 import MdiIcon from 'components/common/mdi-icon';
 import SubmitButton from 'components/common/submit-button';
 import { validateExpression } from './validate-expression';
-import { useAppStore } from 'store/app-store';
-import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,7 +46,7 @@ export default function ExpressDialog(
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [exp, setExp] = useState(expression);
-  const appStore = useAppStore();
+  const [error, setError] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,12 +60,13 @@ export default function ExpressDialog(
 
   const handleExpressionChange = (event: React.ChangeEvent<{value:string}>)=>{
     setExp(event.target.value);
+    setError('')
   }
 
   const handleConfirm = ()=>{
     const validateResult = validateExpression(exp);
     if(validateResult){
-      appStore.infoError(intl.get('expression-error'), validateResult);
+      setError(validateResult);
       return;
     }
 
@@ -102,6 +101,8 @@ export default function ExpressDialog(
                   value = {exp||''} 
                   autoFocus
                   onChange = {handleExpressionChange}
+                  error = {!!error}
+                  helperText = {error}
                 />
               </Grid>
             </Grid>
