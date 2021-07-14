@@ -42,8 +42,6 @@ export const Topbar = observer((
       .addRelation('abilities')
   );
 
-  console.log(data);
-  
   const [excuteSave, {loading:saving, error:saveError}] = useLayzyMagicPost({
     onCompleted(){
       appStore.showSuccessAlert();
