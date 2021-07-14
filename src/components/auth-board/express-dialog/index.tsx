@@ -37,11 +37,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ExpressDialog(
   props:{
-    onOpenChange?:(open:boolean)=>void,
+    expression:string,
+    onExpressionChange:(exp:string)=>void,
   }
 ) {
+  const {expression, onExpressionChange} = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [exp, setExp] = useState(expression);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -53,10 +56,11 @@ export default function ExpressDialog(
 
 
   const handleExpressionChange = (event: React.ChangeEvent<{value:string}>)=>{
-
+    setExp(event.target.value);
   }
 
   const handleConfirm = ()=>{
+    onExpressionChange(exp);
     handleClose();
   }
 
@@ -84,7 +88,7 @@ export default function ExpressDialog(
                   rows = {16} 
                   variant="outlined" 
                   size = "small"
-                  value = {''} 
+                  value = {exp||''} 
                   onChange = {handleExpressionChange}
                 />
               </Grid>

@@ -14,9 +14,13 @@ export function ActionWithExpression(props:{
   onAbilityChange:(ability:ActionAbility)=>void,
 }){
   const {label, ability, onAbilityChange} = props;
-  const [expression, setExpression] = useState('');
+
   const handleCanChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
     onAbilityChange({...ability, can: event.target.checked});
+  }
+
+  const handleExpChange = (exp:string)=>{
+    onAbilityChange({...ability, expression: exp});
   }
 
   return(
@@ -34,7 +38,7 @@ export function ActionWithExpression(props:{
       />
       {
         ability.can &&
-        <ExpressDialog />
+        <ExpressDialog expression = {ability.expression} onExpressionChange = {handleExpChange}/>
       }
     </>
   )

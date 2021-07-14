@@ -71,7 +71,7 @@ export function AbilityActions(props:{
                 }
                 label={<ActionLabel>修改</ActionLabel>}
               />
-              <ExpressDialog />
+              
             </Grid>
             <Grid item className={classes.actionGrid}>
               <FormControlLabel
@@ -85,7 +85,7 @@ export function AbilityActions(props:{
                 }
                 label={<ActionLabel>删除</ActionLabel>}
               />
-              <ExpressDialog />
+              
             </Grid>
           </>
         }
