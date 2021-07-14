@@ -12,8 +12,9 @@ export function ActionWithExpression(props:{
   label: string,
   ability: ActionAbility,
   onAbilityChange:(ability:ActionAbility)=>void,
+  noExpression?:boolean,
 }){
-  const {label, ability, onAbilityChange} = props;
+  const {label, ability, onAbilityChange, noExpression} = props;
 
   const handleCanChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
     onAbilityChange({...ability, can: event.target.checked});
@@ -37,7 +38,7 @@ export function ActionWithExpression(props:{
         label={<ActionLabel>{label}</ActionLabel>}
       />
       {
-        ability.can &&
+        ability.can && !noExpression &&
         <ExpressDialog expression = {ability.expression} onExpressionChange = {handleExpChange}/>
       }
     </>

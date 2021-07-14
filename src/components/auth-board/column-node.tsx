@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export const ColumnNode = observer((props:{
+  entityUuid: string,
   columnMeta: ColumnMeta,
 })=>{
-  const {columnMeta} = props; 
+  const {entityUuid, columnMeta} = props; 
   const classes = useStyles();
 
   return(
@@ -36,7 +37,7 @@ export const ColumnNode = observer((props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <AbilityActions isEnity = {false}/>
+              <AbilityActions entityUuid = {entityUuid} columnUuid = {columnMeta.uuid}/>
             </div>
           </NodeLabel>
       }>
