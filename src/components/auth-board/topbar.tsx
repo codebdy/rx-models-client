@@ -41,6 +41,8 @@ export const Topbar = observer((
       .setEntity('RxRole')
       .addRelation('abilities')
   );
+
+  console.log(data);
   
   const [excuteSave, {loading:saving, error:saveError}] = useLayzyMagicPost({
     onCompleted(){

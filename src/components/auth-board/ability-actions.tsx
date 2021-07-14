@@ -35,7 +35,7 @@ export const AbilityActions = observer((props:{
   const findAbilityByType = (type:AbilityType):RxAbility=>{
     return boardStore.selectRole?.abilities?.find(
       ability=>ability.entityUuid === entityUuid 
-      && ability.columnUuid === columnUuid 
+      && (ability.columnUuid||undefined) === columnUuid 
       && ability.abilityType === type
     ) || {can:false, expression:'', entityUuid:entityUuid, columnUuid: columnUuid, abilityType:type};
 
