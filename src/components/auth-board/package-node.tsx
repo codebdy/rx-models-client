@@ -2,8 +2,8 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { PackageMeta } from "components/entity-board/meta/package-meta";
 import { EntityNode } from "./entity-node";
-import { RxEntityAuthSettings } from "./interface/rx-entity-auth-settings";
-import { RxRole } from "./interface/rx-role";
+import { RxEntityAuthSettings } from "../../entity-interface/rx-entity-auth-settings";
+import { RxRole } from "../../entity-interface/rx-role";
 import { NameLabel } from "./name-label";
 import { PackageLabel } from "./package-label";
 

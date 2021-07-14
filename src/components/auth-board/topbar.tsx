@@ -5,7 +5,7 @@ import intl from 'react-intl-universal';
 import { useMagicQuery } from 'data/use-magic-query';
 import { MagicQueryBuilder } from 'data/magic-query-builder';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
-import { RxRole } from './interface/rx-role';
+import { RxRole } from '../../entity-interface/rx-role';
 import { useState } from 'react';
 import { Skeleton } from '@material-ui/lab';
 import { useAppStore } from 'store/app-store';

@@ -8,14 +8,14 @@ import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
-import { RxEntityAuthSettings } from "./interface/rx-entity-auth-settings";
+import { RxEntityAuthSettings } from "../../entity-interface/rx-entity-auth-settings";
 import useLayzyMagicPost from "data/use-layzy-magic-post";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { MagicPostBuilder } from "data/magic-post-builder";
 import { createId } from "util/creat-id";
 import { mutate } from "swr";
 import { ENTITY_AUTH_QUERY } from "./consts";
-import { RxRole } from "./interface/rx-role";
+import { RxRole } from "../../entity-interface/rx-role";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

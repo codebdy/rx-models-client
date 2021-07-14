@@ -3,7 +3,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ColumnMeta } from "components/entity-board/meta/column-meta";
 import { AbilityActions } from "./ability-actions";
-import { RxRole } from "./interface/rx-role";
+import { RxRole } from "../../entity-interface/rx-role";
 import { NameLabel } from "./name-label";
 import { NodeLabel } from "./node-label";
 

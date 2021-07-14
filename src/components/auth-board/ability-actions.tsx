@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import { ActionLabel } from "./action-label";
 import { ActionAbility, ActionWithExpression } from "./action-with-expression";
-import { RxRole } from "./interface/rx-role";
+import { RxRole } from "../../entity-interface/rx-role";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

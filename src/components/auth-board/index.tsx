@@ -13,10 +13,10 @@ import { PackageNode } from './package-node';
 import Loading from 'components/common/loading';
 import { useState } from 'react';
 import { useMagicQuery } from 'data/use-magic-query';
-import { RxEntityAuthSettings } from './interface/rx-entity-auth-settings';
+import { RxEntityAuthSettings } from '../../entity-interface/rx-entity-auth-settings';
 import { useEffect } from 'react';
 import { ENTITY_AUTH_QUERY } from './consts';
-import { RxRole } from './interface/rx-role';
+import { RxRole } from '../../entity-interface/rx-role';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
