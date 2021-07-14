@@ -1,5 +1,5 @@
 import { FormControlLabel, Checkbox } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import { ActionLabel } from "./action-label";
 import ExpressDialog from "./express-dialog";
 

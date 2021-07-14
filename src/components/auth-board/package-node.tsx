@@ -2,14 +2,14 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { PackageMeta } from "components/entity-board/meta/package-meta";
 import { EntityNode } from "./entity-node";
-import { RxEntityAuth } from "./interface/rx-entity-auth";
+import { RxEntityAuthSetting } from "./interface/rx-entity-auth-setting";
 import { NameLabel } from "./name-label";
 import { PackageLabel } from "./package-label";
 
 export function PackageNode(props:{
   packageMeta:PackageMeta,
   selectedRoleId:number|'',
-  entityAuths: RxEntityAuth[],
+  entityAuths: RxEntityAuthSetting[],
 }){
 
   const {packageMeta, selectedRoleId, entityAuths} = props; 

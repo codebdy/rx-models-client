@@ -8,7 +8,7 @@ import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
-import { RxEntityAuth } from "./interface/rx-entity-auth";
+import { RxEntityAuthSetting } from "./interface/rx-entity-auth-setting";
 import useLayzyMagicPost from "data/use-layzy-magic-post";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { MagicPostBuilder } from "data/magic-post-builder";
@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export function EntityNode(props:{
   entityMeta: EntityMeta,
   selectedRoleId: number|'',
-  entityAuth?: RxEntityAuth,
-  entityAuths: RxEntityAuth[]
+  entityAuth?: RxEntityAuthSetting,
+  entityAuths: RxEntityAuthSetting[]
 }){
   const {entityMeta, selectedRoleId, entityAuth, entityAuths} = props; 
   const classes = useStyles();

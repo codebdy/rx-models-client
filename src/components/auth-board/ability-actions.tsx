@@ -3,7 +3,6 @@ import classNames from "classnames";
 import { useState } from "react";
 import { ActionLabel } from "./action-label";
 import { ActionAbility, ActionWithExpression } from "./action-with-expression";
-import ExpressDialog from "./express-dialog";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

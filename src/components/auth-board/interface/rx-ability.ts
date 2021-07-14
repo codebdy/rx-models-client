@@ -1,10 +1,15 @@
+export enum AbilityType{
+  create = 'create',
+  read = 'read',
+  update = 'update',
+  delete = 'delete'
+}
+
 export interface RxAbility {
   id?: number;
   entityUuid: string;
   columnUuid?: string;
-  conditionUuid?: string;
-  canRead: boolean;
-  canCreate: boolean;
-  canUpdate: boolean;
-  canDelete: boolean;
+  abilityType: AbilityType;
+  can: boolean;
+  expression: string;
 }
