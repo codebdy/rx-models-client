@@ -11,6 +11,8 @@ import { useAppStore } from 'store/app-store';
 import { useAuthBoardStore } from './store/helper';
 import { RxRoleStore } from './store/rx-role-store';
 import { observer } from 'mobx-react';
+import useLayzyMagicPost from 'data/use-layzy-magic-post';
+import { MagicPostBuilder } from 'data/magic-post-builder';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,17 +33,22 @@ export const Topbar = observer((
   }
 )=>{
   const classes = useStyles();
+  const appStore = useAppStore();
+  const boardStore = useAuthBoardStore();
+
   const {data, error, loading} = useMagicQuery<RxRole[]>(
     new MagicQueryBuilder()
       .setEntity('RxRole')
       .addRelation('abilities')
   );
-  const boardStore = useAuthBoardStore();
-  console.log(data)
+  
+  const [excuteSave, {loading:saving, error:saveError}] = useLayzyMagicPost({
+    onCompleted(){
+      appStore.showSuccessAlert();
+    }
+  })
 
-  useShowServerError(error);
-
-  const appStore = useAppStore();
+  useShowServerError(error||saveError);
 
   const changeRole = (roleId:number|'')=>{
     const role = data?.data.find(rl=>rl.id === roleId);
@@ -64,7 +71,15 @@ export const Topbar = observer((
   }
 
   const handleSave = ()=>{
-
+    if(!boardStore.selectRole){
+      return;
+    }
+    const data = new MagicPostBuilder()
+      .setEntity('RxRole')
+      .setSingleData(
+        boardStore.selectRole.toMeta()
+      ).toData()
+    excuteSave({data});
   }
   return (
     <div className = {classes.topBar}>
@@ -97,7 +112,7 @@ export const Topbar = observer((
           color = "primary" 
           size = "medium"
           disabled = {!boardStore.changed}
-          //submitting = {loading}
+          submitting = {saving}
           onClick = {handleSave}
         >{intl.get('save')}</SubmitButton>
     </div>

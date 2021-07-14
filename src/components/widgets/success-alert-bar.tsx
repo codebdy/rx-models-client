@@ -18,7 +18,7 @@ export const SuccessAlertBar = observer(()=>{
     if (reason === 'clickaway') {
       return;
     }
-    appStore.setSuccessAlert(false);
+    appStore.showSuccessAlert(false);
   };  
   
   return (

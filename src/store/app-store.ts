@@ -37,7 +37,7 @@ export class AppStore{
     this.loggedUser = user;
   }
 
-  setSuccessAlert(alert:boolean|string){
+  showSuccessAlert(alert:boolean|string = true){
     this.successAlert = alert;
   }
 

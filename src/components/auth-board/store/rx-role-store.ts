@@ -1,6 +1,6 @@
 import { RxAbility } from "entity-interface/rx-ability";
 import { RxRole } from "entity-interface/rx-role";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, toJS } from "mobx";
 
 export class RxRoleStore{
   id?: number;
@@ -30,5 +30,14 @@ export class RxRoleStore{
       }
 
     ) || [];
+  }
+
+  toMeta(){
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      abilities: toJS(this.abilities)
+    }
   }
 }

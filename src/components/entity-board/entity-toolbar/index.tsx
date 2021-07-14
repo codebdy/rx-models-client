@@ -53,7 +53,7 @@ export const EntityToolbar = observer(()=>{
   const appStore = useAppStore();
   const [excuteSave, {loading, error}] = useLayzyMagicPost({
     onCompleted(){
-      appStore.setSuccessAlert(true);
+      appStore.showSuccessAlert(true);
       boardStore.setChanged(false);
     }
   });
