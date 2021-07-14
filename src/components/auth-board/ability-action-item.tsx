@@ -2,7 +2,7 @@ import { makeStyles, Theme, createStyles, Checkbox, FormControlLabel, Grid, Icon
 import classNames from "classnames";
 import MdiIcon from "components/common/mdi-icon";
 import { ActionLabel } from "./action-label";
-import { AbilityCondition } from "./interface/ability-condition";
+import ExpressDialog from "./express-dialog";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,11 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function AbilityActionItem(props:{
-  condition?:AbilityCondition,
   selectedRoleId: number|'',
-  hasSubCondition?: boolean,
 }){
-  const{condition, selectedRoleId, hasSubCondition} = props;
+  const{selectedRoleId} = props;
   const classes = useStyles();
   
   return (
@@ -59,9 +57,7 @@ export function AbilityActionItem(props:{
               }
               label={<ActionLabel>读取</ActionLabel>}
             />
-            <IconButton size = "small">
-              <MdiIcon iconClass = "mdi-function-variant" size={16}></MdiIcon>
-            </IconButton>
+            <ExpressDialog />
 
           </Grid>
           <Grid item className={classes.actionGrid}>
@@ -76,9 +72,7 @@ export function AbilityActionItem(props:{
               }
               label={<ActionLabel>修改</ActionLabel>}
             />
-            <IconButton size = "small">
-              <MdiIcon iconClass = "mdi-function-variant" size={16}></MdiIcon>
-            </IconButton>
+            <ExpressDialog />
           </Grid>
           <Grid item className={classes.actionGrid}>
             <FormControlLabel
@@ -92,9 +86,7 @@ export function AbilityActionItem(props:{
               }
               label={<ActionLabel>删除</ActionLabel>}
             />
-            <IconButton size = "small">
-              <MdiIcon iconClass = "mdi-function-variant" size={16}></MdiIcon>
-            </IconButton>
+            <ExpressDialog />
           </Grid>
         </>
       }

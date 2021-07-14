@@ -60,7 +60,7 @@ export function EntityNode(props:{
   useShowServerError(error);
 
   const hanldeExpandChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
-    const auth = entityAuth ? entityAuth : {uuid: createId(), entityUuid: entityMeta.uuid, conditions:[]}
+    const auth = entityAuth ? entityAuth : {uuid: createId(), entityUuid: entityMeta.uuid}
     const data = new MagicPostBuilder()
       .setEntity('RxEntityAuth')
       .setSingleData({...auth, expand:event.target.checked})
@@ -120,7 +120,7 @@ export function EntityNode(props:{
                 </Grid>
               </ExpressArea>
               { 
-                <AbilityActions conditions = {entityAuth?.conditions||[]} selectedRoleId={selectedRoleId} />
+                <AbilityActions selectedRoleId={selectedRoleId} />
               }
               
             </div>
@@ -134,7 +134,6 @@ export function EntityNode(props:{
             <ColumnNode 
               key = {column.uuid} 
               columnMeta = {column} 
-              conditions = {entityAuth?.conditions||[]}
               selectedRoleId = {selectedRoleId}
             />
           )

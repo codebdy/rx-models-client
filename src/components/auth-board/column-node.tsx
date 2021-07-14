@@ -3,7 +3,6 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ColumnMeta } from "components/entity-board/meta/column-meta";
 import { AbilityActions } from "./ability-actions";
-import { AbilityCondition } from "./interface/ability-condition";
 import { NameLabel } from "./name-label";
 import { NodeLabel } from "./node-label";
 
@@ -22,10 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ColumnNode(props:{
   columnMeta: ColumnMeta,
-  conditions: AbilityCondition[],
   selectedRoleId: number|''
 }){
-  const {columnMeta, conditions, selectedRoleId} = props; 
+  const {columnMeta, selectedRoleId} = props; 
   const classes = useStyles();
 
   return(
@@ -38,7 +36,7 @@ export function ColumnNode(props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <AbilityActions conditions = {conditions} selectedRoleId = {selectedRoleId} />
+              <AbilityActions selectedRoleId = {selectedRoleId} />
             </div>
           </NodeLabel>
       }>
