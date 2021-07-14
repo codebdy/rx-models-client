@@ -5,6 +5,7 @@ export enum ColumnType{
   Date = 'Date',
   SimpleJson = 'simple-json',
   SimpleArray = 'simple-array',
+  enum = 'Enum'
 }
 export interface ColumnMeta{
   uuid: string;
