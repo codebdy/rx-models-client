@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function AbilityActions(props:{
   selectedRoleId: number|'',
-  hasCreate: boolean,
+  isEnity: boolean,
 }){
-  const {selectedRoleId, hasCreate} = props;
+  const {selectedRoleId, isEnity} = props;
   const [readAbility, setReadAbility] = useState<ActionAbility>({can:true, expression:''});
   const classes = useStyles();
 
@@ -40,7 +40,7 @@ export function AbilityActions(props:{
           <>
             <Grid item className={classNames(classes.actionGrid, classes.createGrid)}>
               {
-                hasCreate && 
+                isEnity && 
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -53,7 +53,22 @@ export function AbilityActions(props:{
                     label={<ActionLabel>创建</ActionLabel>}
                   />
               }
-
+            </Grid>
+            <Grid item className={classes.actionGrid}>
+              {
+                isEnity &&
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      //checked={state.checkedB}
+                      //onChange={handleChange}
+                      color="primary"
+                      size = "small"
+                    />
+                  }
+                  label={<ActionLabel>删除</ActionLabel>}
+                />              
+              }
             </Grid>
             <Grid item className={classes.actionGrid}>
               <ActionWithExpression ability = {readAbility} label = '读取' onAbilityChange = {handleReadChange} />
@@ -72,20 +87,7 @@ export function AbilityActions(props:{
               />
               
             </Grid>
-            <Grid item className={classes.actionGrid}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    //checked={state.checkedB}
-                    //onChange={handleChange}
-                    color="primary"
-                    size = "small"
-                  />
-                }
-                label={<ActionLabel>删除</ActionLabel>}
-              />
-              
-            </Grid>
+
           </>
         }
       </Grid>

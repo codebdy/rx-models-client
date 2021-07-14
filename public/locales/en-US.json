@@ -84,5 +84,8 @@
   "confirm-message":"Confirm message",
   "expand":"Expand",
   "express-manage":"Expresses management",
-  "express-tip":"Expresses"
+  "express-tip":"Expresses",
+  "create":"Create",
+  "read":"Read",
+  "update":"Update"
 }

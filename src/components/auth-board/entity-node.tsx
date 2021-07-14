@@ -114,7 +114,7 @@ export function EntityNode(props:{
                 </Grid>
               </ExpressArea>
               { 
-                <AbilityActions selectedRoleId={selectedRoleId} hasCreate = {true} />
+                <AbilityActions selectedRoleId={selectedRoleId} isEnity = {true} />
               }
               
             </div>

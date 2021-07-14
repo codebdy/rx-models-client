@@ -36,7 +36,7 @@ export function ColumnNode(props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <AbilityActions selectedRoleId = {selectedRoleId} hasCreate = {false}/>
+              <AbilityActions selectedRoleId = {selectedRoleId} isEnity = {false}/>
             </div>
           </NodeLabel>
       }>

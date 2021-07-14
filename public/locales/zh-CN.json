@@ -84,5 +84,8 @@
   "confirm-message":"确认消息",
   "expand":"展开",
   "express-manage":"条件管理",
-  "express-tip":"条件表达式"
+  "express-tip":"条件表达式",
+  "create":"创建",
+  "read":"读取",
+  "update":"修改"
 }
