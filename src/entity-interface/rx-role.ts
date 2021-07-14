@@ -1,7 +1,7 @@
 import { RxAbility } from "./rx-ability";
 
 export interface RxRole{
-  id: number;
+  id?: number;
   name: string;
   description: string;
   abilities?: RxAbility[]

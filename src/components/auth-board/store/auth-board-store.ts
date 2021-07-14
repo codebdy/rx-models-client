@@ -8,4 +8,12 @@ export class AuthBoardStore{
   constructor(){
     makeAutoObservable(this);
   }
+
+  setChanged(changed:boolean){
+    this.changed = changed;
+  }
+
+  setSelecRole(role?:RxRoleStore){
+    this.selectRole = role;
+  }
 }

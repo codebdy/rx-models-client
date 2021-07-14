@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles, Container} from '@material-ui/core';
-import Topbar from './topbar';
+import { Topbar } from './topbar';
 import classNames from 'classnames';
 import { TreeView } from '@material-ui/lab';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -16,7 +16,9 @@ import { useMagicQuery } from 'data/use-magic-query';
 import { RxEntityAuthSettings } from '../../entity-interface/rx-entity-auth-settings';
 import { useEffect } from 'react';
 import { ENTITY_AUTH_QUERY } from './consts';
-import { RxRole } from '../../entity-interface/rx-role';
+import { AuthBoardStore } from './store/auth-board-store';
+import { AuthStoreProvider } from './store/helper';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,11 +57,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function AuthBoard(){
+export const AuthBoard = observer(()=>{
   const classes = useStyles();
-  const [selectedRole, setSelectedRole] = useState<RxRole|undefined>();
+  const [boardStore] = useState(new AuthBoardStore());
   const [entityAuths, setEntityAuths] = useState<RxEntityAuthSettings[]>([]);
-  const [changed, setChanged] = useState(true);
   const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
   const {data:authData, loading:authLoading, error:authError} = useMagicQuery<RxEntityAuthSettings[]>(
     ENTITY_AUTH_QUERY,
@@ -71,39 +72,37 @@ export default function AuthBoard(){
 
   useShowServerError(error||authError);
 
-  const handleRoleSelect = (role?:RxRole)=>{
-    setSelectedRole(role);
-  }
 
   return (
-    <Container className={classNames(classes.root, 'dragit-scrollbar')} maxWidth = "lg">
-      {
-        loading || authLoading
-        ? <Loading />
-        : <div className = {classes.container}>
-            <Topbar onSelectRole={handleRoleSelect} changed = {changed}/>
-            <div className = {classes.belowContent}>
-            <TreeView
-              defaultCollapseIcon={<ExpandMoreIcon />}
-              defaultExpandIcon={<ChevronRightIcon />}
-              selected = ''
-            >
-              {
-                data?.map(aPackage=>{
-                  return(
-                    <PackageNode 
-                      key={aPackage.uuid} 
-                      packageMeta = {aPackage} 
-                      role = {selectedRole} 
-                      entityAuths = {entityAuths}
-                    />
-                  )
-                })
-              }
-            </TreeView>
-            </div>
-          </div>        
-      }
-    </Container>
+    <AuthStoreProvider value = {boardStore}>
+      <Container className={classNames(classes.root, 'dragit-scrollbar')} maxWidth = "lg">
+        {
+          loading || authLoading
+          ? <Loading />
+          : <div className = {classes.container}>
+              <Topbar/>
+              <div className = {classes.belowContent}>
+              <TreeView
+                defaultCollapseIcon={<ExpandMoreIcon />}
+                defaultExpandIcon={<ChevronRightIcon />}
+                selected = ''
+              >
+                {
+                  data?.map(aPackage=>{
+                    return(
+                      <PackageNode 
+                        key={aPackage.uuid} 
+                        packageMeta = {aPackage} 
+                        entityAuths = {entityAuths}
+                      />
+                    )
+                  })
+                }
+              </TreeView>
+              </div>
+            </div>        
+        }
+      </Container>
+    </AuthStoreProvider>
   )
-}
+})

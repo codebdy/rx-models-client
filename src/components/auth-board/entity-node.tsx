@@ -15,7 +15,7 @@ import { MagicPostBuilder } from "data/magic-post-builder";
 import { createId } from "util/creat-id";
 import { mutate } from "swr";
 import { ENTITY_AUTH_QUERY } from "./consts";
-import { RxRole } from "../../entity-interface/rx-role";
+import { observer } from "mobx-react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,13 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export function EntityNode(props:{
+export const EntityNode = observer((props:{
   entityMeta: EntityMeta,
-  role?: RxRole,
   entityAuth?: RxEntityAuthSettings,
   entityAuths: RxEntityAuthSettings[]
-}){
-  const {entityMeta, role, entityAuth, entityAuths} = props; 
+})=>{
+  const {entityMeta, entityAuth, entityAuths} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
   const [excutePost, {loading, error}] = useLayzyMagicPost({
@@ -115,7 +114,7 @@ export function EntityNode(props:{
                 </Grid>
               </ExpressArea>
               { 
-                <AbilityActions role={role} isEnity = {true} />
+                <AbilityActions isEnity = {true} />
               }
               
             </div>
@@ -129,7 +128,6 @@ export function EntityNode(props:{
             <ColumnNode 
               key = {column.uuid} 
               columnMeta = {column} 
-              role = {role}
             />
           )
         })
@@ -137,4 +135,4 @@ export function EntityNode(props:{
 
     </TreeItem>
   )
-}
+})

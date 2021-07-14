@@ -6,9 +6,11 @@ import { useMagicQuery } from 'data/use-magic-query';
 import { MagicQueryBuilder } from 'data/magic-query-builder';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { RxRole } from '../../entity-interface/rx-role';
-import { useState } from 'react';
 import { Skeleton } from '@material-ui/lab';
 import { useAppStore } from 'store/app-store';
+import { useAuthBoardStore } from './store/helper';
+import { RxRoleStore } from './store/rx-role-store';
+import { observer } from 'mobx-react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,36 +26,39 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export default function Topbar(
+export const Topbar = observer((
   props:{
-    onSelectRole:(role?:RxRole)=>void,
-    changed: boolean,
   }
-){
-  const {onSelectRole, changed} = props;
+)=>{
   const classes = useStyles();
-  const [selected, setSelected] = useState<RxRole|undefined>();
   const {data, error, loading} = useMagicQuery<RxRole[]>(
     new MagicQueryBuilder()
       .setEntity('RxRole')
       .addRelation('abilities')
   );
-
+  const boardStore = useAuthBoardStore();
   console.log(data)
 
   useShowServerError(error);
 
   const appStore = useAppStore();
 
+  const changeRole = (roleId:number|'')=>{
+    const role = data?.data.find(rl=>rl.id === roleId);
+    boardStore.setSelecRole(role ? new RxRoleStore(role) : undefined);
+  }
 
   const handleChange = (event: React.ChangeEvent<{ value: any }>)=>{
     const roleId = event.target.value;
-    if(roleId !== selected?.id && changed){
-      appStore.confirmAction(intl.get('changing-not-save-message'), ()=>{
-        const role = data?.data.find(rl=>rl.id === roleId);
-        setSelected(role);
-        onSelectRole(role);
-      } )
+    if(roleId !== boardStore.selectRole?.id){
+      if(boardStore.changed){
+        appStore.confirmAction(intl.get('changing-not-save-message'), ()=>{
+          changeRole(roleId);
+        })        
+      }
+      else{
+        changeRole(roleId);
+      }
     }
 
   }
@@ -69,7 +74,7 @@ export default function Topbar(
         : <FormControl variant="outlined" size= "small" className = {classes.roleSelect}>
           <InputLabel id="demo-simple-select-outlined-label">{intl.get('role')}</InputLabel>
           <Select
-            value={selected?.id || ''}
+            value={boardStore.selectRole?.id || ''}
             onChange={handleChange}
             label={intl.get('role')}
           >
@@ -91,10 +96,10 @@ export default function Topbar(
           variant="contained" 
           color = "primary" 
           size = "medium"
-          disabled = {!changed}
+          disabled = {!boardStore.changed}
           //submitting = {loading}
           onClick = {handleSave}
         >{intl.get('save')}</SubmitButton>
     </div>
   )
-}
+})

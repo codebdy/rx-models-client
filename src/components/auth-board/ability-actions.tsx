@@ -3,7 +3,8 @@ import classNames from "classnames";
 import { useState } from "react";
 import { ActionLabel } from "./action-label";
 import { ActionAbility, ActionWithExpression } from "./action-with-expression";
-import { RxRole } from "../../entity-interface/rx-role";
+import { observer } from "mobx-react";
+import { useAuthBoardStore } from "./store/helper";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,13 +22,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export function AbilityActions(props:{
-  role?: RxRole,
+export const AbilityActions = observer((props:{
   isEnity: boolean,
-}){
-  const {role, isEnity} = props;
+})=>{
+  const {isEnity} = props;
   const [readAbility, setReadAbility] = useState<ActionAbility>({can:true, expression:''});
   const classes = useStyles();
+
+  const boardStore = useAuthBoardStore();
 
   const handleReadChange = (ability:ActionAbility)=>{
     setReadAbility(ability);
@@ -37,7 +39,7 @@ export function AbilityActions(props:{
     <div className = {classes.root}>
       <Grid container alignItems = "center">
         {
-          role&&
+          boardStore.selectRole&&
           <>
             <Grid item className={classNames(classes.actionGrid, classes.createGrid)}>
               {
@@ -96,4 +98,4 @@ export function AbilityActions(props:{
     </div>
 
   )
-}
+})

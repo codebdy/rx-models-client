@@ -3,9 +3,9 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ColumnMeta } from "components/entity-board/meta/column-meta";
 import { AbilityActions } from "./ability-actions";
-import { RxRole } from "../../entity-interface/rx-role";
 import { NameLabel } from "./name-label";
 import { NodeLabel } from "./node-label";
+import { observer } from "mobx-react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,11 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export function ColumnNode(props:{
+export const ColumnNode = observer((props:{
   columnMeta: ColumnMeta,
-  role?: RxRole
-}){
-  const {columnMeta, role} = props; 
+})=>{
+  const {columnMeta} = props; 
   const classes = useStyles();
 
   return(
@@ -37,11 +36,11 @@ export function ColumnNode(props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <AbilityActions role = {role} isEnity = {false}/>
+              <AbilityActions isEnity = {false}/>
             </div>
           </NodeLabel>
       }>
     </TreeItem>
 
   )
-}
+})

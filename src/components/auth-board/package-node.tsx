@@ -3,17 +3,16 @@ import MdiIcon from "components/common/mdi-icon";
 import { PackageMeta } from "components/entity-board/meta/package-meta";
 import { EntityNode } from "./entity-node";
 import { RxEntityAuthSettings } from "../../entity-interface/rx-entity-auth-settings";
-import { RxRole } from "../../entity-interface/rx-role";
 import { NameLabel } from "./name-label";
 import { PackageLabel } from "./package-label";
+import { observer } from "mobx-react";
 
-export function PackageNode(props:{
+export const PackageNode = observer((props:{
   packageMeta:PackageMeta,
-  role?:RxRole,
   entityAuths: RxEntityAuthSettings[],
-}){
+})=>{
 
-  const {packageMeta, role, entityAuths} = props; 
+  const {packageMeta, entityAuths} = props; 
   return(
     <TreeItem 
       nodeId = {packageMeta.uuid} 
@@ -31,7 +30,6 @@ export function PackageNode(props:{
               <EntityNode 
                 key ={entity.uuid} 
                 entityMeta = {entity} 
-                role = {role} 
                 entityAuth = {entityAuths.find(entityAth=>entityAth.entityUuid === entity.uuid)}
                 entityAuths = {entityAuths}
               />
@@ -41,4 +39,4 @@ export function PackageNode(props:{
     </TreeItem>
 
   )
-}
+})
