@@ -7,6 +7,8 @@ import { MagicQueryBuilder } from 'data/magic-query-builder';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { RxRole } from './interface/rx-role';
 import { useState } from 'react';
+import { Skeleton } from '@material-ui/lab';
+import { useAppStore } from 'store/app-store';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,19 +26,33 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Topbar(
   props:{
-    onSelectRole:(roleId:number)=>void,
+    onSelectRole:(role?:RxRole)=>void,
+    changed: boolean,
   }
 ){
-  const {onSelectRole} = props;
+  const {onSelectRole, changed} = props;
   const classes = useStyles();
-  const [selectId, setSelectedId] = useState<number|''>('');
-  const {data, error} = useMagicQuery<RxRole[]>(new MagicQueryBuilder().setEntity('RxRole'));
+  const [selected, setSelected] = useState<RxRole|undefined>();
+  const {data, error, loading} = useMagicQuery<RxRole[]>(
+    new MagicQueryBuilder()
+      .setEntity('RxRole')
+  );
+
   useShowServerError(error);
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
-    const roleId = event.target.value as number;
-    setSelectedId(roleId);
-    onSelectRole(roleId)
+  const appStore = useAppStore();
+
+
+  const handleChange = (event: React.ChangeEvent<{ value: any }>)=>{
+    const roleId = event.target.value;
+    if(roleId !== selected?.id && changed){
+      appStore.confirmAction(intl.get('changing-not-save-message'), ()=>{
+        const role = data?.data.find(rl=>rl.id === roleId);
+        setSelected(role);
+        onSelectRole(role);
+      } )
+    }
+
   }
 
   const handleSave = ()=>{
@@ -44,30 +60,35 @@ export default function Topbar(
   }
   return (
     <div className = {classes.topBar}>
-      <FormControl variant="outlined" size= "small" className = {classes.roleSelect}>
-        <InputLabel id="demo-simple-select-outlined-label">{intl.get('role')}</InputLabel>
-        <Select
-          value={selectId}
-          onChange={handleChange}
-          label={intl.get('role')}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {
-            data?.data?.map(role=>{
-              return(
-                <MenuItem key = {role.id} value={role.id}>{role.name}</MenuItem>
-              )
-            })
-          }
-        </Select>
-      </FormControl>
+      {
+        loading
+        ? <Skeleton variant="rect" className = {classes.roleSelect} height = {40}/>
+        : <FormControl variant="outlined" size= "small" className = {classes.roleSelect}>
+          <InputLabel id="demo-simple-select-outlined-label">{intl.get('role')}</InputLabel>
+          <Select
+            value={selected?.id || ''}
+            onChange={handleChange}
+            label={intl.get('role')}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {
+              data?.data?.map(role=>{
+                return(
+                  <MenuItem key = {role.id} value={role.id}>{role.name}</MenuItem>
+                )
+              })
+            }
+          </Select>
+        </FormControl>
+      }
+      
       <SubmitButton 
           variant="contained" 
           color = "primary" 
           size = "medium"
-          //disabled = {!boardStore.changed}
+          disabled = {!changed}
           //submitting = {loading}
           onClick = {handleSave}
         >{intl.get('save')}</SubmitButton>

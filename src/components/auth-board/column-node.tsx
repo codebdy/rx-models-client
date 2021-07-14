@@ -3,6 +3,7 @@ import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ColumnMeta } from "components/entity-board/meta/column-meta";
 import { AbilityActions } from "./ability-actions";
+import { RxRole } from "./interface/rx-role";
 import { NameLabel } from "./name-label";
 import { NodeLabel } from "./node-label";
 
@@ -21,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function ColumnNode(props:{
   columnMeta: ColumnMeta,
-  selectedRoleId: number|''
+  role?: RxRole
 }){
-  const {columnMeta, selectedRoleId} = props; 
+  const {columnMeta, role} = props; 
   const classes = useStyles();
 
   return(
@@ -36,7 +37,7 @@ export function ColumnNode(props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <AbilityActions selectedRoleId = {selectedRoleId} isEnity = {false}/>
+              <AbilityActions role = {role} isEnity = {false}/>
             </div>
           </NodeLabel>
       }>

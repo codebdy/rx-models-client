@@ -15,6 +15,7 @@ import { MagicPostBuilder } from "data/magic-post-builder";
 import { createId } from "util/creat-id";
 import { mutate } from "swr";
 import { ENTITY_AUTH_QUERY } from "./consts";
+import { RxRole } from "./interface/rx-role";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,11 +35,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function EntityNode(props:{
   entityMeta: EntityMeta,
-  selectedRoleId: number|'',
+  role?: RxRole,
   entityAuth?: RxEntityAuthSettings,
   entityAuths: RxEntityAuthSettings[]
 }){
-  const {entityMeta, selectedRoleId, entityAuth, entityAuths} = props; 
+  const {entityMeta, role, entityAuth, entityAuths} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
   const [excutePost, {loading, error}] = useLayzyMagicPost({
@@ -114,7 +115,7 @@ export function EntityNode(props:{
                 </Grid>
               </ExpressArea>
               { 
-                <AbilityActions selectedRoleId={selectedRoleId} isEnity = {true} />
+                <AbilityActions role={role} isEnity = {true} />
               }
               
             </div>
@@ -128,7 +129,7 @@ export function EntityNode(props:{
             <ColumnNode 
               key = {column.uuid} 
               columnMeta = {column} 
-              selectedRoleId = {selectedRoleId}
+              role = {role}
             />
           )
         })

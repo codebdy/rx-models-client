@@ -3,16 +3,17 @@ import MdiIcon from "components/common/mdi-icon";
 import { PackageMeta } from "components/entity-board/meta/package-meta";
 import { EntityNode } from "./entity-node";
 import { RxEntityAuthSettings } from "./interface/rx-entity-auth-settings";
+import { RxRole } from "./interface/rx-role";
 import { NameLabel } from "./name-label";
 import { PackageLabel } from "./package-label";
 
 export function PackageNode(props:{
   packageMeta:PackageMeta,
-  selectedRoleId:number|'',
+  role?:RxRole,
   entityAuths: RxEntityAuthSettings[],
 }){
 
-  const {packageMeta, selectedRoleId, entityAuths} = props; 
+  const {packageMeta, role, entityAuths} = props; 
   return(
     <TreeItem 
       nodeId = {packageMeta.uuid} 
@@ -30,7 +31,7 @@ export function PackageNode(props:{
               <EntityNode 
                 key ={entity.uuid} 
                 entityMeta = {entity} 
-                selectedRoleId = {selectedRoleId} 
+                role = {role} 
                 entityAuth = {entityAuths.find(entityAth=>entityAth.entityUuid === entity.uuid)}
                 entityAuths = {entityAuths}
               />

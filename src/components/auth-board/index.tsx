@@ -16,6 +16,7 @@ import { useMagicQuery } from 'data/use-magic-query';
 import { RxEntityAuthSettings } from './interface/rx-entity-auth-settings';
 import { useEffect } from 'react';
 import { ENTITY_AUTH_QUERY } from './consts';
+import { RxRole } from './interface/rx-role';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,8 +57,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AuthBoard(){
   const classes = useStyles();
-  const [selectedRoleId, setSelectedRoleId] = useState<number|''>('');
+  const [selectedRole, setSelectedRole] = useState<RxRole|undefined>();
   const [entityAuths, setEntityAuths] = useState<RxEntityAuthSettings[]>([]);
+  const [changed, setChanged] = useState(true);
   const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
   const {data:authData, loading:authLoading, error:authError} = useMagicQuery<RxEntityAuthSettings[]>(
     ENTITY_AUTH_QUERY,
@@ -69,8 +71,8 @@ export default function AuthBoard(){
 
   useShowServerError(error||authError);
 
-  const handleRoleSelect = (roleId:number)=>{
-    setSelectedRoleId(roleId);
+  const handleRoleSelect = (role?:RxRole)=>{
+    setSelectedRole(role);
   }
 
   return (
@@ -79,7 +81,7 @@ export default function AuthBoard(){
         loading || authLoading
         ? <Loading />
         : <div className = {classes.container}>
-            <Topbar onSelectRole={handleRoleSelect} />
+            <Topbar onSelectRole={handleRoleSelect} changed = {changed}/>
             <div className = {classes.belowContent}>
             <TreeView
               defaultCollapseIcon={<ExpandMoreIcon />}
@@ -92,7 +94,7 @@ export default function AuthBoard(){
                     <PackageNode 
                       key={aPackage.uuid} 
                       packageMeta = {aPackage} 
-                      selectedRoleId = {selectedRoleId} 
+                      role = {selectedRole} 
                       entityAuths = {entityAuths}
                     />
                   )

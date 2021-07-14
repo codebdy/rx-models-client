@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import { ActionLabel } from "./action-label";
 import { ActionAbility, ActionWithExpression } from "./action-with-expression";
+import { RxRole } from "./interface/rx-role";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,10 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export function AbilityActions(props:{
-  selectedRoleId: number|'',
+  role?: RxRole,
   isEnity: boolean,
 }){
-  const {selectedRoleId, isEnity} = props;
+  const {role, isEnity} = props;
   const [readAbility, setReadAbility] = useState<ActionAbility>({can:true, expression:''});
   const classes = useStyles();
 
@@ -36,7 +37,7 @@ export function AbilityActions(props:{
     <div className = {classes.root}>
       <Grid container alignItems = "center">
         {
-          selectedRoleId&&
+          role&&
           <>
             <Grid item className={classNames(classes.actionGrid, classes.createGrid)}>
               {
