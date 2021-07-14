@@ -8,7 +8,6 @@ import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
-import ExpressDialog from "./express-dialog";
 import { RxEntityAuth } from "./interface/rx-entity-auth";
 import useLayzyMagicPost from "data/use-layzy-magic-post";
 import { useShowServerError } from "store/helpers/use-show-server-error";
@@ -42,7 +41,6 @@ export function EntityNode(props:{
   const {entityMeta, selectedRoleId, entityAuth, entityAuths} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
-  const [expressDlgOpen, setExpressDlgOpen] = useState(false);
   const [excutePost, {loading, error}] = useLayzyMagicPost({
     onCompleted(data:any){
       mutate(
@@ -66,10 +64,6 @@ export function EntityNode(props:{
       .setSingleData({...auth, expand:event.target.checked})
       .toData()
     excutePost({data});
-  }
-
-  const handleExpressDlgOpenChange = (open:boolean)=>{
-    setExpressDlgOpen(open);
   }
 
   return(
@@ -120,7 +114,7 @@ export function EntityNode(props:{
                 </Grid>
               </ExpressArea>
               { 
-                <AbilityActions selectedRoleId={selectedRoleId} />
+                <AbilityActions selectedRoleId={selectedRoleId} hasCreate = {true} />
               }
               
             </div>

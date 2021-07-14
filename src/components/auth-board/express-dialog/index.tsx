@@ -8,7 +8,6 @@ import intl from "react-intl-universal";
 import { Tooltip, IconButton, createStyles, makeStyles, Theme, Grid, TextField } from '@material-ui/core';
 import MdiIcon from 'components/common/mdi-icon';
 import SubmitButton from 'components/common/submit-button';
-import { EntityMeta } from 'components/entity-board/meta/entity-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     actions:{
       padding:theme.spacing(2),
-      paddingTop:0,
       paddingRight:theme.spacing(3),
     }
 
@@ -40,10 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ExpressDialog(
   props:{
     onOpenChange?:(open:boolean)=>void,
-    entityMeta?: EntityMeta,
   }
 ) {
-  const {entityMeta, onOpenChange} = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -77,16 +73,15 @@ export default function ExpressDialog(
         scroll = "paper"
         maxWidth ="lg"
       >
-        <DialogTitle>{intl.get('express-manage')}</DialogTitle>
+        <DialogTitle>{intl.get('express-tip')}</DialogTitle>
         <DialogContent>
           <div className = {classes.content}>
-            <Grid container spacing = {2}>
-              <Grid item xs = {12} style={{marginTop:'16px'}}>
+            <Grid container>
+              <Grid item xs = {12}>
                 <TextField 
                   multiline 
                   fullWidth 
                   rows = {16} 
-                  label={intl.get('express-tip')} 
                   variant="outlined" 
                   size = "small"
                   value = {''} 

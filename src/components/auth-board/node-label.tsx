@@ -6,7 +6,9 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display:'flex',
       justifyContent: 'space-between',
-      fontSize:'0.9rem'
+      fontSize:'0.9rem',
+      minHeight:theme.spacing(5),
+      alignItems: 'center',
     },
   }),
 );
