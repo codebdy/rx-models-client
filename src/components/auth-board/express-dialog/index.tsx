@@ -54,13 +54,14 @@ export default function ExpressDialog(
 
   const handleClose = () => {
     setExp(expression);
+    setError('');
     setOpen(false);
   };
 
 
   const handleExpressionChange = (event: React.ChangeEvent<{value:string}>)=>{
     setExp(event.target.value);
-    setError('')
+    setError('');
   }
 
   const handleConfirm = ()=>{
