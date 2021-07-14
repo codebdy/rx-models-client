@@ -88,5 +88,6 @@
   "create":"创建",
   "read":"读取",
   "update":"修改",
-  "enum":"枚举"
+  "enum":"枚举",
+  "expression-error":"表达式错误"
 }

@@ -8,6 +8,9 @@ import intl from "react-intl-universal";
 import { Tooltip, IconButton, createStyles, makeStyles, Theme, Grid, TextField } from '@material-ui/core';
 import MdiIcon from 'components/common/mdi-icon';
 import SubmitButton from 'components/common/submit-button';
+import { validateExpression } from './validate-expression';
+import { useAppStore } from 'store/app-store';
+import { useEffect } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,12 +48,14 @@ export default function ExpressDialog(
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [exp, setExp] = useState(expression);
+  const appStore = useAppStore();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    setExp(expression);
     setOpen(false);
   };
 
@@ -60,8 +65,14 @@ export default function ExpressDialog(
   }
 
   const handleConfirm = ()=>{
+    const validateResult = validateExpression(exp);
+    if(validateResult){
+      appStore.infoError(intl.get('expression-error'), validateResult);
+      return;
+    }
+
     onExpressionChange(exp);
-    handleClose();
+    setOpen(false);
   }
 
   return (

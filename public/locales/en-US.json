@@ -88,5 +88,6 @@
   "create":"Create",
   "read":"Read",
   "update":"Update",
-  "enum":"Enum"
+  "enum":"Enum",
+  "expression-error":"Expression error"
 }
