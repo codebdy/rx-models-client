@@ -13,6 +13,7 @@ import { RxRoleStore } from './store/rx-role-store';
 import { observer } from 'mobx-react';
 import useLayzyMagicPost from 'data/use-layzy-magic-post';
 import { MagicPostBuilder } from 'data/magic-post-builder';
+import RouterPrompt from 'components/common/router-prompt';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,6 +84,7 @@ export const Topbar = observer((
   }
   return (
     <div className = {classes.topBar}>
+      <RouterPrompt promptBoolean = {boardStore.changed} message = {intl.get('changing-not-save-message')} />
       {
         loading
         ? <Skeleton variant="rect" className = {classes.roleSelect} height = {40}/>
