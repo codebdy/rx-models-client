@@ -125,11 +125,13 @@ export const EntityNode = observer((props:{
         entityAuth?.expand && 
         entityMeta.columns.map(column=>{
           return (
-            <ColumnNode 
-              key = {column.uuid} 
-              entityUuid = {entityMeta.uuid}
-              columnMeta = {column} 
-            />
+            column.name !== 'id'
+              ? <ColumnNode 
+                  key = {column.uuid} 
+                  entityUuid = {entityMeta.uuid}
+                  columnMeta = {column} 
+                />
+              : undefined
           )
         })
       }

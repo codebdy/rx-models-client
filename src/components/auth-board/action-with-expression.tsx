@@ -1,17 +1,14 @@
 import { FormControlLabel, Checkbox } from "@material-ui/core";
+import { RxAbility } from "entity-interface/rx-ability";
 import React from "react";
 import { ActionLabel } from "./action-label";
 import ExpressDialog from "./express-dialog";
 
-export interface ActionAbility{
-  can:boolean,
-  expression:string,
-}
 
 export function ActionWithExpression(props:{
   label: string,
-  ability: ActionAbility,
-  onAbilityChange:(ability:ActionAbility)=>void,
+  ability: RxAbility,
+  onAbilityChange:(ability:RxAbility)=>void,
   noExpression?:boolean,
 }){
   const {label, ability, onAbilityChange, noExpression} = props;

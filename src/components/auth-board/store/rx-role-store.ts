@@ -12,7 +12,23 @@ export class RxRoleStore{
     this.id = role.id;
     this.name = role.name;
     this.description = role.description;
-    this.abilities = role.abilities;
+    this.abilities = role.abilities || [];
     makeAutoObservable(this);
+  }
+
+  upateAbility(ability:RxAbility){
+    this.removeAbiltiy(ability);
+    this.abilities?.push(ability);
+  }
+
+  removeAbiltiy(ability:RxAbility){
+    this.abilities = this.abilities?.filter(
+      ablt => {
+        return ablt.entityUuid !== ability.entityUuid 
+        || ablt.columnUuid !== ability.columnUuid 
+        || ablt.abilityType !== ability.abilityType
+      }
+
+    ) || [];
   }
 }
