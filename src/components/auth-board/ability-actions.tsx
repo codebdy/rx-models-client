@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { useAuthBoardStore } from "./store/helper";
 import intl from 'react-intl-universal';
 import { AbilityType, RxAbility } from "entity-interface/rx-ability";
+import { EntityMeta } from "components/entity-board/meta/entity-meta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,20 +25,20 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export const AbilityActions = observer((props:{
-  entityUuid:string,
+  entityMeta:EntityMeta,
   columnUuid?:string,
 })=>{
-  const {entityUuid, columnUuid} = props;
+  const {entityMeta, columnUuid} = props;
   const classes = useStyles();
 
   const boardStore = useAuthBoardStore();
 
   const findAbilityByType = (type:AbilityType):RxAbility=>{
     return boardStore.selectRole?.abilities?.find(
-      ability=>ability.entityUuid === entityUuid 
+      ability=>ability.entityUuid === entityMeta.uuid 
       && (ability.columnUuid||undefined) === columnUuid 
       && ability.abilityType === type
-    ) || {can:false, expression:'', entityUuid:entityUuid, columnUuid: columnUuid, abilityType:type};
+    ) || {can:false, expression:'', entityUuid:entityMeta.uuid, columnUuid: columnUuid, abilityType:type};
 
   }
 
@@ -68,20 +69,41 @@ export const AbilityActions = observer((props:{
             <Grid item className={classNames(classes.actionGrid, classes.createGrid)}>
               {
                 isEntity && 
-                <ActionWithExpression ability = {createAbility} label = {intl.get('create')} onAbilityChange = {handleAbilityChange} noExpression />            
+                <ActionWithExpression 
+                  ability = {createAbility} 
+                  label = {intl.get('create')} 
+                  onAbilityChange = {handleAbilityChange} 
+                  noExpression 
+                  entityMeta = {entityMeta}
+                />            
               }
             </Grid>
             <Grid item className={classes.actionGrid}>
               {
                 isEntity &&
-                <ActionWithExpression ability = {deleteAbility} label = {intl.get('delete')} onAbilityChange = {handleAbilityChange} />            
+                <ActionWithExpression 
+                  ability = {deleteAbility} 
+                  label = {intl.get('delete')} 
+                  onAbilityChange = {handleAbilityChange} 
+                  entityMeta = {entityMeta}
+                />            
               }
             </Grid>
             <Grid item className={classes.actionGrid}>
-              <ActionWithExpression ability = {readAbility} label = {intl.get('read')} onAbilityChange = {handleAbilityChange} />
+              <ActionWithExpression 
+                ability = {readAbility} 
+                label = {intl.get('read')} 
+                onAbilityChange = {handleAbilityChange} 
+                entityMeta = {entityMeta}
+              />
             </Grid>
             <Grid item className={classes.actionGrid}>
-              <ActionWithExpression ability = {updateAbility} label = {intl.get('update')} onAbilityChange = {handleAbilityChange} />
+              <ActionWithExpression 
+                ability = {updateAbility} 
+                label = {intl.get('update')} 
+                onAbilityChange = {handleAbilityChange} 
+                entityMeta = {entityMeta}
+              />
             </Grid>
 
           </>

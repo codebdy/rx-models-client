@@ -114,7 +114,7 @@ export const EntityNode = observer((props:{
                 </Grid>
               </ExpressArea>
               { 
-                <AbilityActions entityUuid = {entityMeta.uuid} />
+                <AbilityActions entityMeta = {entityMeta} />
               }
               
             </div>
@@ -128,7 +128,7 @@ export const EntityNode = observer((props:{
             column.name !== 'id'
               ? <ColumnNode 
                   key = {column.uuid} 
-                  entityUuid = {entityMeta.uuid}
+                  entityMeta = {entityMeta}
                   columnMeta = {column} 
                 />
               : undefined

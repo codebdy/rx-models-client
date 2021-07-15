@@ -6,6 +6,7 @@ import { AbilityActions } from "./ability-actions";
 import { NameLabel } from "./name-label";
 import { NodeLabel } from "./node-label";
 import { observer } from "mobx-react";
+import { EntityMeta } from "components/entity-board/meta/entity-meta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,10 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export const ColumnNode = observer((props:{
-  entityUuid: string,
+  entityMeta: EntityMeta,
   columnMeta: ColumnMeta,
 })=>{
-  const {entityUuid, columnMeta} = props; 
+  const {entityMeta, columnMeta} = props; 
   const classes = useStyles();
 
   return(
@@ -37,7 +38,7 @@ export const ColumnNode = observer((props:{
               <NameLabel>{columnMeta.name}</NameLabel>
             </div>
             <div className = {classes.actionArea}>
-              <AbilityActions entityUuid = {entityUuid} columnUuid = {columnMeta.uuid}/>
+              <AbilityActions entityMeta = {entityMeta} columnUuid = {columnMeta.uuid}/>
             </div>
           </NodeLabel>
       }>

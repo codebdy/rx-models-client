@@ -8,7 +8,11 @@ import intl from "react-intl-universal";
 import { Tooltip, IconButton, createStyles, makeStyles, Theme, Grid, TextField } from '@material-ui/core';
 import MdiIcon from 'components/common/mdi-icon';
 import SubmitButton from 'components/common/submit-button';
-import { validateExpression } from './validate-expression';
+import { useAuthBoardStore } from '../store/helper';
+import { EntityMeta } from 'components/entity-board/meta/entity-meta';
+
+const SqlWhereParser = require('sql-where-parser');
+const OPERATOR_UNARY_MINUS = Symbol('-');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,15 +42,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ExpressDialog(
   props:{
+    entityMeta:EntityMeta,
     expression:string,
     onExpressionChange:(exp:string)=>void,
   }
 ) {
-  const {expression, onExpressionChange} = props;
+  const {entityMeta, expression, onExpressionChange} = props;
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [exp, setExp] = useState(expression);
   const [error, setError] = useState('');
+
+  const borderStore = useAuthBoardStore();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -64,8 +71,84 @@ export default function ExpressDialog(
     setError('');
   }
 
+  const getRelationByName = (entityUuid:string, roleName:string)=>{
+    for(const aPackage of borderStore.packages){
+      for(const relation of aPackage.relations||[]){
+        if(relation.roleOnSource === roleName && relation.sourceId === entityUuid){
+          return relation;
+        }
+        if(relation.roleOnTarget === roleName && relation.targetId === entityUuid){
+          return relation;
+        }
+      } 
+    }
+  }
+
+  const getEntityByUuid = (entityUuid:string)=>{
+    for(const aPackage of borderStore.packages){
+      for(const entity of aPackage.entities||[]){
+        if(entity.uuid === entityUuid){
+          return entity;
+        }
+      } 
+    }
+  }
+
+
+  const validateExpression = (exp: string): string | undefined =>{
+
+    const parser = new SqlWhereParser();
+
+ 
+    const evaluator = (operatorValue: string | typeof OPERATOR_UNARY_MINUS, operands: any[]) => {
+      if (operatorValue === OPERATOR_UNARY_MINUS) {
+        operatorValue = '-';
+      }
+      if (operatorValue === ',') {
+        return [].concat(operands[0], operands[1]);
+      }
+  
+      switch (operatorValue) {
+        case 'OR':
+          return `(${operands.join(' OR ')})`;
+        case 'AND':
+          return `(${operands.join(' AND ')})`;
+        default:
+          const arr = operands[0].split('.');
+
+          if (arr.length > 1) {
+            const [roleName, columnName] = arr;
+
+            const relation = getRelationByName(entityMeta.uuid, roleName);
+            if(!relation){
+              throw new Error(`Entity ${entityMeta.name} has not relation ${roleName}`);
+            }
+
+            const targetUuid = entityMeta.uuid === relation.sourceId ? relation.targetId : relation.sourceId;
+            const targetEntity = getEntityByUuid(targetUuid);
+
+            if(!targetEntity?.columns.find(column=>column.name === columnName)){
+              throw new Error(`Relation ${roleName} has not column ${columnName}`);
+            }
+          }
+          else{
+            if(!entityMeta.columns.find(column=>column.name === operands[0])){
+              throw new Error(`Entity ${entityMeta.name} has not column ${operands[0]}`);
+            }
+          }
+      }
+    };
+  
+    try{
+      parser.parse(exp, evaluator);
+    }
+    catch(error){
+      return error.message;
+    }
+  }
+
   const handleConfirm = ()=>{
-    const validateResult = validateExpression(exp);
+    const validateResult = validateExpression(exp, );
     if(validateResult){
       setError(validateResult);
       return;

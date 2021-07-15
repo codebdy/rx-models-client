@@ -67,6 +67,10 @@ export const AuthBoard = observer(()=>{
   )
 
   useEffect(()=>{
+    boardStore.setPackages(data||[]);
+  },[boardStore, data])
+
+  useEffect(()=>{
     setEntityAuths(authData?.data || []);
   }, [authData])
 

@@ -89,5 +89,7 @@
   "read":"Read",
   "update":"Update",
   "enum":"Enum",
-  "expression-error":"Expression error"
+  "expression-error":"Expression error",
+  "entity-column-not-found":"Entity {enity} has not column {column}",
+  "entity-relation-not-found":"Entity {enity} has not relation {relation}"
 }

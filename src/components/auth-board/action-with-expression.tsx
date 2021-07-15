@@ -1,4 +1,5 @@
 import { FormControlLabel, Checkbox } from "@material-ui/core";
+import { EntityMeta } from "components/entity-board/meta/entity-meta";
 import { RxAbility } from "entity-interface/rx-ability";
 import React from "react";
 import { ActionLabel } from "./action-label";
@@ -10,8 +11,9 @@ export function ActionWithExpression(props:{
   ability: RxAbility,
   onAbilityChange:(ability:RxAbility)=>void,
   noExpression?:boolean,
+  entityMeta:EntityMeta,
 }){
-  const {label, ability, onAbilityChange, noExpression} = props;
+  const {label, ability, onAbilityChange, noExpression, entityMeta} = props;
 
   const handleCanChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
     onAbilityChange({...ability, can: event.target.checked});
@@ -36,7 +38,11 @@ export function ActionWithExpression(props:{
       />
       {
         ability.can && !noExpression &&
-        <ExpressDialog expression = {ability.expression} onExpressionChange = {handleExpChange}/>
+        <ExpressDialog 
+          expression = {ability.expression} 
+          onExpressionChange = {handleExpChange}
+          entityMeta = {entityMeta}
+        />
       }
     </>
   )
