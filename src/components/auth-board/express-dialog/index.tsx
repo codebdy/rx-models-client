@@ -128,7 +128,7 @@ export default function ExpressDialog(
             const targetEntity = getEntityByUuid(targetUuid);
 
             if(!targetEntity?.columns.find(column=>column.name === columnName)){
-              throw new Error(`Relation ${roleName} has not column ${columnName}`);
+              throw new Error(`Relation ${roleName} target entity ${targetEntity?.name} has not column ${columnName}`);
             }
           }
           else{
