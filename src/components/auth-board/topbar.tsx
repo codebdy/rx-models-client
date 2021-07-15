@@ -46,6 +46,7 @@ export const Topbar = observer((
   const [excuteSave, {loading:saving, error:saveError}] = useLayzyMagicPost({
     onCompleted(){
       appStore.showSuccessAlert();
+      boardStore.setChanged(false);
     }
   })
 

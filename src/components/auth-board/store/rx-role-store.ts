@@ -37,7 +37,8 @@ export class RxRoleStore{
       id: this.id,
       name: this.name,
       description: this.description,
-      abilities: toJS(this.abilities)
+      //@@以后考虑把命令加入MagicPostBuilder
+      "abilities @cascade": toJS(this.abilities)
     }
   }
 }
