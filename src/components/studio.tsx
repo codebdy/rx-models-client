@@ -5,12 +5,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Avatar, IconButton, Link, Tooltip } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import intl from 'react-intl-universal';
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
+import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import MdiIcon from "./common/mdi-icon";
 import Spacer from "./common/spacer";
 import ApiBoard from "./api-board";
 import { ModelsBoard } from "./entity-board";
 import { AuthBoard } from "./auth-board";
+import { useAppStore } from "store/app-store";
+import { LOGIN_URL, TOKEN_NAME } from "util/consts";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +54,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Studio = observer(() => {
   const classes = useStyles();
-  //useLoginCheck();
+  const history = useHistory();
+  const appStore = useAppStore();
+
+  const handleLogout = ()=>{
+    appStore.setToken('');
+    appStore.setLoggedUser(undefined);
+    localStorage.removeItem(TOKEN_NAME);
+    history.push(LOGIN_URL);
+  }
+
   return (
     <div className={classes.root}>
       <AppBar 
@@ -113,7 +124,7 @@ export const Studio = observer(() => {
             Github
           </Link>
           <Spacer />
-          <Tooltip title="Logout" aria-label="Logout">
+          <Tooltip title="Logout" aria-label="Logout" onClick = {handleLogout}>
             <IconButton><MdiIcon iconClass = "mdi-logout" /></IconButton>
           </Tooltip>
         </Toolbar>
