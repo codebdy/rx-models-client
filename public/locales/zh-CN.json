@@ -51,7 +51,7 @@
   "role-name": "角色名",
   "side": "端",
   "relation-type":"关系类型",
-  "installed":"应用已经安装，若要重新安装，请删除dbconfig.json文件",
+  "installed":"应用已经安装，若要重新安装，请删除dbconfig.json文件，并清空数据库。",
   "import-package":"导入包",
   "next-step":"下一步",
   "previous-step":"上一步",
