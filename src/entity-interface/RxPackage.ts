@@ -1,4 +1,4 @@
-export interface RxPackage{
+export interface RxPackage {
   id?: number;
   uuid: string;
   name: string;

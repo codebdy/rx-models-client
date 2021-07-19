@@ -49,22 +49,22 @@ export class PackageSourceGenerator{
       .filter(relation => relation.targetId !== entity.uuid)
       .map(relation => {
         const entityName = this.rootStore.getEntityById(relation.targetId)?.name;
-        return `import { ${entityName} } from './${entityName}'`;
+        return `import { ${entityName} } from './${entityName}';`;
       });
     const targetImports = targetRelations
       .filter(relation => relation.sourceId !== entity.uuid)
       .map(relation => {
         const entityName = this.rootStore.getEntityById(relation.sourceId)?.name;
-        return `import { ${entityName} } from './${entityName}'`;
+        return `import { ${entityName} } from './${entityName}';`;
       });
     const enumImports = entity.columns.filter(column => column.type === ColumnType.Enum)
       .map(column=>{
         const enumEntity = enumEntities.find(entity=>entity.uuid === column.enumEnityUuid);
-        return enumEntity ? `import { ${enumEntity?.name} } from './${enumEntity?.name}'` : '';
+        return enumEntity ? `import { ${enumEntity?.name} } from './${enumEntity?.name}';` : '';
       })
     source = source + _.uniq(sourceImports.concat(targetImports).concat(enumImports)).join('\n');
     source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n\n' : '');
-    source = source + `export interface ${entity.name}{\n`;
+    source = source + `export interface ${entity.name} {\n`;
     source = source + entity.columns.map(column => {
       if (column.name === 'id') {
         return `  id?: number;`;
@@ -77,7 +77,7 @@ export class PackageSourceGenerator{
       const arraySymbal = relation.relationType === RelationType.MANY_TO_ONE || relation.relationType === RelationType.MANY_TO_MANY
         ? '[]'
         : '';
-      return `  ${relation.roleOnTarget}?: ${this.rootStore.getEntityById(relation.sourceId)?.name}${arraySymbal}`;
+      return `  ${relation.roleOnTarget}?: ${this.rootStore.getEntityById(relation.sourceId)?.name}${arraySymbal};`;
     }).join('\n');
 
     source = source + (sourceRelations.length > 0 ? '\n' : '');
@@ -86,10 +86,10 @@ export class PackageSourceGenerator{
       const arraySymbal = relation.relationType === RelationType.ONE_TO_MANY || relation.relationType === RelationType.MANY_TO_MANY
         ? '[]'
         : '';
-      return `  ${relation.roleOnSource}?: ${this.rootStore.getEntityById(relation.targetId)?.name}${arraySymbal}`;
+      return `  ${relation.roleOnSource}?: ${this.rootStore.getEntityById(relation.targetId)?.name}${arraySymbal};`;
     }).join('\n');
 
-    source = source + '\n}';
+    source = source + '\n}\n';
     return source;
   }
 }
