@@ -3,6 +3,7 @@ import { PackageStore } from "../store/package";
 import { convertType } from "./convert-type";
 import _ from 'lodash';
 import { RelationType } from "../meta/relation-meta";
+import { saveAs } from 'file-saver';
 
 export class PackageSourceGenerator{
   constructor(
@@ -13,6 +14,8 @@ export class PackageSourceGenerator{
   }
 
   generate(){
+    var JSZip = require("jszip");
+    const zip = new JSZip();
     for(const entity of this.packageStore.entities){
       const sourceRelations = entity.getSourceRelations();
       const targetRelations = entity.getTargetRelations();
@@ -20,13 +23,13 @@ export class PackageSourceGenerator{
       const sourceImports = sourceRelations
         .filter(relation=>relation.targetId !== entity.uuid)
         .map(relation=>{
-          const entityName = this.packageStore.getEntityById(relation.targetId)?.name;
+          const entityName = this.rootStore.getEntityById(relation.targetId)?.name;
           return `import { ${entityName} } from './${entityName}'`
         });
       const targetImports = targetRelations
         .filter(relation=>relation.sourceId !== entity.uuid)
         .map(relation=>{
-          const entityName = this.packageStore.getEntityById(relation.sourceId)?.name;
+          const entityName = this.rootStore.getEntityById(relation.sourceId)?.name;
           return `import { ${entityName} } from './${entityName}'`
         });
       source = source + _.uniq(sourceImports.concat(targetImports)).join('\n');
@@ -44,7 +47,7 @@ export class PackageSourceGenerator{
         const arraySymbal = relation.relationType === RelationType.MANY_TO_ONE || relation.relationType === RelationType.MANY_TO_MANY
           ? '[]'
           : '';
-        return `  ${relation.roleOnTarget}?: ${this.packageStore.getEntityById(relation.sourceId)?.name}${arraySymbal}`;
+        return `  ${relation.roleOnTarget}?: ${this.rootStore.getEntityById(relation.sourceId)?.name}${arraySymbal}`;
       }).join('\n')
 
       source = source + (sourceRelations.length > 0 ? '\n' : '');
@@ -53,11 +56,16 @@ export class PackageSourceGenerator{
         const arraySymbal = relation.relationType === RelationType.ONE_TO_MANY || relation.relationType === RelationType.MANY_TO_MANY
           ? '[]'
           : '';
-        return `  ${relation.roleOnSource}?: ${this.packageStore.getEntityById(relation.targetId)?.name}${arraySymbal}`;
+        return `  ${relation.roleOnSource}?: ${this.rootStore.getEntityById(relation.targetId)?.name}${arraySymbal}`;
       }).join('\n')
 
       source = source + '\n}'
-      console.log(source);
+      zip.file(entity.name + '.ts', source);
     }
+
+    zip.generateAsync({type:"blob"})
+    .then(function(content: string | Blob) {
+      saveAs(content, "entity-interface.zip");
+    }); 
   }
 }
