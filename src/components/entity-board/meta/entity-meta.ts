@@ -1,13 +1,14 @@
 import { ColumnMeta } from "./column-meta";
 
 export enum EntityType{
-  enum = "Enum",
+  NORMAL = "Normal",
+  ENUM = "Enum",
 }
 
 export interface EntityMeta{
   uuid: string;
   name: string;
   tableName?: string;
-  entityType?: EntityType;
+  entityType?: EntityType|"";
   columns: ColumnMeta[];
 }

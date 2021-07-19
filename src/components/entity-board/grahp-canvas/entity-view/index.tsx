@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import MdiIcon from 'components/common/mdi-icon';
 import { EntityNodeData } from '../../store/diagram';
 import ColumnView from './column-view';
+import { EntityType } from 'components/entity-board/meta/entity-meta';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -114,7 +115,7 @@ export const EntityView = (props:{
       <div className={classes.container}>
         <div className={classes.entityName}>
           {
-            data?.entityType && 
+            data?.entityType === EntityType.ENUM && 
             <div className = {classNames(classes.nameItem, classes.smFont)}>&lt;&lt; { data?.entityType} &gt;&gt;</div>
           }
           <div className = {classes.nameItem}>{data?.name}</div>
@@ -132,35 +133,39 @@ export const EntityView = (props:{
           }
 
         </div>
-        <div className = {
-          classNames(classes.propertiesArea,
-            {[classes.canLink]:canLink, [classes.defaultCusor]:!canLink}
-          )
-        }>
-          {
-            data?.columns?.map(column=>{
-              return (<ColumnView 
-                key = {column.uuid} 
-                column= {column}
-                onClick = {handleColumnClick}
-                onDelete = {handleColumnDelete}
-                isSelected = {data.selectedId === column.uuid}
-                readOnly = {disableHover}
-              />)
-            })
-          }
-          {
-            hover && !disableHover &&
-            <div className = {classes.columnPuls}>
-              <IconButton 
-                className = {classes.columnButton}
-                onClick = {handleColumnCreate}
-              >
-                <MdiIcon iconClass="mdi-plus" size={20}></MdiIcon>
-              </IconButton>
-            </div>
-          }
-        </div>
+        {
+          data?.entityType !== EntityType.ENUM && 
+          <div className = {
+            classNames(classes.propertiesArea,
+              {[classes.canLink]:canLink, [classes.defaultCusor]:!canLink}
+            )
+          }>
+            {
+              data?.columns?.map(column=>{
+                return (<ColumnView 
+                  key = {column.uuid} 
+                  column= {column}
+                  onClick = {handleColumnClick}
+                  onDelete = {handleColumnDelete}
+                  isSelected = {data.selectedId === column.uuid}
+                  readOnly = {disableHover}
+                />)
+              })
+            }
+            {
+              hover && !disableHover &&
+              <div className = {classes.columnPuls}>
+                <IconButton 
+                  className = {classes.columnButton}
+                  onClick = {handleColumnCreate}
+                >
+                  <MdiIcon iconClass="mdi-plus" size={20}></MdiIcon>
+                </IconButton>
+              </div>
+            }
+          </div>
+  
+        }
       </div>
     </div>
   )

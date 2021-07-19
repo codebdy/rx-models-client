@@ -11,7 +11,7 @@ export class EntityStore{
   uuid: string;
   name: string;
   tableName?: string;
-  entityType?: EntityType;
+  entityType?: EntityType|"";
   package: PackageStore | undefined;
   columns: ColumnStore[];
 
@@ -37,8 +37,16 @@ export class EntityStore{
     this.tableName = name||undefined;
   }
 
+  setType(type:EntityType|undefined|""){
+    this.entityType = type;
+  }
+
   setPackage(belongsToPackage:PackageStore){
     this.package = belongsToPackage;
+  }
+
+  setColumns(columns:ColumnStore[]){
+    this.columns = columns;
   }
 
   createdColumn(id:string){
@@ -97,7 +105,7 @@ export class EntityStore{
       uuid: this.uuid,
       name: this.name,
       tableName: this.tableName,
-      classType: this.entityType,
+      entityType: this.entityType,
       columns: this.columns.map(column=>column.toMeta()),
     }
   }

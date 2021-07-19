@@ -89,6 +89,8 @@
   "read":"读取",
   "update":"修改",
   "enum":"枚举",
+  "normal-class":"普通类",
+  "type":"类型",
   "expression-error":"表达式错误",
   "entity-column-not-found":"实体{enity}上没有定义列{column}",
   "entity-relation-not-found":"实体{enity}上没有定义关联{relation}",
