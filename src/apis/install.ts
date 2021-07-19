@@ -10,7 +10,13 @@ const API_IS_INSTALLED : AxiosRequestConfig = {
   method:'get',
 }
 
+const API_PUBLISH_PACKAGE: AxiosRequestConfig = {
+  url:'/publish-package',
+  method:'post',
+}
+
 export { 
   API_INSTALL,
-  API_IS_INSTALLED
+  API_IS_INSTALLED,
+  API_PUBLISH_PACKAGE
 }

@@ -91,5 +91,6 @@
   "enum":"枚举",
   "expression-error":"表达式错误",
   "entity-column-not-found":"实体{enity}上没有定义列{column}",
-  "entity-relation-not-found":"实体{enity}上没有定义关联{relation}"
+  "entity-relation-not-found":"实体{enity}上没有定义关联{relation}",
+  "please-save-first":"请先保存"
 }

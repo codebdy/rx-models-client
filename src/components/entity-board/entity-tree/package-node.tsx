@@ -15,6 +15,12 @@ import { creatNewEntityMeta } from "../store/create-new-entity-meta";
 import { DiagramCreateCommand } from "../command/diagram-create-command";
 import { getNewDiagramName } from "../store/get-new-diagram-name";
 import { PackageDeleteCommand } from "../command/package-delete-command";
+import useLayzyAxios from "data/use-layzy-axios";
+import { API_PUBLISH_PACKAGE } from "apis/install";
+import { useShowServerError } from "store/helpers/use-show-server-error";
+import { CircularProgress } from "@material-ui/core";
+import { useAppStore } from "store/app-store";
+import intl from 'react-intl-universal';
 
 const downloadFile = function (filename:string, content:string) {
   // 创建隐藏的可下载链接
@@ -36,7 +42,15 @@ export const PackageNode = observer((props:{
   packageStore: PackageStore
 })=>{
   const {packageStore} = props;
+  const appStore = useAppStore();
   const rootStore = useEntityBoardStore();
+  const [excutePublish, {loading, error}] = useLayzyAxios(API_PUBLISH_PACKAGE,{
+    onCompleted(){
+      appStore.showSuccessAlert();
+    }
+  })
+
+  useShowServerError(error);
 
   const handleClick = (event:React.MouseEvent)=>{
     rootStore.setSelectedElement(packageStore);
@@ -63,8 +77,20 @@ export const PackageNode = observer((props:{
     rootStore.excuteCommand(command);
   }
 
+  const handlePublish = ()=>{
+    if(rootStore.changed){
+      appStore.infoError(intl.get('please-save-first'));
+    }else{
+      excutePublish({data:packageStore.toMeta()});
+    }
+  }
+
   const handleDownloadJson = ()=>{
     downloadFile(packageStore.uuid + '.json', JSON.stringify(packageStore.toMeta(), null, 2));
+  }
+
+  const handelExportInterface = ()=>{
+
   }
 
   return(
@@ -75,13 +101,19 @@ export const PackageNode = observer((props:{
             onAddClass = {handleAddEntity}
             onAddDiagram = {handleAddDiagram}
             onDelete = {handleDelete} 
-            onDownloadJson = {handleDownloadJson}         
+            onPublish = {handlePublish}
+            onDownloadJson = {handleDownloadJson}  
+            onExportInterface ={handelExportInterface}       
           />
         }
         onClick = {handleClick}
       >
         <MdiIcon iconClass = "mdi-folder-outline" size={18} />
         <NodeText>{packageStore.name}</NodeText>
+        {
+          loading &&
+          <CircularProgress size ={18} />
+        }
       </TreeNodeLabel>
     }>
       {

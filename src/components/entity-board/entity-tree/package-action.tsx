@@ -17,10 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function PackageAction(props:{
   onAddClass:()=>void,
   onAddDiagram:()=>void,
-  onDelete?:()=>void,
-  onDownloadJson?:()=>void,
+  onDelete:()=>void,
+  onPublish:()=>void,
+  onDownloadJson:()=>void,
+  onExportInterface:()=>void,
 }){
-  const {onAddClass, onAddDiagram, onDelete, onDownloadJson} = props
+  const {onAddClass, onAddDiagram, onDelete, onPublish, onDownloadJson, onExportInterface} = props
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -48,13 +50,25 @@ export default function PackageAction(props:{
 
  
   const handleDelete = (event: React.MouseEvent<HTMLElement>)=>{
-    onDelete && onDelete()
+    onDelete()
+    setAnchorEl(null);
+    event.stopPropagation();
+  }
+
+  const handlePublishPackage = (event: React.MouseEvent<HTMLElement>) => {
+    onPublish();
     setAnchorEl(null);
     event.stopPropagation();
   }
   
   const handleDownloadJson = (event: React.MouseEvent<HTMLElement>) => {
-    onDownloadJson && onDownloadJson();
+    onDownloadJson();
+    setAnchorEl(null);
+    event.stopPropagation();
+  }
+
+  const handleExportInterface = (event: React.MouseEvent<HTMLElement>) => {
+    onExportInterface();
     setAnchorEl(null);
     event.stopPropagation();
   }
@@ -94,7 +108,9 @@ export default function PackageAction(props:{
             <span className = {classes.text}>{intl.get('delete')} </span>
           </MenuItem> 
           <Divider/>
-          <MenuItem  className = {classes.menuItem}>
+          <MenuItem  className = {classes.menuItem}
+            onClick = {handlePublishPackage}
+          >
             <MdiIcon iconClass = "mdi-database-arrow-up-outline"  size={16} />
             <span className = {classes.text}>{intl.get('publish-package')} </span>
           </MenuItem>
@@ -104,7 +120,9 @@ export default function PackageAction(props:{
             <MdiIcon iconClass = "mdi-database-arrow-down-outline"  size={16} />
             <span className = {classes.text}>{intl.get('export-json')} </span>
           </MenuItem>
-          <MenuItem className = {classes.menuItem}>
+          <MenuItem className = {classes.menuItem}
+            onClick = {handleExportInterface}
+          >
             <MdiIcon iconClass = "mdi-file-export-outline"  size={16}/>
             <span className = {classes.text}>{intl.get('export-inteface')} </span>
           </MenuItem>
