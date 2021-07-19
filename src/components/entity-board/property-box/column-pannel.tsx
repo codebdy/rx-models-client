@@ -107,7 +107,7 @@ export const ColumnPanel = observer((
               label={intl.get('enum-class')}
             >
               {
-                bordStore.getEnumClasses().map(enumStore=>{
+                bordStore.getEnumEntities().map(enumStore=>{
                     return(
                       <MenuItem key = {enumStore.uuid} value={enumStore.uuid}>{enumStore.name}</MenuItem>
                     )

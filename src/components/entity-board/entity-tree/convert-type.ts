@@ -1,8 +1,15 @@
 import { ColumnType } from "../meta/column-meta";
+import { ColumnStore } from "../store/column";
+import { EntityStore } from "../store/entity-store";
 
-export function convertType(type: ColumnType): string {
-  if (type === ColumnType.String || type === ColumnType.Enum) {
+export function convertType(column: ColumnStore, enumEntities:EntityStore[]): string {
+  const type = column.type;
+  if (type === ColumnType.String) {
     return 'string';
+  }
+
+  if(type === ColumnType.Enum) {
+    return enumEntities.find(entitiy => entitiy.uuid === column.enumEnityUuid)?.name||'string';
   }
 
   if (type === ColumnType.Boolean) {

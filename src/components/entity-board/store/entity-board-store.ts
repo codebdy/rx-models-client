@@ -188,7 +188,7 @@ export class EntityBoardStore{
     return this.packages.map(packageStore=>packageStore.toMeta());
   }
 
-  getEnumClasses(){
+  getEnumEntities(){
     const enums = [];
     for(const aPackage of this.packages){
       enums.push(...aPackage.entities.filter(entity=>entity.entityType === EntityType.ENUM))
