@@ -4,8 +4,9 @@ import { ActionWithExpression } from "./action-with-expression";
 import { observer } from "mobx-react";
 import { useAuthBoardStore } from "./store/helper";
 import intl from 'react-intl-universal';
-import { AbilityType, RxAbility } from "entity-interface/rx-ability";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
+import { AbilityType } from "entity-interface/AbilityType";
+import { RxAbility } from "entity-interface/RxAbility";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

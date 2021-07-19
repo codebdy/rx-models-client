@@ -1,11 +1,11 @@
-import { RxAbility } from "entity-interface/rx-ability";
-import { RxRole } from "entity-interface/rx-role";
+import { RxAbility } from "entity-interface/RxAbility";
+import { RxRole } from "entity-interface/RxRole";
 import { makeAutoObservable, toJS } from "mobx";
 
 export class RxRoleStore{
   id?: number;
   name: string;
-  description: string;
+  description?: string;
   abilities?: RxAbility[]
 
   constructor(role:RxRole){

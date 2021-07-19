@@ -13,12 +13,12 @@ import { PackageNode } from './package-node';
 import Loading from 'components/common/loading';
 import { useState } from 'react';
 import { useMagicQuery } from 'data/use-magic-query';
-import { RxEntityAuthSettings } from '../../entity-interface/rx-entity-auth-settings';
 import { useEffect } from 'react';
 import { ENTITY_AUTH_QUERY } from './consts';
 import { AuthBoardStore } from './store/auth-board-store';
 import { AuthStoreProvider } from './store/helper';
 import { observer } from 'mobx-react';
+import { RxEntityAuthSettings } from 'entity-interface/RxEntityAuthSettings';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

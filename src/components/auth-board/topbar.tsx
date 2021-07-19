@@ -5,7 +5,6 @@ import intl from 'react-intl-universal';
 import { useMagicQuery } from 'data/use-magic-query';
 import { MagicQueryBuilder } from 'data/magic-query-builder';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
-import { RxRole } from '../../entity-interface/rx-role';
 import { Skeleton } from '@material-ui/lab';
 import { useAppStore } from 'store/app-store';
 import { useAuthBoardStore } from './store/helper';
@@ -14,6 +13,7 @@ import { observer } from 'mobx-react';
 import useLayzyMagicPost from 'data/use-layzy-magic-post';
 import { MagicPostBuilder } from 'data/magic-post-builder';
 import RouterPrompt from 'components/common/router-prompt';
+import { RxRole } from 'entity-interface/RxRole';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -60,7 +60,7 @@ export class PackageSourceGenerator{
     const enumImports = entity.columns.filter(column => column.type === ColumnType.Enum)
       .map(column=>{
         const enumEntity = enumEntities.find(entity=>entity.uuid === column.enumEnityUuid);
-        return `import { ${enumEntity?.name} } from './${enumEntity?.name}'`;
+        return enumEntity ? `import { ${enumEntity?.name} } from './${enumEntity?.name}'` : '';
       })
     source = source + _.uniq(sourceImports.concat(targetImports).concat(enumImports)).join('\n');
     source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n\n' : '');

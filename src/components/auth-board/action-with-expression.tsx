@@ -1,6 +1,6 @@
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
-import { RxAbility } from "entity-interface/rx-ability";
+import { RxAbility } from "entity-interface/RxAbility";
 import React from "react";
 import { ActionLabel } from "./action-label";
 import ExpressDialog from "./express-dialog";
@@ -39,7 +39,7 @@ export function ActionWithExpression(props:{
       {
         ability.can && !noExpression &&
         <ExpressDialog 
-          expression = {ability.expression} 
+          expression = {ability.expression||''} 
           onExpressionChange = {handleExpChange}
           entityMeta = {entityMeta}
         />
