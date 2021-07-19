@@ -21,6 +21,7 @@ import { useShowServerError } from "store/helpers/use-show-server-error";
 import { CircularProgress } from "@material-ui/core";
 import { useAppStore } from "store/app-store";
 import intl from 'react-intl-universal';
+import { PackageSourceGenerator } from "./package-source-generator";
 
 const downloadFile = function (filename:string, content:string) {
   // 创建隐藏的可下载链接
@@ -36,6 +37,7 @@ const downloadFile = function (filename:string, content:string) {
   // 然后移除
   document.body.removeChild(eleLink);
 };
+
 
 export const PackageNode = observer((props:{
   key?:string,
@@ -90,7 +92,12 @@ export const PackageNode = observer((props:{
   }
 
   const handelExportInterface = ()=>{
-
+    if(rootStore.changed){
+      appStore.infoError(intl.get('please-save-first'));
+    }else{
+      const packageGenerator = new PackageSourceGenerator(packageStore, rootStore);
+      packageGenerator.generate();
+    }
   }
 
   return(
