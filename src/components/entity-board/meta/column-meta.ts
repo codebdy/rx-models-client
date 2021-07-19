@@ -24,6 +24,7 @@ export interface ColumnMeta{
   width?: number;
   version?: boolean;
   readonly?: boolean;
+  enumEnityUuid?:string;
   
   /**
    * Column comment.

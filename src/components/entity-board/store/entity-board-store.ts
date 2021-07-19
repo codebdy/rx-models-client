@@ -12,6 +12,7 @@ import { RelationType } from "../meta/relation-meta";
 import { creatNewEntityMeta } from "./create-new-entity-meta";
 import _ from 'lodash';
 import { PackageMeta } from "../meta/package-meta";
+import { EntityType } from "../meta/entity-meta";
 
 export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
@@ -185,5 +186,14 @@ export class EntityBoardStore{
 
   getPackeMetas(){
     return this.packages.map(packageStore=>packageStore.toMeta());
+  }
+
+  getEnumClasses(){
+    const enums = [];
+    for(const aPackage of this.packages){
+      enums.push(...aPackage.entities.filter(entity=>entity.entityType === EntityType.ENUM))
+    }
+
+    return enums;
   }
 }

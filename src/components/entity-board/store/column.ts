@@ -22,6 +22,7 @@ export class ColumnStore{
   default?: any;
   precision?: number;
   scale?: number;
+  enumEnityUuid?:string;
 
   constructor(meta:ColumnMeta, public readonly entityStore: EntityStore){
     this.uuid = meta.uuid;
@@ -43,6 +44,7 @@ export class ColumnStore{
     this.default = meta.default;
     this.precision = meta.precision;
     this.scale = meta.scale;
+    this.enumEnityUuid = meta.enumEnityUuid;
     makeAutoObservable(this)
   }
 
@@ -67,6 +69,7 @@ export class ColumnStore{
     this.default = undefined;
     this.precision = undefined;
     this.scale = undefined;
+    this.enumEnityUuid = undefined;
   }
 
   setFieldValue(field:string, value:any){
@@ -94,6 +97,7 @@ export class ColumnStore{
       default: this.default,
       precision: this.precision,
       scale: this.scale,
+      enumEnityUuid: this.enumEnityUuid,
     }
   }
 }

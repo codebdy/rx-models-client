@@ -39,6 +39,11 @@ export const ColumnPanel = observer((
     bordStore.excuteCommand(command);
   }
 
+  const handleEnumEntiyChange = (event: React.ChangeEvent<{ value: any }>)=>{
+    const command = new ColumnChangeCommand(columnStore, { ...allValues, enumEnityUuid: event.target.value });
+    bordStore.excuteCommand(command);
+  }
+
   const handleGeneratedChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
     let value = event.target.value;
     if(value === 'true'){
@@ -91,6 +96,29 @@ export const ColumnPanel = observer((
           </Select>
         </FormControl>  
       </Grid>
+      {
+        columnStore.type === ColumnType.Enum &&
+        <Grid item xs={12}>
+          <FormControl variant="outlined" fullWidth size = "small" disabled = {isId}>
+            <InputLabel>{intl.get('enum-class')}</InputLabel>
+            <Select
+              value={columnStore.enumEnityUuid||''}
+              onChange={handleEnumEntiyChange}
+              label={intl.get('enum-class')}
+            >
+              {
+                bordStore.getEnumClasses().map(enumStore=>{
+                    return(
+                      <MenuItem key = {enumStore.uuid} value={enumStore.uuid}>{enumStore.name}</MenuItem>
+                    )
+                  }
+                )
+              }
+              
+            </Select>
+          </FormControl>  
+        </Grid>
+      }
       {
         isId &&
         <Grid item xs={12}>
