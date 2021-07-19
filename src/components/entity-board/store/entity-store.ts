@@ -14,6 +14,7 @@ export class EntityStore{
   entityType?: EntityType|"";
   package: PackageStore | undefined;
   columns: ColumnStore[];
+  enumValues: any;
 
   constructor(meta:EntityMeta, private rootStore: EntityBoardStore, belongsTopackage?: PackageStore){
     this.uuid = meta.uuid;
@@ -21,6 +22,7 @@ export class EntityStore{
     this.tableName = meta.tableName;
     this.entityType = meta.entityType;
     this.package = belongsTopackage;
+    this.enumValues = meta.enumValues;
 
     this.columns = meta.columns 
       ? meta.columns.map(column=>new ColumnStore(column, this))
@@ -35,6 +37,10 @@ export class EntityStore{
 
   setTableName(name:string|undefined){
     this.tableName = name||undefined;
+  }
+
+  setEnumValues(enumValues:any){
+    this.enumValues = enumValues;
   }
 
   setType(type:EntityType|undefined|""){
@@ -107,6 +113,7 @@ export class EntityStore{
       tableName: this.tableName,
       entityType: this.entityType,
       columns: this.columns.map(column=>column.toMeta()),
+      enumValues: this.enumValues,
     }
   }
 }

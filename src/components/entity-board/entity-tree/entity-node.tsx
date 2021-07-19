@@ -97,30 +97,32 @@ export const EntityNode = observer((props:{
         <NodeText><div style={{marginLeft:'-8px'}}>{entityStore.name}</div></NodeText>
       </TreeNodeLabel>
     }>
-      <TreeItem nodeId= {entityStore.uuid + 'columns'} label={
-        <TreeNodeLabel
-          action = {
-            <IconButton 
-              size = "small"
-              onClick = {handlePlusColumn}
-            >
-              <MdiIcon className="mdi-plus" size="16" />
-            </IconButton>
-          }
-        >
-          <NodeText>{intl.get('properties')}</NodeText>
-        </TreeNodeLabel>
-      }>
-        {
-          entityStore.columns.map(column=>{
-            return (
-              <ColumnNode key={column.uuid} columnStore = {column}/>
-            )
-          })
-        }
-      </TreeItem>
       {
-        (sourceRelations.length > 0 || targetRelations.length > 0)  &&
+        entityStore.columns?.length > 0 &&
+        <TreeItem nodeId= {entityStore.uuid + 'columns'} label={
+          <TreeNodeLabel
+            action = {
+              <IconButton 
+                size = "small"
+                onClick = {handlePlusColumn}
+              >
+                <MdiIcon className="mdi-plus" size="16" />
+              </IconButton>
+            }
+          >
+            <NodeText>{intl.get('properties')}</NodeText>
+          </TreeNodeLabel>
+        }>
+          {
+            entityStore.columns.map(column=>{
+              return (
+                <ColumnNode key={column.uuid} columnStore = {column}/>
+              )
+            })
+          }
+        </TreeItem>
+      }
+      {(sourceRelations.length > 0 || targetRelations.length > 0) &&
         <TreeItem nodeId= {entityStore.uuid + 'relations'} label={
           <TreeNodeLabel>
             <NodeText>{intl.get('relations')}</NodeText>
@@ -142,7 +144,6 @@ export const EntityNode = observer((props:{
           }
         </TreeItem>      
       }
-
     </TreeItem>
   )
 })

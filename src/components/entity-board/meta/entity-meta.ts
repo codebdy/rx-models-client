@@ -11,4 +11,5 @@ export interface EntityMeta{
   tableName?: string;
   entityType?: EntityType|"";
   columns: ColumnMeta[];
+  enumValues?: any;
 }

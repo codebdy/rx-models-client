@@ -91,6 +91,7 @@
   "enum":"枚举",
   "normal-class":"普通类",
   "type":"类型",
+  "enum-values":"枚举值列表",
   "expression-error":"表达式错误",
   "entity-column-not-found":"实体{enity}上没有定义列{column}",
   "entity-relation-not-found":"实体{enity}上没有定义关联{relation}",

@@ -9,6 +9,8 @@ import { NameChangeCommand } from '../command/name-change-command';
 import { EntityTableNameChangeCommand } from '../command/entity-table-name-change-command';
 import { EntityType } from '../meta/entity-meta';
 import { EntityTypeChangeCommand } from '../command/entity-type-change-command';
+import { JsonInput } from './json-input';
+import { EntityEnumValuesChangeCommand } from '../command/entity-enum-values-change-command';
 
 export const EntityPanel = observer((
   props:{
@@ -30,6 +32,11 @@ export const EntityPanel = observer((
   const handleTypeChange = (event: React.ChangeEvent<{ value: any }>)=>{
     const type = event.target.value;
     const command = new EntityTypeChangeCommand(entityStore, type);
+    bordStore.excuteCommand(command);
+  }
+
+  const handleEnumValuesChange = (value:any)=>{
+    const command = new EntityEnumValuesChangeCommand(entityStore, value);
     bordStore.excuteCommand(command);
   }
 
@@ -64,6 +71,13 @@ export const EntityPanel = observer((
             onChange={handleTableNameChange}
           />
         </Grid>  
+      }
+
+      {
+        entityStore.entityType === EntityType.ENUM &&
+        <Grid item xs={12}>
+          <JsonInput label={intl.get('enum-values')} value = {entityStore.enumValues} onChange = {handleEnumValuesChange} />
+        </Grid>
       }
 
     </>
