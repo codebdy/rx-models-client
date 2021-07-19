@@ -30,7 +30,7 @@ export class PackageSourceGenerator{
           return `import { ${entityName} } from './${entityName}'`
         });
       source = source + _.uniq(sourceImports.concat(targetImports)).join('\n');
-      source = source + '\n\n';
+      source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n\n' :'');
       source = source + `export interface ${entity.name}{\n`;
       source = source + entity.columns.map(column=>{
         if(column.name === 'id'){
