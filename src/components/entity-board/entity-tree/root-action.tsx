@@ -16,9 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function RootAction(props:{
-  onAddPackage:()=>void
+  onAddPackage:()=>void,
+  onImportPackage:()=>void,
 }){
-  const {onAddPackage} = props;
+  const {onAddPackage, onImportPackage} = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -34,6 +35,12 @@ export default function RootAction(props:{
 
   const handleAddPackage = (event: React.MouseEvent<HTMLElement>) =>{
     onAddPackage();
+    setAnchorEl(null);
+    event.stopPropagation();
+  }
+
+  const handleImportPackage = (event: React.MouseEvent<HTMLElement>) =>{
+    onImportPackage();
     setAnchorEl(null);
     event.stopPropagation();
   }
@@ -64,7 +71,7 @@ export default function RootAction(props:{
             <MdiIcon iconClass = "mdi-folder-plus-outline"  size={16}/>
             <span className = {classes.text}>{intl.get('add-package')} </span>
           </MenuItem>
-          <MenuItem className = {classes.menuItem}>
+          <MenuItem onClick={handleImportPackage} className = {classes.menuItem}>
             <MdiIcon iconClass = "mdi-database-import-outline"  size={16}/>
             <span className = {classes.text}>{intl.get('import-package')} </span>
           </MenuItem>

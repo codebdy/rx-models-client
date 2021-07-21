@@ -96,5 +96,7 @@
   "expression-error":"表达式错误",
   "entity-column-not-found":"实体{enity}上没有定义列{column}",
   "entity-relation-not-found":"实体{enity}上没有定义关联{relation}",
-  "please-save-first":"请先保存"
+  "please-save-first":"请先保存",
+  "package-file-illegal":"Package文件不合法",
+  "package-exist":"该包已经存在，请不要重复导入"
 }
