@@ -26,7 +26,13 @@ export default function useLayzyAxios<T>(
   const excute = (config2?:AxiosRequestConfig)=>{    
     if(config2 || config){
       setLoading(true);
-      axiosConfig.headers.authorization = localToken ? `Bearer ${localToken}` : ""
+      axiosConfig.headers.authorization = localToken ? `Bearer ${localToken}` : "";
+      //合并headers
+      if(config2?.headers || config?.headers){
+        axiosConfig.headers = {...axiosConfig.headers, ...config?.headers, ...config2?.headers};
+        config2?.headers && delete config2?.headers;
+        config?.headers && delete config?.headers;
+      }
       axios( {...axiosConfig, ...config, ...config2} ).then(res => {
         setData(res.data);
         setLoading(false);
