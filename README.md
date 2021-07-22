@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-演示地址：https://rxmodels.vercel.app/ 
+演示地址：https://rxmodels-client.rxdrag.com/login
 
 
 ## Available Scripts
