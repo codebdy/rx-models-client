@@ -101,7 +101,7 @@ export const PackageNode = observer((props:{
   }
 
   return(
-    <TreeItem nodeId= {packageStore.uuid} label={
+    <TreeItem nodeId= {packageStore.uuid} onFocus ={()=>{}} label={
       <TreeNodeLabel
         action = {
           <PackageAction 
