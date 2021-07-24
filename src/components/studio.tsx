@@ -112,7 +112,7 @@ export const Studio = observer(() => {
           <Link
             className = {classes.navLink}
             target = "_blank"
-            href= "https://rxdrag.com/document"
+            href= "https://rxdrag.com/docs/intro"
           >
             {intl.get('document')}
           </Link>
