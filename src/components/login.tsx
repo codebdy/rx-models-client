@@ -27,6 +27,7 @@ import { API_LOGIN } from '../apis/login';
 import useLayzyAxios from '../data/use-layzy-axios';
 import { useAppStore } from '../store/app-store';
 import useShadows from '../util/use-shadows';
+import { cache } from 'swr';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -156,6 +157,7 @@ export const Login = observer(()=>{
   }
 
   const handleLogin = (event?: React.FormEvent<HTMLFormElement>)=>{
+    cache.clear();
     login({
       data:{
         username:values.account, 

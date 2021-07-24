@@ -1,2 +1,2 @@
-export const serverUrl = "https://rxmodels.rxdrag.com";
-export const mediaServerUrl = "https://rxmodels.rxdrag.com";
+export const serverUrl = "http://localhost:3001";
+export const mediaServerUrl = "http://localhost:3001";
