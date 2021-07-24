@@ -18,9 +18,6 @@ export function useSWRQuery<T>(api?:AxiosRequestConfig, options?:any):SWRRespons
     }
   );
   useEffect(()=>{
-    if(rtValue?.error && onError){
-      onError(rtValue?.error);
-    }
     if(rtValue?.error?.status === 401){
       appStore.setToken('');
       appStore.setLoggedUser(undefined);
@@ -28,8 +25,16 @@ export function useSWRQuery<T>(api?:AxiosRequestConfig, options?:any):SWRRespons
       cache.clear();
       history?.push(LOGIN_URL);
     }
+    else if(rtValue?.error && onError){
+      onError(rtValue?.error);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[rtValue])
-  const rtError = rtValue.error ? {message:rtValue.error?.message?.error || rtValue.error?.message?.message || rtValue.error?.message, status: rtValue?.error?.status} : undefined;
+  let rtError = rtValue.error ? {message:rtValue.error?.message?.error || rtValue.error?.message?.message || rtValue.error?.message, status: rtValue?.error?.status} : undefined;
+  
+  //如果是401错误，直接跳转，不需要提示
+  if(rtValue?.error?.status === 401){
+    rtError = undefined;
+  }
   return {...rtValue, loading: !rtValue.data && !rtValue.error && !!api?.url, error:rtError};
 }
