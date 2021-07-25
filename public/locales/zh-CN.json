@@ -48,7 +48,7 @@
   "add-diagram":"新建ER图",
   "no-selected":"没有选中任何元素！",
   "role": "角色",
-  "role-name": "角色名",
+  "role-name": "关联属性",
   "side": "端",
   "relation-type":"关系类型",
   "installed":"应用已经安装，若要重新安装，请删除dbconfig.json文件，并清空数据库。",

@@ -48,7 +48,7 @@
   "add-diagram":"New diagram",
   "no-selected":"Nothing selected!",
   "role": "Role",
-  "role-name": "Role name",
+  "role-name": "Role property",
   "side": "side",
   "relation-type":"Relation type",
   "installed":"Already installed, if reinstall pleass delete dbconfig.json file, and clear database",
