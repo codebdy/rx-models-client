@@ -24,11 +24,11 @@ import { observer } from 'mobx-react';
 import SubmitButton from './common/submit-button';
 import { INDEX_URL, PRIMARY_COLOR } from '../util/consts';
 import { API_LOGIN } from '../apis/login';
-import useLayzyAxios from '../swr-model/use-layzy-axios';
+import useLayzyAxios from '../swr-rxmodel/use-layzy-axios';
 import { useAppStore } from '../store/app-store';
 import useShadows from '../util/use-shadows';
 import { cache } from 'swr';
-import { swrModelConfig } from 'swr-model/swr-model-config';
+import { swrModelConfig } from 'swr-rxmodel/swr-model-config';
 
 
 const useStyles = makeStyles((theme: Theme) =>

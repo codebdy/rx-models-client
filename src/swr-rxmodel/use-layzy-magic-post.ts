@@ -1,9 +1,9 @@
+import { API_MAGIC_POST } from "swr-rxmodel/api";
 import { AxiosRequestConfig } from "axios";
-import { API_MAGIC_UPDATE } from "swr-model/api";
 import { DataError } from "./data-error";
 import useLayzyAxios from "./use-layzy-axios";
 
-export default function useLayzyMagicUpdate<T>(
+export default function useLayzyMagicPost<T>(
     options?:{
       onCompleted?:(data:T)=>void,
       onError?:(error:any)=>void,
@@ -11,6 +11,6 @@ export default function useLayzyMagicUpdate<T>(
   )
   :[(config?:AxiosRequestConfig)=>void, {loading?:boolean, data?:T, error?:DataError}] 
 {
-  const rtValue = useLayzyAxios(API_MAGIC_UPDATE, options);
+  const rtValue = useLayzyAxios(API_MAGIC_POST, options);
   return rtValue;
 }

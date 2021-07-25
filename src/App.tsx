@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { initSwrModel, swrModelConfig } from 'swr-model/swr-model-config';
+import { initSwrModel, swrModelConfig } from 'swr-rxmodel/swr-model-config';
 import './App.css';
 import Loading from './components/common/loading';
 import { Install } from './components/install';

@@ -2,14 +2,14 @@ import React, { useRef, useState } from 'react';
 import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, CircularProgress, Fab } from '@material-ui/core';
 import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
-import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'swr-model/api';
+import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'swr-rxmodel/api';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useAppStore } from 'store/app-store';
 import intl from 'react-intl-universal';
-import { MagicQueryBuilder } from 'swr-model/magic-query-builder';
-import useLayzyAxios from 'swr-model/use-layzy-axios';
-import { swrModelConfig } from 'swr-model/swr-model-config';
-import { trimServerUrl } from 'swr-model/trim-server-url';
+import { MagicQueryBuilder } from 'swr-rxmodel/magic-query-builder';
+import useLayzyAxios from 'swr-rxmodel/use-layzy-axios';
+import { swrModelConfig } from 'swr-rxmodel/swr-model-config';
+import { trimServerUrl } from 'swr-rxmodel/trim-server-url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

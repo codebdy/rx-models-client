@@ -12,7 +12,7 @@ import ApiBoard from "./api-board";
 import { ModelsBoard } from "./entity-board";
 import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
-import { swrModelConfig } from "swr-model/swr-model-config";
+import { swrModelConfig } from "swr-rxmodel/swr-model-config";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
