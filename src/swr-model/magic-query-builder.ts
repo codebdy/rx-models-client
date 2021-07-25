@@ -1,12 +1,13 @@
-import { API_MAGIC_QUERY } from "apis/magic";
+import { API_MAGIC_QUERY } from "swr-model/apis/magic";
 import { AxiosRequestConfig } from "axios";
+import { isString } from "lodash";
 import { MagicQueryMeta } from "./magic-query-meta";
 import { WhereBuilder } from "./where-builder";
 
 const orderBy = 'orderBy'
-export class MagicQueryBuilder{
+export class MagicQueryBuilder<T>{
 
-  private _entity: string = "";
+  private _entity: string = '';
   private _commands: string[] = [];
   private _take = "";
   private _skip = "";
@@ -21,14 +22,14 @@ export class MagicQueryBuilder{
   private _whereGroup = new WhereBuilder();
 
   constructor(queryString?:string){
-    if(queryString){
+        if(queryString){
       this._queryMeta = new MagicQueryMeta(queryString);
       this._entity = this._queryMeta.entity;
     }
   }
 
-  setEntity(entity:string){
-    this._entity = entity;
+  setEntity(entity:string | T&Function){
+    this._entity = isString(entity) ? entity : entity.name;
     return this;
   }
 

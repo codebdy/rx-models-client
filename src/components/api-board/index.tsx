@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, CircularProgress, Fab } from '@material-ui/core';
 import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
-import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'apis/magic';
+import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'swr-model/apis/magic';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useAppStore } from 'store/app-store';
 import intl from 'react-intl-universal';

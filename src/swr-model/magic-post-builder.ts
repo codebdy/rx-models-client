@@ -1,15 +1,23 @@
-export class MagicPostBuilder{
+import { isString } from "lodash";
+
+export class MagicPostBuilder<T>{
   private _entity:string = '';
-  private _datas:any[] = [];
+  private _datas:T[] = [];
   private _isSingle = false;
   private _commands: string[] = [];
 
-  setEntity(entity:string){
-    this._entity = entity;
+  constructor(entity?:string | T&Function){
+    if(entity){
+      this.setEntity(entity);      
+    }
+  }
+
+  setEntity(entity:string | T&Function){
+    this._entity = isString(entity) ? entity : entity.name;
     return this;
   }
 
-  setSingleData(data:any){
+  setSingleData(data:T){
     this._isSingle = true;
     this._datas = [data];
     return this;
@@ -20,12 +28,12 @@ export class MagicPostBuilder{
     return this;
   }
 
-  setDatas(datas:any[]){
+  setDatas(datas:T[]){
     this._datas = datas;
     return this;
   }
   
-  addData(data:any){
+  addData(data:T){
     this._datas.push(data);
     return this;
   }

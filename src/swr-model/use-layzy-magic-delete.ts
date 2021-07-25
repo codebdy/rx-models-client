@@ -1,9 +1,9 @@
-import { API_MAGIC_POST } from "swr-model/apis/magic";
 import { AxiosRequestConfig } from "axios";
+import { API_MAGIC_DELETE } from "swr-model/apis/magic";
 import { DataError } from "./data-error";
 import useLayzyAxios from "./use-layzy-axios";
 
-export default function useLayzyMagicPost<T>(
+export default function useLayzyMagicDelete<T>(
     options?:{
       onCompleted?:(data:T)=>void,
       onError?:(error:any)=>void,
@@ -11,6 +11,6 @@ export default function useLayzyMagicPost<T>(
   )
   :[(config?:AxiosRequestConfig)=>void, {loading?:boolean, data?:T, error?:DataError}] 
 {
-  const rtValue = useLayzyAxios(API_MAGIC_POST, options);
+  const rtValue = useLayzyAxios(API_MAGIC_DELETE, options);
   return rtValue;
 }

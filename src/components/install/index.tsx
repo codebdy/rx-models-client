@@ -14,7 +14,7 @@ import { observer } from 'mobx-react';
 import { INDEX_URL, PRIMARY_COLOR } from '../../util/consts';
 import { useAppStore } from '../../store/app-store';
 import useShadows from '../../util/use-shadows';
-import { API_IS_INSTALLED } from 'apis/install';
+import { API_IS_INSTALLED } from 'swr-model/apis/install';
 import { useSWRQuery } from 'swr-model/use-swr-query';
 import { Alert } from '@material-ui/lab';
 import { FirstPage } from './first-page';
