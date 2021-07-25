@@ -1,4 +1,4 @@
-import { TOKEN_ENTITY } from "./tokens";
+export const TOKEN_ENTITY = 'entity';
 
 export class MagicQueryMeta{
   private _queryJSON:any;
