@@ -1,4 +1,4 @@
-import { API_MAGIC_POST } from "swr-rxmodel/api";
+import { API_MAGIC_POST } from "rxmodels-swr/api";
 import { AxiosRequestConfig } from "axios";
 import { DataError } from "./data-error";
 import useLayzyAxios from "./use-layzy-axios";

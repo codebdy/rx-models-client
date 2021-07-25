@@ -1,4 +1,4 @@
-import { DataError } from "swr-rxmodel/data-error";
+import { DataError } from "rxmodels-swr/data-error";
 import { useEffect } from "react";
 import intl from 'react-intl-universal';
 import { useAppStore } from "store/app-store";

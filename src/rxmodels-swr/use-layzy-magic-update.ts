@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { API_MAGIC_UPDATE } from "swr-rxmodel/api";
+import { API_MAGIC_UPDATE } from "rxmodels-swr/api";
 import { DataError } from "./data-error";
 import useLayzyAxios from "./use-layzy-axios";
 
