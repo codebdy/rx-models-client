@@ -1,18 +1,16 @@
-import { isString } from "lodash";
-
-export class MagicUpdateBuilder<T> {
+export class MagicUpdateBuilder {
   private _entity: string = '';
   private _ids: number[] = [];
   private _params: any;
 
-  constructor(entity?:string | T&Function){
+  constructor(entity?:string){
     if(entity){
       this.setEntity(entity);      
     }
   }
-  
-  setEntity(entity:string | T&Function){
-    this._entity = isString(entity) ? entity : entity.name;
+
+  setEntity(entity:string){
+    this._entity = entity;
     return this;
   }
   

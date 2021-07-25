@@ -1,12 +1,16 @@
-import { isString } from "lodash";
-
-export class MagicDeleteBuilder<T> {
+export class MagicDeleteBuilder {
   private _entity: string = '';
   private _ids: number[] = [];
   private _cascades: string[] = [];
 
-  setEntity(entity:string | T&Function){
-    this._entity = isString(entity) ? entity : entity.name;
+  constructor(entity?:string){
+    if(entity){
+      this.setEntity(entity);      
+    }
+  }
+
+  setEntity(entity:string){
+    this._entity = entity;
     return this;
   }
 

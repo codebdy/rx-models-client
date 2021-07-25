@@ -1,18 +1,16 @@
-import { isString } from "lodash";
-
-export class MagicUploadBuilder<T>{
+export class MagicUploadBuilder{
   private _entity:string = 'RxMedia';
   private _data:any = {};
   private _file:File|null = null;
 
-  constructor(entity?:string | T&Function){
+  constructor(entity?:string){
     if(entity){
       this.setEntity(entity);      
     }
   }
 
-  setEntity(entity:string | T&Function){
-    this._entity = isString(entity) ? entity : entity.name;
+  setEntity(entity:string){
+    this._entity = entity;
     return this;
   }
 

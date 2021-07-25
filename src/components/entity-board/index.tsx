@@ -41,8 +41,7 @@ export const ModelsBoard = observer(()=>{
   const classes = useStyles();
   const [modelStore, setModelStore] = useState(new EntityBoardStore([]));
   const {data, error, loading} = useMagicQuery<PackageMeta[]>(
-    new MagicQueryBuilder()
-      .setEntity('RxPackage')
+    new MagicQueryBuilder('RxPackage')
   );
 
   useShowServerError(error);

@@ -1,11 +1,10 @@
 import { API_MAGIC_QUERY } from "swr-model/apis/magic";
 import { AxiosRequestConfig } from "axios";
-import { isString } from "lodash";
 import { MagicQueryMeta } from "./magic-query-meta";
 import { WhereBuilder } from "./where-builder";
 
 const orderBy = 'orderBy'
-export class MagicQueryBuilder<T>{
+export class MagicQueryBuilder{
 
   private _entity: string = '';
   private _commands: string[] = [];
@@ -16,20 +15,27 @@ export class MagicQueryBuilder<T>{
   private _pageSize: number = 10;
   private _pageIndex: number = 0;
   private _isPagination = false;
-  //private _conditions = {} as any;
   private _relations = {} as any;
   private _queryMeta?: MagicQueryMeta;
   private _whereGroup = new WhereBuilder();
 
-  constructor(queryString?:string){
-        if(queryString){
-      this._queryMeta = new MagicQueryMeta(queryString);
-      this._entity = this._queryMeta.entity;
+  constructor(entity?:string){
+    if(entity){
+      this.setEntity(entity);      
     }
   }
 
-  setEntity(entity:string | T&Function){
-    this._entity = isString(entity) ? entity : entity.name;
+  setEntity(entity:string){
+    this._entity = entity;
+    return this;
+  }
+
+  setQueryString(queryString?:string){
+    if(queryString){
+      this._queryMeta = new MagicQueryMeta(queryString);
+      this._entity = this._queryMeta.entity;
+    }
+
     return this;
   }
 
