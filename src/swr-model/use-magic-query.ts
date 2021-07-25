@@ -6,7 +6,7 @@ import { useSWRQuery } from "./use-swr-query";
 
 export function useMagicQuery<T>(queryMeta?:MagicQueryBuilder, options?:any):SWRResponse<QueryResult<T>, DataError>&{loading?:boolean}{
 
-  const rt = useSWRQuery<{data:T}>(queryMeta?.toAxioConfig(), options);
+  const rt = useSWRQuery<QueryResult<T>>(queryMeta?.toAxioConfig(), options);
 
   return rt;
 }
