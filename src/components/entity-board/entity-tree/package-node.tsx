@@ -15,7 +15,7 @@ import { creatNewEntityMeta } from "../store/create-new-entity-meta";
 import { DiagramCreateCommand } from "../command/diagram-create-command";
 import { getNewDiagramName } from "../store/get-new-diagram-name";
 import { PackageDeleteCommand } from "../command/package-delete-command";
-import useLayzyAxios from "data/use-layzy-axios";
+import useLayzyAxios from "swr-model/use-layzy-axios";
 import { API_PUBLISH_PACKAGE } from "apis/install";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { CircularProgress } from "@material-ui/core";

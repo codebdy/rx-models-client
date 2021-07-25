@@ -15,7 +15,7 @@ import { INDEX_URL, PRIMARY_COLOR } from '../../util/consts';
 import { useAppStore } from '../../store/app-store';
 import useShadows from '../../util/use-shadows';
 import { API_IS_INSTALLED } from 'apis/install';
-import { useSWRQuery } from 'data/use-swr-query';
+import { useSWRQuery } from 'swr-model/use-swr-query';
 import { Alert } from '@material-ui/lab';
 import { FirstPage } from './first-page';
 import { SecondPage } from './second-page';

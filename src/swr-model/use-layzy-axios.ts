@@ -2,11 +2,9 @@ import axios, { AxiosRequestConfig } from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosConfig } from "./axios-config";
-import { serverUrl } from "./server-config";
 import { DataError } from "./data-error";
-import { LOGIN_URL, TOKEN_NAME } from "../util/consts";
-
-axios.defaults.baseURL = serverUrl
+import { swrModelConfig } from './swr-model-config';
+import { trimServerUrl } from "./trim-server-url";
 
 export default function useLayzyAxios<T>(
     config?:AxiosRequestConfig, 
@@ -20,8 +18,10 @@ export default function useLayzyAxios<T>(
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<T>();
   const [error, setError] = useState<any>();
-  const localToken = localStorage.getItem(TOKEN_NAME);
+  const localToken = swrModelConfig.token || localStorage.getItem(swrModelConfig.tokenName);
   const history = useHistory();
+
+  axios.defaults.baseURL =  trimServerUrl(swrModelConfig.serverUrl);
   
   const excute = (config2?:AxiosRequestConfig)=>{    
     if(config2 || config){
@@ -52,7 +52,7 @@ export default function useLayzyAxios<T>(
           options?.onError(dataError);
         }
         if(error.response?.status === 401){
-          history?.push(LOGIN_URL);
+          history?.push(swrModelConfig.loginUrl);
         }   
       })       
     }

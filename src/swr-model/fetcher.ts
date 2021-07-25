@@ -1,10 +1,10 @@
-import { TOKEN_NAME } from "util/consts";
-import { serverUrl } from "./server-config";
+import { swrModelConfig } from './swr-model-config';
+import { trimServerUrl } from "./trim-server-url";
 
 const fetcher = async (url:string) => {
-  const token = localStorage.getItem(TOKEN_NAME);
+  const token = localStorage.getItem(swrModelConfig.tokenName) || swrModelConfig.token;
   const res = await fetch(
-      serverUrl + url,
+    trimServerUrl(swrModelConfig.serverUrl) + url,
       {
         method: 'GET',
         headers:{

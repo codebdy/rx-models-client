@@ -2,13 +2,14 @@ import React, { useRef, useState } from 'react';
 import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, CircularProgress, Fab } from '@material-ui/core';
 import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
-import { serverUrl } from 'data/server-config';
 import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'apis/magic';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useAppStore } from 'store/app-store';
 import intl from 'react-intl-universal';
-import { MagicQueryBuilder } from 'data/magic-query-builder';
-import useLayzyAxios from 'data/use-layzy-axios';
+import { MagicQueryBuilder } from 'swr-model/magic-query-builder';
+import useLayzyAxios from 'swr-model/use-layzy-axios';
+import { swrModelConfig } from 'swr-model/swr-model-config';
+import { trimServerUrl } from 'swr-model/trim-server-url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,6 +77,8 @@ export default function ApiBoard(){
   const optionsLeft = {
     selectOnLineNumbers: true,
   };
+
+  const serverUrl = trimServerUrl(swrModelConfig.serverUrl);
 
   let url = serverUrl + API_MAGIC_QUERY.url;
 

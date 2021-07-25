@@ -1,10 +1,7 @@
 import { API_MAGIC_POST } from "apis/magic";
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 import { DataError } from "./data-error";
-import { serverUrl } from "./server-config";
 import useLayzyAxios from "./use-layzy-axios";
-
-axios.defaults.baseURL = serverUrl
 
 export default function useLayzyMagicPost<T>(
     options?:{

@@ -1,4 +1,5 @@
-export const TOKEN_NAME="RxModelsToken";
+export const SERVER_URL = "http://localhost:3001/";
+export const TOKEN_NAME = "RxModelsToken";
 export const LOGIN_URL = "/login";
 export const INTALL_URL = "/install"
 export const INDEX_URL = "/studio";

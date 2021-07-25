@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useAppStore } from "store/app-store";
 import useSWR, { SWRResponse } from "swr";
-import { LOGIN_URL, TOKEN_NAME } from "util/consts";
 import { fetcher } from "./fetcher";
 import { cache } from 'swr';
+import { swrModelConfig } from "./swr-model-config";
 
 export function useSWRQuery<T>(api?:AxiosRequestConfig, options?:any):SWRResponse<T, any>&{loading?:boolean}{
   const history = useHistory();
@@ -21,9 +21,9 @@ export function useSWRQuery<T>(api?:AxiosRequestConfig, options?:any):SWRRespons
     if(rtValue?.error?.status === 401){
       appStore.setToken('');
       appStore.setLoggedUser(undefined);
-      localStorage.removeItem(TOKEN_NAME);
+      localStorage.removeItem(swrModelConfig.tokenName);
       cache.clear();
-      history?.push(LOGIN_URL);
+      history?.push(swrModelConfig.loginUrl);
     }
     else if(rtValue?.error && onError){
       onError(rtValue?.error);

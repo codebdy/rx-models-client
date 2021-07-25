@@ -12,7 +12,7 @@ import ApiBoard from "./api-board";
 import { ModelsBoard } from "./entity-board";
 import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
-import { LOGIN_URL, TOKEN_NAME } from "util/consts";
+import { swrModelConfig } from "swr-model/swr-model-config";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,8 +60,9 @@ export const Studio = observer(() => {
   const handleLogout = ()=>{
     appStore.setToken('');
     appStore.setLoggedUser(undefined);
-    localStorage.removeItem(TOKEN_NAME);
-    history.push(LOGIN_URL);
+    localStorage.removeItem(swrModelConfig.tokenName);
+    swrModelConfig.token = "";
+    history.push(swrModelConfig.loginUrl);
   }
 
   return (

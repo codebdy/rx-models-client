@@ -22,12 +22,13 @@ import intl from "react-intl-universal";
 import { useHistory } from 'react-router';
 import { observer } from 'mobx-react';
 import SubmitButton from './common/submit-button';
-import { INDEX_URL, PRIMARY_COLOR, TOKEN_NAME } from '../util/consts';
+import { INDEX_URL, PRIMARY_COLOR } from '../util/consts';
 import { API_LOGIN } from '../apis/login';
-import useLayzyAxios from '../data/use-layzy-axios';
+import useLayzyAxios from '../swr-model/use-layzy-axios';
 import { useAppStore } from '../store/app-store';
 import useShadows from '../util/use-shadows';
 import { cache } from 'swr';
+import { swrModelConfig } from 'swr-model/swr-model-config';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -100,11 +101,12 @@ export const Login = observer(()=>{
       if(data && data){
         const token = data.access_token;
         if(rememberMe){
-          localStorage.setItem(TOKEN_NAME, token);        
+          localStorage.setItem(swrModelConfig.tokenName, token);        
         }else{
-          localStorage.removeItem(TOKEN_NAME);
+          localStorage.removeItem(swrModelConfig.tokenName);
         }
         appStore.setToken(token);
+        swrModelConfig.token = token;
         history.push(INDEX_URL);
       }      
     },
