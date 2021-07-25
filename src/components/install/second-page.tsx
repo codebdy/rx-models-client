@@ -1,6 +1,6 @@
 import { Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { API_INSTALL } from 'swr-model/apis/install';
+import { API_INSTALL } from 'apis/install';
 import SubmitButton from 'components/common/submit-button';
 import useLayzyAxios from 'swr-model/use-layzy-axios';
 import React, { useState } from 'react';

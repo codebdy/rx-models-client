@@ -23,7 +23,7 @@ import { useHistory } from 'react-router';
 import { observer } from 'mobx-react';
 import SubmitButton from './common/submit-button';
 import { INDEX_URL, PRIMARY_COLOR } from '../util/consts';
-import { API_LOGIN } from '../swr-model/apis/login';
+import { API_LOGIN } from '../apis/login';
 import useLayzyAxios from '../swr-model/use-layzy-axios';
 import { useAppStore } from '../store/app-store';
 import useShadows from '../util/use-shadows';

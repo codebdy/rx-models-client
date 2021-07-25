@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from "axios";
-import { API_MAGIC_DELETE } from "swr-model/apis/magic";
+import { API_MAGIC_DELETE } from "swr-model/api";
 import { DataError } from "./data-error";
 import useLayzyAxios from "./use-layzy-axios";
 

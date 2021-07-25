@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { TreeView } from '@material-ui/lab';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { API_PUSLISHED_SCHEMA } from 'swr-model/apis/auth';
+import { API_PUSLISHED_SCHEMA } from 'apis/auth';
 import { useSWRQuery } from 'swr-model/use-swr-query';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { PackageMeta } from 'components/entity-board/meta/package-meta';
