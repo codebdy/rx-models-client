@@ -14,7 +14,7 @@ import { mutate } from "swr";
 import { ENTITY_AUTH_QUERY } from "./consts";
 import { observer } from "mobx-react";
 import { RxEntityAuthSettings } from "entity-interface/RxEntityAuthSettings";
-import { MagicPostBuilder, useLayzyMagicPost } from "@rxdrag/rxmodels-swr";
+import { MagicPostBuilder, useLazyMagicPost } from "@rxdrag/rxmodels-swr";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,7 +40,7 @@ export const EntityNode = observer((props:{
   const {entityMeta, entityAuth, entityAuths} = props; 
   const classes = useStyles();
   const [hover, setHover] = useState(false);
-  const [excutePost, {loading, error}] = useLayzyMagicPost({
+  const [excutePost, {loading, error}] = useLazyMagicPost({
     onCompleted(data:any){
       mutate(
         ENTITY_AUTH_QUERY.toUrl(), 

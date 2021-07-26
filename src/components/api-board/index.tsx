@@ -8,7 +8,7 @@ import { API_MAGIC_DELETE,
   API_MAGIC_UPDATE, 
   API_MAGIC_UPLOAD,
   rxModelsSwrConfig,
-  useLayzyAxios,
+  useLazyAxios,
   MagicQueryBuilder
 } from '@rxdrag/rxmodels-swr';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
@@ -137,7 +137,7 @@ export default function ApiBoard(){
     setUploadFile(event.target.files ? event.target.files[0] : undefined);
   }
 
-  const [excuteRun, {data, loading, error}] = useLayzyAxios();
+  const [excuteRun, {data, loading, error}] = useLazyAxios();
 
   useShowServerError(error);
   

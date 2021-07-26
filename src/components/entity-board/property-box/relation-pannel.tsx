@@ -4,7 +4,7 @@ import { RelationStore } from '../store/relation';
 import intl from "react-intl-universal";
 import { FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import { useEntityBoardStore } from '../store/helper';
-import LayzyTextField from 'components/entity-board/property-box/layzy-text-field';
+import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
 import { RelationType } from '../meta/relation-meta';
 import { RelationChangeCommand } from '../command/relation-change-command';
 
@@ -99,7 +99,7 @@ export const RelationPanel = observer((
         </Typography>
       </Grid>    
       <Grid item xs={12}>
-        <LayzyTextField 
+        <LazyTextField 
           label = {intl.get('role-name')} 
           value = {relationStore.roleOnSource || ''} 
           onChange={handleSourceRoleChange}
@@ -111,7 +111,7 @@ export const RelationPanel = observer((
         </Typography>
       </Grid>
       <Grid item xs={12}>  
-      <LayzyTextField 
+      <LazyTextField 
           label = {intl.get('role-name')} 
           value = {relationStore.roleOnTarget || ''} 
           onChange={handleTargetRoleChange}

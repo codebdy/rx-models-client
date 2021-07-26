@@ -17,7 +17,7 @@ import SubmitButton from 'components/common/submit-button';
 import RouterPrompt from 'components/common/router-prompt';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useAppStore } from 'store/app-store';
-import { MagicPostBuilder, useLayzyMagicPost } from '@rxdrag/rxmodels-swr';
+import { MagicPostBuilder, useLazyMagicPost } from '@rxdrag/rxmodels-swr';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,7 +50,7 @@ export const EntityToolbar = observer(()=>{
   const classes = useStyles();
   const boardStore = useEntityBoardStore();
   const appStore = useAppStore();
-  const [excuteSave, {loading, error}] = useLayzyMagicPost({
+  const [excuteSave, {loading, error}] = useLazyMagicPost({
     onCompleted(){
       appStore.showSuccessAlert(true);
       boardStore.setChanged(false);
@@ -94,7 +94,7 @@ export const EntityToolbar = observer(()=>{
     const data = new MagicPostBuilder()
       .setEntity('RxPackage')
       .setDatas(boardStore.getPackeMetas())//.addModelCommand('removeOthers')
-      .addEntityCommand('removeOthers')
+      .addEntityDirective('removeOthers')
       .toData();
     excuteSave({data});
   }

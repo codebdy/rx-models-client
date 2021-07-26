@@ -27,7 +27,7 @@ import { API_LOGIN } from '../apis/login';
 import { useAppStore } from '../store/app-store';
 import useShadows from '../util/use-shadows';
 import { cache } from 'swr';
-import { useLayzyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
+import { useLazyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -95,8 +95,8 @@ export const Login = observer(()=>{
   const appStore = useAppStore();
   const history = useHistory();
 
-  const [login, { loading }] = useLayzyAxios<any>(API_LOGIN,{
-    onCompleted(data){
+  const [login, { loading }] = useLazyAxios<any>(API_LOGIN,{
+    onCompleted(data: { access_token: any; }){
       if(data && data){
         const token = data.access_token;
         if(rememberMe){
@@ -109,7 +109,7 @@ export const Login = observer(()=>{
         history.push(INDEX_URL);
       }      
     },
-    onError(error){
+    onError(error:any){
       if(error.response?.status === 401){
         setErroMessage(intl.get('login-failure'));
       }else{

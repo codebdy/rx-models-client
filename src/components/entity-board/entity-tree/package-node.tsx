@@ -21,7 +21,7 @@ import { CircularProgress } from "@material-ui/core";
 import { useAppStore } from "store/app-store";
 import intl from 'react-intl-universal';
 import { PackageSourceGenerator } from "./package-source-generator";
-import { useLayzyAxios } from "@rxdrag/rxmodels-swr";
+import { useLazyAxios } from "@rxdrag/rxmodels-swr";
 
 const downloadFile = function (filename:string, content:string) {
   // 创建隐藏的可下载链接
@@ -46,7 +46,7 @@ export const PackageNode = observer((props:{
   const {packageStore} = props;
   const appStore = useAppStore();
   const rootStore = useEntityBoardStore();
-  const [excutePublish, {loading, error}] = useLayzyAxios(API_PUBLISH_PACKAGE,{
+  const [excutePublish, {loading, error}] = useLazyAxios(API_PUBLISH_PACKAGE,{
     onCompleted(){
       appStore.showSuccessAlert();
     }

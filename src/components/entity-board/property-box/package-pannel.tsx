@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 import intl from "react-intl-universal";
 import { useEntityBoardStore } from '../store/helper';
 import { NameChangeCommand } from '../command/name-change-command';
-import LayzyTextField from 'components/entity-board/property-box/layzy-text-field';
+import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
 
 export const PackagePanel = observer((
   props:{
@@ -22,7 +22,7 @@ export const PackagePanel = observer((
   return(
     <>
       <Grid item xs={12}>
-        <LayzyTextField 
+        <LazyTextField 
           label = {intl.get('name')} 
           value = {packageStore.name || ''} 
           onChange={handleNameChange}

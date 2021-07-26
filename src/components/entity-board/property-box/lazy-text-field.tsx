@@ -12,7 +12,7 @@ export interface PropsInputProps{
   disabled?: boolean;
 }
 
-export default function LayzyTextField(props:PropsInputProps){
+export default function LazyTextField(props:PropsInputProps){
   const {label, value, onChange, disabled, size = 'small', ...rest} = props;
   const [inputValue, setInputValue] = useState<any>();
   const [oldValue, setOldValue] = useState<any>();

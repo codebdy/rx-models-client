@@ -7,7 +7,7 @@ import intl from "react-intl-universal";
 import { PageLayout } from './page-layout';
 import { useHistory } from 'react-router';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
-import { useLayzyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
+import { useLazyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
 
 export const SecondPage=(
   props:{
@@ -20,7 +20,7 @@ export const SecondPage=(
   const [showPassword, setShowPassword] = useState(false);
   const history = useHistory();
 
-  const [install, { loading, error}] = useLayzyAxios<any>(API_INSTALL,{
+  const [install, { loading, error}] = useLazyAxios<any>(API_INSTALL,{
     onCompleted(data){
       if(data && data.success){
         history.push(rxModelsSwrConfig.loginUrl);

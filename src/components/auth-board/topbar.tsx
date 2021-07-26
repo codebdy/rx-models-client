@@ -12,7 +12,7 @@ import RouterPrompt from 'components/common/router-prompt';
 import { RxRole } from 'entity-interface/RxRole';
 import { useMagicQuery, 
   MagicQueryBuilder,
-  useLayzyMagicPost,
+  useLazyMagicPost,
   MagicPostBuilder,
 } from '@rxdrag/rxmodels-swr';
 
@@ -44,7 +44,7 @@ export const Topbar = observer((
       .addRelation('abilities')
   );
 
-  const [excuteSave, {loading:saving, error:saveError}] = useLayzyMagicPost({
+  const [excuteSave, {loading:saving, error:saveError}] = useLazyMagicPost({
     onCompleted(){
       appStore.showSuccessAlert();
       boardStore.setChanged(false);

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { ColumnStore } from '../store/column';
 import intl from "react-intl-universal";
 import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch } from '@material-ui/core';
-import LayzyTextField from 'components/entity-board/property-box/layzy-text-field';
+import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
 import { useEntityBoardStore } from '../store/helper';
 import { ColumnType } from '../meta/column-meta';
 import { ColumnChangeCommand } from '../command/column-change-command';
@@ -71,7 +71,7 @@ export const ColumnPanel = observer((
   return(
     <>
       <Grid item xs={12}>
-        <LayzyTextField 
+        <LazyTextField 
             label = {intl.get('name')} 
             value = {columnStore.name || ''} 
             onChange={handleStringChange('name')}
@@ -230,7 +230,7 @@ export const ColumnPanel = observer((
       {
         !isId && 
         <Grid item xs = {12}>
-          <LayzyTextField 
+          <LazyTextField 
               label = {intl.get('default-value')} 
               value = {columnStore.default || ''} 
               onChange={handleDefaultChange}
@@ -241,7 +241,7 @@ export const ColumnPanel = observer((
       {
         !isId && columnStore.type === ColumnType.String &&
         <Grid item xs = {12}>
-          <LayzyTextField 
+          <LazyTextField 
               label = {intl.get('length')} 
               value = {columnStore.default || ''} 
               onChange={handleStringChange('length')}

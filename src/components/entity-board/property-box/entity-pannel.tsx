@@ -4,7 +4,7 @@ import { EntityStore } from '../store/entity-store';
 import intl from "react-intl-universal";
 import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { useEntityBoardStore } from '../store/helper';
-import LayzyTextField from 'components/entity-board/property-box/layzy-text-field';
+import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
 import { NameChangeCommand } from '../command/name-change-command';
 import { EntityTableNameChangeCommand } from '../command/entity-table-name-change-command';
 import { EntityType } from '../meta/entity-meta';
@@ -43,7 +43,7 @@ export const EntityPanel = observer((
   return(
     <>
       <Grid item xs={12}>
-        <LayzyTextField 
+        <LazyTextField 
           label = {intl.get('name')} 
           value = {entityStore.name || ''} 
           onChange={handleNameChange}
@@ -65,7 +65,7 @@ export const EntityPanel = observer((
       {
         entityStore.entityType !== EntityType.ENUM &&
         <Grid item xs={12}>
-          <LayzyTextField 
+          <LazyTextField 
             label = {intl.get('table-name')} 
             value = {entityStore.tableName || ''} 
             onChange={handleTableNameChange}
