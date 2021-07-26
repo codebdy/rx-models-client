@@ -17,8 +17,7 @@ import SubmitButton from 'components/common/submit-button';
 import RouterPrompt from 'components/common/router-prompt';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useAppStore } from 'store/app-store';
-import useLayzyMagicPost from 'rxmodels-swr/use-layzy-magic-post';
-import { MagicPostBuilder } from 'rxmodels-swr/magic-post-builder';
+import { MagicPostBuilder, useLayzyMagicPost } from '@rxdrag/rxmodels-swr';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

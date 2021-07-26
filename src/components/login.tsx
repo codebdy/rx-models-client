@@ -24,11 +24,10 @@ import { observer } from 'mobx-react';
 import SubmitButton from './common/submit-button';
 import { INDEX_URL, PRIMARY_COLOR } from '../util/consts';
 import { API_LOGIN } from '../apis/login';
-import useLayzyAxios from '../rxmodels-swr/use-layzy-axios';
 import { useAppStore } from '../store/app-store';
 import useShadows from '../util/use-shadows';
 import { cache } from 'swr';
-import { swrModelConfig } from 'rxmodels-swr/swr-model-config';
+import { useLayzyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -101,12 +100,12 @@ export const Login = observer(()=>{
       if(data && data){
         const token = data.access_token;
         if(rememberMe){
-          localStorage.setItem(swrModelConfig.tokenName, token);        
+          localStorage.setItem(rxModelsSwrConfig.tokenName, token);        
         }else{
-          localStorage.removeItem(swrModelConfig.tokenName);
+          localStorage.removeItem(rxModelsSwrConfig.tokenName);
         }
         appStore.setToken(token);
-        swrModelConfig.token = token;
+        rxModelsSwrConfig.token = token;
         history.push(INDEX_URL);
       }      
     },

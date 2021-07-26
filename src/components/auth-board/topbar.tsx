@@ -2,18 +2,19 @@ import React from 'react';
 import { makeStyles, Theme, createStyles, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import SubmitButton from 'components/common/submit-button';
 import intl from 'react-intl-universal';
-import { useMagicQuery } from 'rxmodels-swr/use-magic-query';
-import { MagicQueryBuilder } from 'rxmodels-swr/magic-query-builder';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { Skeleton } from '@material-ui/lab';
 import { useAppStore } from 'store/app-store';
 import { useAuthBoardStore } from './store/helper';
 import { RxRoleStore } from './store/rx-role-store';
 import { observer } from 'mobx-react';
-import useLayzyMagicPost from 'rxmodels-swr/use-layzy-magic-post';
-import { MagicPostBuilder } from 'rxmodels-swr/magic-post-builder';
 import RouterPrompt from 'components/common/router-prompt';
 import { RxRole } from 'entity-interface/RxRole';
+import { useMagicQuery, 
+  MagicQueryBuilder,
+  useLayzyMagicPost,
+  MagicPostBuilder,
+} from '@rxdrag/rxmodels-swr';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

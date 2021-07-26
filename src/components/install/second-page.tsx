@@ -2,13 +2,12 @@ import { Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, Inpu
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import { API_INSTALL } from 'apis/install';
 import SubmitButton from 'components/common/submit-button';
-import useLayzyAxios from 'rxmodels-swr/use-layzy-axios';
 import React, { useState } from 'react';
 import intl from "react-intl-universal";
 import { PageLayout } from './page-layout';
 import { useHistory } from 'react-router';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
-import { swrModelConfig } from 'rxmodels-swr/swr-model-config';
+import { useLayzyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
 
 export const SecondPage=(
   props:{
@@ -24,7 +23,7 @@ export const SecondPage=(
   const [install, { loading, error}] = useLayzyAxios<any>(API_INSTALL,{
     onCompleted(data){
       if(data && data.success){
-        history.push(swrModelConfig.loginUrl);
+        history.push(rxModelsSwrConfig.loginUrl);
       }      
     },
   });

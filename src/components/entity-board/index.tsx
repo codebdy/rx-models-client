@@ -9,12 +9,11 @@ import { Toolbox } from './toolbox';
 import { PropertyBox } from './property-box';
 import { EntityToolbar } from './entity-toolbar';
 import { observer } from 'mobx-react';
-import { useMagicQuery } from 'rxmodels-swr/use-magic-query';
-import { MagicQueryBuilder } from 'rxmodels-swr/magic-query-builder';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import Loading from 'components/common/loading';
 import { PackageMeta } from './meta/package-meta';
 import EmpertyCanvas from './emperty-canvas';
+import { MagicQueryBuilder, useMagicQuery } from '@rxdrag/rxmodels-swr';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

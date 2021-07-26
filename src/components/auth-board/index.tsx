@@ -6,19 +6,18 @@ import { TreeView } from '@material-ui/lab';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { API_PUSLISHED_SCHEMA } from 'apis/auth';
-import { useSWRQuery } from 'rxmodels-swr/use-swr-query';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { PackageMeta } from 'components/entity-board/meta/package-meta';
 import { PackageNode } from './package-node';
 import Loading from 'components/common/loading';
 import { useState } from 'react';
-import { useMagicQuery } from 'rxmodels-swr/use-magic-query';
 import { useEffect } from 'react';
 import { ENTITY_AUTH_QUERY } from './consts';
 import { AuthBoardStore } from './store/auth-board-store';
 import { AuthStoreProvider } from './store/helper';
 import { observer } from 'mobx-react';
 import { RxEntityAuthSettings } from 'entity-interface/RxEntityAuthSettings';
+import { useMagicQuery, useSWRQuery } from '@rxdrag/rxmodels-swr';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

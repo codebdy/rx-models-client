@@ -8,14 +8,13 @@ import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
-import useLayzyMagicPost from "rxmodels-swr/use-layzy-magic-post";
 import { useShowServerError } from "store/helpers/use-show-server-error";
-import { MagicPostBuilder } from "rxmodels-swr/magic-post-builder";
 import { createId } from "util/creat-id";
 import { mutate } from "swr";
 import { ENTITY_AUTH_QUERY } from "./consts";
 import { observer } from "mobx-react";
 import { RxEntityAuthSettings } from "entity-interface/RxEntityAuthSettings";
+import { MagicPostBuilder, useLayzyMagicPost } from "@rxdrag/rxmodels-swr";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -12,7 +12,7 @@ import ApiBoard from "./api-board";
 import { ModelsBoard } from "./entity-board";
 import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
-import { swrModelConfig } from "rxmodels-swr/swr-model-config";
+import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,9 +60,9 @@ export const Studio = observer(() => {
   const handleLogout = ()=>{
     appStore.setToken('');
     appStore.setLoggedUser(undefined);
-    localStorage.removeItem(swrModelConfig.tokenName);
-    swrModelConfig.token = "";
-    history.push(swrModelConfig.loginUrl);
+    localStorage.removeItem(rxModelsSwrConfig.tokenName);
+    rxModelsSwrConfig.token = "";
+    history.push(rxModelsSwrConfig.loginUrl);
   }
 
   return (

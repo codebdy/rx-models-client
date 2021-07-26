@@ -2,14 +2,19 @@ import React, { useRef, useState } from 'react';
 import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, CircularProgress, Fab } from '@material-ui/core';
 import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
-import { API_MAGIC_DELETE, API_MAGIC_POST, API_MAGIC_QUERY, API_MAGIC_UPDATE, API_MAGIC_UPLOAD } from 'rxmodels-swr/api';
+import { API_MAGIC_DELETE, 
+  API_MAGIC_POST, 
+  API_MAGIC_QUERY, 
+  API_MAGIC_UPDATE, 
+  API_MAGIC_UPLOAD,
+  rxModelsSwrConfig,
+  useLayzyAxios,
+  MagicQueryBuilder
+} from '@rxdrag/rxmodels-swr';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useAppStore } from 'store/app-store';
 import intl from 'react-intl-universal';
-import { MagicQueryBuilder } from 'rxmodels-swr/magic-query-builder';
-import useLayzyAxios from 'rxmodels-swr/use-layzy-axios';
-import { swrModelConfig } from 'rxmodels-swr/swr-model-config';
-import { trimServerUrl } from 'rxmodels-swr/trim-server-url';
+import { trimServerUrl } from './trimServerUrl';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,7 +83,7 @@ export default function ApiBoard(){
     selectOnLineNumbers: true,
   };
 
-  const serverUrl = trimServerUrl(swrModelConfig.serverUrl);
+  const serverUrl = trimServerUrl(rxModelsSwrConfig.serverUrl);
 
   let url = serverUrl + API_MAGIC_QUERY.url;
 

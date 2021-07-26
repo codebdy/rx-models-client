@@ -1,7 +1,7 @@
 import { createTheme, ThemeProvider } from '@material-ui/core';
+import { rxModelsSwrConfig, initRxModelsSwr } from '@rxdrag/rxmodels-swr';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { initSwrModel, swrModelConfig } from 'rxmodels-swr/swr-model-config';
 import './App.css';
 import Loading from './components/common/loading';
 import { Install } from './components/install';
@@ -15,7 +15,7 @@ import { useIntl } from './util/use-intl';
 import useShadows from './util/use-shadows';
 
 function App() {
-  initSwrModel({
+  initRxModelsSwr({
     serverUrl: SERVER_URL,
     loginUrl: LOGIN_URL,
     tokenName: TOKEN_NAME,
@@ -40,7 +40,7 @@ function App() {
     :
       (<ThemeProvider theme={theme}>
           <Switch> 
-            <Route path={ swrModelConfig.loginUrl } component={Login}></Route>
+            <Route path={ rxModelsSwrConfig.loginUrl } component={Login}></Route>
             <Route path={ INTALL_URL } component={Install}></Route>
             <Route path={ INDEX_URL } component={Studio}></Route>
             <Redirect to={ INDEX_URL } from='/' /> 
