@@ -66,7 +66,7 @@ export class PackageSourceGenerator{
     source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n\n' : '');
     source = source + `export const Entity${entity.name} = '${entity.name}';\n\n`;
     source = source + `export interface ${entity.name} {\n`;
-    source = source + entity.columns.map(column => {
+    source = source + entity.columns.filter(column=>column.select !== false).map(column => {
       if (column.name === 'id') {
         return `  id?: number;`;
       }
