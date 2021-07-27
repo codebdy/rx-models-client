@@ -48,7 +48,7 @@ npm install
 
 npm run start
 ```
-命令执行成功后，在浏览器输入：http://localhost:3001/install，显示只有两步的安装向导。在第一页输入MySql用到的数据库信息
+命令执行成功后，在浏览器输入：(http://localhost:3001/install)，显示只有两步的安装向导。在第一页输入MySql用到的数据库信息
 
 ![第一步](https://rxdrag.com/img/tutorial/install1.jpg)
 
