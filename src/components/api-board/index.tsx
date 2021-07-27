@@ -216,7 +216,7 @@ export default function ApiBoard(){
                   onChange={handleApiChange}
                   label="API"
                 >
-                  <MenuItem value={ApiType.query}>query</MenuItem>
+                  <MenuItem value={ApiType.query}>get</MenuItem>
                   <MenuItem value={ApiType.post}>post</MenuItem>
                   <MenuItem value={ApiType.update}>update</MenuItem>
                   <MenuItem value={ApiType.delete}>delete</MenuItem>
