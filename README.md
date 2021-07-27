@@ -21,7 +21,6 @@ npm install
 npm run start:dev
 ```
 在浏览器输入：http://localhost:3001/ ，看到熟悉的“Hello World!”，则说明已经成功运行了。
-```
 
 ## 安装运行客户端
 
