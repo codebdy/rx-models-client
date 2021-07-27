@@ -50,11 +50,11 @@ npm run start
 ```
 命令执行成功后，在浏览器输入：http://localhost:3001/install，显示只有两步的安装向导。在第一页输入MySql用到的数据库信息
 
-![第一步](https://rxdrag.comhttps://rxdrag.com/img/tutorial/install1.jpg)
+![第一步](https://rxdrag.com/img/tutorial/install1.jpg)
 
 在第二页输入超级管理员账号账号密码。勾选“安装演示账号”选项，会添加一个用户名密码为demo/demo的演示账号，演示账号只有读权限没有写权限
 
-![第二步](https://rxdrag.comhttps://rxdrag.com/img/tutorial/install2.jpg)
+![第二步](https://rxdrag.com/img/tutorial/install2.jpg)
 
 这步能够成功执行，那么rxModels就安装成功了，安装完成后会自动跳转到登录页面。
 
