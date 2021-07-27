@@ -11,7 +11,6 @@
 
 ## 安装服务端
 ```console
-#不用下面第一条命令，直接在Github网站上Download一个zip格式的代码包，然后解压也很方便
 
 git clone https://github.com/rxdrag/rx-models.git
 
@@ -22,24 +21,10 @@ npm install
 npm run start:dev
 ```
 在浏览器输入：http://localhost:3001/ ，看到熟悉的“Hello World!”，则说明已经成功运行了。
-
-服务端使用了Sharp图形处理库来管理图片，这个库不设置代理，可能不容易安装成功，如果在`npm install`时没有成功，那么按照下面的命令，设置一下代理
-```console
-npm config set sharp_binary_host "https://npm.taobao.org/mirrors/sharp"
-
-npm config set sharp_libvips_binary_host "https://npm.taobao.org/mirrors/sharp-libvips"
-```
-设置完成以后再执行命令
-```console
-npm install
-
-npm run start:dev
 ```
 
 ## 安装运行客户端
 ```console
-#跟服务端一样，第一条命令可以通过下载并解压zip包代替
-
 git clone https://github.com/rxdrag/rx-models-client.git
 
 cd rx-models-client
