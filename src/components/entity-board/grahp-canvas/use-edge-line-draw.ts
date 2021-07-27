@@ -45,7 +45,7 @@ export function useEdgeLineDraw(){
       }
 
       let ownerId = source.uuid;
-      if(modelStore.drawingLine.relationType === RelationType.MANY_TO_ONE){
+      if(modelStore.drawingLine.relationType === RelationType.ONE_TO_MANY){
         ownerId = target.uuid;
       }
       

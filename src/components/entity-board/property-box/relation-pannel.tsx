@@ -19,7 +19,7 @@ export const RelationPanel = observer((
   const target = boardStore.getEntityById(relationStore.targetId);
 
   const handleTypeChange = (event:React.ChangeEvent<{ value: unknown }>)=>{
-    const ownerId = relationStore.relationType === RelationType.ONE_TO_MANY ? relationStore.targetId : relationStore.sourceId
+    const ownerId = relationStore.relationType === RelationType.ONE_TO_MANY ? relationStore.sourceId : relationStore.targetId
     const command = new RelationChangeCommand(relationStore, 
       {
         relationType: event.target.value as RelationType,
