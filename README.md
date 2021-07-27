@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://rxdrag.com/" target="blank"><img src="https://rxdrag.comhttps://rxdrag.com/img/logo.png" width="200" alt="Nest Logo" /></a>
+  <a href="https://rxdrag.com/" target="blank"><img src="https://rxdrag.com/img/logo.png" width="200" alt="Nest Logo" /></a>
 </p>
 
  
