@@ -1,5 +1,4 @@
 export interface X6NodeMeta{
-  //对应类ID
   id: string;
   /** 节点x坐标 */
   x?: number;

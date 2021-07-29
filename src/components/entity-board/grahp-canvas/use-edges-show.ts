@@ -11,7 +11,7 @@ export function useEdgesShow(){
   
   useEffect(()=>{
     edges?.forEach((edgeMeta)=>{
-      let grahpEdge =  modelStore.graph?.getCellById(edgeMeta.uuid) as Edge<Edge.Properties>|undefined;
+      let grahpEdge =  modelStore.graph?.getCellById(edgeMeta.id) as Edge<Edge.Properties>|undefined;
       if(grahpEdge){
         if(!_.isEqual(grahpEdge.getVertices(), edgeMeta.vertices) && edgeMeta.vertices){
           grahpEdge.setVertices(edgeMeta.vertices);
@@ -24,13 +24,13 @@ export function useEdgesShow(){
       }
       else{
         grahpEdge = modelStore.graph?.addEdge({
-          id: edgeMeta.uuid,
+          id: edgeMeta.id,
           source: edgeMeta.sourceId,
           target: edgeMeta.targetId,
           vertices: edgeMeta.vertices,
           connector: { name: 'rounded' },
           //解决直连时，不能显示选中状态的bug
-          tools: modelStore.selectedElement?.uuid === edgeMeta.uuid? ['boundary', 'vertices', 'segments'] : [],
+          tools: modelStore.selectedElement?.uuid === edgeMeta.id? ['boundary', 'vertices', 'segments'] : [],
           attrs: getRelationGraphAttrs(edgeMeta.relationType),
           data:{relationType:edgeMeta.relationType}
         })
@@ -65,7 +65,7 @@ export function useEdgesShow(){
     })
 
     modelStore.graph?.getEdges().forEach(edge=>{
-      if(!edges?.find(aEdge=>aEdge.uuid === edge.id) && edge.id !== modelStore.drawingLine?.tempEdge?.id){
+      if(!edges?.find(aEdge=>aEdge.id === edge.id) && edge.id !== modelStore.drawingLine?.tempEdge?.id){
         modelStore.graph?.removeEdge(edge.id);
       }
     })
