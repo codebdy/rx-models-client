@@ -17,17 +17,54 @@ import { EntityType } from "../meta/entity-meta";
 export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
 
 export class EntityBoardStore{
+  /**
+   * 是否有修改，用于未保存提示
+   */
   changed = false;
+
+  /**
+   * 所有的包
+   */
   packages: PackageStore[];
+
+  /**
+   * 当前正在打开的 ER 图
+   */
   openedDiagram?: DiagramStore;
+
+  /**
+   * 当前使用的 X6 Graph对象
+   */
   graph?: Graph;
+
+  /**
+   * 工具条上的关系被按下，记录具体类型
+   */
   pressedLineType?: RelationType;
+
+  /**
+   * 处在鼠标拖动划线的状态
+   */
   drawingLine: LineAction | undefined;
+
+  /**
+   * 被选中的节点
+   */
   selectedElement: SelectedNode;
 
+  /**
+   * Command 模式，撤销列表
+   */
   undoList: Array<Command> = [];
+
+  /**
+   * Command 模式，重做列表
+   */
   redoList: Array<Command> = [];
   
+  /**
+   * 构造函数传入包元数据，会自动解析成一棵 Mobx Observable 树
+   */
   constructor(packageMetas:PackageMeta[]) {
     this.packages = packageMetas.map(packageMeta=> new PackageStore(packageMeta,this));
     makeAutoObservable(this);
