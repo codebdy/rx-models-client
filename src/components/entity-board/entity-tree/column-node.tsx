@@ -7,6 +7,7 @@ import { useEntityBoardStore } from "../store/helper";
 import { ColumnStore } from "../store/column";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
+import { EntityType } from "../meta/entity-meta";
 
 export const ColumnNode = observer((props:{
   key?:string,
@@ -14,6 +15,8 @@ export const ColumnNode = observer((props:{
 })=>{
   const {columnStore} = props;
   const bordStore = useEntityBoardStore();
+
+  const isId = columnStore.name === 'id' && columnStore.entityStore.entityType !== EntityType.INTERFACE;
 
   const handleClick = ()=>{
     bordStore.setSelectedElement(columnStore);
@@ -27,7 +30,7 @@ export const ColumnNode = observer((props:{
     <TreeItem nodeId= {columnStore.uuid} label={
       <TreeNodeLabel
         action = {
-          columnStore.name !== 'id' &&
+          !isId &&
           <IconButton 
             size = "small"
             onClick = {handleDelete}

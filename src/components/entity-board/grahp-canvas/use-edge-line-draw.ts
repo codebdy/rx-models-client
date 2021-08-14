@@ -8,6 +8,7 @@ import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { RelationStore } from "../store/relation";
 import { RelationType } from "../meta/relation-meta";
+import { EntityType } from "../meta/entity-meta";
 
 export function useEdgeLineDraw(){
   const modelStore = useEntityBoardStore();
@@ -41,6 +42,10 @@ export function useEdgeLineDraw(){
       const target = modelStore.getEntityById(targetNode.id);
 
       if(!source || !target){
+        return;
+      }
+
+      if(target.entityType === EntityType.ENUM || target.entityType === EntityType.INTERFACE){
         return;
       }
 

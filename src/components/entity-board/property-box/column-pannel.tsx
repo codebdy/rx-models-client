@@ -7,6 +7,7 @@ import LazyTextField from 'components/entity-board/property-box/lazy-text-field'
 import { useEntityBoardStore } from '../store/helper';
 import { ColumnType } from '../meta/column-meta';
 import { ColumnChangeCommand } from '../command/column-change-command';
+import { EntityType } from '../meta/entity-meta';
 
 export const ColumnPanel = observer((
   props:{
@@ -67,7 +68,7 @@ export const ColumnPanel = observer((
     bordStore.excuteCommand(command);
   };
 
-  const isId = columnStore.name === 'id';
+  const isId = columnStore.name === 'id' && columnStore.entityStore.entityType !== EntityType.INTERFACE;
   return(
     <>
       <Grid item xs={12}>

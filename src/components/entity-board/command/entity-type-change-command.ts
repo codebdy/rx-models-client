@@ -19,7 +19,7 @@ export class EntityTypeChangeCommand implements Command{
   
   excute():SelectedNode{
     this.entityStore.setType(this.newtype);
-    if(this.newtype === EntityType.ENUM){
+    if(this.newtype === EntityType.ENUM || this.newtype === EntityType.INTERFACE){
       this.entityStore.setColumns([]);
     }
     else{

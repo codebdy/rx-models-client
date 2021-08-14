@@ -153,6 +153,7 @@ export const EntityView = (props:{
                   onDelete = {handleColumnDelete}
                   isSelected = {data.selectedId === column.uuid}
                   readOnly = {disableHover}
+                  isInterface = {data?.entityType === EntityType.INTERFACE}
                 />)
               })
             }
