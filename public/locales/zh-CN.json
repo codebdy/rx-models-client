@@ -89,6 +89,7 @@
   "read":"读取",
   "update":"修改",
   "enum":"枚举",
+  "interface":"接口",
   "enum-class":"枚举类",
   "enum-values":"枚举值列表",
   "normal-class":"普通类",

@@ -59,11 +59,12 @@ export const EntityPanel = observer((
           >
             <MenuItem value={EntityType.NORMAL}>{intl.get('normal-class')}</MenuItem>
             <MenuItem value={EntityType.ENUM}>{intl.get('enum')}</MenuItem>
+            <MenuItem value={EntityType.INTERFACE}>{intl.get('interface')}</MenuItem>
           </Select>
         </FormControl>  
       </Grid>  
       {
-        entityStore.entityType !== EntityType.ENUM &&
+        entityStore.entityType !== EntityType.ENUM && entityStore.entityType !== EntityType.INTERFACE &&
         <Grid item xs={12}>
           <LazyTextField 
             label = {intl.get('table-name')} 
@@ -79,7 +80,6 @@ export const EntityPanel = observer((
           <JsonInput label={intl.get('enum-values')} value = {entityStore.enumValues} onChange = {handleEnumValuesChange} />
         </Grid>
       }
-
     </>
   )
 })

@@ -89,6 +89,7 @@
   "read":"Read",
   "update":"Update",
   "enum":"Enum",
+  "interface":"Interface",
   "enum-class":"Enum class",
   "enum-values":"Enum value list",
   "normal-class":"Normal class",

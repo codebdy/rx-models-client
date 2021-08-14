@@ -15,6 +15,7 @@ export class EntityStore{
   package: PackageStore | undefined;
   columns: ColumnStore[];
   enumValues: any;
+  interfaceValues: any;
 
   constructor(meta:EntityMeta, private rootStore: EntityBoardStore, belongsTopackage?: PackageStore){
     this.uuid = meta.uuid;

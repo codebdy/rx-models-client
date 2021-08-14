@@ -86,7 +86,7 @@ export const EntityView = (props:{
   const [hover, setHover] = useState(false);
   const data : EntityNodeData|undefined = node?.data;
 
-  const canLink = node.data.isPressedRelation;
+  const canLink = node.data.isPressedRelation && data?.entityType !== EntityType.ENUM && data?.entityType !== EntityType.INTERFACE;
 
   const disableHover = !!node.data.isPressedRelation;
 
@@ -116,6 +116,10 @@ export const EntityView = (props:{
         <div className={classes.entityName}>
           {
             data?.entityType === EntityType.ENUM && 
+            <div className = {classNames(classes.nameItem, classes.smFont)}>&lt;&lt; { data?.entityType} &gt;&gt;</div>
+          }
+          {
+            data?.entityType === EntityType.INTERFACE && 
             <div className = {classNames(classes.nameItem, classes.smFont)}>&lt;&lt; { data?.entityType} &gt;&gt;</div>
           }
           <div className = {classes.nameItem}>{data?.name}</div>
