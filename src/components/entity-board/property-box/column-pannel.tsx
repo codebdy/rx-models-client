@@ -41,7 +41,12 @@ export const ColumnPanel = observer((
   }
 
   const handleEnumEntiyChange = (event: React.ChangeEvent<{ value: any }>)=>{
-    const command = new ColumnChangeCommand(columnStore, { ...allValues, enumEnityUuid: event.target.value });
+    const command = new ColumnChangeCommand(columnStore, { ...allValues, typeEnityUuid: event.target.value });
+    bordStore.excuteCommand(command);
+  }
+
+  const handleInterfaceEntiyChange = (event: React.ChangeEvent<{ value: any }>)=>{
+    const command = new ColumnChangeCommand(columnStore, { ...allValues, typeEnityUuid: event.target.value });
     bordStore.excuteCommand(command);
   }
 
@@ -103,12 +108,35 @@ export const ColumnPanel = observer((
           <FormControl variant="outlined" fullWidth size = "small" disabled = {isId}>
             <InputLabel>{intl.get('enum-class')}</InputLabel>
             <Select
-              value={columnStore.enumEnityUuid||''}
+              value={columnStore.typeEnityUuid||''}
               onChange={handleEnumEntiyChange}
               label={intl.get('enum-class')}
             >
               {
                 bordStore.getEnumEntities().map(enumStore=>{
+                    return(
+                      <MenuItem key = {enumStore.uuid} value={enumStore.uuid}>{enumStore.name}</MenuItem>
+                    )
+                  }
+                )
+              }
+              
+            </Select>
+          </FormControl>  
+        </Grid>
+      }
+      {
+        columnStore.type === ColumnType.SimpleJson &&
+        <Grid item xs={12}>
+          <FormControl variant="outlined" fullWidth size = "small" disabled = {isId}>
+            <InputLabel>{intl.get('interface-class')}</InputLabel>
+            <Select
+              value={columnStore.typeEnityUuid||''}
+              onChange={handleInterfaceEntiyChange}
+              label={intl.get('interface-class')}
+            >
+              {
+                bordStore.getInterfaceEntities().map(enumStore=>{
                     return(
                       <MenuItem key = {enumStore.uuid} value={enumStore.uuid}>{enumStore.name}</MenuItem>
                     )

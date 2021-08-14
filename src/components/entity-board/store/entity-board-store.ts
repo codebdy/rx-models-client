@@ -233,4 +233,13 @@ export class EntityBoardStore{
 
     return enums;
   }
+
+  getInterfaceEntities(){
+    const interfaces = [];
+    for(const aPackage of this.packages){
+      interfaces.push(...aPackage.entities.filter(entity=>entity.entityType === EntityType.INTERFACE))
+    }
+
+    return interfaces;
+  }
 }

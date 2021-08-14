@@ -45,6 +45,7 @@ export class PackageSourceGenerator{
     const targetRelations = entity.getTargetRelations();
     let source = '';
     const enumEntities = this.rootStore.getEnumEntities();
+    const interfaceEntities = this.rootStore.getInterfaceEntities();
     const sourceImports = sourceRelations
       .filter(relation => relation.targetId !== entity.uuid)
       .map(relation => {
@@ -59,18 +60,28 @@ export class PackageSourceGenerator{
       });
     const enumImports = entity.columns.filter(column => column.type === ColumnType.Enum)
       .map(column=>{
-        const enumEntity = enumEntities.find(entity=>entity.uuid === column.enumEnityUuid);
+        const enumEntity = enumEntities.find(entity=>entity.uuid === column.typeEnityUuid);
         return enumEntity ? `import { ${enumEntity?.name} } from './${enumEntity?.name}';` : '';
-      })
+      });
+    const interfaceImports = entity.columns.filter(column => column.type === ColumnType.SimpleJson)
+      .map(column=>{
+        const interfaceEntity = interfaceEntities.find(entity=>entity.uuid === column.typeEnityUuid);
+        return interfaceEntity ? `import { ${interfaceEntity?.name} } from './${interfaceEntity?.name}';` : '';
+      });
+
     source = source + _.uniq(sourceImports.concat(targetImports).concat(enumImports)).join('\n');
+    source = source + _.uniq(sourceImports.concat(targetImports).concat(interfaceImports)).join('\n');
     source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n\n' : '');
-    source = source + `export const Entity${entity.name} = '${entity.name}';\n\n`;
+    if(entity.entityType !== EntityType.ENUM && entity.entityType !== EntityType.INTERFACE){
+      source = source + `export const Entity${entity.name} = '${entity.name}';\n\n`;      
+    }
+
     source = source + `export interface ${entity.name} {\n`;
     source = source + entity.columns.filter(column=>column.select !== false).map(column => {
       if (column.name === 'id') {
         return `  id?: number;`;
       }
-      return `  ${column.name}${column.nullable ? '?' : ''}: ${convertType(column, enumEntities)};`;
+      return `  ${column.name}${column.nullable ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
     }).join('\n');
 
     source = source + (targetRelations.length > 0 ? '\n' : '');

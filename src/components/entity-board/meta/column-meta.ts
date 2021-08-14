@@ -112,9 +112,9 @@ export interface ColumnMeta{
   length?: string | number;
 
   /**
-   * 当实体是枚举类型时使用
+   * 类型是实体或者接口时使用
    */
-  enumEnityUuid?:string;
+  typeEnityUuid?:string;
 
   /**
    * ============以下属性跟TypeORM对应，但是尚未启用
