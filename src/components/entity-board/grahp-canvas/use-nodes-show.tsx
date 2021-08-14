@@ -88,7 +88,7 @@ export function useNodesShow(){
       }
     })
     modelStore.graph?.getNodes().forEach(node=>{
-      if(!modelStore.openedDiagram?.getNodeById(node.id)){
+      if(!modelStore.getEntityById(node.id)){
         modelStore.graph?.removeNode(node.id);
       }
     })
