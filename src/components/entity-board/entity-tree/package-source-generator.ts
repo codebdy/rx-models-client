@@ -69,8 +69,14 @@ export class PackageSourceGenerator{
         return interfaceEntity ? `import { ${interfaceEntity?.name} } from './${interfaceEntity?.name}';` : '';
       });
 
-    source = source + _.uniq(sourceImports.concat(targetImports).concat(enumImports)).join('\n');
-    source = source + _.uniq(sourceImports.concat(targetImports).concat(interfaceImports)).join('\n');
+    source = source + _.uniq(
+        sourceImports
+          .concat(targetImports)
+          .concat(enumImports)
+          .concat(interfaceImports)
+      )
+      .join('\n');
+
     source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n\n' : '');
     if(entity.entityType !== EntityType.ENUM && entity.entityType !== EntityType.INTERFACE){
       source = source + `export const Entity${entity.name} = '${entity.name}';\n\n`;      
