@@ -83,11 +83,11 @@ export class PackageSourceGenerator{
     }
 
     source = source + `export interface ${entity.name} {\n`;
-    source = source + entity.columns.filter(column=>column.select !== false).map(column => {
+    source = source + entity.columns.map(column => {
       if (column.name === 'id') {
         return `  id?: number;`;
       }
-      return `  ${column.name}${column.nullable ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
+      return `  ${column.name}${column.nullable || !column.select ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
     }).join('\n');
 
     source = source + (targetRelations.length > 0 ? '\n' : '');
