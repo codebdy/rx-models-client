@@ -16,7 +16,7 @@ export function convertType(column: ColumnStore, enumEntities:EntityStore[], int
     return enumEntities.find(entitiy => entitiy.uuid === column.typeEnityUuid)?.name||'string';
   }
 
-  if(type === ColumnType.SimpleJson) {
+  if(type === ColumnType.SimpleJson ||type === ColumnType.SimpleArray) {
     return interfaceEntities.find(entitiy => entitiy.uuid === column.typeEnityUuid)?.name||'any';
   }
 

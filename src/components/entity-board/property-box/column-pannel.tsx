@@ -128,7 +128,7 @@ export const ColumnPanel = observer((
         </Grid>
       }
       {
-        columnStore.type === ColumnType.SimpleJson &&
+        (columnStore.type === ColumnType.SimpleJson || columnStore.type === ColumnType.SimpleArray) && 
         <Grid item xs={12}>
           <FormControl variant="outlined" fullWidth size = "small" disabled = {isId}>
             <InputLabel>{intl.get('interface-class')}</InputLabel>
