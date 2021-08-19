@@ -93,6 +93,7 @@ export const ColumnPanel = observer((
             label={intl.get('data-type')}
           >
             <MenuItem value={ColumnType.String}>String</MenuItem>
+            <MenuItem value={ColumnType.Number}>Number</MenuItem>
             <MenuItem value={ColumnType.Text}>Text</MenuItem>
             <MenuItem value={ColumnType.MediumText}>MediumText</MenuItem>
             <MenuItem value={ColumnType.LongText}>LongText</MenuItem>
