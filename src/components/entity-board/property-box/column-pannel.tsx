@@ -29,14 +29,14 @@ export const ColumnPanel = observer((
     bordStore.excuteCommand(command);
   }
 
-  //不设置allValues， 类型改变会清空所有旧设置
+  //不设置allValues， 类型改变会清空所有旧设置，保留nullable
   const handleTypeChange = (event: React.ChangeEvent<{ value: unknown }>)=>{
     const type = event.target.value;
     let generated = columnStore.generated;
     if(type !== ColumnType.String && type !== ColumnType.Number){
       generated = undefined;
     }
-    const command = new ColumnChangeCommand(columnStore, { type, generated });
+    const command = new ColumnChangeCommand(columnStore, { type, generated, nullable:allValues.nullable });
     bordStore.excuteCommand(command);
   }
 
