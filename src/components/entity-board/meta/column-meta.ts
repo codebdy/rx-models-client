@@ -19,6 +19,10 @@ export enum ColumnType{
   */  
   String = 'String',
 
+  Text = 'Text',
+  MediumText = 'MediumText',
+  LongText = 'LongText',
+
   /**
   * 日期类型
   */  

@@ -4,7 +4,11 @@ import { EntityStore } from "../store/entity-store";
 
 export function convertType(column: ColumnStore, enumEntities:EntityStore[], interfaceEntities: EntityStore[]): string {
   const type = column.type;
-  if (type === ColumnType.String) {
+  if (type === ColumnType.String 
+    || type === ColumnType.Text 
+    || type === ColumnType.MediumText 
+    || type === ColumnType.LongText
+  ) {
     return 'string';
   }
 

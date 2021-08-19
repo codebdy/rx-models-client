@@ -92,13 +92,15 @@ export const ColumnPanel = observer((
             onChange={handleTypeChange}
             label={intl.get('data-type')}
           >
-            <MenuItem value={ColumnType.String}>{intl.get('string')}</MenuItem>
-            <MenuItem value={ColumnType.Number}>{intl.get('number')}</MenuItem>
-            <MenuItem value={ColumnType.Boolean}>{intl.get('boolean')}</MenuItem>
-            <MenuItem value={ColumnType.Date}>{intl.get('date')}</MenuItem>
+            <MenuItem value={ColumnType.String}>String</MenuItem>
+            <MenuItem value={ColumnType.Text}>Text</MenuItem>
+            <MenuItem value={ColumnType.MediumText}>MediumText</MenuItem>
+            <MenuItem value={ColumnType.LongText}>LongText</MenuItem>
+            <MenuItem value={ColumnType.Boolean}>Boolean</MenuItem>
+            <MenuItem value={ColumnType.Date}>Date</MenuItem>
+            <MenuItem value={ColumnType.Enum}>Enum</MenuItem>
             <MenuItem value={ColumnType.SimpleJson}>{intl.get('simple-json')}</MenuItem>
             <MenuItem value={ColumnType.SimpleArray}>{intl.get('simple-array')}</MenuItem>
-            <MenuItem value={ColumnType.Enum}>{intl.get('enum')}</MenuItem>
           </Select>
         </FormControl>  
       </Grid>
