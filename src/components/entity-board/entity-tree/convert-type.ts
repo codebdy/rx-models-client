@@ -16,8 +16,12 @@ export function convertType(column: ColumnStore, enumEntities:EntityStore[], int
     return enumEntities.find(entitiy => entitiy.uuid === column.typeEnityUuid)?.name||'string';
   }
 
-  if(type === ColumnType.SimpleJson ||type === ColumnType.SimpleArray) {
+  if(type === ColumnType.SimpleJson) {
     return interfaceEntities.find(entitiy => entitiy.uuid === column.typeEnityUuid)?.name||'any';
+  }
+
+  if(type === ColumnType.SimpleArray) {
+    return (interfaceEntities.find(entitiy => entitiy.uuid === column.typeEnityUuid)?.name||'any') + '[]';
   }
 
   if (type === ColumnType.Boolean) {
@@ -32,8 +36,5 @@ export function convertType(column: ColumnStore, enumEntities:EntityStore[], int
     return 'Date';
   }
 
-  if (type === ColumnType.SimpleArray) {
-    return 'any[]';
-  }
   return ''
 }
