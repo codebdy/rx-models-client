@@ -85,6 +85,14 @@ export const Toolbox = observer(() => {
     dnd?.start(node, e.nativeEvent as any)
   }
 
+  const handleInheritClick = ()=>{
+    if(RelationType.INHERIT === modelBoardStore.pressedLineType){
+      modelBoardStore.setPressRelation(undefined);  
+    }else{
+      modelBoardStore.setPressRelation(RelationType.INHERIT);      
+    } 
+  }
+
   const handleOneToOneClick = ()=>{
     if(RelationType.ONE_TO_ONE === modelBoardStore.pressedLineType){
       modelBoardStore.setPressRelation(undefined);  
@@ -152,7 +160,7 @@ export const Toolbox = observer(() => {
                 classes.relationItem,
                 {[classes.selected]:modelBoardStore.pressedLineType === RelationType.INHERIT}
               )}
-              onClick = {handleOneToOneClick}
+              onClick = {handleInheritClick}
             >
               {
                 svgInherit

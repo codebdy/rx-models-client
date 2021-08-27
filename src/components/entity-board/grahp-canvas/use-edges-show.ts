@@ -4,6 +4,7 @@ import { useEntityBoardStore } from "../store/helper";
 import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
 import _ from 'lodash';
 import { ROLE_SOURCE_POSITION_CONST, ROLE_SOURCE_TARGET_CONST } from "./const-label-position";
+import { RelationType } from "../meta/relation-meta";
 
 export function useEdgesShow(){
   const modelStore = useEntityBoardStore();
@@ -42,26 +43,28 @@ export function useEdgesShow(){
         grahpEdge?.appendVertex({x:grahpEdge?.getTargetPoint().x + 200, y:grahpEdge?.getTargetPoint().y});
       }
 
-      grahpEdge?.setLabels(
-        [
-          {
-            attrs: {
-              text: {
-                text: edgeMeta.roleOnSource,
+      if(edgeMeta.relationType !== RelationType.INHERIT){
+        grahpEdge?.setLabels(
+          [
+            {
+              attrs: {
+                text: {
+                  text: edgeMeta.roleOnSource,
+                },
               },
+              position: edgeMeta.roleOnSourcePosition || ROLE_SOURCE_POSITION_CONST,
             },
-            position: edgeMeta.roleOnSourcePosition || ROLE_SOURCE_POSITION_CONST,
-          },
-          {
-            attrs: {
-              text: {
-                text: edgeMeta.roleOnTarget,
+            {
+              attrs: {
+                text: {
+                  text: edgeMeta.roleOnTarget,
+                },
               },
-            },
-            position: edgeMeta.roleOnTargetPosition || ROLE_SOURCE_TARGET_CONST,
-          }
-        ]
-      )
+              position: edgeMeta.roleOnTargetPosition || ROLE_SOURCE_TARGET_CONST,
+            }
+          ]
+        )        
+      }
     })
 
     modelStore.graph?.getEdges().forEach(edge=>{

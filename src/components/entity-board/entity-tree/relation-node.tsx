@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core";
+import { IconButton, SvgIcon } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
@@ -8,6 +8,7 @@ import { EntityStore } from "../store/entity-store";
 import { RelationStore } from "../store/relation";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
+import { RelationType } from "../meta/relation-meta";
 
 
 export const RelationNode = observer((props:{
@@ -27,6 +28,10 @@ export const RelationNode = observer((props:{
     bordStore.excuteCommand(command);
   }
 
+  const isInherit = relation.relationType === RelationType.INHERIT;
+
+  const targetEntity = bordStore.getEntityById(relation.targetId);
+
   return(
     <TreeItem nodeId= {relation.uuid} label={
       <TreeNodeLabel
@@ -40,17 +45,25 @@ export const RelationNode = observer((props:{
         }
         onClick = {handleClick}
       >
-        <MdiIcon iconClass = "mdi-relation-many-to-many" size={12} />
+        {
+          isInherit 
+            ? <SvgIcon style={{width:12, height:12}}><path fill="currentColor" d="M12,2L1,21H23M12,6L19.53,19H4.47" /></SvgIcon>
+            : <MdiIcon iconClass = "mdi-relation-many-to-many" size={12} />
+        }
         
         <NodeText>
           <>
           {
-            isSource 
+            isInherit &&
+              targetEntity?.name
+          }
+          {
+            isSource && !isInherit
               ? relation.roleOnSource
               : relation.roleOnTarget
           }
           {
-            relation.ownerId === entityStore.uuid &&
+            relation.ownerId === entityStore.uuid && !isInherit &&
             <MdiIcon iconClass = "mdi-account-outline" size={12} />
           }
           </>

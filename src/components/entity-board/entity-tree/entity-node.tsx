@@ -16,6 +16,7 @@ import { NODE_INIT_SIZE } from "../store/node-init-size";
 import { EntityDeleteCommand } from "../command/entity-delete-command";
 import { ColumnCreateCommand } from "../command/column-create-command";
 import { createId } from "util/creat-id";
+import { RelationType } from "../meta/relation-meta";
 const { Dnd } = Addon
 
 export const EntityNode = observer((props:{
@@ -58,8 +59,9 @@ export const EntityNode = observer((props:{
     bordStore.setSelectedElement(entityStore);
     event.stopPropagation();
   }
-  const sourceRelations = entityStore.getSourceRelations();
-  const targetRelations = entityStore.getTargetRelations();
+  const allScouceRelation = entityStore.getSourceRelations();
+  const sourceRelations = allScouceRelation.filter(relation=>relation.relationType !== RelationType.INHERIT);
+  const targetRelations = entityStore.getTargetRelations().filter(relation=>relation.relationType !== RelationType.INHERIT);
 
   const handleDelete = ()=>{
     const command = new EntityDeleteCommand(entityStore);
@@ -71,6 +73,8 @@ export const EntityNode = observer((props:{
     bordStore.excuteCommand(command);
     event.stopPropagation();
   }
+
+  const inherits = allScouceRelation.filter(relation=>relation.relationType === RelationType.INHERIT);
 
   return(
     <TreeItem nodeId= {entityStore.uuid} label={
@@ -143,6 +147,23 @@ export const EntityNode = observer((props:{
             })
           }
         </TreeItem>      
+      }
+      {
+        inherits.length > 0 &&
+        <TreeItem nodeId= {entityStore.uuid + 'inherit'} label={
+          <TreeNodeLabel>
+            <NodeText>{intl.get('parent-entity')}</NodeText>
+          </TreeNodeLabel>
+        }>
+          {
+            inherits.map(relation=>{
+              return (
+                <RelationNode key={relation.uuid} relation = {relation} isSource entityStore = {entityStore} />
+              )
+            })
+          }
+        </TreeItem>          
+
       }
     </TreeItem>
   )

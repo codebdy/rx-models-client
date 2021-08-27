@@ -37,12 +37,12 @@ export interface RelationMeta {
   /**
   * 源实体上的关系属性
   */  
-  roleOnSource: string;
+  roleOnSource?: string;
 
   /**
   * 目标实体上的关系属性
   */    
-  roleOnTarget: string;
+  roleOnTarget?: string;
 
   /**
    * 拥有关系的实体ID，对应TypeORM的JoinTable或JoinColumn

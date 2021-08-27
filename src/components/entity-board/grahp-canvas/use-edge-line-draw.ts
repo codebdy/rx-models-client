@@ -40,6 +40,7 @@ export function useEdgeLineDraw(){
       const relationId = createId();
       const source = modelStore.getEntityById(modelStore.drawingLine.sourceNodeId);
       const target = modelStore.getEntityById(targetNode.id);
+      const isInherit = modelStore.drawingLine.relationType === RelationType.INHERIT;
 
       if(!source || !target){
         return;
@@ -47,6 +48,18 @@ export function useEdgeLineDraw(){
 
       if(target.entityType === EntityType.ENUM || target.entityType === EntityType.INTERFACE){
         return;
+      }
+
+      //不能自身继承
+      if(isInherit && source.uuid === target.uuid){
+        return;
+      }
+
+      //继承不能重复
+      for(const relation of modelStore.getRelations()){
+        if(relation.targetId === target.uuid && relation.sourceId === source.uuid && isInherit){
+          return;
+        }
       }
 
       let ownerId = source.uuid;
@@ -61,8 +74,8 @@ export function useEdgeLineDraw(){
           relationType: modelStore.drawingLine.relationType,
           sourceId: source.uuid,
           targetId: target.uuid,
-          roleOnSource: target.name.toLowerCase() + seedId(),
-          roleOnTarget: source.name.toLowerCase() + seedId(),
+          roleOnSource: isInherit ? undefined : target.name.toLowerCase() + seedId(),
+          roleOnTarget: isInherit ? undefined : source.name.toLowerCase() + seedId(),
           ownerId: ownerId,
         }),
         {id:relationId, vertices: modelStore.drawingLine?.tempEdge.getVertices()},

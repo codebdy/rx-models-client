@@ -44,6 +44,7 @@
   "combination": "组合",
   "properties": "属性",
   "relations": "关联",
+  "parent-entity": "父实体",
   "add-package":"新建包",
   "add-entity":"新建实体",
   "add-diagram":"新建ER图",

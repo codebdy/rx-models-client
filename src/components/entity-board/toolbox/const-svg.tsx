@@ -2,7 +2,7 @@
 export const svgInherit = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" >
 <path d="
     M 15,15
-    L 25,5
+    L 25,0
     L 35,15
     L 15,15
     M 25,15

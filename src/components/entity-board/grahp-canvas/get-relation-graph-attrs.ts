@@ -1,6 +1,34 @@
 import { RelationType } from "../meta/relation-meta";
 
 export function getRelationGraphAttrs(relationType: RelationType){
+  if(relationType === RelationType.INHERIT){
+    return  {
+      line: {
+        stroke: '#000',
+        strokeWidth: 1,
+        sourceMarker: {
+          tagName: 'path',
+          fill: '#FFF',  
+          stroke: '#000', 
+          strokeWidth: 1,
+          d:``,
+        },
+        targetMarker: {
+          tagName: 'path',
+          fill: '#FFF',  
+          stroke: '#000', 
+          strokeWidth: 1,
+          d:`
+            M 0,0
+            L 15,10
+            L 15,-10
+            L 0,0
+          `,
+       },
+      }
+    }
+
+  }
   if(relationType === RelationType.ONE_TO_ONE){
     return  {
       line: {

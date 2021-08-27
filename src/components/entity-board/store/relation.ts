@@ -8,8 +8,8 @@ export class RelationStore{
   relationType: RelationType;
   sourceId: string;
   targetId: string;
-  roleOnSource: string;
-  roleOnTarget: string;
+  roleOnSource?: string;
+  roleOnTarget?: string;
   ownerId?: string;
 
   constructor(meta:RelationMeta, packageStore?:PackageStore){

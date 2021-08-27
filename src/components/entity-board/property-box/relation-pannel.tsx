@@ -56,6 +56,8 @@ export const RelationPanel = observer((
     boardStore.excuteCommand(command);
   }
 
+  const isInherit = RelationType.INHERIT === relationStore.relationType;
+
   return(
     <>
       <Grid item xs={12}>
@@ -65,7 +67,9 @@ export const RelationPanel = observer((
             value={relationStore.relationType}
             onChange={handleTypeChange}
             label={intl.get('relation-type')}
+            disabled = {isInherit}
           >
+            <MenuItem value={RelationType.INHERIT}>{intl.get('inherit')}</MenuItem>
             <MenuItem value={RelationType.ONE_TO_ONE}>{intl.get('one-to-one')}</MenuItem>
             <MenuItem value={RelationType.ONE_TO_MANY}>{intl.get('one-to-many')}</MenuItem>
             <MenuItem value={RelationType.MANY_TO_ONE}>{intl.get('many-to-one')}</MenuItem>
@@ -81,6 +85,7 @@ export const RelationPanel = observer((
           disabled = {
             relationStore.relationType === RelationType.ONE_TO_MANY 
             || relationStore.relationType === RelationType.MANY_TO_ONE
+            || isInherit
           }>
           <InputLabel>{intl.get('owner')}</InputLabel>
           <Select
@@ -93,30 +98,35 @@ export const RelationPanel = observer((
           </Select>
         </FormControl>        
       </Grid>
-      <Grid item xs={12}>
-        <Typography variant = 'subtitle1'>
-          {source?.name} {intl.get('side')}
-        </Typography>
-      </Grid>    
-      <Grid item xs={12}>
-        <LazyTextField 
-          label = {intl.get('role-name')} 
-          value = {relationStore.roleOnSource || ''} 
-          onChange={handleSourceRoleChange}
-        />
-      </Grid> 
-      <Grid item xs={12}>
-        <Typography variant = 'subtitle1'>
-          {target?.name} {intl.get('side')}
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>  
-      <LazyTextField 
-          label = {intl.get('role-name')} 
-          value = {relationStore.roleOnTarget || ''} 
-          onChange={handleTargetRoleChange}
-        />
-      </Grid>  
+      {
+        !isInherit &&
+        <>
+          <Grid item xs={12}>
+            <Typography variant = 'subtitle1'>
+              {source?.name} {intl.get('side')}
+            </Typography>
+          </Grid>    
+          <Grid item xs={12}>
+            <LazyTextField 
+              label = {intl.get('role-name')} 
+              value = {relationStore.roleOnSource || ''} 
+              onChange={handleSourceRoleChange}
+            />
+          </Grid> 
+          <Grid item xs={12}>
+            <Typography variant = 'subtitle1'>
+              {target?.name} {intl.get('side')}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>  
+          <LazyTextField 
+              label = {intl.get('role-name')} 
+              value = {relationStore.roleOnTarget || ''} 
+              onChange={handleTargetRoleChange}
+            />
+          </Grid>  
+        </>
+      }
     </>
   )
 })
