@@ -11,7 +11,7 @@ import { Addon } from '@antv/x6'
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { EntityView } from '../grahp-canvas/entity-view';
-import { svgManyToMany, svgManyToOne, svgOneToMany, svgOneToOne } from './const-svg';
+import { svgInherit, svgManyToMany, svgManyToOne, svgOneToMany, svgOneToOne } from './const-svg';
 import { RelationType } from '../meta/relation-meta';
 const { Dnd } = Addon
 
@@ -145,6 +145,19 @@ export const Toolbox = observer(() => {
                 <div style={{height:'30%', width:'47px', borderBottom:'solid 1px', marginLeft:'-1px'}}></div>
               </div>
               {intl.get('entity')}
+            </div>
+            <div 
+              className = {classNames(
+                classes.toolItem, 
+                classes.relationItem,
+                {[classes.selected]:modelBoardStore.pressedLineType === RelationType.INHERIT}
+              )}
+              onClick = {handleOneToOneClick}
+            >
+              {
+                svgInherit
+              }
+              {intl.get('inherit')}
             </div>
           </AccordionDetails>
         </Accordion>

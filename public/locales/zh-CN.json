@@ -33,6 +33,7 @@
   "commands":"指令",
   "toolbox":"工具箱",
   "entity":"实体",
+  "inherit": "继承",
   "relation": "关系",
   "one-to-one": "1 对 1",
   "one-to-many": "1 对 多",

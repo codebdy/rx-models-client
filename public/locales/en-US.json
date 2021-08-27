@@ -33,6 +33,7 @@
   "commands": "Commands",
   "toolbox":"Toolbox",
   "entity":"Entity",
+  "inherit": "Inherit",
   "relation": "Relationship",
   "one-to-one": "1 to 1",
   "one-to-many": "1 to many",

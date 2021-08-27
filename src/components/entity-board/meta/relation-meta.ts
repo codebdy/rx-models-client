@@ -3,6 +3,7 @@
  * 关系类型
  */
 export enum RelationType {
+  INHERIT = 'inherit',
   ONE_TO_ONE = 'one-to-one',
   ONE_TO_MANY = 'one-to-many',
   MANY_TO_ONE = 'many-to-one',

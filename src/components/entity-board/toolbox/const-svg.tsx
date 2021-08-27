@@ -1,4 +1,15 @@
 
+export const svgInherit = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" >
+<path d="
+    M 15,15
+    L 25,5
+    L 35,15
+    L 15,15
+    M 25,15
+    L 25,45
+" stroke="currentColor" strokeWidth="1" fill="#fff"></path>
+</svg>
+
 export const svgOneToOne = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
   <path d="
       M 0,10
