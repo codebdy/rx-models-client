@@ -93,6 +93,7 @@
   "enum":"Enum",
   "enum-class":"Enum class",
   "interface":"Interface",
+  "abstract-class": "Abstract",
   "interface-class":"Interface class",
   "enum-values":"Enum value list",
   "normal-class":"Normal class",

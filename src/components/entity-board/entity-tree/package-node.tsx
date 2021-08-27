@@ -77,6 +77,10 @@ export const PackageNode = observer((props:{
   const handleDelete = ()=>{
     const command = new PackageDeleteCommand(packageStore);
     rootStore.excuteCommand(command);
+    if(packageStore.getDiagramById(rootStore.openedDiagram?.uuid)){
+      rootStore.setOpendDiagram(undefined);
+    }
+    
   }
 
   const handlePublish = ()=>{

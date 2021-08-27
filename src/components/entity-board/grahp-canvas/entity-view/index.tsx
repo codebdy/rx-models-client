@@ -115,11 +115,10 @@ export const EntityView = (props:{
       <div className={classes.container}>
         <div className={classes.entityName}>
           {
-            data?.entityType === EntityType.ENUM && 
-            <div className = {classNames(classes.nameItem, classes.smFont)}>&lt;&lt; { data?.entityType} &gt;&gt;</div>
-          }
-          {
-            data?.entityType === EntityType.INTERFACE && 
+            (data?.entityType === EntityType.ENUM 
+              || data?.entityType === EntityType.INTERFACE
+              || data?.entityType === EntityType.ABSTRACT
+            ) && 
             <div className = {classNames(classes.nameItem, classes.smFont)}>&lt;&lt; { data?.entityType} &gt;&gt;</div>
           }
           <div className = {classes.nameItem}>{data?.name}</div>

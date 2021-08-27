@@ -93,6 +93,7 @@
   "enum":"枚举",
   "enum-class":"枚举类",
   "interface":"接口",
+  "abstract-class": "抽象类",
   "interface-class":"接口类",
   "enum-values":"枚举值列表",
   "normal-class":"普通类",

@@ -53,7 +53,7 @@ export class PackageStore{
     return undefined;
   }
 
-  getDiagramById(id:string): DiagramStore|undefined{
+  getDiagramById(id?:string): DiagramStore|undefined{
     const diagramStore = this.diagrams.find(diagStore=>diagStore.uuid === id);
     if(diagramStore){
       return diagramStore;

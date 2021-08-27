@@ -59,6 +59,7 @@ export const EntityPanel = observer((
           >
             <MenuItem value={EntityType.NORMAL}>{intl.get('normal-class')}</MenuItem>
             <MenuItem value={EntityType.ENUM}>{intl.get('enum')}</MenuItem>
+            <MenuItem value={EntityType.ABSTRACT}>{intl.get('abstract-class')}</MenuItem>
             <MenuItem value={EntityType.INTERFACE}>{intl.get('interface')}</MenuItem>
           </Select>
         </FormControl>  

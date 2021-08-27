@@ -9,30 +9,35 @@ import { ColumnType } from "../meta/column-meta";
 export class EntityTypeChangeCommand implements Command{
   private oldType: EntityType|undefined|"";
   private oldColumns: ColumnStore[];
+  private newClumns: ColumnStore[];
   constructor(
     private readonly entityStore: EntityStore,
     private readonly newtype: EntityType,
   ){
     this.oldType = entityStore.entityType;
     this.oldColumns = entityStore.columns;
-  }
-  
-  excute():SelectedNode{
-    this.entityStore.setType(this.newtype);
+    this.newClumns = [];
     if(this.newtype === EntityType.ENUM || this.newtype === EntityType.INTERFACE){
-      this.entityStore.setColumns([]);
+      this.newClumns = [];
     }
-    else{
-      this.entityStore.setColumns([new ColumnStore(
+    else if(this.oldType === EntityType.ENUM || this.oldType === EntityType.INTERFACE){
+      this.newClumns = [new ColumnStore(
         {
           uuid: createId(),
           name: 'id',
           type: ColumnType.Number,
           primary: true,
           generated: true,
-        }, this.entityStore)
-      ])
+        }, this.entityStore),
+      ];
+    }else{
+      this.newClumns = entityStore.columns;
     }
+  }
+  
+  excute():SelectedNode{
+    this.entityStore.setType(this.newtype);
+    this.entityStore.setColumns(this.newClumns);
     return this.entityStore;
   }
   undo():SelectedNode{
