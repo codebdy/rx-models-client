@@ -53,7 +53,7 @@ export class PackageSourceGenerator{
         return `import { ${entityName} } from './${entityName}';`;
       });
     const targetImports = targetRelations
-      .filter(relation => relation.sourceId !== entity.uuid)
+      .filter(relation => relation.sourceId !== entity.uuid && relation.relationType !== RelationType.INHERIT)
       .map(relation => {
         const entityName = this.rootStore.getEntityById(relation.sourceId)?.name;
         return `import { ${entityName} } from './${entityName}';`;
@@ -82,7 +82,21 @@ export class PackageSourceGenerator{
       source = source + `export const Entity${entity.name} = '${entity.name}';\n`;      
     }
 
-    source = source + `export interface ${entity.name} {\n`;
+    const inheritRelations = sourceRelations.filter(relation=>relation.relationType === RelationType.INHERIT)
+    const parents:string[] = [];
+
+    inheritRelations.forEach(relation=>{
+      const parentName = this.rootStore.getEntityById(relation.targetId)?.name;
+      if(parentName){
+        parents.push(parentName);
+      }
+    })
+
+    source = source + `export interface ${entity.name} ${
+      parents.length > 0 
+        ? 'extends ' + parents.join(',')
+        : ''
+    } {\n`;
     source = source + entity.columns.map(column => {
       if (column.name === 'id') {
         return `  id?: number;`;
@@ -91,7 +105,7 @@ export class PackageSourceGenerator{
     }).join('\n');
 
     source = source + (targetRelations.length > 0 ? '\n' : '');
-    source = source + targetRelations.map(relation => {
+    source = source + targetRelations.filter(relation=>relation.relationType !== RelationType.INHERIT).map(relation => {
       const arraySymbal = relation.relationType === RelationType.MANY_TO_ONE || relation.relationType === RelationType.MANY_TO_MANY
         ? '[]'
         : '';
@@ -100,7 +114,7 @@ export class PackageSourceGenerator{
 
     source = source + (sourceRelations.length > 0 ? '\n' : '');
 
-    source = source + sourceRelations.map(relation => {
+    source = source + sourceRelations.filter(relation=>relation.relationType !== RelationType.INHERIT).map(relation => {
       const arraySymbal = relation.relationType === RelationType.ONE_TO_MANY || relation.relationType === RelationType.MANY_TO_MANY
         ? '[]'
         : '';
