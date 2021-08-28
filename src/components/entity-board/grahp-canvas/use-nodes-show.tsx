@@ -88,7 +88,12 @@ export function useNodesShow(){
       }
     })
     modelStore.graph?.getNodes().forEach(node=>{
+      //如果diagram上没有
       if(!modelStore.openedDiagram?.getNodeById(node.id)){
+        modelStore.graph?.removeNode(node.id);
+      }
+      //如果实体已被删除
+      if(!modelStore.getEntityById(node.id)){
         modelStore.graph?.removeNode(node.id);
       }
     })
