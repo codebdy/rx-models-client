@@ -93,9 +93,9 @@ export function useNodesShow(){
         modelStore.graph?.removeNode(node.id);
       }
       //如果实体已被删除
-      if(!modelStore.getEntityById(node.id)){
-        modelStore.graph?.removeNode(node.id);
-      }
+      //if(!modelStore.getEntityById(node.id)){
+      //  modelStore.graph?.removeNode(node.id);
+      //}
     })
   })
 

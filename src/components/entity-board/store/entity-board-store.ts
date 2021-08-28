@@ -163,6 +163,14 @@ export class EntityBoardStore{
     }
   }
 
+  getDiagrams(): DiagramStore[]{
+    const diagrams:DiagramStore[] = [];
+    for(const pkg of this.packages){
+      diagrams.push(...pkg.diagrams);
+    }
+    return diagrams;
+  }
+
 
   getDiagramByName(name:string): DiagramStore|undefined{
     for(const pkg of this.packages){

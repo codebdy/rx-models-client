@@ -107,6 +107,10 @@ export class EntityStore{
     return relations;
   }
 
+  getRootStore(){
+    return this.rootStore;
+  }
+
   toMeta(){
     return {
       uuid: this.uuid,
