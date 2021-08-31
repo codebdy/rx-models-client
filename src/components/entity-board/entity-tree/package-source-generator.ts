@@ -101,9 +101,8 @@ export class PackageSourceGenerator{
       if (column.name === 'id') {
         return `  id?: number;`;
       }
-      return `  ${column.name}${column.nullable || !column.select ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
+      return `  ${column.name}${column.nullable || column.select===true ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
     }).join('\n');
-
     source = source + (targetRelations.length > 0 ? '\n' : '');
     source = source + targetRelations.filter(relation=>relation.relationType !== RelationType.INHERIT).map(relation => {
       const arraySymbal = relation.relationType === RelationType.MANY_TO_ONE || relation.relationType === RelationType.MANY_TO_MANY
