@@ -103,5 +103,6 @@
   "entity-relation-not-found":"实体{enity}上没有定义关联{relation}",
   "please-save-first":"请先保存",
   "package-file-illegal":"Package文件不合法",
-  "package-exist":"该包已经存在，请不要重复导入"
+  "package-exist":"该包已经存在，请不要重复导入",
+  "belongs-to-package":"所属包"
 }
