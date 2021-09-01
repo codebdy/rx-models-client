@@ -78,7 +78,10 @@ export class PackageSourceGenerator{
       .join('\n') + '\n';
 
     source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n' : '');
-    if(entity.entityType !== EntityType.ENUM && entity.entityType !== EntityType.INTERFACE){
+    if(entity.entityType !== EntityType.ENUM 
+        && entity.entityType !== EntityType.INTERFACE
+        && entity.entityType !== EntityType.ABSTRACT
+      ){
       source = source + `export const Entity${entity.name} = '${entity.name}';\n`;      
     }
 
