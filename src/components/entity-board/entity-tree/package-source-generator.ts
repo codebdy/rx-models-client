@@ -34,7 +34,15 @@ export class PackageSourceGenerator{
     let source = ''
     source = source + `export enum ${entity.name} {\n`
     for(const key in entity.enumValues||{}){
-      source = source + `  ${key} = '${entity.enumValues[key]}',\n`
+      let enumItemValue = entity.enumValues[key];
+      if(enumItemValue instanceof Object){
+        
+        source = source + '  /**\n';
+        source = source + `   * label: ${enumItemValue.label}\n`;
+        source = source + '   */\n';
+        enumItemValue = enumItemValue.value
+      }
+      source = source + `  ${key} = '${enumItemValue}',\n\n`
     }
     source = source + '}\n'
     return source;
