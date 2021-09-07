@@ -104,5 +104,6 @@
   "please-save-first":"请先保存",
   "package-file-illegal":"Package文件不合法",
   "package-exist":"该包已经存在，请不要重复导入",
-  "belongs-to-package":"所属包"
+  "belongs-to-package":"所属包",
+  "edit-enum":"编辑枚举值"
 }

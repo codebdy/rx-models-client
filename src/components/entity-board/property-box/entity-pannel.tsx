@@ -103,7 +103,12 @@ export const EntityPanel = observer((
       {
         entityStore.entityType === EntityType.ENUM &&
         <Grid item xs={12}>
-          <JsonInput label={intl.get('enum-values')} value = {entityStore.enumValues} onChange = {handleEnumValuesChange} />
+          <JsonInput 
+            label={intl.get('enum-values')} 
+            value = {entityStore.enumValues} 
+            onChange = {handleEnumValuesChange} 
+            title = {intl.get('edit-enum')}
+          />
         </Grid>
       }
     </>
