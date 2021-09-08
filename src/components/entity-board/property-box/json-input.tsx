@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import MonacoEditor from "react-monaco-editor";
 import intl from 'react-intl-universal';
+import { Close } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,6 +13,17 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .monaco-editor':{
         height: '100%',
       },
+    },
+    dialogTitle:{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      position: 'relative'
+    },
+    closeButton:{
+      position: 'absolute',
+      right: 8,
+      top: 8,
     },
     dialogActions:{
       p:2,
@@ -107,9 +119,13 @@ export function JsonInput(
         open ={open}
         fullWidth
         maxWidth = 'sm'
+        onClose = {handleClose}
       >
-        <DialogTitle>
-          {title}
+        <DialogTitle className = {classes.dialogTitle}>
+          <span>{title}</span>
+          <IconButton className = {classes.closeButton}
+            onClick = {handleClose}
+          ><Close /></IconButton>
         </DialogTitle>
         <DialogContent
           className = {classes.dialogContent}
