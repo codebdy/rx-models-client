@@ -92,7 +92,7 @@ export const PackageNode = observer((props:{
   }
 
   const handleDownloadJson = ()=>{
-    downloadFile(packageStore.uuid + '.json', JSON.stringify(packageStore.toMeta(), null, 2));
+    downloadFile(packageStore.name + '.json', JSON.stringify(packageStore.toMeta(), null, 2));
   }
 
   const handelExportInterface = ()=>{
