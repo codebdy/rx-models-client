@@ -109,10 +109,10 @@ export class PackageSourceGenerator{
         : ''
     } {\n`;
     source = source + entity.columns.map(column => {
-      if (column.name === 'id') {
-        return `  id?: number;`;
-      }
-      return `  ${column.name}${column.nullable || column.select===true ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
+      //if (column.name === 'id') {
+      //  return `  id?: number;`;
+      //}
+      return `  ${column.name}${column.nullable || column.select===true || column.generated ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
     }).join('\n');
     source = source + (targetRelations.length > 0 ? '\n' : '');
     source = source + targetRelations.filter(relation=>relation.relationType !== RelationType.INHERIT).map(relation => {
