@@ -86,7 +86,11 @@ export const EntityView = (props:{
   const [hover, setHover] = useState(false);
   const data : EntityNodeData|undefined = node?.data;
 
-  const canLink = node.data.isPressedRelation && data?.entityType !== EntityType.ENUM && data?.entityType !== EntityType.INTERFACE;
+  const canLink = node.data.isPressedRelation 
+    && data?.entityType !== EntityType.ENUM 
+    && data?.entityType !== EntityType.INTERFACE
+    && data?.entityType !== EntityType.ABSTRACT
+    ;
 
   const disableHover = !!node.data.isPressedRelation;
 
