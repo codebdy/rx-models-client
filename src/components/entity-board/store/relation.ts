@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { RelationType, RelationMeta } from "../meta/relation-meta";
+import { RelationType, RelationMeta, CombinationType } from "../meta/relation-meta";
 import { PackageStore } from "./package";
 
 export class RelationStore{
@@ -11,6 +11,7 @@ export class RelationStore{
   roleOnSource?: string;
   roleOnTarget?: string;
   ownerId?: string;
+  combination?: CombinationType;
 
   constructor(meta:RelationMeta, packageStore?:PackageStore){
     this.uuid = meta.uuid;
@@ -19,6 +20,8 @@ export class RelationStore{
     this.targetId = meta.targetId;
     this.roleOnSource = meta.roleOnSource;
     this.roleOnTarget = meta.roleOnTarget;
+    this.combination = meta.combination;
+
     this.ownerId = meta.ownerId;
     if(this.relationType === RelationType.ONE_TO_ONE && !this.ownerId){
       this.ownerId = this.sourceId
@@ -56,6 +59,7 @@ export class RelationStore{
       roleOnSource: this.roleOnSource,
       roleOnTarget: this.roleOnTarget,
       ownerId: this.ownerId,
+      combination: this.combination,
     }
   }
 }

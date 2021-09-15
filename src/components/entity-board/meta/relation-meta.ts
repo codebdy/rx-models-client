@@ -10,6 +10,11 @@ export enum RelationType {
   MANY_TO_MANY = 'many-to-many',
 }
 
+export enum CombinationType {
+  ON_SOURCE = 'onSource',
+  ON_TARGET = 'onTarget'
+}
+
 /**
  * 关系元数据
  */
@@ -48,4 +53,6 @@ export interface RelationMeta {
    * 拥有关系的实体ID，对应TypeORM的JoinTable或JoinColumn
    */
   ownerId?: string;
+
+  combination?: CombinationType;
 }

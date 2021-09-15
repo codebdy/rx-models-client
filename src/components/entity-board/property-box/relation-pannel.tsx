@@ -2,10 +2,10 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { RelationStore } from '../store/relation';
 import intl from "react-intl-universal";
-import { FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
+import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch, Typography } from '@material-ui/core';
 import { useEntityBoardStore } from '../store/helper';
 import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
-import { RelationType } from '../meta/relation-meta';
+import { CombinationType, RelationType } from '../meta/relation-meta';
 import { RelationChangeCommand } from '../command/relation-change-command';
 
 export const RelationPanel = observer((
@@ -51,6 +51,24 @@ export const RelationPanel = observer((
     const command = new RelationChangeCommand(relationStore, 
       {
         ownerId : event.target.value as string
+      }
+    );
+    boardStore.excuteCommand(command);
+  }
+
+  const handleCombinationOnSourceChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
+    const command = new RelationChangeCommand(relationStore, 
+      {
+        combination : event.target.checked ? CombinationType.ON_SOURCE : undefined
+      }
+    );
+    boardStore.excuteCommand(command);
+  }
+
+  const handleCombinationOnTargetChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
+    const command = new RelationChangeCommand(relationStore, 
+      {
+        combination : event.target.checked ? CombinationType.ON_TARGET : undefined
       }
     );
     boardStore.excuteCommand(command);
@@ -113,6 +131,18 @@ export const RelationPanel = observer((
               onChange={handleSourceRoleChange}
             />
           </Grid> 
+          <Grid item xs = {12}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={relationStore.combination === CombinationType.ON_SOURCE}
+                  onChange={handleCombinationOnSourceChange}
+                  color="primary"
+                />
+              }
+              label= {intl.get('combination')}
+            />
+          </Grid>
           <Grid item xs={12}>
             <Typography variant = 'subtitle1'>
               {target?.name} {intl.get('side')}
@@ -125,6 +155,18 @@ export const RelationPanel = observer((
               onChange={handleTargetRoleChange}
             />
           </Grid>  
+          <Grid item xs = {12}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={relationStore.combination === CombinationType.ON_TARGET}
+                  onChange={handleCombinationOnTargetChange}
+                  color="primary"
+                />
+              }
+              label= {intl.get('combination')}
+            />
+          </Grid>
         </>
       }
     </>
