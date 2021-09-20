@@ -34,7 +34,15 @@ export class PackageSourceGenerator{
     let source = ''
     source = source + `export enum ${entity.name} {\n`
     for(const key in entity.enumValues||{}){
-      source = source + `  ${key} = '${entity.enumValues[key]}',\n`
+      let enumItemValue = entity.enumValues[key];
+      if(enumItemValue instanceof Object){
+        
+        source = source + '  /**\n';
+        source = source + `   * label: ${enumItemValue.label}\n`;
+        source = source + '   */\n';
+        enumItemValue = enumItemValue.value
+      }
+      source = source + `  ${key} = '${enumItemValue}',\n\n`
     }
     source = source + '}\n'
     return source;
@@ -78,7 +86,10 @@ export class PackageSourceGenerator{
       .join('\n') + '\n';
 
     source = source + ((sourceImports.length + targetImports.length) > 0 ? '\n' : '');
-    if(entity.entityType !== EntityType.ENUM && entity.entityType !== EntityType.INTERFACE){
+    if(entity.entityType !== EntityType.ENUM 
+        && entity.entityType !== EntityType.INTERFACE
+        && entity.entityType !== EntityType.ABSTRACT
+      ){
       source = source + `export const Entity${entity.name} = '${entity.name}';\n`;      
     }
 
@@ -98,12 +109,11 @@ export class PackageSourceGenerator{
         : ''
     } {\n`;
     source = source + entity.columns.map(column => {
-      if (column.name === 'id') {
-        return `  id?: number;`;
-      }
-      return `  ${column.name}${column.nullable || !column.select ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
+      //if (column.name === 'id') {
+      //  return `  id?: number;`;
+      //}
+      return `  ${column.name}${column.nullable || column.select===true || column.generated ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
     }).join('\n');
-
     source = source + (targetRelations.length > 0 ? '\n' : '');
     source = source + targetRelations.filter(relation=>relation.relationType !== RelationType.INHERIT).map(relation => {
       const arraySymbal = relation.relationType === RelationType.MANY_TO_ONE || relation.relationType === RelationType.MANY_TO_MANY

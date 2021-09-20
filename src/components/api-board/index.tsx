@@ -197,7 +197,7 @@ export default function ApiBoard(){
       }
 
     }
-    catch(error){
+    catch(error:any){
       console.error(error);
       appStore.infoError(intl.get('error'), error.message);
     }

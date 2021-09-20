@@ -11,6 +11,7 @@ import { EntityType } from '../meta/entity-meta';
 import { EntityTypeChangeCommand } from '../command/entity-type-change-command';
 import { JsonInput } from './json-input';
 import { EntityEnumValuesChangeCommand } from '../command/entity-enum-values-change-command';
+import { EntityMoveCommand } from '../command/entity-move-command';
 
 export const EntityPanel = observer((
   props:{
@@ -40,6 +41,11 @@ export const EntityPanel = observer((
     bordStore.excuteCommand(command);
   }
 
+  const handlePackageChange = (event: React.ChangeEvent<{ value: any }>)=>{
+    const command = new EntityMoveCommand(entityStore, event.target.value);
+    bordStore.excuteCommand(command);
+  }
+
   return(
     <>
       <Grid item xs={12}>
@@ -48,7 +54,26 @@ export const EntityPanel = observer((
           value = {entityStore.name || ''} 
           onChange={handleNameChange}
         />
-      </Grid>    
+      </Grid> 
+      <Grid item xs={12}>
+        <FormControl variant="outlined" fullWidth size = "small">
+          <InputLabel>{intl.get('belongs-to-package')}</InputLabel>
+          <Select
+            value={entityStore.package?.uuid||''}
+            onChange={handlePackageChange}
+            label={intl.get('belongs-to-package')}
+          >
+            {
+              entityStore.getRootStore().packages.map((pkg)=>{
+                return(
+                  <MenuItem key={pkg.uuid} value={pkg.uuid}>{pkg.name}</MenuItem>
+                )
+              })
+            }
+            
+          </Select>
+        </FormControl>  
+      </Grid>     
       <Grid item xs={12}>
         <FormControl variant="outlined" fullWidth size = "small">
           <InputLabel>{intl.get('type')}</InputLabel>
@@ -78,7 +103,12 @@ export const EntityPanel = observer((
       {
         entityStore.entityType === EntityType.ENUM &&
         <Grid item xs={12}>
-          <JsonInput label={intl.get('enum-values')} value = {entityStore.enumValues} onChange = {handleEnumValuesChange} />
+          <JsonInput 
+            label={intl.get('enum-values')} 
+            value = {entityStore.enumValues} 
+            onChange = {handleEnumValuesChange} 
+            title = {intl.get('edit-enum')}
+          />
         </Grid>
       }
     </>

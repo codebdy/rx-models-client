@@ -103,5 +103,7 @@
   "entity-relation-not-found":"Entity {enity} has not relation {relation}",
   "please-save-first":"Please save first",
   "package-file-illegal":"Package file illegal",
-  "package-exist":"Package exists!"
+  "package-exist":"Package exists!",
+  "belongs-to-package":"Belongs to package",
+  "edit-enum":"Edit enum"
 }

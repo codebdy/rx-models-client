@@ -46,7 +46,8 @@ export function useEdgeLineDraw(){
         return;
       }
 
-      if(target.entityType === EntityType.ENUM || target.entityType === EntityType.INTERFACE){
+      if(target.entityType === EntityType.ENUM || target.entityType === EntityType.INTERFACE 
+        || target.entityType === EntityType.ABSTRACT){
         return;
       }
 

@@ -36,8 +36,12 @@ export class DiagramStore{
     makeAutoObservable(this)
   }
 
+  getExistsNodes(){
+    return this.nodes.filter(node=>this.rootStore.getEntityById(node.id));
+  }
+
   getNodes(selectedId:string|undefined, isPressedRelation:boolean|undefined){
-    return this.nodes.map(node=>{
+    return this.getExistsNodes().map(node=>{
       const entityStore = this.rootStore.getEntityById(node.id);
       const data = {
         ...entityStore?.toMeta(), 
@@ -54,10 +58,11 @@ export class DiagramStore{
 
   getAndMakeEdges(){
     const edges: EdgeConfig[] = [];
+    const nodes = this.getExistsNodes();
 
     this.rootStore.getRelations()?.forEach(relation=>{
-      const source = this.nodes.find(node=>node.id === relation.sourceId);
-      const target = this.nodes.find(node=>node.id === relation.targetId);
+      const source = nodes.find(node=>node.id === relation.sourceId);
+      const target = nodes.find(node=>node.id === relation.targetId);
       if(source && target){
         const edge = this.edges.find(edge=>edge.id === relation.uuid);
         const relationMeta = relation.toMeta();

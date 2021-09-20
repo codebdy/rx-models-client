@@ -88,6 +88,11 @@ export class PackageStore{
     return newClass;
   }
 
+  addEntity(entity:EntityStore){
+    entity.package = this;
+    this.entities.push(entity);
+  }
+
   deleteEntity(id:string){
     _.remove(this.entities, (entityStore)=> entityStore.uuid === id);
   }
