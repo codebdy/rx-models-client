@@ -112,7 +112,8 @@ export class PackageSourceGenerator{
       //if (column.name === 'id') {
       //  return `  id?: number;`;
       //}
-      return `  ${column.name}${column.nullable || column.select===true || column.generated ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
+      const isNullable = column.nullable || column.select===true || column.generated || column.deleteDate || column.createDate || column.updateDate;
+      return `  ${column.name}${isNullable ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
     }).join('\n');
     source = source + (targetRelations.length > 0 ? '\n' : '');
     source = source + targetRelations.filter(relation=>relation.relationType !== RelationType.INHERIT).map(relation => {
