@@ -47,9 +47,11 @@ export function useEdgeLineDraw(){
       }
 
       if(target.entityType === EntityType.ENUM || target.entityType === EntityType.INTERFACE 
-        || target.entityType === EntityType.ABSTRACT){
+        || (!isInherit && target.entityType === EntityType.ABSTRACT) 
+        || (isInherit && target.entityType !== EntityType.ABSTRACT)){
         return;
       }
+
 
       //不能自身继承
       if(isInherit && source.uuid === target.uuid){
