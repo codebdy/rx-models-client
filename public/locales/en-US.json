@@ -105,5 +105,6 @@
   "package-file-illegal":"Package file illegal",
   "package-exist":"Package exists!",
   "belongs-to-package":"Belongs to package",
-  "edit-enum":"Edit enum"
+  "edit-enum":"Edit enum",
+  "index": "Index"
 }

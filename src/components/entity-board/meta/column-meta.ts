@@ -89,6 +89,8 @@ export interface ColumnMeta{
    */
   unique?: boolean;
 
+  index?: boolean;
+
   /**
    * 是否是创建日期
    */

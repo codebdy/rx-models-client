@@ -198,6 +198,22 @@ export const ColumnPanel = observer((
         </Grid>
       }
       {
+        !isId && 
+        <Grid item xs = {6}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.index||false}
+                onChange={handleBooleanChange('index')}
+                color="primary"
+              />
+            }
+            label= {intl.get('index')}
+          />
+        </Grid>
+      }
+
+      {
         columnStore.type === ColumnType.Date &&
         <Grid item xs = {6}>
           <FormControlLabel
