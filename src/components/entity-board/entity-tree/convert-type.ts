@@ -21,6 +21,10 @@ export function convertType(column: ColumnStore, enumEntities:EntityStore[], int
   }
 
   if(type === ColumnType.SimpleArray) {
+    return 'any[]';
+  }
+
+  if(type === ColumnType.JsonArray) {
     return (interfaceEntities.find(entitiy => entitiy.uuid === column.typeEnityUuid)?.name||'any') + '[]';
   }
 

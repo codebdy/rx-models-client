@@ -70,6 +70,7 @@
   "date":"Date time",
   "simple-json":"Simple JSON",
   "simple-array":"Simple array",
+  "json-array":"JSON Array",
   "primary-key":"Primary",
   "generated":"Generated",
   "nullable":"Nullable",

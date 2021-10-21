@@ -38,6 +38,8 @@ export enum ColumnType{
   */
   SimpleArray = 'simple-array',
 
+  JsonArray = 'json-array',
+
   /**
   * 枚举类型
   */

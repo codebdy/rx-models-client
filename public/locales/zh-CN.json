@@ -70,6 +70,7 @@
   "date":"日期时间",
   "simple-json":"简单JSON",
   "simple-array":"简单数组",
+  "json-array":"JSON数组",
   "primary-key":"主键",
   "generated":"生成",
   "nullable":"可空",
