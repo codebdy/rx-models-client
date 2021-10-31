@@ -70,6 +70,7 @@
   "date":"日期时间",
   "simple-json":"简单JSON",
   "simple-array":"简单数组",
+  "json-array":"JSON数组",
   "primary-key":"主键",
   "generated":"生成",
   "nullable":"可空",
@@ -105,5 +106,7 @@
   "package-file-illegal":"Package文件不合法",
   "package-exist":"该包已经存在，请不要重复导入",
   "belongs-to-package":"所属包",
-  "edit-enum":"编辑枚举值"
+  "edit-enum":"编辑枚举值",
+  "index":"索引",
+  "eventable":"事件化"
 }

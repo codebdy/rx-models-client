@@ -70,6 +70,7 @@
   "date":"Date time",
   "simple-json":"Simple JSON",
   "simple-array":"Simple array",
+  "json-array":"JSON Array",
   "primary-key":"Primary",
   "generated":"Generated",
   "nullable":"Nullable",
@@ -105,5 +106,7 @@
   "package-file-illegal":"Package file illegal",
   "package-exist":"Package exists!",
   "belongs-to-package":"Belongs to package",
-  "edit-enum":"Edit enum"
+  "edit-enum":"Edit enum",
+  "index": "Index",
+  "eventable": "Eventable"
 }

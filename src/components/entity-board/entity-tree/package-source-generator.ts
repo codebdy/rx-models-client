@@ -71,7 +71,7 @@ export class PackageSourceGenerator{
         const enumEntity = enumEntities.find(entity=>entity.uuid === column.typeEnityUuid);
         return enumEntity ? `import { ${enumEntity?.name} } from './${enumEntity?.name}';` : '';
       });
-    const interfaceImports = entity.columns.filter(column => (column.type === ColumnType.SimpleJson || column.type === ColumnType.SimpleArray))
+    const interfaceImports = entity.columns.filter(column => (column.type === ColumnType.SimpleJson || column.type === ColumnType.SimpleArray || column.type === ColumnType.JsonArray))
       .map(column=>{
         const interfaceEntity = interfaceEntities.find(entity=>entity.uuid === column.typeEnityUuid);
         return interfaceEntity ? `import { ${interfaceEntity?.name} } from './${interfaceEntity?.name}';` : '';
@@ -112,7 +112,8 @@ export class PackageSourceGenerator{
       //if (column.name === 'id') {
       //  return `  id?: number;`;
       //}
-      return `  ${column.name}${column.nullable || column.select===true || column.generated ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
+      const isNullable = column.nullable || column.select===true || column.generated || column.deleteDate || column.createDate || column.updateDate;
+      return `  ${column.name}${isNullable ? '?' : ''}: ${convertType(column, enumEntities, interfaceEntities)};`;
     }).join('\n');
     source = source + (targetRelations.length > 0 ? '\n' : '');
     source = source + targetRelations.filter(relation=>relation.relationType !== RelationType.INHERIT).map(relation => {

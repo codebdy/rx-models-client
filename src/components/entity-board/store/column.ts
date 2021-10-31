@@ -18,6 +18,7 @@ export class ColumnStore{
   readonly?: boolean;
   select?: boolean;
   unique?: boolean;
+  index?: boolean;
   comment?: string;
   default?: any;
   precision?: number;
@@ -40,6 +41,7 @@ export class ColumnStore{
     this.readonly = meta.readonly;
     this.select = meta.select;
     this.unique = meta.unique;
+    this.index = meta.index;
     this.comment = meta.comment;
     this.default = meta.default;
     this.precision = meta.precision;
@@ -93,6 +95,7 @@ export class ColumnStore{
       readonly: this.readonly,
       select: this.select,
       unique: this.unique,
+      index: this.index,
       comment: this.comment,
       default: this.default,
       precision: this.precision,

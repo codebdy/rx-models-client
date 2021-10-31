@@ -102,6 +102,7 @@ export const ColumnPanel = observer((
             <MenuItem value={ColumnType.Enum}>Enum</MenuItem>
             <MenuItem value={ColumnType.SimpleJson}>{intl.get('simple-json')}</MenuItem>
             <MenuItem value={ColumnType.SimpleArray}>{intl.get('simple-array')}</MenuItem>
+            <MenuItem value={ColumnType.JsonArray}>{intl.get('json-array')}</MenuItem>
           </Select>
         </FormControl>  
       </Grid>
@@ -129,7 +130,7 @@ export const ColumnPanel = observer((
         </Grid>
       }
       {
-        (columnStore.type === ColumnType.SimpleJson || columnStore.type === ColumnType.SimpleArray) && 
+        (columnStore.type === ColumnType.SimpleJson || columnStore.type === ColumnType.JsonArray) && 
         <Grid item xs={12}>
           <FormControl variant="outlined" fullWidth size = "small" disabled = {isId}>
             <InputLabel>{intl.get('interface-class')}</InputLabel>
@@ -197,6 +198,22 @@ export const ColumnPanel = observer((
           />
         </Grid>
       }
+      {
+        !isId && 
+        <Grid item xs = {6}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={columnStore.index||false}
+                onChange={handleBooleanChange('index')}
+                color="primary"
+              />
+            }
+            label= {intl.get('index')}
+          />
+        </Grid>
+      }
+
       {
         columnStore.type === ColumnType.Date &&
         <Grid item xs = {6}>

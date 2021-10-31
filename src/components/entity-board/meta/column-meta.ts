@@ -38,6 +38,8 @@ export enum ColumnType{
   */
   SimpleArray = 'simple-array',
 
+  JsonArray = 'json-array',
+
   /**
   * 枚举类型
   */
@@ -88,6 +90,8 @@ export interface ColumnMeta{
    * 是否唯一
    */
   unique?: boolean;
+
+  index?: boolean;
 
   /**
    * 是否是创建日期
