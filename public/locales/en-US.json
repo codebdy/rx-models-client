@@ -107,5 +107,6 @@
   "package-exist":"Package exists!",
   "belongs-to-package":"Belongs to package",
   "edit-enum":"Edit enum",
-  "index": "Index"
+  "index": "Index",
+  "eventable": "Eventable"
 }

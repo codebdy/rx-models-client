@@ -45,4 +45,6 @@ export interface EntityMeta{
   * 枚举值JSON，枚举类型实体使用，不参与数据库映射
   */
   enumValues?: any;
+
+  eventable?: boolean;
 }

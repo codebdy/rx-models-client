@@ -107,5 +107,6 @@
   "package-exist":"该包已经存在，请不要重复导入",
   "belongs-to-package":"所属包",
   "edit-enum":"编辑枚举值",
-  "index":"索引"
+  "index":"索引",
+  "eventable":"事件化"
 }

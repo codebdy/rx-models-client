@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { EntityStore } from '../store/entity-store';
 import intl from "react-intl-universal";
-import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch } from '@material-ui/core';
 import { useEntityBoardStore } from '../store/helper';
 import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
 import { NameChangeCommand } from '../command/name-change-command';
@@ -12,6 +12,7 @@ import { EntityTypeChangeCommand } from '../command/entity-type-change-command';
 import { JsonInput } from './json-input';
 import { EntityEnumValuesChangeCommand } from '../command/entity-enum-values-change-command';
 import { EntityMoveCommand } from '../command/entity-move-command';
+import { EntityEventableChangeCommand } from '../command/entity-eventable-change-command copy';
 
 export const EntityPanel = observer((
   props:{
@@ -43,6 +44,11 @@ export const EntityPanel = observer((
 
   const handlePackageChange = (event: React.ChangeEvent<{ value: any }>)=>{
     const command = new EntityMoveCommand(entityStore, event.target.value);
+    bordStore.excuteCommand(command);
+  }
+
+  const handleEventableChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
+    const command = new EntityEventableChangeCommand(entityStore, event.target.checked);
     bordStore.excuteCommand(command);
   }
 
@@ -91,13 +97,27 @@ export const EntityPanel = observer((
       </Grid>  
       {
         entityStore.entityType !== EntityType.ENUM && entityStore.entityType !== EntityType.INTERFACE &&
-        <Grid item xs={12}>
-          <LazyTextField 
-            label = {intl.get('table-name')} 
-            value = {entityStore.tableName || ''} 
-            onChange={handleTableNameChange}
-          />
-        </Grid>  
+        <>
+          <Grid item xs={12}>
+            <LazyTextField 
+              label = {intl.get('table-name')} 
+              value = {entityStore.tableName || ''} 
+              onChange={handleTableNameChange}
+            />
+          </Grid>  
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={entityStore.eventable||false}
+                  onChange={handleEventableChange}
+                  color="primary"
+                />
+              }
+              label= {intl.get('eventable')}
+            />
+          </Grid>
+        </>
       }
 
       {
