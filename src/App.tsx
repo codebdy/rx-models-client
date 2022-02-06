@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from '@material-ui/core';
+import { createTheme, ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from '@mui/material';
 import { rxModelsSwrConfig, initRxModelsSwr } from '@rxdrag/rxmodels-swr';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -14,6 +14,13 @@ import { INDEX_URL, INTALL_URL,  LOGIN_URL,  PRIMARY_COLOR, SERVER_URL, TOKEN_NA
 import { useIntl } from './util/use-intl';
 import useShadows from './util/use-shadows';
 
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
 function App() {
   initRxModelsSwr({
     serverUrl: SERVER_URL,
@@ -22,9 +29,9 @@ function App() {
   });
 
   const [langLoading] = useIntl();
-  const theme = createTheme({
+  const theme = createTheme(adaptV4Theme({
     palette: {
-      type: 'light',
+      mode: 'light',
       primary:{
         main: PRIMARY_COLOR,
       },
@@ -32,13 +39,13 @@ function App() {
     },
 
     shadows:[...useShadows()] as any
-  });
+  }));
 
-  return (
-    langLoading?
-      (<Loading />)
-    :
-      (<ThemeProvider theme={theme}>
+  return langLoading?
+    (<Loading />)
+  :
+    (<StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme}>
           <Switch> 
             <Route path={ rxModelsSwrConfig.loginUrl } component={Login}></Route>
             <Route path={ INTALL_URL } component={Install}></Route>
@@ -48,8 +55,8 @@ function App() {
         <SuccessAlertBar />
         <ErrorDialog />
         <ConfirmDialog />
-      </ThemeProvider>)
-  );
+      </ThemeProvider>
+  </StyledEngineProvider>);
 }
 
 export default App;

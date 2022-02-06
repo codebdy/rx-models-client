@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Theme } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import { observer } from 'mobx-react';
 import { useNodesShow } from './use-nodes-show';
 import { useExplorerScrollbarHide } from './use-explorer-scrollbar-hide';

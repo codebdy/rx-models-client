@@ -1,4 +1,4 @@
-import { createTheme, Theme } from "@material-ui/core";
+import { createTheme, Theme, adaptV4Theme } from "@mui/material";
 
 const weakenShadow = (shadow:string, strength:number)=>{
   return shadow.replace('rgba(0,0,0,0.14)',`rgba(0,0,0,${0.14*strength/10})`)
@@ -16,7 +16,7 @@ const generateShadows = (theme: Theme, strength:number) => {
 
 
 export default function useShadows(){
-  const oldTheme = createTheme({})
+  const oldTheme = createTheme(adaptV4Theme({}))
 
   return generateShadows(oldTheme,4);
 }

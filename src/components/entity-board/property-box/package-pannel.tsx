@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { PackageStore } from '../store/package';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import intl from "react-intl-universal";
 import { useEntityBoardStore } from '../store/helper';
 import { NameChangeCommand } from '../command/name-change-command';

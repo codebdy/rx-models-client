@@ -1,4 +1,4 @@
-import { FormControlLabel, Checkbox } from "@material-ui/core";
+import { FormControlLabel, Checkbox } from "@mui/material";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
 import { RxAbility } from "entity-interface/RxAbility";
 import React from "react";

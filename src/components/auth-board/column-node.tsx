@@ -1,5 +1,7 @@
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
-import { TreeItem } from "@material-ui/lab";
+import { Theme } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { ColumnMeta } from "components/entity-board/meta/column-meta";
 import { AbilityActions } from "./ability-actions";

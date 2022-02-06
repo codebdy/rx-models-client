@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Theme } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import { EntityTree } from './entity-tree';
 import { GraphCanvas } from './grahp-canvas';
 import classNames from 'classnames';

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
+import { Theme, IconButton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import MdiIcon from 'components/common/mdi-icon';
 import classNames from 'classnames';
 import { ColumnMeta } from 'components/entity-board/meta/column-meta';
@@ -89,15 +91,15 @@ export default function ColumnView(props:{
       {
         hover && !readOnly&& !isId && 
         <div className = {classes.propertyTools}>
-          <IconButton 
+          <IconButton
             className = {classes.propertyButton}
             onClick = {handleDeleteClick}
-          >
+            size="large">
             <MdiIcon iconClass="mdi-trash-can-outline" size={16}></MdiIcon>
           </IconButton>
         </div>        
       }
 
     </div>
-  )
+  );
 }

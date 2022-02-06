@@ -1,5 +1,19 @@
 import React, { useRef, useState } from 'react';
-import { makeStyles, Theme, createStyles, Container, Grid, FormControl, InputLabel, Select, MenuItem, TextField, CircularProgress, Fab } from '@material-ui/core';
+import {
+  Theme,
+  Container,
+  Grid,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+  CircularProgress,
+  Fab,
+  SelectChangeEvent,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import MonacoEditor from 'react-monaco-editor';
 import MdiIcon from 'components/common/mdi-icon';
 import { API_MAGIC_DELETE, 
@@ -129,7 +143,7 @@ export default function ApiBoard(){
     });
   }
 
-  const handleApiChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleApiChange = (event: SelectChangeEvent<ApiType>) => {
     setApiType(event.target.value as ApiType);
   };
 

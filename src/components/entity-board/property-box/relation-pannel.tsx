@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { RelationStore } from '../store/relation';
 import intl from "react-intl-universal";
-import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch, Typography } from '@material-ui/core';
+import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, Typography } from '@mui/material';
 import { useEntityBoardStore } from '../store/helper';
 import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
 import { CombinationType, RelationType } from '../meta/relation-meta';
@@ -18,7 +18,7 @@ export const RelationPanel = observer((
   const source = boardStore.getEntityById(relationStore.sourceId);
   const target = boardStore.getEntityById(relationStore.targetId);
 
-  const handleTypeChange = (event:React.ChangeEvent<{ value: unknown }>)=>{
+  const handleTypeChange = (event:SelectChangeEvent<RelationType>)=>{
     const ownerId = relationStore.relationType === RelationType.ONE_TO_MANY ? relationStore.sourceId : relationStore.targetId
     const command = new RelationChangeCommand(relationStore, 
       {
@@ -47,7 +47,7 @@ export const RelationPanel = observer((
     boardStore.excuteCommand(command);
   }
 
-  const handleOwnerChange = (event:React.ChangeEvent<{ value: unknown }>)=>{
+  const handleOwnerChange = (event:SelectChangeEvent<string>)=>{
     const command = new RelationChangeCommand(relationStore, 
       {
         ownerId : event.target.value as string

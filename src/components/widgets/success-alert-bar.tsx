@@ -1,6 +1,6 @@
 import React from 'react';
-import { Snackbar } from '@material-ui/core';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import { Snackbar } from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import intl from 'react-intl-universal';
 import {observer} from 'mobx-react';
 import { useAppStore } from '../../store/app-store';
@@ -14,7 +14,7 @@ export const SuccessAlertBar = observer(()=>{
   const appStore = useAppStore();
 
    
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleClose = (event?: any, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }

@@ -1,4 +1,4 @@
-import { TreeItem } from "@material-ui/lab";
+import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { PackageMeta } from "components/entity-board/meta/package-meta";
 import { EntityNode } from "./entity-node";

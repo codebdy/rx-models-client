@@ -1,5 +1,7 @@
-import { CircularProgress, createStyles, FormControlLabel, Grid, makeStyles, SvgIcon, Switch, Theme } from "@material-ui/core";
-import { TreeItem } from "@material-ui/lab";
+import { CircularProgress, FormControlLabel, Grid, SvgIcon, Switch, Theme } from "@mui/material";
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { TreeItem } from "@mui/lab";
 import { EntityMeta } from "components/entity-board/meta/entity-meta";
 import { ActionLabel } from "./action-label";
 import { AbilityActions } from "./ability-actions";

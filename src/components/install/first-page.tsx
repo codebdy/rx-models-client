@@ -1,5 +1,5 @@
-import { Grid, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, Button } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Grid, TextField, FormControl, InputLabel, OutlinedInput, InputAdornment, IconButton, Button } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import React, { useState } from 'react';
 import intl from "react-intl-universal";
 import { PageLayout } from './page-layout';
@@ -107,7 +107,7 @@ export const FirstPage=(props:{
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
-                >
+                  size="large">
                   {values.showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
@@ -116,5 +116,5 @@ export const FirstPage=(props:{
         </FormControl>
       </Grid>           
     </PageLayout>
-  )
+  );
 }

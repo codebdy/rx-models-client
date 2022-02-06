@@ -1,4 +1,4 @@
-import { TreeItem } from "@material-ui/lab";
+import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import React from "react";
@@ -17,7 +17,7 @@ import { getNewDiagramName } from "../store/get-new-diagram-name";
 import { PackageDeleteCommand } from "../command/package-delete-command";
 import { API_PUBLISH_PACKAGE } from "apis/install";
 import { useShowServerError } from "store/helpers/use-show-server-error";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { useAppStore } from "store/app-store";
 import intl from 'react-intl-universal';
 import { PackageSourceGenerator } from "./package-source-generator";

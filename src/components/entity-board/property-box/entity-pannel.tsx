@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { EntityStore } from '../store/entity-store';
 import intl from "react-intl-universal";
-import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, Switch } from '@material-ui/core';
+import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Switch } from '@mui/material';
 import { useEntityBoardStore } from '../store/helper';
 import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
 import { NameChangeCommand } from '../command/name-change-command';
@@ -31,9 +31,9 @@ export const EntityPanel = observer((
     bordStore.excuteCommand(command);
   }
 
-  const handleTypeChange = (event: React.ChangeEvent<{ value: any }>)=>{
+  const handleTypeChange = (event: SelectChangeEvent<EntityType>)=>{
     const type = event.target.value;
-    const command = new EntityTypeChangeCommand(entityStore, type);
+    const command = new EntityTypeChangeCommand(entityStore, type as any);
     bordStore.excuteCommand(command);
   }
 
@@ -42,7 +42,7 @@ export const EntityPanel = observer((
     bordStore.excuteCommand(command);
   }
 
-  const handlePackageChange = (event: React.ChangeEvent<{ value: any }>)=>{
+  const handlePackageChange = (event: SelectChangeEvent<string>)=>{
     const command = new EntityMoveCommand(entityStore, event.target.value);
     bordStore.excuteCommand(command);
   }

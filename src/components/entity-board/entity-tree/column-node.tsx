@@ -1,5 +1,5 @@
-import { IconButton } from "@material-ui/core";
-import { TreeItem } from "@material-ui/lab";
+import { IconButton } from "@mui/material";
+import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import { ColumnDeleteCommand } from "../command/column-delete-command";

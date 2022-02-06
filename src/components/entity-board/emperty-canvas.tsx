@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Theme } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 //import welcomeImage from "assets/img/welcome.png";
 
 const useStyles = makeStyles((theme: Theme) =>

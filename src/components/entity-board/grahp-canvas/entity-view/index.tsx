@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
+import { Theme, IconButton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import classNames from 'classnames';
 import MdiIcon from 'components/common/mdi-icon';
 import { EntityNodeData } from '../../store/diagram';
@@ -70,7 +72,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
   }),
-);  
+);
 
 export const EntityView = (props:{
   onColumnSelect?: (entityId:string, columnId:string)=>void,  
@@ -132,9 +134,10 @@ export const EntityView = (props:{
           }
           {
             hover && !disableHover &&
-            <IconButton className = {classes.entityCloseButton}
+            <IconButton
+              className = {classes.entityCloseButton}
               onClick = {handleHidden}
-            >
+              size="large">
               <MdiIcon iconClass="mdi-eye-off-outline" size={16}></MdiIcon>
             </IconButton>          
           }
@@ -163,10 +166,10 @@ export const EntityView = (props:{
             {
               hover && !disableHover &&
               <div className = {classes.columnPuls}>
-                <IconButton 
+                <IconButton
                   className = {classes.columnButton}
                   onClick = {handleColumnCreate}
-                >
+                  size="large">
                   <MdiIcon iconClass="mdi-plus" size={20}></MdiIcon>
                 </IconButton>
               </div>
@@ -176,5 +179,5 @@ export const EntityView = (props:{
         }
       </div>
     </div>
-  )
+  );
 }

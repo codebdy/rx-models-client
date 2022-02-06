@@ -1,4 +1,7 @@
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import { Theme } from "@mui/material";
+
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 
 const useStyles = makeStyles((theme: Theme) =>
 createStyles({

@@ -1,5 +1,5 @@
-import { withStyles } from '@material-ui/core/styles';
-import MuiAccordion from '@material-ui/core/Accordion';
+import withStyles from '@mui/styles/withStyles';
+import MuiAccordion from '@mui/material/Accordion';
 
 export const Accordion = withStyles({
   root: {

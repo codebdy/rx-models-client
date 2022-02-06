@@ -1,5 +1,5 @@
-import { IconButton, SvgIcon } from "@material-ui/core";
-import { TreeItem } from "@material-ui/lab";
+import { IconButton, SvgIcon } from "@mui/material";
+import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { observer } from "mobx-react";
 import { RelationDeleteCommand } from "../command/relation-delete-command";

@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
+import { Theme, Grid } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import ToolbarArea from './toolbar-area';
 import ToolbarTitle from './toolbar-title';
 import intl from 'react-intl-universal';

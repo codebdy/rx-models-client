@@ -1,6 +1,8 @@
 import React from 'react';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
-import { createStyles, Dialog, makeStyles, Theme } from '@material-ui/core';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { Dialog, Theme } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import {observer} from 'mobx-react';
 import { useAppStore } from '../../store/app-store';
 

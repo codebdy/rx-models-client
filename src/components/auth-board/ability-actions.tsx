@@ -1,4 +1,6 @@
-import { makeStyles, Theme, createStyles, Grid } from "@material-ui/core";
+import { Theme, Grid } from "@mui/material";
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import classNames from "classnames";
 import { ActionWithExpression } from "./action-with-expression";
 import { observer } from "mobx-react";

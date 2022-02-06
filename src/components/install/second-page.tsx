@@ -1,5 +1,5 @@
-import { Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { API_INSTALL } from 'apis/install';
 import SubmitButton from 'components/common/submit-button';
 import React, { useState } from 'react';
@@ -97,7 +97,7 @@ export const SecondPage=(
                   aria-label="toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
-                >
+                  size="large">
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
@@ -118,5 +118,5 @@ export const SecondPage=(
         />
       </Grid>          
     </PageLayout>
-  )
+  );
 }

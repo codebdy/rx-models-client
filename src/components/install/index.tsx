@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, 
-  Theme, 
-  createStyles, 
-  Grid, 
-  createTheme, 
+import {
+  Theme,
+  Grid,
+  createTheme,
   ThemeProvider,
-} from '@material-ui/core';
+  StyledEngineProvider,
+  adaptV4Theme,
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import background from "assets/img/background1.jpg";
 import rightImage from "assets/img/install1.png";
 import intl from "react-intl-universal";
@@ -16,9 +19,17 @@ import { useAppStore } from '../../store/app-store';
 import useShadows from '../../util/use-shadows';
 import { API_IS_INSTALLED } from 'apis/install';
 import { useSWRQuery } from '@rxdrag/rxmodels-swr';
-import { Alert } from '@material-ui/lab';
+import { Alert } from '@mui/material';
 import { FirstPage } from './first-page';
 import { SecondPage } from './second-page';
+
+
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -93,9 +104,9 @@ export const Install = observer(()=>{
   },[appStore.loggedUser, history]);
 
 
-  const theme = createTheme({
+  const theme = createTheme(adaptV4Theme({
     palette: {
-      type: 'light',
+      mode: 'light',
       primary:{
         main: PRIMARY_COLOR,
       },
@@ -103,70 +114,72 @@ export const Install = observer(()=>{
     },
 
     shadows:[...useShadows()] as any
-  });
+  }));
 
   return (
-    <ThemeProvider theme={theme}>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
 
-      <div className={classes.root}>
-        <Grid container justifyContent = "center">
-          <Grid 
-            container 
-            item md={7} 
-            sm={8}
-            xs={10} 
-            className = {classes.installBox} 
-            alignContent = "stretch"
-          >
-            <Grid item lg={6} 
-              className = {classes.leftInstall} 
+        <div className={classes.root}>
+          <Grid container justifyContent = "center">
+            <Grid 
+              container 
+              item md={7} 
+              sm={8}
+              xs={10} 
+              className = {classes.installBox} 
+              alignContent = "stretch"
             >
-                <div >
-                  <h2 className = {classes.title} >{intl.get('install') + " rxModels"}</h2>
-                </div>
-                {
-                  checking && 
-                  <div>Install checking...</div>
-                }
-                {
-                  error &&
-                  <Alert severity="error">{error.message}</Alert>
-                }
-                {
-                  !checking && data?.installed && 
-                  <Alert severity="error">{intl.get('installed')}</Alert>
-                }
-                {
-                  !checking && !error && !data?.installed &&
-                  <>
-                    {
-                      pageNumber === 1
-                      ? <FirstPage 
-                          values = {values}
-                          onValuesChange = {handleChange}
-                          onNextPage = {()=>{
-                          setPageNumber(2)
-                          }}
-                        />
-                      : <SecondPage 
-                          values = {values}
-                          onValuesChange = {handleChange}
-                          onPreviousPage = {()=>{
-                            setPageNumber(1)
-                          }}
-                        />
-                    }
-                    
-                  </>
-                }
+              <Grid item lg={6} 
+                className = {classes.leftInstall} 
+              >
+                  <div >
+                    <h2 className = {classes.title} >{intl.get('install') + " rxModels"}</h2>
+                  </div>
+                  {
+                    checking && 
+                    <div>Install checking...</div>
+                  }
+                  {
+                    error &&
+                    <Alert severity="error">{error.message}</Alert>
+                  }
+                  {
+                    !checking && data?.installed && 
+                    <Alert severity="error">{intl.get('installed')}</Alert>
+                  }
+                  {
+                    !checking && !error && !data?.installed &&
+                    <>
+                      {
+                        pageNumber === 1
+                        ? <FirstPage 
+                            values = {values}
+                            onValuesChange = {handleChange}
+                            onNextPage = {()=>{
+                            setPageNumber(2)
+                            }}
+                          />
+                        : <SecondPage 
+                            values = {values}
+                            onValuesChange = {handleChange}
+                            onPreviousPage = {()=>{
+                              setPageNumber(1)
+                            }}
+                          />
+                      }
+                      
+                    </>
+                  }
+              </Grid>
+              <Grid item lg={6} className = {classes.rightImage}>
+                <img src={rightImage} alt="" width="100%"/>
+              </Grid>  
             </Grid>
-            <Grid item lg={6} className = {classes.rightImage}>
-              <img src={rightImage} alt="" width="100%"/>
-            </Grid>  
-          </Grid>
 
-        </Grid>
-      </div>
-    </ThemeProvider>
-  )
+          </Grid>
+        </div>
+      </ThemeProvider>
+    </StyledEngineProvider>
+  );
 })

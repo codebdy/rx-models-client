@@ -1,5 +1,7 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, IconButton } from '@material-ui/core';
+import { Theme, IconButton } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import { observer } from 'mobx-react';
 import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
@@ -103,21 +105,21 @@ export const EntityToolbar = observer(()=>{
       <div className = {classes.toolbarInner}>
         <RouterPrompt promptBoolean = {boardStore.changed} message = {intl.get('changing-not-save-message')} />
         <Spacer />
-        <IconButton 
+        <IconButton
           className={classes.iconButton}
           disabled = {boardStore.undoList.length === 0}
           onClick = {handleUndo}
-        ><MdiIcon iconClass = "mdi-undo" /></IconButton>
-        <IconButton 
+          size="large"><MdiIcon iconClass = "mdi-undo" /></IconButton>
+        <IconButton
           className={classes.iconButton}
           disabled = {boardStore.redoList.length === 0}
           onClick = {handleRedo}
-        ><MdiIcon iconClass = "mdi-redo" /></IconButton>
-        <IconButton 
+          size="large"><MdiIcon iconClass = "mdi-redo" /></IconButton>
+        <IconButton
           className={classes.iconButton}
           disabled = {!boardStore.selectedElement || (boardStore.selectedElement as any).name === 'id'}
           onClick = {handleDelete}
-        ><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
+          size="large"><MdiIcon iconClass = "mdi-trash-can-outline" size={20} /></IconButton>
         <div className={classes.saveButtonShell}>
           <SubmitButton 
             variant="contained" 
@@ -130,6 +132,5 @@ export const EntityToolbar = observer(()=>{
         </div>
       </div>
     </div>
-
-  )
+  );
 })

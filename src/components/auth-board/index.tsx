@@ -1,10 +1,12 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles, Container} from '@material-ui/core';
+import { Theme, Container } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
 import { Topbar } from './topbar';
 import classNames from 'classnames';
-import { TreeView } from '@material-ui/lab';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { TreeView } from '@mui/lab';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { API_PUSLISHED_SCHEMA } from 'apis/auth';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { PackageMeta } from 'components/entity-board/meta/package-meta';

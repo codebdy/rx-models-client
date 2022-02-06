@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { IconButton, SvgIcon } from "@material-ui/core";
-import { TreeItem } from "@material-ui/lab";
+import { IconButton, SvgIcon } from "@mui/material";
+import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import { EntityStore } from "../store/entity-store";
 import { NodeText } from "./node-text";

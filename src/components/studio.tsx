@@ -1,8 +1,10 @@
 import React from "react"
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Avatar, IconButton, Link, Tooltip } from '@material-ui/core';
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import { Avatar, IconButton, Link, Tooltip } from '@mui/material';
 import { observer } from 'mobx-react';
 import intl from 'react-intl-universal';
 import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
@@ -126,7 +128,7 @@ export const Studio = observer(() => {
           </Link>
           <Spacer />
           <Tooltip title="Logout" aria-label="Logout" onClick = {handleLogout}>
-            <IconButton><MdiIcon iconClass = "mdi-logout" /></IconButton>
+            <IconButton size="large"><MdiIcon iconClass = "mdi-logout" /></IconButton>
           </Tooltip>
         </Toolbar>
       </AppBar>
