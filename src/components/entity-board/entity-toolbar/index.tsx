@@ -87,7 +87,6 @@ export const EntityToolbar = observer(()=>{
       const command = new RelationDeleteCommand(boardStore.selectedElement);
       boardStore.excuteCommand(command);
     }
-
   }
 
   const handleSave = ()=>{
