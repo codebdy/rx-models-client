@@ -25,6 +25,8 @@
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "file-saver": "^2.0.5",
+    "graphql": "^16.3.0",
+    "graphql-request": "^4.0.0",
     "jszip": "^3.6.0",
     "lodash": "^4.17.21",
     "mobx": "^6.3.2",
