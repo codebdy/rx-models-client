@@ -1,12 +1,11 @@
-import React from "react"
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import { Avatar, IconButton, Link, Tooltip } from '@mui/material';
-import { observer } from 'mobx-react';
-import intl from 'react-intl-universal';
+import React from "react";
+import { Theme } from "@mui/material/styles";
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import { Avatar, IconButton, Link, Tooltip } from "@mui/material";
+import intl from "react-intl-universal";
 import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import MdiIcon from "./common/mdi-icon";
 import Spacer from "./common/spacer";
@@ -20,88 +19,81 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      height:'100%',
-      display: 'flex',
-      flexFlow: 'column',
+      height: "100%",
+      display: "flex",
+      flexFlow: "column",
     },
     logoIcon: {
       marginRight: theme.spacing(2),
       backgroundColor: theme.palette.primary.main,
-      letterSpacing:'1px',
-      fontWeight:'bold',
-      fontSize:'20px',
+      letterSpacing: "1px",
+      fontWeight: "bold",
+      fontSize: "20px",
     },
-    githubLink:{
+    githubLink: {
       color: theme.palette.text.secondary,
-      marginRight:theme.spacing(1),
+      marginRight: theme.spacing(1),
     },
 
-    navLink:{
-      textDecoration:'none',
-      color:theme.palette.text.primary,
-      padding:theme.spacing(1, 2),
-      borderRadius:'5px',
-      fontSize:'0.9rem',
-      '&:hover':{
-        textDecoration:'none',
-        background:'rgba(0,0,0, 0.05)',
-      }
+    navLink: {
+      textDecoration: "none",
+      color: theme.palette.text.primary,
+      padding: theme.spacing(1, 2),
+      borderRadius: "5px",
+      fontSize: "0.9rem",
+      "&:hover": {
+        textDecoration: "none",
+        background: "rgba(0,0,0, 0.05)",
+      },
     },
 
-    activeLink:{
-      color:theme.palette.primary.main,
-    }
-  }),
+    activeLink: {
+      color: theme.palette.primary.main,
+    },
+  })
 );
 
-export const Studio = observer(() => {
+export const Studio = () => {
   const classes = useStyles();
   const history = useHistory();
   const appStore = useAppStore();
 
-  const handleLogout = ()=>{
-    appStore.setToken('');
+  const handleLogout = () => {
+    appStore.setToken("");
     appStore.setLoggedUser(undefined);
     localStorage.removeItem(rxModelsSwrConfig.tokenName);
     rxModelsSwrConfig.token = "";
     history.push(rxModelsSwrConfig.loginUrl);
-  }
+  };
 
   return (
     <div className={classes.root}>
-      <AppBar 
-        position="static" 
-        color = "transparent"
-        variant = "outlined"
-      >
+      <AppBar position="static" color="transparent" variant="outlined">
         <Toolbar>
-          <Avatar
-            variant="rounded"
-            className={classes.logoIcon}
-          >
+          <Avatar variant="rounded" className={classes.logoIcon}>
             RX
           </Avatar>
           <NavLink
-            className = {classes.navLink}
-            activeClassName = {classes.activeLink}
+            className={classes.navLink}
+            activeClassName={classes.activeLink}
             to="/studio/models"
           >
-            {intl.get('uml-studio')}
+            {intl.get("uml-studio")}
           </NavLink>
 
           <NavLink
-            className = {classes.navLink}
-            activeClassName = {classes.activeLink}
+            className={classes.navLink}
+            activeClassName={classes.activeLink}
             to="/studio/api"
           >
-            {intl.get('api-studio')}
+            {intl.get("api-studio")}
           </NavLink>
           <NavLink
-            className = {classes.navLink}
-            activeClassName = {classes.activeLink}
+            className={classes.navLink}
+            activeClassName={classes.activeLink}
             to="/studio/auth"
           >
-            {intl.get('auth-management')}
+            {intl.get("auth-management")}
           </NavLink>
           {
             //<NavLink
@@ -113,32 +105,33 @@ export const Studio = observer(() => {
             ///NavLink>
           }
           <Link
-            className = {classes.navLink}
-            target = "_blank"
-            href= "https://rxdrag.com/docs/intro"
+            className={classes.navLink}
+            target="_blank"
+            href="https://rxdrag.com/docs/intro"
           >
-            {intl.get('document')}
+            {intl.get("document")}
           </Link>
           <Link
-            className = {classes.navLink}
-            target = "_blank"
-            href= "https://github.com/rxdrag/rx-models"
+            className={classes.navLink}
+            target="_blank"
+            href="https://github.com/rxdrag/rx-models"
           >
             Github
           </Link>
           <Spacer />
-          <Tooltip title="Logout" aria-label="Logout" onClick = {handleLogout}>
-            <IconButton size="large"><MdiIcon iconClass = "mdi-logout" /></IconButton>
+          <Tooltip title="Logout" aria-label="Logout" onClick={handleLogout}>
+            <IconButton size="large">
+              <MdiIcon iconClass="mdi-logout" />
+            </IconButton>
           </Tooltip>
         </Toolbar>
       </AppBar>
       <Switch>
-        <Route path="/studio/models" component={ModelsBoard}></Route> 
+        <Route path="/studio/models" component={ModelsBoard}></Route>
         <Route path="/studio/api" component={ApiBoard}></Route>
         <Route path="/studio/auth" component={AuthBoard}></Route>
-        <Redirect to={`/studio/models`} from='/studio' /> 
+        <Redirect to={`/studio/models`} from="/studio" />
       </Switch>
-
     </div>
   );
-})
+};
