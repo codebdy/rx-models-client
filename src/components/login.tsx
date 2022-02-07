@@ -14,7 +14,6 @@ import {
   createTheme,
   ThemeProvider,
   StyledEngineProvider,
-  adaptV4Theme,
 } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
@@ -134,18 +133,16 @@ export const Login = observer(() => {
     }
   }, [appStore.loggedUser, history]);
 
-  const theme = createTheme(
-    adaptV4Theme({
-      palette: {
-        mode: "light",
-        primary: {
-          main: PRIMARY_COLOR,
-        },
+  const theme = createTheme({
+    palette: {
+      mode: "light",
+      primary: {
+        main: PRIMARY_COLOR,
       },
+    },
 
-      shadows: [...useShadows()] as any,
-    })
-  );
+    shadows: [...useShadows()] as any,
+  });
 
   const handleChange =
     (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
