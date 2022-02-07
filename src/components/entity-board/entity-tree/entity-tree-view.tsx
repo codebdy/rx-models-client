@@ -11,7 +11,6 @@ import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 import { useEntityBoardStore } from "../store/helper";
 import { PackageNode } from "./package-node";
-import { observer } from "mobx-react";
 import { PackageCreateCommand } from "../command/package-create-command";
 import { createId } from "util/creat-id";
 import { getNewPackageName } from "../store/get-new-package-name";
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const EntityTreeView = observer(() => {
+export const EntityTreeView = () => {
   const classes = useStyles();
   const rootStore = useEntityBoardStore();
   const fileInputRef = useRef(null);
@@ -186,4 +185,4 @@ export const EntityTreeView = observer(() => {
       />
     </>
   );
-});
+};

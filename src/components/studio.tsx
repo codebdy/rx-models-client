@@ -67,7 +67,7 @@ export const Studio = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="transparent" variant="outlined">
+      <AppBar position="static" color="transparent" elevation={0} variant="outlined">
         <Toolbar>
           <Avatar variant="rounded" className={classes.logoIcon}>
             <SvgIcon sx={{ fontSize: 32 }}>
