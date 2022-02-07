@@ -1,4 +1,4 @@
-import request, { gql } from "graphql-request";
+import request, { gql, GraphQLClient } from "graphql-request";
 import { useState } from "react";
 import { GRAPHQL_SERVER } from "util/consts";
 
@@ -22,11 +22,15 @@ export function useLogin(
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>();
+  const graphQLClient = new GraphQLClient(GRAPHQL_SERVER, {
+    mode: "cors",
+  });
 
   const login = (loginName: string, password: string) => {
     setLoading(true);
     setError(undefined);
-    request(GRAPHQL_SERVER, loginMutation, { loginName, password })
+    graphQLClient
+      .request(loginMutation, { loginName, password })
       .then((data) => {
         setLoading(false);
         console.log(data);
