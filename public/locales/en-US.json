@@ -108,5 +108,7 @@
   "belongs-to-package":"Belongs to package",
   "edit-enum":"Edit enum",
   "index": "Index",
-  "eventable": "Eventable"
+  "eventable": "Eventable",
+  "entity-model":"Entity Model",
+  "add-node":"Add node"
 }

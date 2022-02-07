@@ -4,6 +4,7 @@ import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { EntityTreeView } from "./entity-tree-view";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import intl from "react-intl-universal";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,13 +39,13 @@ export const EntityTree = () => {
           pr: 2,
         }}
       >
-        <Typography>实体模型</Typography>
+        <Typography>{intl.get("entity-model")}</Typography>
         <Button
           variant="contained"
           size="small"
           startIcon={<AddOutlinedIcon />}
         >
-          添加节点
+          {intl.get("add-node")}
         </Button>
       </Box>
       <div className={classes.modelTree}>

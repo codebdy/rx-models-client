@@ -108,5 +108,7 @@
   "belongs-to-package":"所属包",
   "edit-enum":"编辑枚举值",
   "index":"索引",
-  "eventable":"事件化"
+  "eventable":"事件化",
+  "entity-model":"实体模型",
+  "add-node":"添加节点"
 }
