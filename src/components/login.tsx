@@ -101,6 +101,7 @@ export const Login = observer(() => {
 
   const [login, { loading }] = useLogin({
     onCompleted(token: string) {
+      console.log("token:", token);
       if (token) {
         if (rememberMe) {
           localStorage.setItem(rxModelsSwrConfig.tokenName, token);
