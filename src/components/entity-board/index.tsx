@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Theme } from "@mui/material";
+import { Box, Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { EntityTree } from "./entity-tree";
@@ -10,20 +10,11 @@ import { EntityStoreProvider } from "./store/helper";
 import { Toolbox } from "./toolbox";
 import { PropertyBox } from "./property-box";
 import { EntityToolbar } from "./entity-toolbar";
-import { useShowServerError } from "store/helpers/use-show-server-error";
 import Loading from "components/common/loading";
-import { PackageMeta } from "./meta/package-meta";
 import EmpertyCanvas from "./emperty-canvas";
-import { MagicQueryBuilder, useMagicQuery } from "@rxdrag/rxmodels-swr";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flex: 1,
-      display: "flex",
-      flexFlow: "column",
-      height: "0",
-    },
     content: {
       width: "100%",
       flex: 1,
@@ -52,27 +43,44 @@ export const ModelsBoard = () => {
 
   return (
     <EntityStoreProvider value={modelStore}>
-      <div className={classes.root}>
-        <EntityToolbar />
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexFlow: "row",
+          height: "0",
+        }}
+      >
         {false ? (
           <Loading />
         ) : (
-          <div className={classNames(classes.content, "dragit-scrollbar")}>
+          <>
             <EntityTree></EntityTree>
-            {modelStore.openedDiagram ? (
-              <>
-                <Toolbox></Toolbox>
-                <div className={classes.canvasShell}>
-                  <GraphCanvas></GraphCanvas>
-                </div>
-              </>
-            ) : (
-              <EmpertyCanvas></EmpertyCanvas>
-            )}
-            <PropertyBox></PropertyBox>
-          </div>
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                flexFlow: "column",
+              }}
+            >
+              <EntityToolbar />
+              <div className={classNames(classes.content, "dragit-scrollbar")}>
+                {modelStore.openedDiagram ? (
+                  <>
+                    <Toolbox></Toolbox>
+                    <div className={classes.canvasShell}>
+                      <GraphCanvas></GraphCanvas>
+                    </div>
+                  </>
+                ) : (
+                  <EmpertyCanvas></EmpertyCanvas>
+                )}
+                <PropertyBox></PropertyBox>
+              </div>
+            </Box>
+          </>
         )}
-      </div>
+      </Box>
     </EntityStoreProvider>
   );
 };
