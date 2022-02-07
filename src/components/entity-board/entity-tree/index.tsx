@@ -26,7 +26,7 @@ export const EntityTree = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <div className={classes.modelTree}>
+      <div className={classes.modelTree} >
         <EntityTreeView />
       </div>
       <div className={classes.miniMap} id="mini-map"></div>

@@ -1,7 +1,4 @@
 import React, { useRef } from "react";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -21,17 +18,7 @@ import { PackageStatus } from "../meta/package-meta";
 import { useAppStore } from "store/app-store";
 import { SvgIcon } from "@mui/material";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-      padding: theme.spacing(1),
-    },
-  })
-);
-
 export const EntityTreeView = () => {
-  const classes = useStyles();
   const rootStore = useEntityBoardStore();
   const fileInputRef = useRef(null);
   const appStore = useAppStore();
@@ -91,7 +78,6 @@ export const EntityTreeView = () => {
   return (
     <>
       <TreeView
-        className={classes.root}
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpanded={[TREE_ROOT_ID]}
         defaultExpandIcon={<ChevronRightIcon />}
@@ -120,6 +106,11 @@ export const EntityTreeView = () => {
               <NodeText>{intl.get("local-models")}</NodeText>
             </TreeNodeLabel>
           }
+          sx={{
+            "& .MuiTreeItem-content": {
+              padding: 0,
+            },
+          }}
         >
           {rootStore.packages.map((aPackage) => {
             return <PackageNode key={aPackage.uuid} packageStore={aPackage} />;
@@ -145,6 +136,11 @@ export const EntityTreeView = () => {
               <NodeText>{"用户服务"}</NodeText>
             </TreeNodeLabel>
           }
+          sx={{
+            "& .MuiTreeItem-content": {
+              padding: 0,
+            },
+          }}
         >
           {rootStore.packages.map((aPackage) => {
             return <PackageNode key={aPackage.uuid} packageStore={aPackage} />;
@@ -170,6 +166,11 @@ export const EntityTreeView = () => {
               <NodeText>{"邮件管理"}</NodeText>
             </TreeNodeLabel>
           }
+          sx={{
+            "& .MuiTreeItem-content": {
+              padding: 0,
+            },
+          }}
         >
           {rootStore.packages.map((aPackage) => {
             return <PackageNode key={aPackage.uuid} packageStore={aPackage} />;

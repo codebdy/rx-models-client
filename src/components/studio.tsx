@@ -90,7 +90,7 @@ export const Studio = () => {
             activeClassName={classes.activeLink}
             to="/studio/api"
           >
-            {intl.get("api-studio")}
+            {"GraphiQL"}
           </NavLink>
           <NavLink
             className={classes.navLink}
