@@ -13,7 +13,7 @@ import { createId } from "util/creat-id";
 import { getNewPackageName } from "../store/get-new-package-name";
 import { PackageStore } from "../store/package";
 import { TREE_ROOT_ID } from "util/consts";
-import RootAction from "./root-action";
+import LocalModelAction from "./local-model-action";
 import { PackageStatus } from "../meta/package-meta";
 import { useAppStore } from "store/app-store";
 import { SvgIcon } from "@mui/material";
@@ -91,7 +91,7 @@ export const EntityTreeView = () => {
           label={
             <TreeNodeLabel
               action={
-                <RootAction
+                <LocalModelAction
                   onAddPackage={handleAddPackage}
                   onImportPackage={handleImportPackage}
                 />
@@ -121,7 +121,7 @@ export const EntityTreeView = () => {
           label={
             <TreeNodeLabel
               action={
-                <RootAction
+                <LocalModelAction
                   onAddPackage={handleAddPackage}
                   onImportPackage={handleImportPackage}
                 />
@@ -151,7 +151,7 @@ export const EntityTreeView = () => {
           label={
             <TreeNodeLabel
               action={
-                <RootAction
+                <LocalModelAction
                   onAddPackage={handleAddPackage}
                   onImportPackage={handleImportPackage}
                 />
