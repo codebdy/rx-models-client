@@ -1,7 +1,7 @@
 {
   "name": "名称",
   "login": "登录",
-  "login-tip": "rxModels， 你的下一行未必是代码",
+  "login-tip": "你的下一行未必是代码",
   "operate-success": "操作成功！",
   "save": "保存",
   "edit": "编辑",
