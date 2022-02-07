@@ -1,4 +1,5 @@
-import { gql, GraphQLClient } from "graphql-request";
+import { ClientError, gql, GraphQLClient } from "graphql-request";
+import { GraphQLError } from "graphql-request/dist/types";
 import { useState } from "react";
 import { GRAPHQL_SERVER } from "util/consts";
 
@@ -10,18 +11,18 @@ const loginMutation = gql`
 
 export interface LoginOptions {
   onCompleted?: (access_token: string) => void;
-  onError?: (error: string) => void;
+  onError?: (error?: GraphQLError) => void;
 }
 
 export function useLogin(
   options?: LoginOptions
 ): [
   (loginName: string, password: string) => void,
-  { token?: string; loading?: boolean; error?: string }
+  { token?: string; loading?: boolean; error?: GraphQLError }
 ] {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<GraphQLError | undefined>();
   const graphQLClient = new GraphQLClient(GRAPHQL_SERVER, {
     mode: "cors",
   });
@@ -36,11 +37,14 @@ export function useLogin(
         setToken(data.login);
         options?.onCompleted && options?.onCompleted(data.login);
       })
-      .catch((err) => {
+      .catch((err: ClientError) => {
+        const error: GraphQLError | undefined = err.response.errors
+          ? err.response.errors[0]
+          : undefined;
         setLoading(false);
-        setError(err);
+        setError(error);
         console.error(err);
-        options?.onError && options?.onError(err);
+        options?.onError && options?.onError(error);
       });
   };
 
