@@ -3,6 +3,7 @@ import { Box, Button, Theme, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { EntityTreeView } from "./entity-tree-view";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +39,13 @@ export const EntityTree = () => {
         }}
       >
         <Typography>实体模型</Typography>
-        <Button variant="contained" size="small">连接节点</Button>
+        <Button
+          variant="contained"
+          size="small"
+          startIcon={<AddOutlinedIcon />}
+        >
+          添加节点
+        </Button>
       </Box>
       <div className={classes.modelTree}>
         <EntityTreeView />
