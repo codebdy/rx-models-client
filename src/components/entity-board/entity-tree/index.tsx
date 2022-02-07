@@ -1,5 +1,5 @@
 import React from "react";
-import { Theme } from "@mui/material";
+import { Box, Button, Theme, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { EntityTreeView } from "./entity-tree-view";
@@ -26,7 +26,21 @@ export const EntityTree = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <div className={classes.modelTree} >
+      <Box
+        sx={{
+          height: (theme) => theme.spacing(6),
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          borderBottom: (theme) => theme.palette.divider + " solid 1px",
+          pl: 2,
+          pr: 2,
+        }}
+      >
+        <Typography>实体模型</Typography>
+        <Button variant="contained" size="small">连接节点</Button>
+      </Box>
+      <div className={classes.modelTree}>
         <EntityTreeView />
       </div>
       <div className={classes.miniMap} id="mini-map"></div>
