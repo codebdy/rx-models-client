@@ -25,11 +25,10 @@ import { useHistory } from "react-router";
 import { observer } from "mobx-react";
 import SubmitButton from "./common/submit-button";
 import { INDEX_URL, PRIMARY_COLOR } from "../util/consts";
-import { API_LOGIN } from "../apis/login";
 import { useAppStore } from "../store/app-store";
 import useShadows from "../util/use-shadows";
 import { cache } from "swr";
-import { useLazyAxios, rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
+import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
 import { useLogin } from "hooks/useLogin";
 
 declare module "@mui/styles/defaultTheme" {
@@ -101,18 +100,17 @@ export const Login = observer(() => {
   const history = useHistory();
 
   const [login, { loading }] = useLogin({
-    onCompleted(access_token: string) {
-      // if(data && data){
-      //   const token = data.access_token;
-      //   if(rememberMe){
-      //     localStorage.setItem(rxModelsSwrConfig.tokenName, token);
-      //   }else{
-      //     localStorage.removeItem(rxModelsSwrConfig.tokenName);
-      //   }
-      //   appStore.setToken(token);
-      //   rxModelsSwrConfig.token = token;
-      //   history.push(INDEX_URL);
-      // }
+    onCompleted(token: string) {
+      if (token) {
+        if (rememberMe) {
+          localStorage.setItem(rxModelsSwrConfig.tokenName, token);
+        } else {
+          localStorage.removeItem(rxModelsSwrConfig.tokenName);
+        }
+        appStore.setToken(token);
+        rxModelsSwrConfig.token = token;
+        history.push(INDEX_URL);
+      }
     },
     onError(error: any) {
       if (error.response?.status === 401) {

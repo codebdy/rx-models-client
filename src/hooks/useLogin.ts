@@ -1,4 +1,4 @@
-import request, { gql, GraphQLClient } from "graphql-request";
+import { gql, GraphQLClient } from "graphql-request";
 import { useState } from "react";
 import { GRAPHQL_SERVER } from "util/consts";
 
@@ -33,7 +33,8 @@ export function useLogin(
       .request(loginMutation, { loginName, password })
       .then((data) => {
         setLoading(false);
-        console.log(data);
+        setToken(data.login);
+        options?.onCompleted && options?.onCompleted(data.login);
       })
       .catch((err) => {
         setLoading(false);
