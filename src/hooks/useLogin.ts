@@ -21,17 +21,21 @@ export function useLogin(
 ] {
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState<any>();
 
   const login = (loginName: string, password: string) => {
     setLoading(true);
+    setError(undefined);
     request(GRAPHQL_SERVER, loginMutation, { loginName, password })
       .then((data) => {
         setLoading(false);
         console.log(data);
       })
       .catch((err) => {
+        setLoading(false);
+        setError(err);
         console.error(err);
+        options?.onError && options?.onError(err);
       });
   };
 
