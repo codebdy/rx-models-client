@@ -20,7 +20,6 @@ import { TREE_ROOT_ID } from "util/consts";
 import RootAction from "./root-action";
 import { PackageStatus } from "../meta/package-meta";
 import { useAppStore } from "store/app-store";
-import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
 import { SvgIcon } from "@mui/material";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -113,8 +112,38 @@ export const EntityTreeView = observer(() => {
                 />
               }
             >
-              <FolderOpenOutlinedIcon />
-              <NodeText>{intl.get("root-models")}</NodeText>
+              <SvgIcon>
+                <path
+                  fill="currentColor"
+                  d="M20 6H12L10 4H4A2 2 0 0 0 2 6V18A2 2 0 0 0 4 20H20A2 2 0 0 0 22 18V8A2 2 0 0 0 20 6M20 18H4V8H20M13 17V14H15V17H17V13H19L14 9L9 13H11V17Z"
+                />
+              </SvgIcon>
+              <NodeText>{intl.get("local-models")}</NodeText>
+            </TreeNodeLabel>
+          }
+        >
+          {rootStore.packages.map((aPackage) => {
+            return <PackageNode key={aPackage.uuid} packageStore={aPackage} />;
+          })}
+        </TreeItem>
+        <TreeItem
+          nodeId={TREE_ROOT_ID + 1}
+          label={
+            <TreeNodeLabel
+              action={
+                <RootAction
+                  onAddPackage={handleAddPackage}
+                  onImportPackage={handleImportPackage}
+                />
+              }
+            >
+              <SvgIcon>
+                <path
+                  fill="currentColor"
+                  d="M15 20C15 19.45 14.55 19 14 19H13V17H19C20.11 17 21 16.11 21 15V7C21 5.9 20.11 5 19 5H13L11 3H5C3.9 3 3 3.9 3 5V15C3 16.11 3.9 17 5 17H11V19H10C9.45 19 9 19.45 9 20H2V22H9C9 22.55 9.45 23 10 23H14C14.55 23 15 22.55 15 22H22V20H15M5 15V7H19V15H5Z"
+                />
+              </SvgIcon>
+              <NodeText>{"用户服务"}</NodeText>
             </TreeNodeLabel>
           }
         >
@@ -139,7 +168,7 @@ export const EntityTreeView = observer(() => {
                   d="M15 20C15 19.45 14.55 19 14 19H13V17H19C20.11 17 21 16.11 21 15V7C21 5.9 20.11 5 19 5H13L11 3H5C3.9 3 3 3.9 3 5V15C3 16.11 3.9 17 5 17H11V19H10C9.45 19 9 19.45 9 20H2V22H9C9 22.55 9.45 23 10 23H14C14.55 23 15 22.55 15 22H22V20H15M5 15V7H19V15H5Z"
                 />
               </SvgIcon>
-              <NodeText>{"用户服务"}</NodeText>
+              <NodeText>{"邮件管理"}</NodeText>
             </TreeNodeLabel>
           }
         >
