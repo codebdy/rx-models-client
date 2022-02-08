@@ -38,13 +38,24 @@ export const x6EdgesState = atom<X6EdgeMeta[]>({
   default: [],
 });
 
-export const undoList = atom<Snapshot[]>({
+export const undoListState = atom<Snapshot[]>({
   key: "local.undoList",
   default: [],
 });
 
-export const redoList = atom<Snapshot[]>({
+export const redoListState = atom<Snapshot[]>({
   key: "local.redoList",
   default: [],
 });
+
+export const selectedElementState = atom<string|undefined>({
+  key: "local.selectedElement",
+  default: undefined,
+})
+
+export const selectedDiagramState = atom<string|undefined>({
+  key: "local.selectedDiagram",
+  default: undefined,
+})
+
 

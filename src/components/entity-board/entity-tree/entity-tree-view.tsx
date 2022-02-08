@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { memo, useRef } from "react";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -6,49 +6,52 @@ import TreeItem from "@mui/lab/TreeItem";
 import intl from "react-intl-universal";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
-import { useEntityBoardStore } from "../store/helper";
-import { PackageNode } from "./package-node";
-import { PackageCreateCommand } from "../command/package-create-command";
-import { PackageStore } from "../store/package";
 import { TREE_ROOT_ID } from "util/consts";
 import LocalModelAction from "./local-model-action";
-import { useAppStore } from "store/app-store";
 import { SvgIcon } from "@mui/material";
+import { useRecoilValue } from "recoil";
+import {
+  entitesState,
+  selectedDiagramState,
+  selectedElementState,
+} from "../recoil/atoms";
+import { EntityNode } from "./entity-node";
 
-export const EntityTreeView = () => {
-  const rootStore = useEntityBoardStore();
+export const EntityTreeView = memo(() => {
+  const selectedDiagram = useRecoilValue(selectedDiagramState);
+  const selectedElement = useRecoilValue(selectedElementState);
+  const entities = useRecoilValue(entitesState);
   const fileInputRef = useRef(null);
-  const appStore = useAppStore();
 
   const handlePackageFileInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const pacakgeFile = event.target.files ? event.target.files[0] : undefined;
-    if (pacakgeFile) {
-      var reader = new FileReader();
-      reader.readAsText(pacakgeFile, "utf-8");
-      reader.onload = () => {
-        if (!reader.result) {
-          appStore.infoError(intl.get("package-file-illegal"));
-          return;
-        }
-        const aPackage = JSON.parse(reader.result as string);
-        if (!aPackage.uuid) {
-          appStore.infoError(intl.get("package-file-illegal"));
-          return;
-        }
+    // if (pacakgeFile) {
+    //   var reader = new FileReader();
+    //   reader.readAsText(pacakgeFile, "utf-8");
+    //   reader.onload = () => {
+    //     if (!reader.result) {
+    //       appStore.infoError(intl.get("package-file-illegal"));
+    //       return;
+    //     }
+    //     const aPackage = JSON.parse(reader.result as string);
+    //     if (!aPackage.uuid) {
+    //       appStore.infoError(intl.get("package-file-illegal"));
+    //       return;
+    //     }
 
-        if (rootStore.packages.find((apk) => apk.uuid === aPackage.uuid)) {
-          appStore.infoError(intl.get("package-exist"));
-          return;
-        }
-        const command = new PackageCreateCommand(
-          new PackageStore(aPackage, rootStore),
-          rootStore
-        );
-        rootStore.excuteCommand(command);
-      };
-    }
+    //     if (rootStore.packages.find((apk) => apk.uuid === aPackage.uuid)) {
+    //       appStore.infoError(intl.get("package-exist"));
+    //       return;
+    //     }
+    //     const command = new PackageCreateCommand(
+    //       new PackageStore(aPackage, rootStore),
+    //       rootStore
+    //     );
+    //     rootStore.excuteCommand(command);
+    //   };
+    // }
   };
 
   return (
@@ -57,10 +60,7 @@ export const EntityTreeView = () => {
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpanded={[TREE_ROOT_ID]}
         defaultExpandIcon={<ChevronRightIcon />}
-        selected={[
-          rootStore?.selectedElement?.uuid || "",
-          rootStore?.openedDiagram?.uuid || "",
-        ]}
+        selected={[selectedDiagram || "", selectedElement || ""]}
       >
         <TreeItem
           nodeId={TREE_ROOT_ID}
@@ -101,8 +101,8 @@ export const EntityTreeView = () => {
             },
           }}
         >
-          {rootStore.packages.map((aPackage) => {
-            return <PackageNode key={aPackage.uuid} packageStore={aPackage} />;
+          {entities.map((entity) => {
+            return <EntityNode key={entity.uuid} uuid={entity.uuid} />;
           })}
         </TreeItem>
         <TreeItem
@@ -124,9 +124,6 @@ export const EntityTreeView = () => {
             },
           }}
         >
-          {rootStore.packages.map((aPackage) => {
-            return <PackageNode key={aPackage.uuid} packageStore={aPackage} />;
-          })}
         </TreeItem>
         <TreeItem
           nodeId={TREE_ROOT_ID + 2}
@@ -147,9 +144,6 @@ export const EntityTreeView = () => {
             },
           }}
         >
-          {rootStore.packages.map((aPackage) => {
-            return <PackageNode key={aPackage.uuid} packageStore={aPackage} />;
-          })}
         </TreeItem>
       </TreeView>
       <input
@@ -161,4 +155,4 @@ export const EntityTreeView = () => {
       />
     </>
   );
-};
+});
