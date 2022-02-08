@@ -2,7 +2,6 @@ import React from 'react';
 import { Divider, IconButton, Menu, MenuItem, Theme } from '@mui/material';
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
-import MdiIcon from 'components/common/mdi-icon';
 import intl from 'react-intl-universal';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -80,7 +79,7 @@ export default function PackageAction(props:{
       <IconButton size = "small"
         onClick = {handleMenuOpen}
       >
-        <MdiIcon className="mdi-dots-horizontal" size="16" />
+        
       </IconButton>
       <Menu
           anchorEl={anchorEl}
@@ -97,7 +96,7 @@ export default function PackageAction(props:{
           onClose={handleMenuClose}
           
         >
-          <MenuItem onClick={handleAddEntity} className = {classes.menuItem}>
+          {/* <MenuItem onClick={handleAddEntity} className = {classes.menuItem}>
             <MdiIcon iconClass = "mdi-shape-square-rounded-plus"  size={16}/>
             <span className = {classes.text}>{intl.get('add-entity')}  </span>
           </MenuItem>
@@ -127,7 +126,7 @@ export default function PackageAction(props:{
           >
             <MdiIcon iconClass = "mdi-file-export-outline"  size={16}/>
             <span className = {classes.text}>{intl.get('export-inteface')} </span>
-          </MenuItem>
+          </MenuItem> */}
 
       </Menu>
     </>

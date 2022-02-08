@@ -42,45 +42,43 @@ export const ModelsBoard = () => {
   }, []);
 
   return (
-    <EntityStoreProvider value={modelStore}>
-      <Box
-        sx={{
-          flex: 1,
-          display: "flex",
-          flexFlow: "row",
-          height: "0",
-        }}
-      >
-        {false ? (
-          <Loading />
-        ) : (
-          <>
-            <EntityTree></EntityTree>
-            <Box
-              sx={{
-                flex: 1,
-                display: "flex",
-                flexFlow: "column",
-              }}
-            >
-              <EntityToolbar />
-              <div className={classNames(classes.content, "dragit-scrollbar")}>
-                {modelStore.openedDiagram ? (
-                  <>
-                    <Toolbox></Toolbox>
-                    <div className={classes.canvasShell}>
-                      <GraphCanvas></GraphCanvas>
-                    </div>
-                  </>
-                ) : (
-                  <EmpertyCanvas></EmpertyCanvas>
-                )}
-                <PropertyBox></PropertyBox>
-              </div>
-            </Box>
-          </>
-        )}
-      </Box>
-    </EntityStoreProvider>
+    <Box
+      sx={{
+        flex: 1,
+        display: "flex",
+        flexFlow: "row",
+        height: "0",
+      }}
+    >
+      {false ? (
+        <Loading />
+      ) : (
+        <>
+          <EntityTree></EntityTree>
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              flexFlow: "column",
+            }}
+          >
+            <EntityToolbar />
+            <div className={classNames(classes.content, "dragit-scrollbar")}>
+              {modelStore.openedDiagram ? (
+                <>
+                  <Toolbox></Toolbox>
+                  <div className={classes.canvasShell}>
+                    <GraphCanvas></GraphCanvas>
+                  </div>
+                </>
+              ) : (
+                <EmpertyCanvas></EmpertyCanvas>
+              )}
+              <PropertyBox></PropertyBox>
+            </div>
+          </Box>
+        </>
+      )}
+    </Box>
   );
 };

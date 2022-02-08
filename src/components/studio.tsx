@@ -7,13 +7,13 @@ import Toolbar from "@mui/material/Toolbar";
 import { Avatar, IconButton, Link, SvgIcon, Tooltip } from "@mui/material";
 import intl from "react-intl-universal";
 import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import MdiIcon from "./common/mdi-icon";
 import Spacer from "./common/spacer";
 import ApiBoard from "./api-board";
 import { ModelsBoard } from "./entity-board";
 import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
 import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +67,12 @@ export const Studio = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="transparent" elevation={0} variant="outlined">
+      <AppBar
+        position="static"
+        color="transparent"
+        elevation={0}
+        variant="outlined"
+      >
         <Toolbar>
           <Avatar variant="rounded" className={classes.logoIcon}>
             <SvgIcon sx={{ fontSize: 32 }}>
@@ -125,7 +130,7 @@ export const Studio = () => {
           <Spacer />
           <Tooltip title="Logout" aria-label="Logout" onClick={handleLogout}>
             <IconButton size="large">
-              <MdiIcon iconClass="mdi-logout" />
+              <LogoutOutlinedIcon />
             </IconButton>
           </Tooltip>
         </Toolbar>

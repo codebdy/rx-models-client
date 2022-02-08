@@ -1,12 +1,10 @@
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
-import MdiIcon from "components/common/mdi-icon";
-import { useEntityBoardStore } from "../store/helper";
-import { EntityStore } from "../store/entity-store";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 import { RelationMeta, RelationType } from "../meta/relation-meta";
 import { useEntity } from "../hooks/useEntity";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 export const RelationNode = (props: {
   key?: string;
@@ -23,7 +21,7 @@ export const RelationNode = (props: {
     // bordStore.excuteCommand(command);
   };
 
-   const isInherit = relation.relationType === RelationType.INHERIT;
+  const isInherit = relation.relationType === RelationType.INHERIT;
 
   const targetEntity = useEntity(relation.targetId);
 
@@ -34,7 +32,7 @@ export const RelationNode = (props: {
         <TreeNodeLabel
           action={
             <IconButton size="small" onClick={handleDelete}>
-              <MdiIcon className="mdi-trash-can-outline" size="16" />
+              <DeleteOutlineOutlinedIcon sx={{ fontSize: 16 }} />
             </IconButton>
           }
           onClick={handleClick}
@@ -44,7 +42,12 @@ export const RelationNode = (props: {
               <path fill="currentColor" d="M12,2L1,21H23M12,6L19.53,19H4.47" />
             </SvgIcon>
           ) : (
-            <MdiIcon iconClass="mdi-relation-many-to-many" size={12} />
+            <SvgIcon sx={{ fontSize: 12 }}>
+              <path
+                fill="currentColor"
+                d="M22 13V19H21L19 17H11V9H5L3 11H2V5H3L5 7H13V15H19L21 13Z"
+              />
+            </SvgIcon>
           )}
 
           <NodeText>

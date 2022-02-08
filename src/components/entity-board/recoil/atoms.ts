@@ -13,6 +13,11 @@ export interface Snapshot {
   x6Edges: X6EdgeMeta[];
 }
 
+export const changedState = atom<boolean>({
+  key: "local.changed",
+  default: false,
+});
+
 export const diagramsState = atom<DiagramMeta[]>({
   key: "local.diagrams",
   default: [],
@@ -48,14 +53,12 @@ export const redoListState = atom<Snapshot[]>({
   default: [],
 });
 
-export const selectedElementState = atom<string|undefined>({
+export const selectedElementState = atom<string | undefined>({
   key: "local.selectedElement",
   default: undefined,
-})
+});
 
-export const selectedDiagramState = atom<string|undefined>({
+export const selectedDiagramState = atom<string | undefined>({
   key: "local.selectedDiagram",
   default: undefined,
-})
-
-
+});

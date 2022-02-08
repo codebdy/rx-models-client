@@ -1,5 +1,4 @@
 import { TreeItem } from "@mui/lab";
-import MdiIcon from "components/common/mdi-icon";
 import { PackageMeta } from "components/entity-board/meta/package-meta";
 import { EntityNode } from "./entity-node";
 import { NameLabel } from "./name-label";
@@ -19,7 +18,7 @@ export const PackageNode = observer((props:{
       label = {
           <PackageLabel>
             <>
-              <MdiIcon iconClass = "mdi-folder-outline" size={18} />
+              {/* <MdiIcon iconClass = "mdi-folder-outline" size={18} /> */}
               <NameLabel>{packageMeta.name}</NameLabel>
             </>
           </PackageLabel>
