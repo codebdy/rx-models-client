@@ -9,12 +9,9 @@ import { TreeNodeLabel } from "./tree-node-label";
 import { useEntityBoardStore } from "../store/helper";
 import { PackageNode } from "./package-node";
 import { PackageCreateCommand } from "../command/package-create-command";
-import { createId } from "util/creat-id";
-import { getNewPackageName } from "../store/get-new-package-name";
 import { PackageStore } from "../store/package";
 import { TREE_ROOT_ID } from "util/consts";
 import LocalModelAction from "./local-model-action";
-import { PackageStatus } from "../meta/package-meta";
 import { useAppStore } from "store/app-store";
 import { SvgIcon } from "@mui/material";
 
@@ -22,27 +19,6 @@ export const EntityTreeView = () => {
   const rootStore = useEntityBoardStore();
   const fileInputRef = useRef(null);
   const appStore = useAppStore();
-
-  const handleAddPackage = () => {
-    const command = new PackageCreateCommand(
-      new PackageStore(
-        {
-          uuid: createId(),
-          name: getNewPackageName(rootStore),
-          status: PackageStatus.EDITING,
-        },
-        rootStore
-      ),
-      rootStore
-    );
-    rootStore.excuteCommand(command);
-  };
-
-  const handleImportPackage = () => {
-    if (fileInputRef.current) {
-      (fileInputRef.current as any)?.click();
-    }
-  };
 
   const handlePackageFileInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
