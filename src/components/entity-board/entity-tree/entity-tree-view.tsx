@@ -11,16 +11,20 @@ import LocalModelAction from "./local-model-action";
 import { SvgIcon } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import {
+  diagramsState,
   entitiesState,
   selectedDiagramState,
   selectedElementState,
 } from "../recoil/atoms";
 import { EntityNode } from "./entity-node";
+import { DiagramNode } from "./diagram-node";
 
 export const EntityTreeView = memo(() => {
   const selectedDiagram = useRecoilValue(selectedDiagramState);
   const selectedElement = useRecoilValue(selectedElementState);
   const entities = useRecoilValue(entitiesState);
+  const diagrams = useRecoilValue(diagramsState);
+
   const fileInputRef = useRef(null);
 
   const handlePackageFileInputChange = (
@@ -98,6 +102,9 @@ export const EntityTreeView = memo(() => {
           {entities.map((entity) => {
             return <EntityNode key={entity.uuid} uuid={entity.uuid} />;
           })}
+          {diagrams.map((diagram) => {
+            return <DiagramNode key={diagram.uuid} diagram={diagram} />;
+          })}
         </TreeItem>
         <TreeItem
           nodeId={TREE_ROOT_ID + 1}
@@ -117,8 +124,7 @@ export const EntityTreeView = memo(() => {
               padding: 0,
             },
           }}
-        >
-        </TreeItem>
+        ></TreeItem>
         <TreeItem
           nodeId={TREE_ROOT_ID + 2}
           label={
@@ -137,8 +143,7 @@ export const EntityTreeView = memo(() => {
               padding: 0,
             },
           }}
-        >
-        </TreeItem>
+        ></TreeItem>
       </TreeView>
       <input
         ref={fileInputRef}

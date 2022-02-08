@@ -134,11 +134,11 @@ export const PackageNode = observer((props:{
         // })
       }
       {
-        packageStore.diagrams.map(diagram=>{
-          return (
-            <DiagramNode key={diagram.uuid} diagramStore = {diagram} />
-          )
-        })
+        // packageStore.diagrams.map(diagram=>{
+        //   return (
+        //     <DiagramNode key={diagram.uuid} diagramStore = {diagram} />
+        //   )
+        // })
       }
     </TreeItem>
   )

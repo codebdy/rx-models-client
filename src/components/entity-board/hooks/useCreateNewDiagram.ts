@@ -9,7 +9,7 @@ export function useCreateNewDiagram() {
   const getDiagramByName = useGetDiagramByName();
 
   const getNewDiagramName = () => {
-    const prefix = intl.get('add-package');
+    const prefix = intl.get('add-diagram');
     let index = 1;
     while (getDiagramByName(prefix + index)) {
       index++;

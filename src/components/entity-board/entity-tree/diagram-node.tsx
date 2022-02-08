@@ -1,87 +1,83 @@
 import { IconButton, TextField } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
-import { observer } from "mobx-react";
 import React, { useState } from "react";
-import { DiagramDeleteCommand } from "../command/diagram-delete-command";
-import { NameChangeCommand } from "../command/name-change-command";
-import { useEntityBoardStore } from "../store/helper";
-import { DiagramStore } from "../store/diagram";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
+import { DiagramMeta } from "../meta/diagram-meta";
+import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 
-export const DiagramNode = observer((props:{
-  key?:string,
-  diagramStore: DiagramStore
-})=>{
-  const {diagramStore} = props;
+export const DiagramNode = (props: { key?: string; diagram: DiagramMeta }) => {
+  const { diagram } = props;
   const [editing, setEditing] = useState(false);
-  const bordStore = useEntityBoardStore();
-  const handleClick = ()=>{
-    bordStore.setOpendDiagram(diagramStore);
-  }
-  const handleEdit = (event:React.MouseEvent)=>{
+  const handleClick = () => {
+    // bordStore.setOpendDiagram(diagram);
+  };
+  const handleEdit = (event: React.MouseEvent) => {
     setEditing(true);
     event.stopPropagation();
-  }
+  };
 
-  const handleNameChange = (event:React.ChangeEvent<HTMLInputElement>)=>{
-    const command = new NameChangeCommand(diagramStore, event.target.value as string);
-    bordStore.excuteCommand(command);
-  }
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // const command = new NameChangeCommand(
+    //   diagram,
+    //   event.target.value as string
+    // );
+    // bordStore.excuteCommand(command);
+  };
 
-  const handleNameBlur = ()=>{
+  const handleNameBlur = () => {
     setEditing(false);
-  }
+  };
 
-  const handleKeyEnter = (event:React.KeyboardEvent<HTMLElement>)=>{
-    if(event.key === 'Enter') {
+  const handleKeyEnter = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter") {
       setEditing(false);
     }
-  }
+  };
 
-  const handleDelete = (event:React.MouseEvent)=>{
-    const command = new DiagramDeleteCommand(diagramStore, bordStore);
-    bordStore.excuteCommand(command);
+  const handleDelete = (event: React.MouseEvent) => {
+    // const command = new DiagramDeleteCommand(diagram, bordStore);
+    // bordStore.excuteCommand(command);
     event.stopPropagation();
-  }
+  };
 
-  return(
-    <TreeItem nodeId= {diagramStore.uuid} label={
-      <TreeNodeLabel
-        action = {
-          !editing &&
-          <>
-            <IconButton size = "small" onClick={handleEdit}>
-              <MdiIcon className="mdi-pencil-outline" size="16" />
-            </IconButton>
-            <IconButton size = "small"
-              onClick = {handleDelete}
-            >
-              <MdiIcon className="mdi-trash-can-outline" size="16" />
-            </IconButton>
-          </>
-        }
-
-        onClick = {handleClick}
-      >
-        <MdiIcon iconClass = "mdi-file-outline" size={15} />
-        <NodeText>
-          {
-            editing
-            ? <TextField 
-                value = {diagramStore.name || ''} 
-                size = "small" 
+  return (
+    <TreeItem
+      nodeId={diagram.uuid}
+      label={
+        <TreeNodeLabel
+          action={
+            !editing && (
+              <>
+                <IconButton size="small" onClick={handleEdit}>
+                  <MdiIcon className="mdi-pencil-outline" size="16" />
+                </IconButton>
+                <IconButton size="small" onClick={handleDelete}>
+                  <MdiIcon className="mdi-trash-can-outline" size="16" />
+                </IconButton>
+              </>
+            )
+          }
+          onClick={handleClick}
+        >
+          <InsertDriveFileOutlinedIcon fontSize="small" sx={{ ml: -0.2 }} />
+          <NodeText>
+            {editing ? (
+              <TextField
+                value={diagram.name || ""}
+                size="small"
                 onChange={handleNameChange}
-                onBlur = {handleNameBlur}
-                onKeyUp = {handleKeyEnter}
+                onBlur={handleNameBlur}
+                onKeyUp={handleKeyEnter}
                 autoFocus
               />
-            : diagramStore.name
-          }
-        </NodeText>
-      </TreeNodeLabel>
-    }>
-    </TreeItem>
-  )
-})
+            ) : (
+              diagram.name
+            )}
+          </NodeText>
+        </TreeNodeLabel>
+      }
+    ></TreeItem>
+  );
+};
