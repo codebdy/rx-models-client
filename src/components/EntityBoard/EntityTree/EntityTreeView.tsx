@@ -5,9 +5,9 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeItem from "@mui/lab/TreeItem";
 import intl from "react-intl-universal";
 import { NodeText } from "./node-text";
-import { TreeNodeLabel } from "./tree-node-label";
+import { TreeNodeLabel } from "./TreeNodeLabel";
 import { TREE_ROOT_ID } from "util/consts";
-import LocalModelAction from "./local-model-action";
+import LocalModelAction from "./LocalModelAction";
 import { SvgIcon } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import {
@@ -16,8 +16,8 @@ import {
   selectedDiagramState,
   selectedElementState,
 } from "../recoil/atoms";
-import { EntityNode } from "./entity-node";
-import { DiagramNode } from "./diagram-node";
+import { EntityNode } from "./EntityNode";
+import { DiagramNode } from "./DiagramNode";
 
 export const EntityTreeView = memo(() => {
   const selectedDiagram = useRecoilValue(selectedDiagramState);

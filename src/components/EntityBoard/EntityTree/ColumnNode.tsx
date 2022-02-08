@@ -1,7 +1,7 @@
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./node-text";
-import { TreeNodeLabel } from "./tree-node-label";
+import { TreeNodeLabel } from "./TreeNodeLabel";
 import { ColumnMeta } from "../meta/column-meta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 

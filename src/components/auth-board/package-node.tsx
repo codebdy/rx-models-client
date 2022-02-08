@@ -1,5 +1,5 @@
 import { TreeItem } from "@mui/lab";
-import { PackageMeta } from "components/entity-board/meta/package-meta";
+import { PackageMeta } from "components/EntityBoard/meta/package-meta";
 import { EntityNode } from "./entity-node";
 import { NameLabel } from "./name-label";
 import { PackageLabel } from "./package-label";

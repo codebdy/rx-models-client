@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Box, Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
-import { EntityTree } from "./entity-tree";
+import { EntityTree } from "./EntityTree";
 import { GraphCanvas } from "./grahp-canvas";
 import classNames from "classnames";
-import { EntityBoardStore } from "./store/entity-board-store";
-import { EntityStoreProvider } from "./store/helper";
-import { Toolbox } from "./toolbox";
+import { Toolbox } from "./toolbox2";
 import { PropertyBox } from "./property-box";
-import { EntityToolbar } from "./entity-toolbar";
+import { EntityToolbar } from "./EntityToolbar";
 import Loading from "components/common/loading";
-import EmpertyCanvas from "./emperty-canvas";
+import EmpertyCanvas from "./EmpertyCanvas";
+import { useRecoilValue } from "recoil";
+import { selectedDiagramState } from "./recoil/atoms";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,16 +30,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ModelsBoard = () => {
   const classes = useStyles();
-  const [modelStore, setModelStore] = useState(new EntityBoardStore([]));
+  const selectedDiagram = useRecoilValue(selectedDiagramState);
   // const { data, error, loading } = useMagicQuery<PackageMeta[]>(
   //   new MagicQueryBuilder("RxPackage")
   // );
 
   // useShowServerError(error);
-
-  useEffect(() => {
-    setModelStore(new EntityBoardStore([]));
-  }, []);
 
   return (
     <Box
@@ -64,7 +60,7 @@ export const ModelsBoard = () => {
           >
             <EntityToolbar />
             <div className={classNames(classes.content, "dragit-scrollbar")}>
-              {modelStore.openedDiagram ? (
+              {selectedDiagram ? (
                 <>
                   <Toolbox></Toolbox>
                   <div className={classes.canvasShell}>

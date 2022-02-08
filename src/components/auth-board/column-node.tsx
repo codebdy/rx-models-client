@@ -2,12 +2,12 @@ import { SvgIcon, Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { TreeItem } from "@mui/lab";
-import { ColumnMeta } from "components/entity-board/meta/column-meta";
+import { ColumnMeta } from "components/EntityBoard/meta/column-meta";
 import { AbilityActions } from "./ability-actions";
 import { NameLabel } from "./name-label";
-import { NodeLabel } from "./node-label";
+import { NodeLabel } from "./NodeLabel";
 import { observer } from "mobx-react";
-import { EntityMeta } from "components/entity-board/meta/entity-meta";
+import { EntityMeta } from "components/EntityBoard/meta/entity-meta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

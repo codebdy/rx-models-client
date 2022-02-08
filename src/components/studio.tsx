@@ -9,7 +9,7 @@ import intl from "react-intl-universal";
 import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Spacer from "./common/spacer";
 import ApiBoard from "./api-board";
-import { ModelsBoard } from "./entity-board";
+import { ModelsBoard } from "./EntityBoard";
 import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
 import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";

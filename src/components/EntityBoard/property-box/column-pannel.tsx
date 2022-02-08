@@ -12,7 +12,7 @@ import {
   SelectChangeEvent,
   Switch,
 } from "@mui/material";
-import LazyTextField from "components/entity-board/property-box/lazy-text-field";
+import LazyTextField from "components/EntityBoard/property-box/lazy-text-field";
 import { useEntityBoardStore } from "../store/helper";
 import { ColumnType } from "../meta/column-meta";
 import { ColumnChangeCommand } from "../command/column-change-command";

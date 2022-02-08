@@ -17,7 +17,7 @@ import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 import SubmitButton from "components/common/submit-button";
 import { useAuthBoardStore } from "../store/helper";
-import { EntityMeta } from "components/entity-board/meta/entity-meta";
+import { EntityMeta } from "components/EntityBoard/meta/entity-meta";
 
 const SqlWhereParser = require("sql-where-parser");
 const OPERATOR_UNARY_MINUS = Symbol("-");

@@ -5,7 +5,7 @@ import { useEntityBoardStore } from "../store/helper";
 import { PackageStore } from "../store/package";
 import { NodeText } from "./node-text";
 import PackageAction from "./package-action";
-import { TreeNodeLabel } from "./tree-node-label";
+import { TreeNodeLabel } from "./TreeNodeLabel";
 import { createId } from "util/creat-id";
 import { DiagramCreateCommand } from "../command/diagram-create-command";
 import { getNewDiagramName } from "../store/get-new-diagram-name";

@@ -14,7 +14,7 @@ import { Login } from "./components/login";
 import { Studio } from "./components/studio";
 import { ConfirmDialog } from "./components/widgets/confirm-dialog";
 import { ErrorDialog } from "./components/widgets/error-dialog";
-import { SuccessAlertBar } from "./components/widgets/success-alert-bar";
+import { SuccessAlertBar } from "./components/widgets/SuccessAlertBar";
 import {
   INDEX_URL,
   INTALL_URL,

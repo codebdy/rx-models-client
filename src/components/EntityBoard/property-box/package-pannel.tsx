@@ -5,7 +5,7 @@ import { Grid } from '@mui/material';
 import intl from "react-intl-universal";
 import { useEntityBoardStore } from '../store/helper';
 import { NameChangeCommand } from '../command/name-change-command';
-import LazyTextField from 'components/entity-board/property-box/lazy-text-field';
+import LazyTextField from 'components/EntityBoard/property-box/lazy-text-field';
 
 export const PackagePanel = observer((
   props:{

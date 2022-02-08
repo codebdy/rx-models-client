@@ -2,10 +2,10 @@ import { CircularProgress, FormControlLabel, Grid, SvgIcon, Switch, Theme } from
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import { TreeItem } from "@mui/lab";
-import { EntityMeta } from "components/entity-board/meta/entity-meta";
+import { EntityMeta } from "components/EntityBoard/meta/entity-meta";
 import { ActionLabel } from "./action-label";
 import { AbilityActions } from "./ability-actions";
-import { NodeLabel } from "./node-label";
+import { NodeLabel } from "./NodeLabel";
 import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";

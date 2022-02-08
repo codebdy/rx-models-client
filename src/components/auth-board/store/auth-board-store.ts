@@ -1,4 +1,4 @@
-import { PackageMeta } from "components/entity-board/meta/package-meta";
+import { PackageMeta } from "components/EntityBoard/meta/package-meta";
 import { makeAutoObservable } from "mobx";
 import { RxRoleStore } from "./rx-role-store";
 

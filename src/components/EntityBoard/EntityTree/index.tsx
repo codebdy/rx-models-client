@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, SvgIcon, Theme, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
-import { EntityTreeView } from "./entity-tree-view";
+import { EntityTreeView } from "./EntityTreeView";
 import intl from "react-intl-universal";
 
 const useStyles = makeStyles((theme: Theme) =>

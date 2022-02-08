@@ -9,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { API_PUSLISHED_SCHEMA } from 'apis/auth';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
-import { PackageMeta } from 'components/entity-board/meta/package-meta';
+import { PackageMeta } from 'components/EntityBoard/meta/package-meta';
 import { PackageNode } from './package-node';
 import Loading from 'components/common/loading';
 import { useState } from 'react';
