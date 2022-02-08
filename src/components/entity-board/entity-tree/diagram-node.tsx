@@ -1,4 +1,4 @@
-import { IconButton, TextField } from "@mui/material";
+import { IconButton, OutlinedInput, TextField } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
 import React, { useState } from "react";
@@ -64,12 +64,13 @@ export const DiagramNode = (props: { key?: string; diagram: DiagramMeta }) => {
           <InsertDriveFileOutlinedIcon fontSize="small" sx={{ ml: -0.2 }} />
           <NodeText>
             {editing ? (
-              <TextField
+              <OutlinedInput
                 value={diagram.name || ""}
                 size="small"
                 onChange={handleNameChange}
                 onBlur={handleNameBlur}
                 onKeyUp={handleKeyEnter}
+                sx={{ height: 20, fontSize: 13 }}
                 autoFocus
               />
             ) : (
