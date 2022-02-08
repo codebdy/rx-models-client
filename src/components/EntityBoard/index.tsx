@@ -5,7 +5,7 @@ import createStyles from "@mui/styles/createStyles";
 import { EntityTree } from "./EntityTree";
 import { GraphCanvas } from "./grahp-canvas";
 import classNames from "classnames";
-import { Toolbox } from "./toolbox2";
+import { Toolbox } from "./Toolbox";
 import { PropertyBox } from "./property-box";
 import { EntityToolbar } from "./EntityToolbar";
 import Loading from "components/common/loading";
