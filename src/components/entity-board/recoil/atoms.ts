@@ -1,4 +1,4 @@
-import { atom, atomFamily } from "recoil";
+import { atom } from "recoil";
 import { DiagramMeta } from "../meta/diagram-meta";
 import { EntityMeta } from "../meta/entity-meta";
 import { RelationMeta } from "../meta/relation-meta";
@@ -28,12 +28,12 @@ export const relationsState = atom<RelationMeta[]>({
   default: [],
 });
 
-export const x6NodesState = atomFamily<X6NodeMeta[], string>({
+export const x6NodesState = atom<X6NodeMeta[]>({
   key: "local.x6Nodes",
   default: [],
 });
 
-export const x6EdgesState = atomFamily<X6EdgeMeta[], string>({
+export const x6EdgesState = atom<X6EdgeMeta[]>({
   key: "local.x6Edges",
   default: [],
 });
