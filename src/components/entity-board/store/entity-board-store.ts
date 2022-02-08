@@ -9,7 +9,6 @@ import { RelationStore } from "./relation";
 import { Command } from "../command/command";
 import { NODE_INIT_SIZE } from "./node-init-size";
 import { RelationType } from "../meta/relation-meta";
-import { creatNewEntityMeta } from "./create-new-entity-meta";
 import _ from 'lodash';
 import { PackageMeta } from "../meta/package-meta";
 import { EntityType } from "../meta/entity-meta";
@@ -100,13 +99,13 @@ export class EntityBoardStore{
   }
 
   createTempClassNodeForNew(){
-    const entityMeta = creatNewEntityMeta(this)
+    //const entityMeta = creatNewEntityMeta(this)
     return {
-      uuid: entityMeta.uuid,
+      uuid: 'entityMeta.uuid',
       ...NODE_INIT_SIZE,
       shape: 'react-shape', 
       data:{
-        ...entityMeta,
+        //...entityMeta,
         isTempForNew: true,
       }
     }

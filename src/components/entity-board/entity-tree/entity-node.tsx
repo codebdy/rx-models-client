@@ -8,9 +8,9 @@ import { TreeNodeLabel } from "./tree-node-label";
 import intl from "react-intl-universal";
 import { RelationNode } from "./relation-node";
 import { Addon } from "@antv/x6";
-import { useEntity } from "../recoil/hooks/useEntity";
-import { useSourceRelations } from "../recoil/hooks/useSourceRelations";
-import { useTargetRelations } from "../recoil/hooks/useTargetRelations";
+import { useEntity } from "../hooks/useEntity";
+import { useSourceRelations } from "../hooks/useSourceRelations";
+import { useTargetRelations } from "../hooks/useTargetRelations";
 const { Dnd } = Addon;
 
 export const EntityNode = memo((props: { uuid: string }) => {

@@ -6,7 +6,7 @@ import { EntityStore } from "../store/entity-store";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 import { RelationMeta, RelationType } from "../meta/relation-meta";
-import { useEntity } from "../recoil/hooks/useEntity";
+import { useEntity } from "../hooks/useEntity";
 
 export const RelationNode = (props: {
   key?: string;

@@ -1,13 +1,13 @@
 import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import { relationsState } from "../atoms";
+import { relationsState } from "../recoil/atoms";
 
-export function useTargetRelations(entityUuid: string){
+export function useSourceRelations(entityUuid: string) {
   const relations = useRecoilValue(relationsState);
 
-  const targetRelations = useMemo(() => {
+  const sourceRelations = useMemo(() => {
     return relations.filter((relation) => relation.sourceId === entityUuid);
   }, [entityUuid, relations]);
 
-  return targetRelations;
+  return sourceRelations;
 }
