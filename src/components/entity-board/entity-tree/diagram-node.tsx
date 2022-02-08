@@ -6,13 +6,17 @@ import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 import { DiagramMeta } from "../meta/diagram-meta";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
+import { useSetRecoilState } from "recoil";
+import { selectedDiagramState } from "../recoil/atoms";
 
 export const DiagramNode = memo(
   (props: { key?: string; diagram: DiagramMeta }) => {
     const { diagram } = props;
     const [editing, setEditing] = useState(false);
+    const setSelectedDiagram = useSetRecoilState(selectedDiagramState);
+
     const handleClick = () => {
-      // bordStore.setOpendDiagram(diagram);
+      setSelectedDiagram(diagram.uuid);
     };
     const handleEdit = (event: React.MouseEvent) => {
       setEditing(true);

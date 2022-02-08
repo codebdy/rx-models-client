@@ -11,11 +11,14 @@ import { Addon } from "@antv/x6";
 import { useEntity } from "../hooks/useEntity";
 import { useSourceRelations } from "../hooks/useSourceRelations";
 import { useTargetRelations } from "../hooks/useTargetRelations";
+import { useSetRecoilState } from "recoil";
+import { selectedElementState } from "../recoil/atoms";
 const { Dnd } = Addon;
 
 export const EntityNode = memo((props: { uuid: string }) => {
   const { uuid } = props;
   const [dnd, setDnd] = React.useState<any>();
+  const setSelectedElement = useSetRecoilState(selectedElementState);
   const entity = useEntity(uuid);
   const sourceRelations = useSourceRelations(uuid);
   const targetRelations = useTargetRelations(uuid);
@@ -46,6 +49,7 @@ export const EntityNode = memo((props: { uuid: string }) => {
   };
 
   const handleClick = (event: React.MouseEvent) => {
+    setSelectedElement(uuid);
     // bordStore.setSelectedElement(entityStore);
     event.stopPropagation();
   };
