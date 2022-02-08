@@ -129,11 +129,11 @@ export const PackageNode = observer((props:{
       </TreeNodeLabel>
     }>
       {
-        packageStore.entities.map(aClass=>{
-          return (
-            <EntityNode key={aClass.uuid} entityStore = {aClass} />
-          )
-        })
+        // packageStore.entities.map(aClass=>{
+        //   return (
+        //     <EntityNode key={aClass.uuid} entityStore = {aClass} />
+        //   )
+        // })
       }
       {
         packageStore.diagrams.map(diagram=>{

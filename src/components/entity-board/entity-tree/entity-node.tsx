@@ -34,7 +34,6 @@ export const EntityNode = memo((props: { uuid: string }) => {
     // if (!bordStore.graph) {
     //   return;
     // }
-
     // const node = bordStore.graph.createNode({
     //   ...NODE_INIT_SIZE,
     //   height: 70 + entityStore.columns.length * 26,
@@ -130,7 +129,7 @@ export const EntityNode = memo((props: { uuid: string }) => {
       )}
       {(sourceRelations.length > 0 || targetRelations.length > 0) && (
         <TreeItem
-          nodeId={entityStore.uuid + "relations"}
+          nodeId={entity?.uuid || "" + "relations"}
           label={
             <TreeNodeLabel>
               <NodeText>{intl.get("relations")}</NodeText>
@@ -139,12 +138,7 @@ export const EntityNode = memo((props: { uuid: string }) => {
         >
           {sourceRelations.map((relation) => {
             return (
-              <RelationNode
-                key={relation.uuid}
-                relation={relation}
-                isSource
-                entityStore={entityStore}
-              />
+              <RelationNode key={relation.uuid} relation={relation} isSource />
             );
           })}
           {targetRelations.map((relation) => {
@@ -153,7 +147,6 @@ export const EntityNode = memo((props: { uuid: string }) => {
                 key={relation.uuid}
                 relation={relation}
                 isSource={false}
-                entityStore={entityStore}
               />
             );
           })}

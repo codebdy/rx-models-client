@@ -1,21 +1,19 @@
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import MdiIcon from "components/common/mdi-icon";
-import { RelationDeleteCommand } from "../command/relation-delete-command";
 import { useEntityBoardStore } from "../store/helper";
 import { EntityStore } from "../store/entity-store";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
 import { RelationMeta, RelationType } from "../meta/relation-meta";
+import { useEntity } from "../recoil/hooks/useEntity";
 
 export const RelationNode = (props: {
   key?: string;
   relation: RelationMeta;
   isSource: boolean;
-  entityStore: EntityStore;
 }) => {
-  const { relation, isSource, entityStore } = props;
-  const bordStore = useEntityBoardStore();
+  const { relation, isSource } = props;
   const handleClick = () => {
     // bordStore.setSelectedElement(relation);
   };
@@ -25,9 +23,9 @@ export const RelationNode = (props: {
     // bordStore.excuteCommand(command);
   };
 
-  const isInherit = relation.relationType === RelationType.INHERIT;
+   const isInherit = relation.relationType === RelationType.INHERIT;
 
-  const targetEntity = bordStore.getEntityById(relation.targetId);
+  const targetEntity = useEntity(relation.targetId);
 
   return (
     <TreeItem
@@ -55,9 +53,9 @@ export const RelationNode = (props: {
               {isSource && !isInherit
                 ? relation.roleOnSource
                 : relation.roleOnTarget}
-              {relation.ownerId === entityStore.uuid && !isInherit && (
+              {/* {relation.ownerId === entityStore.uuid && !isInherit && (
                 <MdiIcon iconClass="mdi-account-outline" size={12} />
-              )}
+              )} */}
             </>
           </NodeText>
         </TreeNodeLabel>
