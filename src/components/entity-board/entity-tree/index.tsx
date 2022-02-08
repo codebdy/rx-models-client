@@ -13,10 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRight: `solid 1px ${theme.palette.divider}`,
       width: "280px",
     },
-    modelTree: {
-      flex: 1,
-      overflow: "auto",
-    },
     miniMap: {
       borderTop: `solid 1px ${theme.palette.divider}`,
     },
@@ -54,9 +50,15 @@ export const EntityTree = () => {
           {intl.get("add-node")}
         </Button>
       </Box>
-      <div className={classes.modelTree}>
+      <Box
+        sx={{
+          flex: 1,
+          overflow: "auto",
+          p: 1,
+        }}
+      >
         <EntityTreeView />
-      </div>
+      </Box>
       <div className={classes.miniMap} id="mini-map"></div>
     </div>
   );

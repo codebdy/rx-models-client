@@ -68,12 +68,6 @@ export const EntityTreeView = memo(() => {
             <TreeNodeLabel
               action={
                 <LocalModelAction
-                  onAddClass={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
-                  onAddDiagram={function (): void {
-                    throw new Error("Function not implemented.");
-                  }}
                   onPublish={function (): void {
                     throw new Error("Function not implemented.");
                   }}

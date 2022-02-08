@@ -11,6 +11,7 @@ import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import intl from "react-intl-universal";
+import { useCreateNewEntity } from "../hooks/useCreateNewEntity";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,22 +25,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function LocalModelAction(props: {
-  onAddClass: () => void;
-  onAddDiagram: () => void;
   onPublish: () => void;
   onDownloadJson: () => void;
   onExportInterface: () => void;
 }) {
-  const {
-    onAddClass,
-    onAddDiagram,
-    onPublish,
-    onDownloadJson,
-    onExportInterface,
-  } = props;
+  const { onPublish, onDownloadJson, onExportInterface } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
+  const createNewEntity = useCreateNewEntity();
+
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     event.stopPropagation();
@@ -51,13 +46,12 @@ export default function LocalModelAction(props: {
   };
 
   const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
-    onAddClass();
+    createNewEntity();
     setAnchorEl(null);
     event.stopPropagation();
   };
 
   const handleAddDiagram = (event: React.MouseEvent<HTMLElement>) => {
-    onAddDiagram();
     setAnchorEl(null);
     event.stopPropagation();
   };
