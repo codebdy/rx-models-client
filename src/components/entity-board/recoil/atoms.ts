@@ -39,12 +39,12 @@ export const x6EdgesState = atomFamily<X6EdgeMeta[], string>({
 });
 
 export const undoList = atom<Snapshot[]>({
-  key: "undoList",
+  key: "local.undoList",
   default: [],
 });
 
 export const redoList = atom<Snapshot[]>({
-  key: "redoList",
+  key: "local.redoList",
   default: [],
 });
 
