@@ -1,8 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { Theme, IconButton } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
-import { observer } from "mobx-react";
 import MdiIcon from "components/common/mdi-icon";
 import intl from "react-intl-universal";
 import Spacer from "components/common/spacer";
@@ -20,6 +19,9 @@ import RouterPrompt from "components/common/router-prompt";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { useAppStore } from "store/app-store";
 import { MagicPostBuilder, useLazyMagicPost } from "@rxdrag/rxmodels-swr";
+import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
+import RedoOutlinedIcon from "@mui/icons-material/RedoOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const EntityToolbar = observer(() => {
+export const EntityToolbar = memo(() => {
   const classes = useStyles();
   const boardStore = useEntityBoardStore();
   const appStore = useAppStore();
@@ -107,14 +109,13 @@ export const EntityToolbar = observer(() => {
           promptBoolean={boardStore.changed}
           message={intl.get("changing-not-save-message")}
         />
-        <Spacer />
         <IconButton
           className={classes.iconButton}
           disabled={boardStore.undoList.length === 0}
           onClick={handleUndo}
           size="large"
         >
-          <MdiIcon iconClass="mdi-undo" />
+          <UndoOutlinedIcon />
         </IconButton>
         <IconButton
           className={classes.iconButton}
@@ -122,7 +123,7 @@ export const EntityToolbar = observer(() => {
           onClick={handleRedo}
           size="large"
         >
-          <MdiIcon iconClass="mdi-redo" />
+          <RedoOutlinedIcon />
         </IconButton>
         <IconButton
           className={classes.iconButton}
@@ -133,8 +134,9 @@ export const EntityToolbar = observer(() => {
           onClick={handleDelete}
           size="large"
         >
-          <MdiIcon iconClass="mdi-trash-can-outline" size={20} />
+          <DeleteOutlineOutlinedIcon sx={{ fontSize: 20 }} />
         </IconButton>
+        <Spacer />
         <div className={classes.saveButtonShell}>
           <SubmitButton
             variant="contained"
