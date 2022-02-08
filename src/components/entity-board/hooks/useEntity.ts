@@ -1,8 +1,8 @@
 import { useRecoilValue } from "recoil";
-import { entitesState } from "../recoil/atoms";
+import { entitiesState } from "../recoil/atoms";
 
 export function useEntity(uuid: string) {
-  const entites = useRecoilValue(entitesState);
+  const entites = useRecoilValue(entitiesState);
 
   return entites.find((entity) => entity.uuid === uuid);
 }

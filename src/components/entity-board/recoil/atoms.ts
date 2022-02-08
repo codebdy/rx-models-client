@@ -18,8 +18,8 @@ export const diagramsState = atom<DiagramMeta[]>({
   default: [],
 });
 
-export const entitesState = atom<EntityMeta[]>({
-  key: "local.entites",
+export const entitiesState = atom<EntityMeta[]>({
+  key: "local.entities",
   default: [],
 });
 

@@ -1,11 +1,11 @@
 import { useSetRecoilState } from "recoil";
 import { createId } from "util/creat-id";
 import { ColumnType } from "../meta/column-meta";
-import { entitesState } from "../recoil/atoms";
+import { entitiesState } from "../recoil/atoms";
 import { useGetEntityByName } from "./useGetEntityByName";
 
 export function useCreateNewEntity() {
-  const setEntities = useSetRecoilState(entitesState);
+  const setEntities = useSetRecoilState(entitiesState);
   const getEntityByName = useGetEntityByName();
 
   const getNewEntityName = () => {

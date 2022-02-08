@@ -11,7 +11,7 @@ import LocalModelAction from "./local-model-action";
 import { SvgIcon } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import {
-  entitesState,
+  entitiesState,
   selectedDiagramState,
   selectedElementState,
 } from "../recoil/atoms";
@@ -20,7 +20,7 @@ import { EntityNode } from "./entity-node";
 export const EntityTreeView = memo(() => {
   const selectedDiagram = useRecoilValue(selectedDiagramState);
   const selectedElement = useRecoilValue(selectedElementState);
-  const entities = useRecoilValue(entitesState);
+  const entities = useRecoilValue(entitiesState);
   const fileInputRef = useRef(null);
 
   const handlePackageFileInputChange = (
