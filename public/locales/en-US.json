@@ -23,7 +23,7 @@
   "auth-management": "Auth",
   "report-bug": "Report Bug",
   "logout":"Logout",
-  "publish-package": "Publish",
+  "publish": "Publish",
   "operation-confirm":"Operation Confirm",
   "undo": "Undo",
   "redo": "Redo",

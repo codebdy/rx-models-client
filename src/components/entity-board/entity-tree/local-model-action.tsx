@@ -1,10 +1,16 @@
 import React from "react";
-import { IconButton, Menu, MenuItem, Theme } from "@mui/material";
+import {
+  Divider,
+  IconButton,
+  Menu,
+  MenuItem,
+  SvgIcon,
+  Theme,
+} from "@mui/material";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
-import MdiIcon from "components/common/mdi-icon";
-import intl from "react-intl-universal";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import intl from "react-intl-universal";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,10 +24,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function LocalModelAction(props: {
-  onAddPackage: () => void;
-  onImportPackage: () => void;
+  onAddClass: () => void;
+  onAddDiagram: () => void;
+  onPublish: () => void;
+  onDownloadJson: () => void;
+  onExportInterface: () => void;
 }) {
-  const { onAddPackage, onImportPackage } = props;
+  const {
+    onAddClass,
+    onAddDiagram,
+    onPublish,
+    onDownloadJson,
+    onExportInterface,
+  } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -35,14 +50,32 @@ export default function LocalModelAction(props: {
     event.stopPropagation();
   };
 
-  const handleAddPackage = (event: React.MouseEvent<HTMLElement>) => {
-    onAddPackage();
+  const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
+    onAddClass();
     setAnchorEl(null);
     event.stopPropagation();
   };
 
-  const handleImportPackage = (event: React.MouseEvent<HTMLElement>) => {
-    onImportPackage();
+  const handleAddDiagram = (event: React.MouseEvent<HTMLElement>) => {
+    onAddDiagram();
+    setAnchorEl(null);
+    event.stopPropagation();
+  };
+
+  const handlePublish = (event: React.MouseEvent<HTMLElement>) => {
+    onPublish();
+    setAnchorEl(null);
+    event.stopPropagation();
+  };
+
+  const handleDownloadJson = (event: React.MouseEvent<HTMLElement>) => {
+    onDownloadJson();
+    setAnchorEl(null);
+    event.stopPropagation();
+  };
+
+  const handleExportInterface = (event: React.MouseEvent<HTMLElement>) => {
+    onExportInterface();
     setAnchorEl(null);
     event.stopPropagation();
   };
@@ -66,13 +99,51 @@ export default function LocalModelAction(props: {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleAddPackage} className={classes.menuItem}>
-          <MdiIcon iconClass="mdi-folder-plus-outline" size={16} />
-          <span className={classes.text}>{intl.get("add-package")} </span>
+        <MenuItem onClick={handleAddEntity} className={classes.menuItem}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-entity")} </span>
         </MenuItem>
-        <MenuItem onClick={handleImportPackage} className={classes.menuItem}>
-          <MdiIcon iconClass="mdi-database-import-outline" size={16} />
-          <span className={classes.text}>{intl.get("import-package")} </span>
+        <MenuItem onClick={handleAddDiagram} className={classes.menuItem}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M12,14V11H10V14H7V16H10V19H12V16H15V14M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-diagram")} </span>
+        </MenuItem>
+        <Divider />
+        <MenuItem className={classes.menuItem} onClick={handlePublish}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M20 13.09V7C20 4.79 16.42 3 12 3S4 4.79 4 7V17C4 19.21 7.59 21 12 21C12.46 21 12.9 21 13.33 20.94C13.12 20.33 13 19.68 13 19L13 18.95C12.68 19 12.35 19 12 19C8.13 19 6 17.5 6 17V14.77C7.61 15.55 9.72 16 12 16C12.65 16 13.27 15.96 13.88 15.89C14.93 14.16 16.83 13 19 13C19.34 13 19.67 13.04 20 13.09M18 12.45C16.7 13.4 14.42 14 12 14S7.3 13.4 6 12.45V9.64C7.47 10.47 9.61 11 12 11S16.53 10.47 18 9.64V12.45M12 9C8.13 9 6 7.5 6 7S8.13 5 12 5 18 6.5 18 7 15.87 9 12 9M22 18H20V22H18V18H16L19 15L22 18Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("publish")} </span>
+        </MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleDownloadJson}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M20 13.09V7C20 4.79 16.42 3 12 3S4 4.79 4 7V17C4 19.21 7.59 21 12 21C12.46 21 12.9 21 13.33 20.94C13.12 20.33 13 19.68 13 19L13 18.95C12.68 19 12.35 19 12 19C8.13 19 6 17.5 6 17V14.77C7.61 15.55 9.72 16 12 16C12.65 16 13.27 15.96 13.88 15.89C14.93 14.16 16.83 13 19 13C19.34 13 19.67 13.04 20 13.09M18 12.45C16.7 13.4 14.42 14 12 14S7.3 13.4 6 12.45V9.64C7.47 10.47 9.61 11 12 11S16.53 10.47 18 9.64V12.45M12 9C8.13 9 6 7.5 6 7S8.13 5 12 5 18 6.5 18 7 15.87 9 12 9M22 20L19 23L16 20H18V16H20V20H22Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("export-json")} </span>
+        </MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleExportInterface}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2M18 20H6V4H13V9H18V20M16 11V18.1L13.9 16L11.1 18.8L8.3 16L11.1 13.2L8.9 11H16Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("export-inteface")} </span>
         </MenuItem>
       </Menu>
     </>

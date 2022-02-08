@@ -92,8 +92,21 @@ export const EntityTreeView = () => {
             <TreeNodeLabel
               action={
                 <LocalModelAction
-                  onAddPackage={handleAddPackage}
-                  onImportPackage={handleImportPackage}
+                  onAddClass={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                  onAddDiagram={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                  onPublish={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                  onDownloadJson={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
+                  onExportInterface={function (): void {
+                    throw new Error("Function not implemented.");
+                  }}
                 />
               }
             >
@@ -119,14 +132,7 @@ export const EntityTreeView = () => {
         <TreeItem
           nodeId={TREE_ROOT_ID + 1}
           label={
-            <TreeNodeLabel
-              action={
-                <LocalModelAction
-                  onAddPackage={handleAddPackage}
-                  onImportPackage={handleImportPackage}
-                />
-              }
-            >
+            <TreeNodeLabel>
               <SvgIcon>
                 <path
                   fill="currentColor"
@@ -149,14 +155,7 @@ export const EntityTreeView = () => {
         <TreeItem
           nodeId={TREE_ROOT_ID + 2}
           label={
-            <TreeNodeLabel
-              action={
-                <LocalModelAction
-                  onAddPackage={handleAddPackage}
-                  onImportPackage={handleImportPackage}
-                />
-              }
-            >
+            <TreeNodeLabel>
               <SvgIcon>
                 <path
                   fill="currentColor"

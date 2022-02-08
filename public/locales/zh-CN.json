@@ -23,7 +23,7 @@
   "auth-management": "权限",
   "report-bug": "提交Bug",
   "logout":"注销登录",
-  "publish-package": "发布包",
+  "publish": "发布",
   "operation-confirm":"操作确认",
   "undo":"撤销",
   "redo":"重做",

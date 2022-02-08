@@ -114,7 +114,7 @@ export default function PackageAction(props:{
             onClick = {handlePublishPackage}
           >
             <MdiIcon iconClass = "mdi-database-arrow-up-outline"  size={16} />
-            <span className = {classes.text}>{intl.get('publish-package')} </span>
+            <span className = {classes.text}>{intl.get('publish')} </span>
           </MenuItem>
           <MenuItem  className = {classes.menuItem}
             onClick = {handleDownloadJson}
