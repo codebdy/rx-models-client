@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
-import MdiIcon from "components/common/mdi-icon";
 import { NodeText } from "./node-text";
 import { ColumnNode } from "./column-node";
 import { TreeNodeLabel } from "./tree-node-label";
@@ -13,6 +12,8 @@ import { useSourceRelations } from "../hooks/useSourceRelations";
 import { useTargetRelations } from "../hooks/useTargetRelations";
 import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 const { Dnd } = Addon;
 
 export const EntityNode = memo((props: { uuid: string }) => {
@@ -83,7 +84,7 @@ export const EntityNode = memo((props: { uuid: string }) => {
         <TreeNodeLabel
           action={
             <IconButton size="small" onClick={handleDelete}>
-              <MdiIcon className="mdi-trash-can-outline" size="16" />
+              <DeleteOutlineOutlinedIcon fontSize="small" />
             </IconButton>
           }
           onClick={handleClick}
@@ -118,7 +119,7 @@ export const EntityNode = memo((props: { uuid: string }) => {
             <TreeNodeLabel
               action={
                 <IconButton size="small" onClick={handlePlusColumn}>
-                  <MdiIcon className="mdi-plus" size="16" />
+                  <AddOutlinedIcon fontSize="small" />
                 </IconButton>
               }
             >

@@ -1,6 +1,5 @@
 import { IconButton, OutlinedInput } from "@mui/material";
 import { TreeItem } from "@mui/lab";
-import MdiIcon from "components/common/mdi-icon";
 import React, { memo, useState } from "react";
 import { NodeText } from "./node-text";
 import { TreeNodeLabel } from "./tree-node-label";
@@ -8,6 +7,8 @@ import { DiagramMeta } from "../meta/diagram-meta";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";
 import { useSetRecoilState } from "recoil";
 import { selectedDiagramState } from "../recoil/atoms";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 export const DiagramNode = memo(
   (props: { key?: string; diagram: DiagramMeta }) => {
@@ -56,10 +57,10 @@ export const DiagramNode = memo(
               !editing && (
                 <>
                   <IconButton size="small" onClick={handleEdit}>
-                    <MdiIcon className="mdi-pencil-outline" size="16" />
+                    <EditOutlinedIcon fontSize="small" />
                   </IconButton>
                   <IconButton size="small" onClick={handleDelete}>
-                    <MdiIcon className="mdi-trash-can-outline" size="16" />
+                    <DeleteOutlineOutlinedIcon fontSize="small" />
                   </IconButton>
                 </>
               )
