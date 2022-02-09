@@ -14,6 +14,7 @@ import { useRecoilValue } from "recoil";
 import { selectedDiagramState } from "./recoil/atoms";
 import { getGraphConfig } from "./GraphCanvas/getGraphConfig";
 import { Graph } from "@antv/x6";
+import '@antv/x6-react-shape'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,10 +52,9 @@ export const ModelsBoard = memo(() => {
     const aGraph = new Graph(config as any);
     setGraph(aGraph);
     return () => {
-      graph?.dispose();
+      aGraph?.dispose();
       setGraph(undefined);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
