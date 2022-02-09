@@ -5,6 +5,7 @@ import createStyles from "@mui/styles/createStyles";
 import { EntityTreeView } from "./EntityTreeView";
 import intl from "react-intl-universal";
 import { Graph } from "@antv/x6";
+import { useScrollbarStyles } from "theme/useScrollbarStyles";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const EntityTree = memo((props: { graph?: Graph }) => {
   const { graph } = props;
   const classes = useStyles();
+  const scrollStyles = useScrollbarStyles();
   return (
     <div className={classes.root}>
       <Box
@@ -57,6 +59,7 @@ export const EntityTree = memo((props: { graph?: Graph }) => {
           flex: 1,
           overflow: "auto",
           p: 1,
+          ...scrollStyles,
         }}
       >
         <EntityTreeView graph={graph} />

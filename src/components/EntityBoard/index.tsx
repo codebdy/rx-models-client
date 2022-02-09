@@ -13,7 +13,7 @@ import EmpertyCanvas from "./EmpertyCanvas";
 import { useRecoilValue } from "recoil";
 import { selectedDiagramState } from "./recoil/atoms";
 import { Graph } from "@antv/x6";
-import '@antv/x6-react-shape'
+import "@antv/x6-react-shape";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,11 +68,16 @@ export const ModelsBoard = memo(() => {
             }}
           >
             <EntityToolbar />
-            <div className={classNames(classes.content, "dragit-scrollbar")}>
+            <div className={classNames(classes.content)}>
               {selectedDiagram ? (
                 <>
                   <Toolbox graph={graph}></Toolbox>
-                  <div className={classes.canvasShell}>
+                  <div
+                    className={classNames(
+                      classes.canvasShell,
+                      "dragit-scrollbar"
+                    )}
+                  >
                     <div className={classes.canvas} id="container">
                       <GraphCanvas
                         graph={graph}

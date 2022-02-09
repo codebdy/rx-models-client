@@ -22,19 +22,12 @@ import { RelationType } from "../meta/relation-meta";
 import { pressedLineTypeState } from "../recoil/atoms";
 import { useRecoilState } from "recoil";
 import { createTempClassNodeForNew } from "../GraphCanvas/createTempClassNodeForNew";
+import { useScrollbarStyles } from "theme/useScrollbarStyles";
+import { Box } from "@mui/material";
 const { Dnd } = Addon;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      display: "flex",
-      flexFlow: "column",
-      borderRight: `solid 1px ${theme.palette.divider}`,
-      width: "100px",
-      alignItems: "center",
-      overflowY: "auto",
-      overflowX: "hidden",
-    },
     toolItem: {
       display: "flex",
       flexFlow: "column",
@@ -65,8 +58,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   const [expandEntites, setExpandEntites] = React.useState(true);
   const [expandRelations, setExpandRelations] = React.useState(true);
   const [dnd, setDnd] = React.useState<any>();
-  const [pressedLineType, setPressedLineType] = useRecoilState(pressedLineTypeState);
-  
+  const [pressedLineType, setPressedLineType] =
+    useRecoilState(pressedLineTypeState);
+  const scrollStyles = useScrollbarStyles(true);
+
   const handleEneitiesChange =
     () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
       setExpandEntites(!expandEntites);
@@ -139,117 +134,123 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   };
 
   return (
-    <div className={classes.root}>
-      <div>
-        <Accordion
-          square
-          expanded={expandEntites}
-          onChange={handleEneitiesChange()}
-        >
-          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>{intl.get("entity")}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
+    <Box
+      sx={{
+        display: "flex",
+        flexFlow: "column",
+        borderRight: (theme) => `solid 1px ${theme.palette.divider}`,
+        width: "100px",
+        alignItems: "center",
+        overflowY: "auto",
+        overflowX: "hidden",
+        ...scrollStyles,
+      }}
+    >
+      <Accordion
+        square
+        sx={{ "&.MuiAccordion-root": { borderLeft: 0, borderTop: 0 } }}
+        expanded={expandEntites}
+        onChange={handleEneitiesChange()}
+      >
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+          <Typography>{intl.get("entity")}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div
+            className={classNames(
+              classes.toolItem,
+              classes.firstItem,
+              classes.moveable
+            )}
+            data-type="rect"
+            onMouseDown={startDrag}
+          >
             <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              onMouseDown={startDrag}
+              style={{
+                width: "45px",
+                height: "30px",
+                border: "solid 2px",
+                display: "flex",
+                flexFlow: "column",
+                padding: "0",
+              }}
             >
               <div
                 style={{
-                  width: "45px",
-                  height: "30px",
-                  border: "solid 2px",
-                  display: "flex",
-                  flexFlow: "column",
-                  padding: "0",
+                  height: "30%",
+                  width: "47px",
+                  borderBottom: "solid 1px",
+                  marginLeft: "-1px",
                 }}
-              >
-                <div
-                  style={{
-                    height: "30%",
-                    width: "47px",
-                    borderBottom: "solid 1px",
-                    marginLeft: "-1px",
-                  }}
-                ></div>
-              </div>
-              {intl.get("entity")}
+              ></div>
             </div>
-            <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]:
-                  pressedLineType === RelationType.INHERIT,
-              })}
-              onClick={handleInheritClick}
-            >
-              {svgInherit}
-              {intl.get("inherit")}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          square
-          expanded={expandRelations}
-          onChange={handleRelationsChange()}
-        >
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>{intl.get("relation")}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.ONE_TO_ONE,
-                }
-              )}
-              onClick={handleOneToOneClick}
-            >
-              {svgOneToOne}
-              {intl.get("one-to-one")}
-            </div>
-            <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]:
-                  pressedLineType === RelationType.ONE_TO_MANY,
-              })}
-              onClick={handleOneToManyClick}
-            >
-              {svgOneToMany}
-              {intl.get("one-to-many")}
-            </div>
-            <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]:
-                  pressedLineType === RelationType.MANY_TO_ONE,
-              })}
-              onClick={handleManyToOneClick}
-            >
-              {svgManyToOne}
-              {intl.get("many-to-one")}
-            </div>
+            {intl.get("entity")}
+          </div>
+          <div
+            className={classNames(classes.toolItem, classes.relationItem, {
+              [classes.selected]: pressedLineType === RelationType.INHERIT,
+            })}
+            onClick={handleInheritClick}
+          >
+            {svgInherit}
+            {intl.get("inherit")}
+          </div>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        square
+        sx={{ "&.MuiAccordion-root": { borderLeft: 0 } }}
+        expanded={expandRelations}
+        onChange={handleRelationsChange()}
+      >
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+          <Typography>{intl.get("relation")}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <div
+            className={classNames(
+              classes.toolItem,
+              classes.firstItem,
+              classes.relationItem,
+              {
+                [classes.selected]: pressedLineType === RelationType.ONE_TO_ONE,
+              }
+            )}
+            onClick={handleOneToOneClick}
+          >
+            {svgOneToOne}
+            {intl.get("one-to-one")}
+          </div>
+          <div
+            className={classNames(classes.toolItem, classes.relationItem, {
+              [classes.selected]: pressedLineType === RelationType.ONE_TO_MANY,
+            })}
+            onClick={handleOneToManyClick}
+          >
+            {svgOneToMany}
+            {intl.get("one-to-many")}
+          </div>
+          <div
+            className={classNames(classes.toolItem, classes.relationItem, {
+              [classes.selected]: pressedLineType === RelationType.MANY_TO_ONE,
+            })}
+            onClick={handleManyToOneClick}
+          >
+            {svgManyToOne}
+            {intl.get("many-to-one")}
+          </div>
 
-            <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]:
-                  pressedLineType === RelationType.MANY_TO_MANY,
-              })}
-              onClick={handleManyToManyClick}
-            >
-              {svgManyToMany}
-              {intl.get("many-to-many")}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    </div>
+          <div
+            className={classNames(classes.toolItem, classes.relationItem, {
+              [classes.selected]: pressedLineType === RelationType.MANY_TO_MANY,
+            })}
+            onClick={handleManyToManyClick}
+          >
+            {svgManyToMany}
+            {intl.get("many-to-many")}
+          </div>
+        </AccordionDetails>
+      </Accordion>
+    </Box>
   );
 });
