@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useEntityBoardStore } from "../store/helper";
-import { LineAction } from "../store/line-action";
+import { LineAction } from "../recoil/line-action";
 import { Edge, Node } from '@antv/x6';
 import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
 import { RelationCreateCommand } from "../command/relation-create-command";

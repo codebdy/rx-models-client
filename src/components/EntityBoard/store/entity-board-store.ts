@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { DiagramStore } from "./diagram";
 import { PackageStore } from "./package";
 import { Graph } from "@antv/x6";
-import { LineAction } from "./line-action";
+import { LineAction } from "../recoil/line-action";
 import { EntityStore } from "./entity-store";
 import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";

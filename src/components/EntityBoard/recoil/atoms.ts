@@ -4,6 +4,7 @@ import { EntityMeta } from "../meta/entity-meta";
 import { RelationMeta } from "../meta/relation-meta";
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
+import { LineAction } from "./line-action";
 
 export interface Snapshot {
   diagrams: DiagramMeta[];
@@ -62,3 +63,8 @@ export const selectedDiagramState = atom<string | undefined>({
   key: "local.selectedDiagram",
   default: undefined,
 });
+
+export const drawingLineState = atom<LineAction|undefined>({
+  key: "local.drawingLine",
+  default: undefined,
+})

@@ -1,17 +1,20 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { useNodesShow } from "./use-nodes-show";
 import { useExplorerScrollbarHide } from "./use-explorer-scrollbar-hide";
 import { useNodeSelect } from "./use-node-select";
-import { useGraphCreate } from "./use-grahp-create";
 import { useEdgeLineDraw } from "./use-edge-line-draw";
 import { useEdgesShow } from "./use-edges-show";
 import { useNodeChange } from "./use-node-change";
 import { useNodeAdd } from "./use-node-add";
 import { useEdgeSelect } from "./use-edge-select";
-import { useEdgeChange } from "./use-edge-change";
+import { useEdgeChange } from "./useEdgeChange";
+import { getGraphConfig } from "./getGraphConfig";
+import { Graph } from "@antv/x6";
+import { useRecoilValue } from "recoil";
+import { selectedDiagramState } from "../recoil/atoms";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,8 +28,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const GraphCanvas = memo(() => {
+  const [graph, setGraph] = useState<Graph>();
+  const selectedDiagram = useRecoilValue(selectedDiagramState);
   const classes = useStyles();
-  useGraphCreate();
+  useEffect(() => {
+    const config = getGraphConfig();
+    const aGraph = new Graph(config as any);
+    setGraph(aGraph);
+    return () => {
+      graph?.dispose();
+      setGraph(undefined);
+    };
+  }, [graph, selectedDiagram]);
+
   useExplorerScrollbarHide();
   useNodeSelect();
   useEdgeSelect();
@@ -34,7 +48,7 @@ export const GraphCanvas = memo(() => {
   useEdgeLineDraw();
   useEdgesShow();
   useNodeChange();
-  useEdgeChange();
+  useEdgeChange(graph);
   useNodeAdd();
 
   return <div className={classes.root} id="container"></div>;
