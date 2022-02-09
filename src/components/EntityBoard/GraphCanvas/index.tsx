@@ -40,7 +40,7 @@ export const GraphCanvas = memo(() => {
       setGraph(undefined);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDiagram]);
+  }, []);
 
   useExplorerScrollbarHide();
   // useNodeSelect();
