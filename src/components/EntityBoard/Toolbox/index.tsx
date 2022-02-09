@@ -5,7 +5,7 @@ import makeStyles from '@mui/styles/makeStyles';
 import Typography from '@mui/material/Typography';
 import classNames from 'classnames';
 import intl from 'react-intl-universal';
-import { Accordion } from './Accordion2';
+import { Accordion } from './Accordion';
 import { AccordionSummary } from './AccordionSummary';
 import { AccordionDetails } from './AccordionDetails';
 import { useEntityBoardStore } from '../store/helper';
