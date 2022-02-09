@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useState } from "react";
 import { Box, Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
@@ -12,9 +12,7 @@ import Loading from "components/common/loading";
 import EmpertyCanvas from "./EmpertyCanvas";
 import { useRecoilValue } from "recoil";
 import { selectedDiagramState } from "./recoil/atoms";
-import { getGraphConfig } from "./GraphCanvas/getGraphConfig";
 import { Graph } from "@antv/x6";
-import '@antv/x6-react-shape'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,16 +45,6 @@ export const ModelsBoard = memo(() => {
 
   // useShowServerError(error);
 
-  useEffect(() => {
-    const config = getGraphConfig();
-    const aGraph = new Graph(config as any);
-    setGraph(aGraph);
-    return () => {
-      aGraph?.dispose();
-      setGraph(undefined);
-    };
-  }, []);
-
   return (
     <Box
       sx={{
@@ -80,15 +68,21 @@ export const ModelsBoard = memo(() => {
           >
             <EntityToolbar />
             <div className={classNames(classes.content, "dragit-scrollbar")}>
-              <Box sx={{ display: selectedDiagram ? "flex" : "none", flex: 1 }}>
-                <Toolbox graph={graph}></Toolbox>
-                <div className={classes.canvas} id="container">
-                  <GraphCanvas graph={graph}></GraphCanvas>
-                </div>
-              </Box>
-
-              {!selectedDiagram && <EmpertyCanvas></EmpertyCanvas>}
-
+              {selectedDiagram ? (
+                <>
+                  <Toolbox graph={graph}></Toolbox>
+                  <div className={classes.canvasShell}>
+                    <div className={classes.canvas} id="container">
+                      <GraphCanvas
+                        graph={graph}
+                        onSetGraph={setGraph}
+                      ></GraphCanvas>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <EmpertyCanvas></EmpertyCanvas>
+              )}
               <PropertyBox></PropertyBox>
             </div>
           </Box>
