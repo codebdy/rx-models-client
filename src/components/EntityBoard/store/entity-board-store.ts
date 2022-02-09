@@ -7,7 +7,7 @@ import { EntityStore } from "./entity-store";
 import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
 import { Command } from "../command/command";
-import { NODE_INIT_SIZE } from "./node-init-size";
+import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 import { RelationType } from "../meta/relation-meta";
 import _ from 'lodash';
 import { PackageMeta } from "../meta/package-meta";

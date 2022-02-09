@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 import { DiagramMeta } from "../meta/diagram-meta";
 import { EntityMeta } from "../meta/entity-meta";
-import { RelationMeta } from "../meta/relation-meta";
+import { RelationMeta, RelationType } from "../meta/relation-meta";
 import { X6EdgeMeta } from "../meta/x6-edge-meta";
 import { X6NodeMeta } from "../meta/x6-node-meta";
 import { LineAction } from "./line-action";
@@ -64,7 +64,12 @@ export const selectedDiagramState = atom<string | undefined>({
   default: undefined,
 });
 
-export const drawingLineState = atom<LineAction|undefined>({
+export const drawingLineState = atom<LineAction | undefined>({
   key: "local.drawingLine",
   default: undefined,
-})
+});
+
+export const pressedLineTypeState = atom<RelationType | undefined>({
+  key: "local.pressedLineType",
+  default: undefined,
+});

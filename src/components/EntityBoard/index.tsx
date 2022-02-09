@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Box, Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
@@ -12,6 +12,8 @@ import Loading from "components/common/loading";
 import EmpertyCanvas from "./EmpertyCanvas";
 import { useRecoilValue } from "recoil";
 import { selectedDiagramState } from "./recoil/atoms";
+import { getGraphConfig } from "./GraphCanvas/getGraphConfig";
+import { Graph } from "@antv/x6";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,17 +27,35 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       display: "flex",
     },
+    canvas: {
+      flex: 1,
+      display: "flex",
+      flexFlow: "column",
+      overflow: "auto",
+    },
   })
 );
 
-export const ModelsBoard = () => {
+export const ModelsBoard = memo(() => {
   const classes = useStyles();
+  const [graph, setGraph] = useState<Graph>();
   const selectedDiagram = useRecoilValue(selectedDiagramState);
   // const { data, error, loading } = useMagicQuery<PackageMeta[]>(
   //   new MagicQueryBuilder("RxPackage")
   // );
 
   // useShowServerError(error);
+
+  useEffect(() => {
+    const config = getGraphConfig();
+    const aGraph = new Graph(config as any);
+    setGraph(aGraph);
+    return () => {
+      graph?.dispose();
+      setGraph(undefined);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box
@@ -60,16 +80,17 @@ export const ModelsBoard = () => {
           >
             <EntityToolbar />
             <div className={classNames(classes.content, "dragit-scrollbar")}>
-              {selectedDiagram ? (
-                <>
-                  <Toolbox></Toolbox>
-                  <div className={classes.canvasShell}>
-                    <GraphCanvas></GraphCanvas>
+              <Box sx={{ display: selectedDiagram ? "flex" : "none", flex: 1 }}>
+                <Toolbox graph={graph}></Toolbox>
+                <div className={classes.canvasShell}>
+                  <div className={classes.canvas} id="container">
+                    <GraphCanvas graph={graph}></GraphCanvas>
                   </div>
-                </>
-              ) : (
-                <EmpertyCanvas></EmpertyCanvas>
-              )}
+                </div>
+              </Box>
+
+              {!selectedDiagram && <EmpertyCanvas></EmpertyCanvas>}
+
               <PropertyBox></PropertyBox>
             </div>
           </Box>
@@ -77,4 +98,4 @@ export const ModelsBoard = () => {
       )}
     </Box>
   );
-};
+});
