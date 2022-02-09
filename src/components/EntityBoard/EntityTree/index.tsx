@@ -1,9 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import { Box, Button, SvgIcon, Theme, Typography } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { EntityTreeView } from "./EntityTreeView";
 import intl from "react-intl-universal";
+import { Graph } from "@antv/x6";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const EntityTree = () => {
+export const EntityTree = memo((props: { graph?: Graph }) => {
+  const { graph } = props;
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -57,9 +59,9 @@ export const EntityTree = () => {
           p: 1,
         }}
       >
-        <EntityTreeView />
+        <EntityTreeView graph={graph} />
       </Box>
       <div className={classes.miniMap} id="mini-map"></div>
     </div>
   );
-};
+});

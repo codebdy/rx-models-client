@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./node-text";
@@ -6,33 +6,34 @@ import { ColumnNode } from "./ColumnNode";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import intl from "react-intl-universal";
 import { RelationNode } from "./RelationNode";
-import { Addon } from "@antv/x6";
+import { Addon, Graph } from "@antv/x6";
 import { useEntity } from "../hooks/useEntity";
 import { useSourceRelations } from "../hooks/useSourceRelations";
 import { useTargetRelations } from "../hooks/useTargetRelations";
 import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 const { Dnd } = Addon;
 
-export const EntityNode = memo((props: { uuid: string }) => {
-  const { uuid } = props;
+export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
+  const { uuid, graph } = props;
   const [dnd, setDnd] = React.useState<any>();
   const setSelectedElement = useSetRecoilState(selectedElementState);
   const entity = useEntity(uuid);
   const sourceRelations = useSourceRelations(uuid);
   const targetRelations = useTargetRelations(uuid);
-  // useEffect(() => {
-  //   const theDnd = bordStore.graph
-  //     ? new Dnd({
-  //         target: bordStore.graph,
-  //         scaled: false,
-  //         animation: true,
-  //       })
-  //     : undefined;
-  //   setDnd(theDnd);
-  // }, [bordStore.graph]);
+  
+  useEffect(() => {
+    const theDnd = graph
+      ? new Dnd({
+          target: graph,
+          scaled: false,
+          animation: true,
+        })
+      : undefined;
+    setDnd(theDnd);
+  }, [graph]);
 
   const startDragHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     // if (!bordStore.graph) {

@@ -18,8 +18,10 @@ import {
 } from "../recoil/atoms";
 import { EntityNode } from "./EntityNode";
 import { DiagramNode } from "./DiagramNode";
+import { Graph } from "@antv/x6";
 
-export const EntityTreeView = memo(() => {
+export const EntityTreeView = memo((props: { graph?: Graph }) => {
+  const { graph } = props;
   const selectedDiagram = useRecoilValue(selectedDiagramState);
   const selectedElement = useRecoilValue(selectedElementState);
   const entities = useRecoilValue(entitiesState);
@@ -100,7 +102,7 @@ export const EntityTreeView = memo(() => {
           }}
         >
           {entities.map((entity) => {
-            return <EntityNode key={entity.uuid} uuid={entity.uuid} />;
+            return <EntityNode key={entity.uuid} uuid={entity.uuid} graph = {graph}/>;
           })}
           {diagrams.map((diagram) => {
             return <DiagramNode key={diagram.uuid} diagram={diagram} />;

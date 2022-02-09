@@ -70,7 +70,7 @@ export const ModelsBoard = memo(() => {
         <Loading />
       ) : (
         <>
-          <EntityTree></EntityTree>
+          <EntityTree graph={graph}></EntityTree>
           <Box
             sx={{
               flex: 1,
@@ -82,10 +82,8 @@ export const ModelsBoard = memo(() => {
             <div className={classNames(classes.content, "dragit-scrollbar")}>
               <Box sx={{ display: selectedDiagram ? "flex" : "none", flex: 1 }}>
                 <Toolbox graph={graph}></Toolbox>
-                <div className={classes.canvasShell}>
-                  <div className={classes.canvas} id="container">
-                    <GraphCanvas graph={graph}></GraphCanvas>
-                  </div>
+                <div className={classes.canvas} id="container">
+                  <GraphCanvas graph={graph}></GraphCanvas>
                 </div>
               </Box>
 
