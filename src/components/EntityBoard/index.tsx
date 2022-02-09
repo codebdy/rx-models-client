@@ -3,7 +3,7 @@ import { Box, Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { EntityTree } from "./EntityTree";
-import { GraphCanvas } from "./grahp-canvas";
+import { GraphCanvas } from "./GraphCanvas";
 import classNames from "classnames";
 import { Toolbox } from "./Toolbox";
 import { PropertyBox } from "./property-box";

@@ -1,4 +1,4 @@
-import { getGraphSize } from "./get-grahp-size";
+import { getGraphSize } from "./getGraphSize";
 
 export const getGraphConfig = ()=>{
   const containerDiv = document.getElementById('container')||undefined;

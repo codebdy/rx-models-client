@@ -12,7 +12,7 @@ import { useEntityBoardStore } from '../store/helper';
 import { Addon } from '@antv/x6'
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { EntityView } from '../grahp-canvas/entity-view';
+import { EntityView } from '../GraphCanvas/EntityView';
 import { svgInherit, svgManyToMany, svgManyToOne, svgOneToMany, svgOneToOne } from './const-svg';
 import { RelationType } from '../meta/relation-meta';
 const { Dnd } = Addon

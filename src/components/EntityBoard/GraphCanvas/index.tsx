@@ -3,9 +3,9 @@ import { Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import { useNodesShow } from "./use-nodes-show";
-import { useExplorerScrollbarHide } from "./use-explorer-scrollbar-hide";
+import { useExplorerScrollbarHide } from "./useExplorerScrollbarHide";
 import { useNodeSelect } from "./use-node-select";
-import { useEdgeLineDraw } from "./use-edge-line-draw";
+import { useEdgeLineDraw } from "./useEdgeLineDraw";
 import { useEdgesShow } from "./use-edges-show";
 import { useNodeChange } from "./use-node-change";
 import { useNodeAdd } from "./use-node-add";
@@ -39,17 +39,18 @@ export const GraphCanvas = memo(() => {
       graph?.dispose();
       setGraph(undefined);
     };
-  }, [graph, selectedDiagram]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDiagram]);
 
   useExplorerScrollbarHide();
-  useNodeSelect();
-  useEdgeSelect();
-  useNodesShow();
-  useEdgeLineDraw();
-  useEdgesShow();
-  useNodeChange();
+  // useNodeSelect();
+  // useEdgeSelect();
+  // useNodesShow();
+  useEdgeLineDraw(graph);
+  // useEdgesShow();
+  // useNodeChange();
   useEdgeChange(graph);
-  useNodeAdd();
+  // useNodeAdd();
 
   return <div className={classes.root} id="container"></div>;
 });

@@ -1,9 +1,9 @@
 import { Edge } from "@antv/x6";
 import { useEffect } from "react";
 import { useEntityBoardStore } from "../store/helper";
-import { getRelationGraphAttrs } from "./get-relation-graph-attrs";
+import { getRelationGraphAttrs } from "./getRelationGraphAttrs";
 import _ from 'lodash';
-import { ROLE_SOURCE_POSITION_CONST, ROLE_SOURCE_TARGET_CONST } from "./const-label-position";
+import { ROLE_SOURCE_POSITION_CONST, ROLE_SOURCE_TARGET_CONST } from "./constLabelPosition";
 import { RelationType } from "../meta/relation-meta";
 
 export function useEdgesShow(){

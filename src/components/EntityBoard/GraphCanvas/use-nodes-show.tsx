@@ -2,7 +2,7 @@ import { useEntityBoardStore } from "../store/helper";
 import '@antv/x6-react-shape'
 import { Node } from '@antv/x6';
 import { useEffect } from "react";
-import { EntityView } from "./entity-view";
+import { EntityView } from "./EntityView";
 import _ from "lodash";
 import { ColumnStore } from "../store/column";
 import { EntityHideCommand } from "../command/entity-hide-command";

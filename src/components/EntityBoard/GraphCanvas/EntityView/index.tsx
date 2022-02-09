@@ -4,7 +4,7 @@ import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import { EntityNodeData } from "../../store/diagram";
-import ColumnView from "./column-view";
+import ColumnView from "./ColumnView";
 import { EntityType } from "components/EntityBoard/meta/entity-meta";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
