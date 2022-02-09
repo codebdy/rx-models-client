@@ -13,6 +13,7 @@ import EmpertyCanvas from "./EmpertyCanvas";
 import { useRecoilValue } from "recoil";
 import { selectedDiagramState } from "./recoil/atoms";
 import { Graph } from "@antv/x6";
+import '@antv/x6-react-shape'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
