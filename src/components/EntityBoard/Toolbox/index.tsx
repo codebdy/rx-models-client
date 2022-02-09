@@ -5,15 +5,15 @@ import makeStyles from '@mui/styles/makeStyles';
 import Typography from '@mui/material/Typography';
 import classNames from 'classnames';
 import intl from 'react-intl-universal';
-import { Accordion } from './accordion';
-import { AccordionSummary } from './accordion-summary';
-import { AccordionDetails } from './accordion-details';
+import { Accordion } from './Accordion2';
+import { AccordionSummary } from './AccordionSummary';
+import { AccordionDetails } from './AccordionDetails';
 import { useEntityBoardStore } from '../store/helper';
 import { Addon } from '@antv/x6'
 import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { EntityView } from '../GraphCanvas/EntityView';
-import { svgInherit, svgManyToMany, svgManyToOne, svgOneToMany, svgOneToOne } from './const-svg';
+import { svgInherit, svgManyToMany, svgManyToOne, svgOneToMany, svgOneToOne } from './constSvg';
 import { RelationType } from '../meta/relation-meta';
 const { Dnd } = Addon
 
