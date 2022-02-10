@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { useCreateNewEntity } from "../hooks/useCreateNewEntity";
-import { NODE_INIT_SIZE } from "./nodeInitSize";
+import { useCreateNewEntity } from "./useCreateNewEntity";
+import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 
 export function useCreateTempClassNodeForNew() {
   const creatNewEntityMeta = useCreateNewEntity();
@@ -15,6 +15,6 @@ export function useCreateTempClassNodeForNew() {
         isTempForNew: true,
       },
     };
-  }, []);
+  }, [creatNewEntityMeta]);
   return createTempClassNodeForNew;
 }
