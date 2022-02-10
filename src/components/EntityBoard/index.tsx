@@ -6,7 +6,7 @@ import { EntityTree } from "./EntityTree";
 import { GraphCanvas } from "./GraphCanvas";
 import classNames from "classnames";
 import { Toolbox } from "./Toolbox";
-import { PropertyBox } from "./property-box";
+import { PropertyBox } from "./PropertyBox";
 import { EntityToolbar } from "./EntityToolbar";
 import Loading from "components/common/loading";
 import EmpertyCanvas from "./EmpertyCanvas";

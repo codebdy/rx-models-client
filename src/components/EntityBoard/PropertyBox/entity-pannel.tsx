@@ -4,7 +4,7 @@ import { EntityStore } from '../store/entity-store';
 import intl from "react-intl-universal";
 import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Switch } from '@mui/material';
 import { useEntityBoardStore } from '../store/helper';
-import LazyTextField from 'components/EntityBoard/property-box/lazy-text-field';
+import LazyTextField from 'components/EntityBoard/PropertyBox/lazy-text-field';
 import { NameChangeCommand } from '../command/name-change-command';
 import { EntityTableNameChangeCommand } from '../command/entity-table-name-change-command';
 import { EntityType } from '../meta/entity-meta';

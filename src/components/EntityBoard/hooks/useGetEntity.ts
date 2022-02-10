@@ -5,9 +5,9 @@ import { entitiesState } from "../recoil/atoms";
 export function useGetEntity() {
   const entites = useRecoilValue(entitiesState);
 
-  const getNode = useCallback((uuid: string)=>{
+  const getEntity = useCallback((uuid: string)=>{
     return entites.find((entity) => entity.uuid === uuid);
   }, [entites]);
 
-  return getNode;
+  return getEntity;
 }
