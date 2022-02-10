@@ -9,6 +9,7 @@ import { useNodesShow } from "./useNodesShow";
 import { useNodeAdd } from "./useNodeAdd";
 import { useNodeChange } from "./useNodeChange";
 import { useNodeSelect } from "./useNodeSelect";
+import { useEdgesShow } from "./useEdgesShow";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
@@ -28,7 +29,7 @@ export const GraphCanvas = memo(
     // useEdgeSelect();
     useNodesShow(graph);
     useEdgeLineDraw(graph);
-    // useEdgesShow();
+    useEdgesShow(graph);
     useNodeChange(graph);
     useEdgeChange(graph);
     useNodeAdd(graph);
