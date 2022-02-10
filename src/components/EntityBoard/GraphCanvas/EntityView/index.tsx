@@ -3,7 +3,7 @@ import { Theme, IconButton } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
-import { EntityNodeData } from "../../store/diagram";
+import { EntityNodeData } from "../EntityNodeData";
 import ColumnView from "./ColumnView";
 import { EntityType } from "components/EntityBoard/meta/entity-meta";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -37,14 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexFlow: "column",
       position: "relative",
-    },
-    entityCloseButton: {
-      width: "24px",
-      height: "24px",
-      zIndex: 1,
-      position: "absolute",
-      right: "0",
-      top: "0",
     },
     propertiesArea: {
       flex: 1,
@@ -135,7 +127,14 @@ export const EntityView = (props: {
           )}
           {hover && !disableHover && (
             <IconButton
-              className={classes.entityCloseButton}
+              sx={{
+                width: "24px",
+                height: "24px",
+                zIndex: 1,
+                position: "absolute",
+                right: "0",
+                top: "0",
+              }}
               onClick={handleHidden}
               size="large"
             >
