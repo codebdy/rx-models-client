@@ -8,6 +8,7 @@ import { getGraphConfig } from "./getGraphConfig";
 import { useNodesShow } from "./useNodesShow";
 import { useNodeAdd } from "./useNodeAdd";
 import { useNodeChange } from "./useNodeChange";
+import { useNodeSelect } from "./useNodeSelect";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
@@ -23,7 +24,7 @@ export const GraphCanvas = memo(
     }, [onSetGraph]);
 
     useExplorerScrollbarHide();
-    // useNodeSelect();
+    useNodeSelect(graph);
     // useEdgeSelect();
     useNodesShow(graph);
     useEdgeLineDraw(graph);
