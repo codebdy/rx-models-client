@@ -1,5 +1,5 @@
-import { X6EdgeMeta } from "./x6-edge-meta";
-import { X6NodeMeta } from "./x6-node-meta";
+import { X6EdgeMeta } from "./X6EdgeMeta";
+import { X6NodeMeta } from "./X6NodeMeta";
 
 /**
  * ER图元数据

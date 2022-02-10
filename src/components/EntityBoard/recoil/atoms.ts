@@ -2,13 +2,13 @@ import { atom } from "recoil";
 import { DiagramMeta } from "../meta/diagram-meta";
 import { EntityMeta } from "../meta/entity-meta";
 import { RelationMeta, RelationType } from "../meta/relation-meta";
-import { X6EdgeMeta } from "../meta/x6-edge-meta";
-import { X6NodeMeta } from "../meta/x6-node-meta";
+import { X6EdgeMeta } from "../meta/X6EdgeMeta";
+import { X6NodeMeta } from "../meta/X6NodeMeta";
 import { LineAction } from "./line-action";
 
 export interface Snapshot {
   diagrams: DiagramMeta[];
-  entites: EntityMeta[];
+  entities: EntityMeta[];
   relations: RelationMeta[];
   x6Nodes: X6NodeMeta[];
   x6Edges: X6EdgeMeta[];

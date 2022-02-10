@@ -8,4 +8,6 @@ export interface X6NodeMeta{
   width?: number;
   /** 节点高度 */
   height?: number;
+  
+  diagramUuid: string;
 }

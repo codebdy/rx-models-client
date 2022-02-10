@@ -15,13 +15,13 @@ export function useNodeChange(){
       modelStore.getEntityById(node.id),
     )
 
-    command.setNewNodeMeta({
-      id:node.id,
-      x:node.getPosition().x, 
-      y:node.getPosition().y, 
-      width: node.getSize().width, 
-      height: node.getSize().height,
-    });
+    // command.setNewNodeMeta({
+    //   id:node.id,
+    //   x:node.getPosition().x, 
+    //   y:node.getPosition().y, 
+    //   width: node.getSize().width, 
+    //   height: node.getSize().height,
+    // });
     modelStore.excuteCommand(command);
   }
 

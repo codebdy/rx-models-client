@@ -1,8 +1,8 @@
 import { makeAutoObservable, toJS } from "mobx";
 import { EntityMeta } from "../meta/entity-meta";
 import { DiagramMeta } from "../meta/diagram-meta";
-import { X6EdgeMeta } from "../meta/x6-edge-meta";
-import { X6NodeMeta } from "../meta/x6-node-meta";
+import { X6EdgeMeta } from "../meta/X6EdgeMeta";
+import { X6NodeMeta } from "../meta/X6NodeMeta";
 import { PackageStore } from "./package";
 import _ from "lodash";
 import { RelationMeta } from "../meta/relation-meta";
@@ -60,26 +60,26 @@ export class DiagramStore{
     const edges: EdgeConfig[] = [];
     const nodes = this.getExistsNodes();
 
-    this.rootStore.getRelations()?.forEach(relation=>{
-      const source = nodes.find(node=>node.id === relation.sourceId);
-      const target = nodes.find(node=>node.id === relation.targetId);
-      if(source && target){
-        const edge = this.edges.find(edge=>edge.id === relation.uuid);
-        const relationMeta = relation.toMeta();
-        if(edge){
-          edges.push({
-            ...edge, 
-            ...relationMeta
-          });
-        }else{
-          const newEdge = {id:relation.uuid};
-          edges.push({
-            ...newEdge, 
-            ...relationMeta
-          })
-        }
-      }
-    })
+    // this.rootStore.getRelations()?.forEach(relation=>{
+    //   const source = nodes.find(node=>node.id === relation.sourceId);
+    //   const target = nodes.find(node=>node.id === relation.targetId);
+    //   if(source && target){
+    //     const edge = this.edges.find(edge=>edge.id === relation.uuid);
+    //     const relationMeta = relation.toMeta();
+    //     if(edge){
+    //       edges.push({
+    //         ...edge, 
+    //         ...relationMeta
+    //       });
+    //     }else{
+    //       const newEdge = {id:relation.uuid};
+    //       edges.push({
+    //         ...newEdge, 
+    //         ...relationMeta
+    //       })
+    //     }
+    //   }
+    // })
     return edges;
   }
 

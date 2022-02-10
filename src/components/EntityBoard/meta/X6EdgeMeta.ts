@@ -17,4 +17,6 @@ export interface X6EdgeMeta{
 
   /** 目标关系属性位置标签 */
   roleOnTargetPosition?: RolePosition;
+
+  diagramUuid: string;
 }

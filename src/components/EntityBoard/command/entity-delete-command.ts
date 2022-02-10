@@ -4,7 +4,7 @@ import { PackageStore } from "../store/package";
 import { Command } from "./command";
 import { RelationStore } from "../store/relation";
 import { DiagramStore } from "../store/diagram";
-import { X6NodeMeta } from "../meta/x6-node-meta";
+import { X6NodeMeta } from "../meta/X6NodeMeta";
 
 export class EntityDeleteCommand implements Command{
   private packageStore?: PackageStore;

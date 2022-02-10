@@ -5,6 +5,8 @@ import { useEdgeChange } from "./useEdgeChange";
 import { Graph } from "@antv/x6";
 import { Box } from "@mui/material";
 import { getGraphConfig } from "./getGraphConfig";
+import { useNodesShow } from "./useNodesShow";
+import { useNodeAdd } from "./useNodeAdd";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
@@ -22,12 +24,12 @@ export const GraphCanvas = memo(
     useExplorerScrollbarHide();
     // useNodeSelect();
     // useEdgeSelect();
-    // useNodesShow();
+    useNodesShow(graph);
     useEdgeLineDraw(graph);
     // useEdgesShow();
     // useNodeChange();
     useEdgeChange(graph);
-    // useNodeAdd();
+    useNodeAdd(graph);
 
     return (
       <Box
