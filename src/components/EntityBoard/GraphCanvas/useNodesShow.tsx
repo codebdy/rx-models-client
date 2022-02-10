@@ -58,11 +58,13 @@ export function useNodesShow(graph?: Graph) {
   useEffect(() => {
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
+      const entity = getEntity(node.id);
+      const data = { ...entity, ...node };
       if (grahpNode) {
         //Update by diff
-        if (!_.isEqual(node, grahpNode.data)) {
+        if (!_.isEqual(data, grahpNode.data)) {
           grahpNode.removeData();
-          grahpNode.setData(node);
+          grahpNode.setData(data);
         }
         if (
           node.x !== grahpNode.getPosition().x ||
@@ -77,6 +79,7 @@ export function useNodesShow(graph?: Graph) {
         graph?.addNode({
           ...node,
           shape: "react-shape",
+          data,
           component: (
             <EntityView
               onColumnSelect={handleColumnSelect}
