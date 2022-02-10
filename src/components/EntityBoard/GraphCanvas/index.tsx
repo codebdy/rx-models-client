@@ -7,6 +7,7 @@ import { Box } from "@mui/material";
 import { getGraphConfig } from "./getGraphConfig";
 import { useNodesShow } from "./useNodesShow";
 import { useNodeAdd } from "./useNodeAdd";
+import { useNodeChange } from "./useNodeChange";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
@@ -27,7 +28,7 @@ export const GraphCanvas = memo(
     useNodesShow(graph);
     useEdgeLineDraw(graph);
     // useEdgesShow();
-    // useNodeChange();
+    useNodeChange(graph);
     useEdgeChange(graph);
     useNodeAdd(graph);
 
