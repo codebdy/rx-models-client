@@ -21,7 +21,7 @@ import {
 import { RelationType } from "../meta/relation-meta";
 import { pressedLineTypeState } from "../recoil/atoms";
 import { useRecoilState } from "recoil";
-import { createTempClassNodeForNew } from "../GraphCanvas/createTempClassNodeForNew";
+import { useCreateTempClassNodeForNew } from "../GraphCanvas/useCreateTempClassNodeForNew";
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
 import { Box } from "@mui/material";
 const { Dnd } = Addon;
@@ -61,6 +61,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   const [pressedLineType, setPressedLineType] =
     useRecoilState(pressedLineTypeState);
   const scrollStyles = useScrollbarStyles(true);
+  const createTempClassNodeForNew = useCreateTempClassNodeForNew();
 
   const handleEneitiesChange =
     () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
