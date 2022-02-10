@@ -1,7 +1,7 @@
 import { IconButton, OutlinedInput } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import React, { memo, useState } from "react";
-import { NodeText } from "./node-text";
+import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import { DiagramMeta } from "../meta/diagram-meta";
 import InsertDriveFileOutlinedIcon from "@mui/icons-material/InsertDriveFileOutlined";

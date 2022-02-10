@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from "react";
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
-import { NodeText } from "./node-text";
+import { NodeText } from "./NodeText";
 import { ColumnNode } from "./ColumnNode";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import intl from "react-intl-universal";

@@ -1,6 +1,6 @@
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
-import { NodeText } from "./node-text";
+import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import { RelationMeta, RelationType } from "../meta/relation-meta";
 import { useEntity } from "../hooks/useEntity";

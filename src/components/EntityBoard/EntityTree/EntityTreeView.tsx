@@ -4,7 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeItem from "@mui/lab/TreeItem";
 import intl from "react-intl-universal";
-import { NodeText } from "./node-text";
+import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import { TREE_ROOT_ID } from "util/consts";
 import LocalModelAction from "./LocalModelAction";

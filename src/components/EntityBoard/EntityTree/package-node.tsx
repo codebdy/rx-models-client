@@ -3,7 +3,7 @@ import { observer } from "mobx-react";
 import React from "react";
 import { useEntityBoardStore } from "../store/helper";
 import { PackageStore } from "../store/package";
-import { NodeText } from "./node-text";
+import { NodeText } from "./NodeText";
 import PackageAction from "./package-action";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import { createId } from "util/creat-id";
