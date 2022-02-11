@@ -1,6 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
-import { EntityStore } from "../store/entity-store";
 import intl from "react-intl-universal";
 import {
   FormControl,
@@ -12,28 +10,25 @@ import {
   SelectChangeEvent,
   Switch,
 } from "@mui/material";
-import { useEntityBoardStore } from "../store/helper";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import { NameChangeCommand } from "../command/name-change-command";
-import { EntityTableNameChangeCommand } from "../command/entity-table-name-change-command";
-import { EntityType } from "../meta/EntityMeta";
+import { EntityMeta, EntityType } from "../meta/EntityMeta";
 import { EntityTypeChangeCommand } from "../command/entity-type-change-command";
 import { JsonInput } from "./JsonInput";
 import { EntityEnumValuesChangeCommand } from "../command/entity-enum-values-change-command";
 import { EntityMoveCommand } from "../command/entity-move-command";
 import { EntityEventableChangeCommand } from "../command/entity-eventable-change-command copy";
+import { useChangeEntity } from "../hooks/useChangeEntity";
 
-export const EntityPanel = (props: { entityStore: EntityStore }) => {
-  const { entityStore } = props;
-  const bordStore = useEntityBoardStore();
+export const EntityPanel = (props: { entity: EntityMeta }) => {
+  const { entity } = props;
+  const changeEntity = useChangeEntity();
+
   const handleNameChange = (value: string) => {
-    const command = new NameChangeCommand(entityStore, value);
-    bordStore.excuteCommand(command);
+    changeEntity({ ...entity, name: value });
   };
 
   const handleTableNameChange = (value: string) => {
-    const command = new EntityTableNameChangeCommand(entityStore, value);
-    bordStore.excuteCommand(command);
+    changeEntity({ ...entity, tableName: value });
   };
 
   const handleTypeChange = (event: SelectChangeEvent<EntityType>) => {

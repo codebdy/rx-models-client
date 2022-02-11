@@ -12,6 +12,9 @@ import { ColumnStore } from "../store/column";
 import { ColumnPanel } from "./ColumnPanel";
 import { RelationStore } from "../store/relation";
 import { RelationPanel } from "./RelationPanel";
+import { useRecoilValue } from "recoil";
+import { selectedElementState } from "../recoil/atoms";
+import { useEntity } from "../hooks/useEntity";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const PropertyBox = () => {
   const classes = useStyles();
-  const boardStore = useEntityBoardStore();
+  const selectedElement = useRecoilValue(selectedElementState);
+  const selectedEntity = useEntity(selectedElement || "");
 
   return (
     <div className={classes.root}>
@@ -40,8 +44,8 @@ export const PropertyBox = () => {
       </ToolbarArea>
       <div className={classes.propertiesArea}>
         <Grid container spacing={2}>
-          {boardStore?.selectedElement instanceof EntityStore && (
-            <EntityPanel entityStore={boardStore.selectedElement} />
+          {selectedEntity && (
+            <EntityPanel entity={selectedEntity} />
           )}
           {boardStore?.selectedElement instanceof ColumnStore && (
             <ColumnPanel columnStore={boardStore.selectedElement} />
