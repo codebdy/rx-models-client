@@ -12,9 +12,10 @@ import {
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
-import { ColumnChangeCommand } from "../command/column-change-command";
 import { EntityMeta, EntityType } from "../meta/EntityMeta";
 import { useChangeColumn } from "../hooks/useChangeColumn";
+import { useEnums } from "../hooks/useEnums";
+import { useInterfaces } from "../hooks/useInterfaces";
 
 export const ColumnPanel = (props: {
   column: ColumnMeta;
@@ -22,6 +23,8 @@ export const ColumnPanel = (props: {
 }) => {
   const { column, entity } = props;
   const changeColumn = useChangeColumn();
+  const enums = useEnums();
+  const interfaces = useInterfaces();
 
   const handleStringChange = (prop: any) => (value: string) => {
     changeColumn(
@@ -46,33 +49,41 @@ export const ColumnPanel = (props: {
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
   const handleTypeChange = (event: SelectChangeEvent<ColumnType>) => {
-    const type = event.target.value;
-    let generated = columnStore.generated;
+    const type = event.target.value as any;
+    let generated = column.generated;
     if (type !== ColumnType.String && type !== ColumnType.Number) {
       generated = undefined;
     }
-    const command = new ColumnChangeCommand(columnStore, {
-      type,
-      generated,
-      nullable: allValues.nullable,
-    });
-    bordStore.excuteCommand(command);
+
+    changeColumn(
+      {
+        ...column,
+        type,
+        generated,
+        nullable: column.nullable,
+      },
+      entity
+    );
   };
 
   const handleEnumEntiyChange = (event: SelectChangeEvent<string>) => {
-    const command = new ColumnChangeCommand(columnStore, {
-      ...allValues,
-      typeEnityUuid: event.target.value,
-    });
-    bordStore.excuteCommand(command);
+    changeColumn(
+      {
+        ...column,
+        typeEnityUuid: event.target.value,
+      },
+      entity
+    );
   };
 
   const handleInterfaceEntiyChange = (event: SelectChangeEvent<string>) => {
-    const command = new ColumnChangeCommand(columnStore, {
-      ...allValues,
-      typeEnityUuid: event.target.value,
-    });
-    bordStore.excuteCommand(command);
+    changeColumn(
+      {
+        ...column,
+        typeEnityUuid: event.target.value,
+      },
+      entity
+    );
   };
 
   const handleGeneratedChange = (event: SelectChangeEvent<string>) => {
@@ -83,40 +94,46 @@ export const ColumnPanel = (props: {
     if (!value) {
       value = undefined;
     }
-    const command = new ColumnChangeCommand(columnStore, {
-      ...allValues,
-      generated: value,
-    });
-    bordStore.excuteCommand(command);
+
+    changeColumn(
+      {
+        ...column,
+        generated: value,
+      },
+      entity
+    );
   };
 
   const handleBooleanChange =
     (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const command = new ColumnChangeCommand(columnStore, {
-        ...allValues,
-        [prop]: event.target.checked,
-      });
-      bordStore.excuteCommand(command);
+      changeColumn(
+        {
+          ...column,
+          [prop]: event.target.checked,
+        },
+        entity
+      );
     };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.checked ? false : undefined;
-    const command = new ColumnChangeCommand(columnStore, {
-      ...allValues,
-      select: value,
-    });
-    bordStore.excuteCommand(command);
+    changeColumn(
+      {
+        ...column,
+        select: value,
+      },
+      entity
+    );
   };
 
   const isId =
-    columnStore.name === "id" &&
-    columnStore.entityStore.entityType !== EntityType.INTERFACE;
+    column.name === "id" && entity.entityType !== EntityType.INTERFACE;
   return (
     <>
       <Grid item xs={12}>
         <LazyTextField
           label={intl.get("name")}
-          value={columnStore.name || ""}
+          value={column.name || ""}
           onChange={handleStringChange("name")}
           disabled={isId}
         />
@@ -125,7 +142,7 @@ export const ColumnPanel = (props: {
         <FormControl variant="outlined" fullWidth size="small" disabled={isId}>
           <InputLabel>{intl.get("data-type")}</InputLabel>
           <Select
-            value={columnStore.type}
+            value={column.type}
             onChange={handleTypeChange}
             label={intl.get("data-type")}
           >
@@ -149,7 +166,7 @@ export const ColumnPanel = (props: {
           </Select>
         </FormControl>
       </Grid>
-      {columnStore.type === ColumnType.Enum && (
+      {column.type === ColumnType.Enum && (
         <Grid item xs={12}>
           <FormControl
             variant="outlined"
@@ -159,14 +176,14 @@ export const ColumnPanel = (props: {
           >
             <InputLabel>{intl.get("enum-class")}</InputLabel>
             <Select
-              value={columnStore.typeEnityUuid || ""}
+              value={column.typeEnityUuid || ""}
               onChange={handleEnumEntiyChange}
               label={intl.get("enum-class")}
             >
-              {bordStore.getEnumEntities().map((enumStore) => {
+              {enums.map((enumEntity) => {
                 return (
-                  <MenuItem key={enumStore.uuid} value={enumStore.uuid}>
-                    {enumStore.name}
+                  <MenuItem key={enumEntity.uuid} value={enumEntity.uuid}>
+                    {enumEntity.name}
                   </MenuItem>
                 );
               })}
@@ -174,8 +191,8 @@ export const ColumnPanel = (props: {
           </FormControl>
         </Grid>
       )}
-      {(columnStore.type === ColumnType.SimpleJson ||
-        columnStore.type === ColumnType.JsonArray) && (
+      {(column.type === ColumnType.SimpleJson ||
+        column.type === ColumnType.JsonArray) && (
         <Grid item xs={12}>
           <FormControl
             variant="outlined"
@@ -185,14 +202,17 @@ export const ColumnPanel = (props: {
           >
             <InputLabel>{intl.get("interface-class")}</InputLabel>
             <Select
-              value={columnStore.typeEnityUuid || ""}
+              value={column.typeEnityUuid || ""}
               onChange={handleInterfaceEntiyChange}
               label={intl.get("interface-class")}
             >
-              {bordStore.getInterfaceEntities().map((enumStore) => {
+              {interfaces.map((interfaceEntity) => {
                 return (
-                  <MenuItem key={enumStore.uuid} value={enumStore.uuid}>
-                    {enumStore.name}
+                  <MenuItem
+                    key={interfaceEntity.uuid}
+                    value={interfaceEntity.uuid}
+                  >
+                    {interfaceEntity.name}
                   </MenuItem>
                 );
               })}
@@ -205,7 +225,7 @@ export const ColumnPanel = (props: {
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.primary || false}
+                checked={column.primary || false}
                 onChange={handleBooleanChange("primary")}
                 color="primary"
               />
@@ -220,7 +240,7 @@ export const ColumnPanel = (props: {
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.nullable || false}
+                checked={column.nullable || false}
                 onChange={handleBooleanChange("nullable")}
                 color="primary"
               />
@@ -234,7 +254,7 @@ export const ColumnPanel = (props: {
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.unique || false}
+                checked={column.unique || false}
                 onChange={handleBooleanChange("unique")}
                 color="primary"
               />
@@ -248,7 +268,7 @@ export const ColumnPanel = (props: {
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.index || false}
+                checked={column.index || false}
                 onChange={handleBooleanChange("index")}
                 color="primary"
               />
@@ -258,12 +278,12 @@ export const ColumnPanel = (props: {
         </Grid>
       )}
 
-      {columnStore.type === ColumnType.Date && (
+      {column.type === ColumnType.Date && (
         <Grid item xs={6}>
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.createDate || false}
+                checked={column.createDate || false}
                 onChange={handleBooleanChange("createDate")}
                 color="primary"
               />
@@ -272,12 +292,12 @@ export const ColumnPanel = (props: {
           />
         </Grid>
       )}
-      {columnStore.type === ColumnType.Date && (
+      {column.type === ColumnType.Date && (
         <Grid item xs={6}>
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.updateDate || false}
+                checked={column.updateDate || false}
                 onChange={handleBooleanChange("updateDate")}
                 color="primary"
               />
@@ -286,12 +306,12 @@ export const ColumnPanel = (props: {
           />
         </Grid>
       )}
-      {columnStore.type === ColumnType.Date && (
+      {column.type === ColumnType.Date && (
         <Grid item xs={12}>
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.deleteDate || false}
+                checked={column.deleteDate || false}
                 onChange={handleBooleanChange("deleteDate")}
                 color="primary"
               />
@@ -305,7 +325,7 @@ export const ColumnPanel = (props: {
           <FormControlLabel
             control={
               <Switch
-                checked={columnStore.select === false ? true : false}
+                checked={column.select === false ? true : false}
                 onChange={handleSelectChange}
                 color="primary"
               />
@@ -319,24 +339,24 @@ export const ColumnPanel = (props: {
         <Grid item xs={12}>
           <LazyTextField
             label={intl.get("default-value")}
-            value={columnStore.default || ""}
+            value={column.default || ""}
             onChange={handleDefaultChange}
           />
         </Grid>
       )}
 
-      {!isId && columnStore.type === ColumnType.String && (
+      {!isId && column.type === ColumnType.String && (
         <Grid item xs={12}>
           <LazyTextField
             label={intl.get("length")}
-            value={columnStore.default || ""}
+            value={column.default || ""}
             onChange={handleStringChange("length")}
           />
         </Grid>
       )}
 
-      {(columnStore.type === ColumnType.Number ||
-        columnStore.type === ColumnType.String) && (
+      {(column.type === ColumnType.Number ||
+        column.type === ColumnType.String) && (
         <Grid item xs={12}>
           <FormControl
             variant="outlined"
@@ -347,9 +367,7 @@ export const ColumnPanel = (props: {
             <InputLabel>{intl.get("generated")}</InputLabel>
             <Select
               value={
-                (columnStore.generated === true
-                  ? "true"
-                  : columnStore.generated) || ""
+                (column.generated === true ? "true" : column.generated) || ""
               }
               onChange={handleGeneratedChange}
               label={intl.get("generated")}
@@ -358,10 +376,10 @@ export const ColumnPanel = (props: {
                 <em>None</em>
               </MenuItem>
               <MenuItem value={"true"}>True</MenuItem>
-              {columnStore.type === ColumnType.String && (
+              {column.type === ColumnType.String && (
                 <MenuItem value={"uuid"}>uuid</MenuItem>
               )}
-              {columnStore.type === ColumnType.String && (
+              {column.type === ColumnType.String && (
                 <MenuItem value={"rowid"}>rowid</MenuItem>
               )}
 
