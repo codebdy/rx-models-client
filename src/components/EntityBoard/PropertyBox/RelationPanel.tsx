@@ -1,5 +1,4 @@
 import React from "react";
-import { RelationStore } from "../store/relation";
 import intl from "react-intl-universal";
 import {
   FormControl,
@@ -12,7 +11,6 @@ import {
   Switch,
   Typography,
 } from "@mui/material";
-import { useEntityBoardStore } from "../store/helper";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { CombinationType, RelationMeta, RelationType } from "../meta/RelationMeta";
 import { RelationChangeCommand } from "../command/relation-change-command";

@@ -1,5 +1,4 @@
 import React from "react";
-import { ColumnStore } from "../store/column";
 import intl from "react-intl-universal";
 import {
   FormControl,
@@ -12,33 +11,37 @@ import {
   Switch,
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import { useEntityBoardStore } from "../store/helper";
 import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
 import { ColumnChangeCommand } from "../command/column-change-command";
 import { EntityMeta, EntityType } from "../meta/EntityMeta";
+import { useChangeColumn } from "../hooks/useChangeColumn";
 
 export const ColumnPanel = (props: {
   column: ColumnMeta;
   entity: EntityMeta;
 }) => {
-  const { column } = props;
-  const bordStore = useEntityBoardStore();
+  const { column, entity } = props;
+  const changeColumn = useChangeColumn();
 
   const handleStringChange = (prop: any) => (value: string) => {
-    const command = new ColumnChangeCommand(columnStore, {
-      ...column,
-      [prop]: value,
-    });
-    bordStore.excuteCommand(command);
+    changeColumn(
+      {
+        ...column,
+        [prop]: value,
+      },
+      entity
+    );
   };
 
   //默认值以后要改成一个单独控件
   const handleDefaultChange = (value: string) => {
-    const command = new ColumnChangeCommand(columnStore, {
-      ...allValues,
-      default: value === "" ? undefined : value,
-    });
-    bordStore.excuteCommand(command);
+    changeColumn(
+      {
+        ...column,
+        default: value === "" ? undefined : value,
+      },
+      entity
+    );
   };
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
