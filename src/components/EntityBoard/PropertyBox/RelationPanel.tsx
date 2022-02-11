@@ -12,66 +12,72 @@ import {
   Typography,
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import { CombinationType, RelationMeta, RelationType } from "../meta/RelationMeta";
-import { RelationChangeCommand } from "../command/relation-change-command";
+import {
+  CombinationType,
+  RelationMeta,
+  RelationType,
+} from "../meta/RelationMeta";
 import { useEntity } from "../hooks/useEntity";
 import { useChangeRelation } from "../hooks/useChangeRelation";
+import { useGetEntity } from "../hooks/useGetEntity";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relation } = props;
   const source = useEntity(relation.sourceId);
   const target = useEntity(relation.targetId);
   const changeRelation = useChangeRelation();
+  const getEntity = useGetEntity();
 
   const handleTypeChange = (event: SelectChangeEvent<RelationType>) => {
     const ownerId =
       relation.relationType === RelationType.ONE_TO_MANY
         ? relation.sourceId
         : relation.targetId;
-    const command = new RelationChangeCommand(relation, {
+
+    changeRelation({
+      ...relation,
       relationType: event.target.value as RelationType,
       ownerId: ownerId,
     });
-    boardStore.excuteCommand(command);
   };
 
   const handleSourceRoleChange = (value: string) => {
-    const command = new RelationChangeCommand(relation, {
+    changeRelation({
+      ...relation,
       roleOnSource: value,
     });
-    boardStore.excuteCommand(command);
   };
 
   const handleTargetRoleChange = (value: string) => {
-    const command = new RelationChangeCommand(relation, {
+    changeRelation({
+      ...relation,
       roleOnTarget: value,
     });
-    boardStore.excuteCommand(command);
   };
 
   const handleOwnerChange = (event: SelectChangeEvent<string>) => {
-    const command = new RelationChangeCommand(relation, {
+    changeRelation({
+      ...relation,
       ownerId: event.target.value as string,
     });
-    boardStore.excuteCommand(command);
   };
 
   const handleCombinationOnSourceChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const command = new RelationChangeCommand(relation, {
+    changeRelation({
+      ...relation,
       combination: event.target.checked ? CombinationType.ON_SOURCE : undefined,
     });
-    boardStore.excuteCommand(command);
   };
 
   const handleCombinationOnTargetChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const command = new RelationChangeCommand(relation, {
+    changeRelation({
+      ...relation,
       combination: event.target.checked ? CombinationType.ON_TARGET : undefined,
     });
-    boardStore.excuteCommand(command);
   };
 
   const isInherit = RelationType.INHERIT === relation.relationType;
@@ -123,10 +129,10 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             label={intl.get("owner")}
           >
             <MenuItem value={relation.sourceId}>
-              {boardStore.getEntityById(relation.sourceId)?.name}
+              {getEntity(relation.sourceId)?.name}
             </MenuItem>
             <MenuItem value={relation.targetId}>
-              {boardStore.getEntityById(relation.targetId)?.name}
+              {getEntity(relation.targetId)?.name}
             </MenuItem>
           </Select>
         </FormControl>
@@ -149,9 +155,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={
-                    relation.combination === CombinationType.ON_SOURCE
-                  }
+                  checked={relation.combination === CombinationType.ON_SOURCE}
                   onChange={handleCombinationOnSourceChange}
                   color="primary"
                 />
@@ -175,9 +179,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={
-                    relation.combination === CombinationType.ON_TARGET
-                  }
+                  checked={relation.combination === CombinationType.ON_TARGET}
                   onChange={handleCombinationOnTargetChange}
                   color="primary"
                 />
