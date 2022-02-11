@@ -13,18 +13,20 @@ import {
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { useEntityBoardStore } from "../store/helper";
-import { ColumnType } from "../meta/ColumnMeta";
+import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
 import { ColumnChangeCommand } from "../command/column-change-command";
-import { EntityType } from "../meta/EntityMeta";
+import { EntityMeta, EntityType } from "../meta/EntityMeta";
 
-export const ColumnPanel = (props: { columnStore: ColumnStore }) => {
-  const { columnStore } = props;
+export const ColumnPanel = (props: {
+  column: ColumnMeta;
+  entity: EntityMeta;
+}) => {
+  const { column } = props;
   const bordStore = useEntityBoardStore();
-  const allValues = columnStore.toMeta();
 
   const handleStringChange = (prop: any) => (value: string) => {
     const command = new ColumnChangeCommand(columnStore, {
-      ...allValues,
+      ...column,
       [prop]: value,
     });
     bordStore.excuteCommand(command);

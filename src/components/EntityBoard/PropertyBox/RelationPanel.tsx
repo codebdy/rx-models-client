@@ -14,10 +14,10 @@ import {
 } from "@mui/material";
 import { useEntityBoardStore } from "../store/helper";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import { CombinationType, RelationType } from "../meta/RelationMeta";
+import { CombinationType, RelationMeta, RelationType } from "../meta/RelationMeta";
 import { RelationChangeCommand } from "../command/relation-change-command";
 
-export const RelationPanel = (props: { relationStore: RelationStore }) => {
+export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relationStore } = props;
   const boardStore = useEntityBoardStore();
   const source = boardStore.getEntityById(relationStore.sourceId);

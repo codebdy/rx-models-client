@@ -5,16 +5,14 @@ import createStyles from "@mui/styles/createStyles";
 import ToolbarArea from "./ToolbarArea";
 import ToolbarTitle from "./ToolbarTitle";
 import intl from "react-intl-universal";
-import { useEntityBoardStore } from "../store/helper";
-import { EntityStore } from "../store/entity-store";
 import { EntityPanel } from "./EntityPanel";
-import { ColumnStore } from "../store/column";
 import { ColumnPanel } from "./ColumnPanel";
-import { RelationStore } from "../store/relation";
 import { RelationPanel } from "./RelationPanel";
 import { useRecoilValue } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
 import { useEntity } from "../hooks/useEntity";
+import { useColumn } from "../hooks/useColumn";
+import { useRelation } from "../hooks/useRelation";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +34,8 @@ export const PropertyBox = () => {
   const classes = useStyles();
   const selectedElement = useRecoilValue(selectedElementState);
   const selectedEntity = useEntity(selectedElement || "");
+  const { entity, column } = useColumn(selectedElement || "");
+  const relation = useRelation(selectedElement || "");
 
   return (
     <div className={classes.root}>
@@ -44,19 +44,10 @@ export const PropertyBox = () => {
       </ToolbarArea>
       <div className={classes.propertiesArea}>
         <Grid container spacing={2}>
-          {selectedEntity && (
-            <EntityPanel entity={selectedEntity} />
-          )}
-          {boardStore?.selectedElement instanceof ColumnStore && (
-            <ColumnPanel columnStore={boardStore.selectedElement} />
-          )}
-          {boardStore?.selectedElement instanceof RelationStore && (
-            <RelationPanel relationStore={boardStore.selectedElement} />
-          )}
-
-          {!boardStore?.selectedElement && (
-            <Grid item>{intl.get("no-selected")}</Grid>
-          )}
+          {selectedEntity && <EntityPanel entity={selectedEntity} />}
+          {column && entity && <ColumnPanel column={column} entity={entity} />}
+          {relation && <RelationPanel relation={relation} />}
+          {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}
         </Grid>
       </div>
     </div>
