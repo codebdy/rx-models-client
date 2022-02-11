@@ -7,36 +7,41 @@ import { useDiagramNodes } from "./useDiagramNodes";
 
 export type EdgeConfig = X6EdgeMeta & RelationMeta;
 
-export function useDiagramEdges(diagramUuid:string){
-  const edges = useRecoilValue(x6EdgesState);
+export function useDiagramEdges(diagramUuid: string) {
+  const diagramEdges = useRecoilValue(x6EdgesState);
   const relations = useRecoilValue(relationsState);
   const existsNodes = useDiagramNodes(diagramUuid);
-   const rtEdges: EdgeConfig[] = [];
-  // const nodes = this.getExistsNodes();
 
-  // this.rootStore.getRelations()?.forEach(relation=>{
-  //   const source = nodes.find(node=>node.id === relation.sourceId);
-  //   const target = nodes.find(node=>node.id === relation.targetId);
-  //   if(source && target){
-  //     const edge = this.edges.find(edge=>edge.id === relation.uuid);
-  //     const relationMeta = relation.toMeta();
-  //     if(edge){
-  //       edges.push({
-  //         ...edge, 
-  //         ...relationMeta
-  //       });
-  //     }else{
-  //       const newEdge = {id:relation.uuid};
-  //       edges.push({
-  //         ...newEdge, 
-  //         ...relationMeta
-  //       })
-  //     }
-  //   }
-  // })
-  const diagramEdges = useMemo(()=>{
-    return edges.filter(edge=>edge.diagramUuid === diagramUuid)
-  }, [diagramUuid, edges])
+  const existsDiagramEdges = useMemo(() => {
+    return diagramEdges.filter((edge) => edge.diagramUuid === diagramUuid);
+  }, [diagramEdges, diagramUuid]);
+
+  const rtEdges: EdgeConfig[] = useMemo(() => {
+    const edges: EdgeConfig[] = [];
+    relations.forEach((relation) => {
+      const source = existsNodes.find((node) => node.id === relation.sourceId);
+      const target = existsNodes.find((node) => node.id === relation.targetId);
+      if (source && target) {
+        const edge = existsDiagramEdges.find(
+          (edge) => edge.id === relation.uuid
+        );
+        if (edge) {
+          edges.push({
+            ...edge,
+            ...relation,
+          });
+        } else {
+          const newEdge = { id: relation.uuid };
+          edges.push({
+            ...newEdge,
+            ...relation,
+            diagramUuid,
+          });
+        }
+      }
+    });
+    return edges;
+  }, [diagramUuid, existsDiagramEdges, existsNodes, relations]);
 
   return rtEdges;
 }

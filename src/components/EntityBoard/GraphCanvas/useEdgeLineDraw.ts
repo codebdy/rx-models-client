@@ -11,8 +11,9 @@ import {
   pressedLineTypeState,
   relationsState,
   selectedDiagramState,
+  x6EdgesState,
 } from "../recoil/atoms";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useGetEntity } from "../hooks/useGetEntity";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 
@@ -20,11 +21,13 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
   const [drawingLine, setDrawingLine] = useRecoilState(drawingLineState);
   const selectedDiagram = useRecoilValue(selectedDiagramState);
   const [relations, setRelations] = useRecoilState(relationsState);
+  const [edges, setEdges] = useRecoilState(x6EdgesState);
   const getEntity = useGetEntity();
   const backupSnapshot = useBackupSnapshot();
   const [pressedLineType, setPressedLineType] =
     useRecoilState(pressedLineTypeState);
 
+  console.log("呵呵", edges);
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       const { clientX, clientY } = e;
@@ -117,10 +120,18 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
             ownerId: ownerId,
           },
         ]);
+
         const tempEdge = graph?.getCellById(drawingLine?.tempEdgeId || "") as
           | Edge
           | undefined;
-
+        setEdges((edges) => [
+          ...edges,
+          {
+            id: relationId,
+            vertices: tempEdge?.getVertices(),
+            diagramUuid: selectedDiagram,
+          },
+        ]);
         tempEdge?.remove();
         setPressedLineType(undefined);
         setDrawingLine(undefined);
@@ -139,6 +150,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
       relations,
       selectedDiagram,
       setDrawingLine,
+      setEdges,
       setPressedLineType,
       setRelations,
     ]
