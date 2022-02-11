@@ -126,6 +126,7 @@ export function useNodesShow(graph?: Graph) {
     getDiagramNode,
     getEntity,
     getNode,
+    getParentUuid,
     graph,
     handleColumnCreate,
     handleColumnDelete,
