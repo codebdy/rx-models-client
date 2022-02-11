@@ -74,9 +74,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
 
         if (
           target.entityType === EntityType.ENUM ||
-          target.entityType === EntityType.INTERFACE ||
-          (!isInherit && target.entityType === EntityType.ABSTRACT) ||
-          (isInherit && target.entityType !== EntityType.ABSTRACT)
+          target.entityType === EntityType.INTERFACE
         ) {
           return;
         }
