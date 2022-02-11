@@ -6,8 +6,8 @@ import { RelationCreateCommand } from "../command/relation-create-command";
 import { createId } from "util/creat-id";
 import { seedId } from "util/seed-id";
 import { RelationStore } from "../store/relation";
-import { RelationType } from "../meta/relation-meta";
-import { EntityType } from "../meta/entity-meta";
+import { RelationType } from "../meta/RelationMeta";
+import { EntityType } from "../meta/EntityMeta";
 import { drawingLineState, selectedDiagramState } from "../recoil/atoms";
 import { useRecoilState, useRecoilValue } from "recoil";
 

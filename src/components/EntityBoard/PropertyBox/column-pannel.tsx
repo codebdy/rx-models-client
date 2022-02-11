@@ -14,9 +14,9 @@ import {
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/lazy-text-field";
 import { useEntityBoardStore } from "../store/helper";
-import { ColumnType } from "../meta/column-meta";
+import { ColumnType } from "../meta/ColumnMeta";
 import { ColumnChangeCommand } from "../command/column-change-command";
-import { EntityType } from "../meta/entity-meta";
+import { EntityType } from "../meta/EntityMeta";
 
 export const ColumnPanel = observer((props: { columnStore: ColumnStore }) => {
   const { columnStore } = props;

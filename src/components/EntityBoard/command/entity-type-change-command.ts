@@ -1,10 +1,10 @@
 import { SelectedNode } from "../store/entity-board-store";
 import { Command } from "./command";
 import { EntityStore } from "../store/entity-store";
-import { EntityType } from "../meta/entity-meta";
+import { EntityType } from "../meta/EntityMeta";
 import { ColumnStore } from "../store/column";
 import { createId } from "util/creat-id";
-import { ColumnType } from "../meta/column-meta";
+import { ColumnType } from "../meta/ColumnMeta";
 
 export class EntityTypeChangeCommand implements Command{
   private oldType: EntityType|undefined|"";

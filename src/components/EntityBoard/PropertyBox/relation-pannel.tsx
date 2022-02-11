@@ -5,7 +5,7 @@ import intl from "react-intl-universal";
 import { FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Switch, Typography } from '@mui/material';
 import { useEntityBoardStore } from '../store/helper';
 import LazyTextField from 'components/EntityBoard/PropertyBox/lazy-text-field';
-import { CombinationType, RelationType } from '../meta/relation-meta';
+import { CombinationType, RelationType } from '../meta/RelationMeta';
 import { RelationChangeCommand } from '../command/relation-change-command';
 
 export const RelationPanel = observer((

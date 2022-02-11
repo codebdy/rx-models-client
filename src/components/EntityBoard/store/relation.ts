@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { RelationType, RelationMeta, CombinationType } from "../meta/relation-meta";
+import { RelationType, RelationMeta, CombinationType } from "../meta/RelationMeta";
 import { PackageStore } from "./package";
 
 export class RelationStore{

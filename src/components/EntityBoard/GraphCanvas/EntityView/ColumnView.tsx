@@ -3,7 +3,7 @@ import { Theme, IconButton } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
-import { ColumnMeta } from "components/EntityBoard/meta/column-meta";
+import { ColumnMeta } from "components/EntityBoard/meta/ColumnMeta";
 import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 

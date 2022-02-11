@@ -3,7 +3,7 @@ import { PackageMeta, PackageStatus } from "../meta/package-meta";
 import { EntityStore } from "./entity-store";
 import { DiagramStore } from "./diagram";
 import { RelationStore } from "./relation";
-import { EntityMeta } from "../meta/entity-meta";
+import { EntityMeta } from "../meta/EntityMeta";
 import _ from 'lodash';
 import { EntityBoardStore } from "./entity-board-store";
 

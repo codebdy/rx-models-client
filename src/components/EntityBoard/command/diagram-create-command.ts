@@ -1,4 +1,4 @@
-import { DiagramMeta } from "../meta/diagram-meta";
+import { DiagramMeta } from "../meta/DiagramMeta";
 import { DiagramStore } from "../store/diagram";
 import { EntityBoardStore, SelectedNode } from "../store/entity-board-store";
 import { PackageStore } from "../store/package";

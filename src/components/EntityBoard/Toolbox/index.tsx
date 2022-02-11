@@ -18,7 +18,7 @@ import {
   svgOneToMany,
   svgOneToOne,
 } from "./constSvg";
-import { RelationType } from "../meta/relation-meta";
+import { RelationType } from "../meta/RelationMeta";
 import { pressedLineTypeState } from "../recoil/atoms";
 import { useRecoilState } from "recoil";
 import { useCreateTempClassNodeForNew } from "../hooks/useCreateTempClassNodeForNew";

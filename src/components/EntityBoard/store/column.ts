@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { ColumnMeta, ColumnType } from "../meta/column-meta";
+import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
 import { EntityStore } from "./entity-store";
 
 export class ColumnStore{

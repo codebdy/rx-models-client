@@ -6,7 +6,7 @@ import {
   ROLE_SOURCE_POSITION_CONST,
   ROLE_SOURCE_TARGET_CONST,
 } from "./constLabelPosition";
-import { RelationType } from "../meta/relation-meta";
+import { RelationType } from "../meta/RelationMeta";
 import { useRecoilValue } from "recoil";
 import { drawingLineState, selectedDiagramState, selectedElementState } from "../recoil/atoms";
 import { useDiagramEdges } from "../hooks/useDiagramEdges";

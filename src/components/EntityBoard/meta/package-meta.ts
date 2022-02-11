@@ -1,6 +1,6 @@
-import { EntityMeta } from "./entity-meta";
-import { DiagramMeta } from "./diagram-meta";
-import { RelationMeta } from "./relation-meta";
+import { EntityMeta } from "./EntityMeta";
+import { DiagramMeta } from "./DiagramMeta";
+import { RelationMeta } from "./RelationMeta";
 
 export enum PackageStatus{
   EDITING = 'EDITING',

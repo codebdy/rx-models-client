@@ -2,7 +2,7 @@ import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
-import { ColumnMeta } from "../meta/column-meta";
+import { ColumnMeta } from "../meta/ColumnMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 export const ColumnNode = (props: { key?: string; column: ColumnMeta }) => {

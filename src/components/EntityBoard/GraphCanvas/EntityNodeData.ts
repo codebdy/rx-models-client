@@ -1,4 +1,4 @@
-import { EntityMeta } from "../meta/entity-meta";
+import { EntityMeta } from "../meta/EntityMeta";
 
 
 export type EntityNodeData = EntityMeta & {

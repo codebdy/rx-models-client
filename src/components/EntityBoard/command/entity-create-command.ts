@@ -1,4 +1,4 @@
-import { EntityMeta } from "../meta/entity-meta";
+import { EntityMeta } from "../meta/EntityMeta";
 import { X6NodeMeta } from "../meta/X6NodeMeta";
 import { DiagramStore } from "../store/diagram";
 import { SelectedNode } from "../store/entity-board-store";

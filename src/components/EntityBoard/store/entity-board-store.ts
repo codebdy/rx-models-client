@@ -8,10 +8,10 @@ import { ColumnStore } from "./column";
 import { RelationStore } from "./relation";
 import { Command } from "../command/command";
 import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
-import { RelationType } from "../meta/relation-meta";
+import { RelationType } from "../meta/RelationMeta";
 import _ from 'lodash';
 import { PackageMeta } from "../meta/package-meta";
-import { EntityType } from "../meta/entity-meta";
+import { EntityType } from "../meta/EntityMeta";
 
 export type SelectedNode = PackageStore | EntityStore | DiagramStore | ColumnStore | RelationStore | undefined;
 

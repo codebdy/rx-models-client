@@ -1,7 +1,7 @@
 import { atom } from "recoil";
-import { DiagramMeta } from "../meta/diagram-meta";
-import { EntityMeta } from "../meta/entity-meta";
-import { RelationMeta, RelationType } from "../meta/relation-meta";
+import { DiagramMeta } from "../meta/DiagramMeta";
+import { EntityMeta } from "../meta/EntityMeta";
+import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { X6EdgeMeta } from "../meta/X6EdgeMeta";
 import { X6NodeMeta } from "../meta/X6NodeMeta";
 import { LineAction } from "./line-action";

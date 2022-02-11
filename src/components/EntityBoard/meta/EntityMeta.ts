@@ -1,4 +1,4 @@
-import { ColumnMeta } from "./column-meta";
+import { ColumnMeta } from "./ColumnMeta";
 
 /**
 * 实体类型枚举，目前仅支持普通实体跟枚举实体，

@@ -1,4 +1,4 @@
-import { ColumnType } from "../meta/column-meta";
+import { ColumnType } from "../meta/ColumnMeta";
 import { ColumnStore } from "../store/column";
 import { EntityStore } from "../store/entity-store";
 

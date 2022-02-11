@@ -2,7 +2,7 @@ import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
-import { RelationMeta, RelationType } from "../meta/relation-meta";
+import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { useEntity } from "../hooks/useEntity";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 

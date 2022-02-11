@@ -1,4 +1,4 @@
-import { EntityMeta } from "../meta/entity-meta";
+import { EntityMeta } from "../meta/EntityMeta";
 import { SelectedNode } from "../store/entity-board-store";
 import { PackageStore } from "../store/package";
 import { Command } from "./command";

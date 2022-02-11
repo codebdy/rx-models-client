@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import { RelationMeta } from "../meta/relation-meta";
+import { RelationMeta } from "../meta/RelationMeta";
 import { X6EdgeMeta } from "../meta/X6EdgeMeta";
 import { relationsState, x6EdgesState } from "../recoil/atoms";
 import { useDiagramNodes } from "./useDiagramNodes";

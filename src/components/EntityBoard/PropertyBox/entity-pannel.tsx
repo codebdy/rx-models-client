@@ -7,7 +7,7 @@ import { useEntityBoardStore } from '../store/helper';
 import LazyTextField from 'components/EntityBoard/PropertyBox/lazy-text-field';
 import { NameChangeCommand } from '../command/name-change-command';
 import { EntityTableNameChangeCommand } from '../command/entity-table-name-change-command';
-import { EntityType } from '../meta/entity-meta';
+import { EntityType } from '../meta/EntityMeta';
 import { EntityTypeChangeCommand } from '../command/entity-type-change-command';
 import { JsonInput } from './json-input';
 import { EntityEnumValuesChangeCommand } from '../command/entity-enum-values-change-command';

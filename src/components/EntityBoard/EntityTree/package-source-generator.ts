@@ -2,11 +2,11 @@ import { EntityBoardStore } from "../store/entity-board-store";
 import { PackageStore } from "../store/package";
 import { convertType } from "./convert-type";
 import _ from 'lodash';
-import { RelationType } from "../meta/relation-meta";
+import { RelationType } from "../meta/RelationMeta";
 import { saveAs } from 'file-saver';
 import { EntityStore } from "../store/entity-store";
-import { EntityType } from "../meta/entity-meta";
-import { ColumnType } from "../meta/column-meta";
+import { EntityType } from "../meta/EntityMeta";
+import { ColumnType } from "../meta/ColumnMeta";
 
 export class PackageSourceGenerator{
   constructor(

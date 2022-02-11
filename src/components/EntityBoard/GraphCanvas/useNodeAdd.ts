@@ -1,6 +1,6 @@
 import { Graph, Node } from "@antv/x6";
 import { useCallback, useEffect } from "react";
-import { EntityMeta } from "../meta/entity-meta";
+import { EntityMeta } from "../meta/EntityMeta";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { selectedDiagramState, x6NodesState } from "../recoil/atoms";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";

@@ -1,5 +1,5 @@
 import { FormControlLabel, Checkbox } from "@mui/material";
-import { EntityMeta } from "components/EntityBoard/meta/entity-meta";
+import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
 import { RxAbility } from "entity-interface/RxAbility";
 import React from "react";
 import { ActionLabel } from "./action-label";

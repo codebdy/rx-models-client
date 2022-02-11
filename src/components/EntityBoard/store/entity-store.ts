@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
-import { EntityMeta, EntityType } from "../meta/entity-meta";
+import { EntityMeta, EntityType } from "../meta/EntityMeta";
 import { ColumnStore } from "./column";
 import { PackageStore } from "./package";
 import { RelationStore } from "./relation";
 import _ from 'lodash';
-import { ColumnType } from "../meta/column-meta";
+import { ColumnType } from "../meta/ColumnMeta";
 import { EntityBoardStore } from "./entity-board-store";
 
 export class EntityStore{

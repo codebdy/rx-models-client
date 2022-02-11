@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 import { createId } from "util/creat-id";
-import { ColumnType } from "../meta/column-meta";
+import { ColumnType } from "../meta/ColumnMeta";
 import { entitiesState } from "../recoil/atoms";
 import { useGetEntityByName } from "./useGetEntityByName";
 

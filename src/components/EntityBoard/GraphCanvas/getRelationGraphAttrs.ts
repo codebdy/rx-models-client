@@ -1,4 +1,4 @@
-import { RelationType } from "../meta/relation-meta";
+import { RelationType } from "../meta/RelationMeta";
 
 export function getRelationGraphAttrs(relationType: RelationType){
   if(relationType === RelationType.INHERIT){

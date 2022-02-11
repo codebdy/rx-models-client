@@ -1,10 +1,10 @@
 import { makeAutoObservable, toJS } from "mobx";
-import { DiagramMeta } from "../meta/diagram-meta";
+import { DiagramMeta } from "../meta/DiagramMeta";
 import { X6EdgeMeta } from "../meta/X6EdgeMeta";
 import { X6NodeMeta } from "../meta/X6NodeMeta";
 import { PackageStore } from "./package";
 import _ from "lodash";
-import { RelationMeta } from "../meta/relation-meta";
+import { RelationMeta } from "../meta/RelationMeta";
 import { EntityBoardStore } from "./entity-board-store";
 import { EntityNodeData } from "../GraphCanvas/EntityNodeData";
 
