@@ -21,13 +21,12 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
   const [drawingLine, setDrawingLine] = useRecoilState(drawingLineState);
   const selectedDiagram = useRecoilValue(selectedDiagramState);
   const [relations, setRelations] = useRecoilState(relationsState);
-  const [edges, setEdges] = useRecoilState(x6EdgesState);
+  const setEdges = useSetRecoilState(x6EdgesState);
   const getEntity = useGetEntity();
   const backupSnapshot = useBackupSnapshot();
   const [pressedLineType, setPressedLineType] =
     useRecoilState(pressedLineTypeState);
 
-  console.log("呵呵", edges);
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       const { clientX, clientY } = e;

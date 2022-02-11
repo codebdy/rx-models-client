@@ -22,8 +22,6 @@ export function useEdgesShow(graph?: Graph) {
 
   const edges = useDiagramEdges(selectedDiagram || "");
 
-  console.log('哈哈', edges, selectedDiagram);
-
   useEffect(() => {
     edges?.forEach((edgeMeta) => {
       let grahpEdge = graph?.getCellById(edgeMeta.id) as
