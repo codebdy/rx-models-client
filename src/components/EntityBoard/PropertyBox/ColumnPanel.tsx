@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { ColumnStore } from "../store/column";
 import intl from "react-intl-universal";
 import {
@@ -12,13 +11,13 @@ import {
   SelectChangeEvent,
   Switch,
 } from "@mui/material";
-import LazyTextField from "components/EntityBoard/PropertyBox/lazy-text-field";
+import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { useEntityBoardStore } from "../store/helper";
 import { ColumnType } from "../meta/ColumnMeta";
 import { ColumnChangeCommand } from "../command/column-change-command";
 import { EntityType } from "../meta/EntityMeta";
 
-export const ColumnPanel = observer((props: { columnStore: ColumnStore }) => {
+export const ColumnPanel = (props: { columnStore: ColumnStore }) => {
   const { columnStore } = props;
   const bordStore = useEntityBoardStore();
   const allValues = columnStore.toMeta();
@@ -368,4 +367,4 @@ export const ColumnPanel = observer((props: { columnStore: ColumnStore }) => {
       )}
     </>
   );
-});
+};
