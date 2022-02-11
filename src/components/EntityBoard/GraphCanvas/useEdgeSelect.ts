@@ -31,11 +31,11 @@ export function useEdgeSelect(graph?: Graph) {
   const handleEdgeClick = useCallback(
     (arg: { edge: Edge<Edge.Properties> }) => {
       const { edge } = arg;
-      if (edge && edge.id !== drawingLine?.tempEdge?.id) {
+      if (edge && edge.id !== drawingLine?.tempEdgeId) {
         setSelectedElement(edge.id);
       }
     },
-    [drawingLine?.tempEdge?.id, setSelectedElement]
+    [drawingLine?.tempEdgeId, setSelectedElement]
   );
 
   useEffect(() => {
