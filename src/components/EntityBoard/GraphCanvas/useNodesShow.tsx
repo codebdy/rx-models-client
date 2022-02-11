@@ -14,6 +14,8 @@ import { useDiagramNodes } from "../hooks/useDiagramNodes";
 import { useGetEntity } from "../hooks/useGetEntity";
 import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
 import { useGetNode } from "../hooks/useGetNode";
+import { useGetParentUuid } from "./useGetParentUuid";
+import { RelationType } from "../meta/RelationMeta";
 
 export function useNodesShow(graph?: Graph) {
   const selectedDiagram = useRecoilValue(selectedDiagramState);
@@ -24,6 +26,7 @@ export function useNodesShow(graph?: Graph) {
   const getNode = useGetNode();
   const getDiagramNode = useGetDiagramNode();
   const pressedLineType = useRecoilValue(pressedLineTypeState);
+  const getParentUuid = useGetParentUuid();
 
   const handleColumnSelect = useCallback(
     (entityId: string, columnId: string) => {
@@ -74,7 +77,9 @@ export function useNodesShow(graph?: Graph) {
         ...entity,
         ...node,
         selectedId: setSelectedElement,
-        isPressedRelation: !!pressedLineType,
+        isPressedRelation:
+          (pressedLineType !== RelationType.INHERIT && !!pressedLineType) ||
+          (pressedLineType === RelationType.INHERIT && !getParentUuid(node.id)),
       };
       if (grahpNode) {
         //Update by diff
