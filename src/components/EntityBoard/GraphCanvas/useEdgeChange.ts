@@ -15,7 +15,7 @@ export function useEdgeChange(graph?: Graph) {
         return;
       }
 
-      if (edge.id === drawingLine?.tempEdge?.id) {
+      if (edge.id === drawingLine?.tempEdgeId) {
         return;
       }
 

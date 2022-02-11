@@ -8,7 +8,11 @@ import {
 } from "./constLabelPosition";
 import { RelationType } from "../meta/RelationMeta";
 import { useRecoilValue } from "recoil";
-import { drawingLineState, selectedDiagramState, selectedElementState } from "../recoil/atoms";
+import {
+  drawingLineState,
+  selectedDiagramState,
+  selectedElementState,
+} from "../recoil/atoms";
 import { useDiagramEdges } from "../hooks/useDiagramEdges";
 
 export function useEdgesShow(graph?: Graph) {
@@ -93,10 +97,10 @@ export function useEdgesShow(graph?: Graph) {
     graph?.getEdges().forEach((edge) => {
       if (
         !edges?.find((aEdge) => aEdge.id === edge.id) &&
-        edge.id !== drawingLine?.tempEdge?.id
+        edge.id !== drawingLine?.tempEdgeId
       ) {
         graph?.removeEdge(edge.id);
       }
     });
-  }, [drawingLine?.tempEdge?.id, edges, graph, selectedElement]);
+  }, [drawingLine?.tempEdgeId, edges, graph, selectedElement]);
 }

@@ -4,7 +4,7 @@ import { EntityMeta } from "../meta/EntityMeta";
 import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { X6EdgeMeta } from "../meta/X6EdgeMeta";
 import { X6NodeMeta } from "../meta/X6NodeMeta";
-import { LineAction } from "./line-action";
+import { LineAction } from "./LineAction";
 
 export interface Snapshot {
   diagrams: DiagramMeta[];
