@@ -15,11 +15,39 @@ export function useEdgeSelect(graph?: Graph) {
       const edge = graph?.getCellById(selectedElement || "") as
         | Edge
         | undefined;
-      edge?.addTools(["vertices", "boundary", "segments"]);
+      edge?.addTools([
+        {
+          name: "vertices",
+          args: {
+            stopPropagation: false,
+          },
+        },
+        "boundary",
+        {
+          name: "segments",
+          args: {
+            stopPropagation: false,
+          },
+        },
+      ]);
     }
     graph?.getEdges().forEach((edge) => {
       if (selectedElement !== edge.id) {
-        edge.removeTools(["boundary", "vertices", "segments"]);
+        edge.removeTools([
+          "boundary",
+          {
+            name: "vertices",
+            args: {
+              stopPropagation: false,
+            },
+          },
+          {
+            name: "segments",
+            args: {
+              stopPropagation: false,
+            },
+          },
+        ]);
       }
     });
   }, [graph, selectedElement, selectedRelation]);

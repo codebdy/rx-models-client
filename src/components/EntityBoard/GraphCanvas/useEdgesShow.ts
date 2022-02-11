@@ -49,7 +49,21 @@ export function useEdgesShow(graph?: Graph) {
           //解决直连时，不能显示选中状态的bug
           tools:
             selectedElement === edgeMeta.id
-              ? ["boundary", "vertices", "segments"]
+              ? [
+                  "boundary",
+                  {
+                    name: "vertices",
+                    args: {
+                      stopPropagation: false,
+                    },
+                  },
+                  {
+                    name: "segments",
+                    args: {
+                      stopPropagation: false,
+                    },
+                  },
+                ]
               : [],
           attrs: getRelationGraphAttrs(edgeMeta.relationType),
           data: { relationType: edgeMeta.relationType },
