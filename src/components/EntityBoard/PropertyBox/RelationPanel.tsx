@@ -14,19 +14,21 @@ import {
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { CombinationType, RelationMeta, RelationType } from "../meta/RelationMeta";
 import { RelationChangeCommand } from "../command/relation-change-command";
+import { useEntity } from "../hooks/useEntity";
+import { useChangeRelation } from "../hooks/useChangeRelation";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
-  const { relationStore } = props;
-  const boardStore = useEntityBoardStore();
-  const source = boardStore.getEntityById(relationStore.sourceId);
-  const target = boardStore.getEntityById(relationStore.targetId);
+  const { relation } = props;
+  const source = useEntity(relation.sourceId);
+  const target = useEntity(relation.targetId);
+  const changeRelation = useChangeRelation();
 
   const handleTypeChange = (event: SelectChangeEvent<RelationType>) => {
     const ownerId =
-      relationStore.relationType === RelationType.ONE_TO_MANY
-        ? relationStore.sourceId
-        : relationStore.targetId;
-    const command = new RelationChangeCommand(relationStore, {
+      relation.relationType === RelationType.ONE_TO_MANY
+        ? relation.sourceId
+        : relation.targetId;
+    const command = new RelationChangeCommand(relation, {
       relationType: event.target.value as RelationType,
       ownerId: ownerId,
     });
@@ -34,21 +36,21 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   };
 
   const handleSourceRoleChange = (value: string) => {
-    const command = new RelationChangeCommand(relationStore, {
+    const command = new RelationChangeCommand(relation, {
       roleOnSource: value,
     });
     boardStore.excuteCommand(command);
   };
 
   const handleTargetRoleChange = (value: string) => {
-    const command = new RelationChangeCommand(relationStore, {
+    const command = new RelationChangeCommand(relation, {
       roleOnTarget: value,
     });
     boardStore.excuteCommand(command);
   };
 
   const handleOwnerChange = (event: SelectChangeEvent<string>) => {
-    const command = new RelationChangeCommand(relationStore, {
+    const command = new RelationChangeCommand(relation, {
       ownerId: event.target.value as string,
     });
     boardStore.excuteCommand(command);
@@ -57,7 +59,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const handleCombinationOnSourceChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const command = new RelationChangeCommand(relationStore, {
+    const command = new RelationChangeCommand(relation, {
       combination: event.target.checked ? CombinationType.ON_SOURCE : undefined,
     });
     boardStore.excuteCommand(command);
@@ -66,13 +68,13 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const handleCombinationOnTargetChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const command = new RelationChangeCommand(relationStore, {
+    const command = new RelationChangeCommand(relation, {
       combination: event.target.checked ? CombinationType.ON_TARGET : undefined,
     });
     boardStore.excuteCommand(command);
   };
 
-  const isInherit = RelationType.INHERIT === relationStore.relationType;
+  const isInherit = RelationType.INHERIT === relation.relationType;
 
   return (
     <>
@@ -80,7 +82,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
         <FormControl variant="outlined" fullWidth size="small">
           <InputLabel>{intl.get("relation-type")}</InputLabel>
           <Select
-            value={relationStore.relationType}
+            value={relation.relationType}
             onChange={handleTypeChange}
             label={intl.get("relation-type")}
             disabled={isInherit}
@@ -109,22 +111,22 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           fullWidth
           size="small"
           disabled={
-            relationStore.relationType === RelationType.ONE_TO_MANY ||
-            relationStore.relationType === RelationType.MANY_TO_ONE ||
+            relation.relationType === RelationType.ONE_TO_MANY ||
+            relation.relationType === RelationType.MANY_TO_ONE ||
             isInherit
           }
         >
           <InputLabel>{intl.get("owner")}</InputLabel>
           <Select
-            value={relationStore.ownerId}
+            value={relation.ownerId}
             onChange={handleOwnerChange}
             label={intl.get("owner")}
           >
-            <MenuItem value={relationStore.sourceId}>
-              {boardStore.getEntityById(relationStore.sourceId)?.name}
+            <MenuItem value={relation.sourceId}>
+              {boardStore.getEntityById(relation.sourceId)?.name}
             </MenuItem>
-            <MenuItem value={relationStore.targetId}>
-              {boardStore.getEntityById(relationStore.targetId)?.name}
+            <MenuItem value={relation.targetId}>
+              {boardStore.getEntityById(relation.targetId)?.name}
             </MenuItem>
           </Select>
         </FormControl>
@@ -139,7 +141,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           <Grid item xs={12}>
             <LazyTextField
               label={intl.get("role-name")}
-              value={relationStore.roleOnSource || ""}
+              value={relation.roleOnSource || ""}
               onChange={handleSourceRoleChange}
             />
           </Grid>
@@ -148,7 +150,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               control={
                 <Switch
                   checked={
-                    relationStore.combination === CombinationType.ON_SOURCE
+                    relation.combination === CombinationType.ON_SOURCE
                   }
                   onChange={handleCombinationOnSourceChange}
                   color="primary"
@@ -165,7 +167,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           <Grid item xs={12}>
             <LazyTextField
               label={intl.get("role-name")}
-              value={relationStore.roleOnTarget || ""}
+              value={relation.roleOnTarget || ""}
               onChange={handleTargetRoleChange}
             />
           </Grid>
@@ -174,7 +176,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               control={
                 <Switch
                   checked={
-                    relationStore.combination === CombinationType.ON_TARGET
+                    relation.combination === CombinationType.ON_TARGET
                   }
                   onChange={handleCombinationOnTargetChange}
                   color="primary"

@@ -11,10 +11,9 @@ export function useChangeEntity() {
   const changeEntity = useCallback(
     (entity: EntityMeta) => {
       backupSnapshot();
-      setEntities((entities) => [
-        ...entities.filter((ent) => ent.uuid !== entity.uuid),
-        entity,
-      ]);
+      setEntities((entities) =>
+        entities.map((ent) => (ent.uuid === entity.uuid ? entity : ent))
+      );
     },
     [backupSnapshot, setEntities]
   );
