@@ -1,10 +1,11 @@
 import "@antv/x6-react-shape";
 import { Graph, Node } from "@antv/x6";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { EntityView } from "./EntityView";
 import _ from "lodash";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  pressedLineTypeState,
   selectedDiagramState,
   selectedElementState,
   x6NodesState,
@@ -22,44 +23,59 @@ export function useNodesShow(graph?: Graph) {
   const getEntity = useGetEntity();
   const getNode = useGetNode();
   const getDiagramNode = useGetDiagramNode();
+  const pressedLineType = useRecoilValue(pressedLineTypeState);
 
-  const handleColumnSelect = (entityId: string, columnId: string) => {
-    const entity = getEntity(entityId);
-    setSelectedElement(
-      entity?.columns.find((column) => column.uuid === columnId)?.uuid
-    );
-  };
+  const handleColumnSelect = useCallback(
+    (entityId: string, columnId: string) => {
+      const entity = getEntity(entityId);
+      setSelectedElement(
+        entity?.columns.find((column) => column.uuid === columnId)?.uuid
+      );
+    },
+    [getEntity, setSelectedElement]
+  );
 
-  const handleColumnDelete = (entityId: string, columnId: string) => {
-    // const entity = modelStore.getEntityById(entityId);
-    // const columnStore = entity?.getColumnById(columnId);
-    // if (entity && columnStore) {
-    //   const command = new ColumnDeleteCommand(columnStore);
-    //   modelStore.excuteCommand(command);
-    // }
-  };
+  const handleColumnDelete = useCallback(
+    (entityId: string, columnId: string) => {
+      // const entity = modelStore.getEntityById(entityId);
+      // const columnStore = entity?.getColumnById(columnId);
+      // if (entity && columnStore) {
+      //   const command = new ColumnDeleteCommand(columnStore);
+      //   modelStore.excuteCommand(command);
+      // }
+    },
+    []
+  );
 
-  const handleColumnCreate = (entityId: string) => {
+  const handleColumnCreate = useCallback((entityId: string) => {
     // const entity = modelStore.getEntityById(entityId);
     // if (entity) {
     //   const command = new ColumnCreateCommand(entity, createId());
     //   modelStore.excuteCommand(command);
     // }
-  };
+  }, []);
 
-  const handleHideEntity = (entityId: string) => {
-    if (!selectedDiagram) {
-      return;
-    }
+  const handleHideEntity = useCallback(
+    (entityId: string) => {
+      if (!selectedDiagram) {
+        return;
+      }
 
-    setNodes((nodes) => nodes.filter((node) => node.id !== entityId));
-  };
+      setNodes((nodes) => nodes.filter((node) => node.id !== entityId));
+    },
+    [selectedDiagram, setNodes]
+  );
 
   useEffect(() => {
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
       const entity = getEntity(node.id);
-      const data = { ...entity, ...node };
+      const data = {
+        ...entity,
+        ...node,
+        selectedId: setSelectedElement,
+        isPressedRelation: !!pressedLineType,
+      };
       if (grahpNode) {
         //Update by diff
         if (!_.isEqual(data, grahpNode.data)) {
@@ -101,5 +117,18 @@ export function useNodesShow(graph?: Graph) {
         graph?.removeNode(node.id);
       }
     });
-  });
+  }, [
+    getDiagramNode,
+    getEntity,
+    getNode,
+    graph,
+    handleColumnCreate,
+    handleColumnDelete,
+    handleColumnSelect,
+    handleHideEntity,
+    nodes,
+    pressedLineType,
+    selectedDiagram,
+    setSelectedElement,
+  ]);
 }
