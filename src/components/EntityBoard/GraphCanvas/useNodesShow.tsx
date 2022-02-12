@@ -70,7 +70,6 @@ export function useNodesShow(graph?: Graph) {
   );
 
   useEffect(() => {
-    console.log('哈哈');
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
       const entity = getEntity(node.id);
@@ -85,8 +84,7 @@ export function useNodesShow(graph?: Graph) {
       if (grahpNode) {
         //Update by diff
         if (!_.isEqual(data, grahpNode.data)) {
-          grahpNode.removeData();
-          grahpNode.setData(data);
+          grahpNode.replaceData(data);
         }
         if (
           node.x !== grahpNode.getPosition().x ||
