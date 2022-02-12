@@ -32,7 +32,6 @@ export function useNodesShow(graph?: Graph) {
   const getParentUuid = useGetParentUuid();
   const changeEntity = useChangeEntity();
   const createColumn = useCreateEntityColumn();
-
   const handleColumnSelect = useCallback(
     (entityId: string, columnId: string) => {
       const entity = getEntity(entityId);
@@ -45,6 +44,15 @@ export function useNodesShow(graph?: Graph) {
 
   const handleColumnDelete = useCallback(
     (entityId: string, columnId: string) => {
+      const entity = getEntity(entityId);
+      if (!entity) {
+        console.error("Entity not exist: " + entityId);
+        return;
+      }
+      changeEntity({
+        ...entity,
+        columns: entity.columns.filter((ent) => ent.uuid !== columnId),
+      });
       // const entity = modelStore.getEntityById(entityId);
       // const columnStore = entity?.getColumnById(columnId);
       // if (entity && columnStore) {
@@ -52,17 +60,20 @@ export function useNodesShow(graph?: Graph) {
       //   modelStore.excuteCommand(command);
       // }
     },
-    []
+    [changeEntity, getEntity]
   );
 
-  const handleColumnCreate = useCallback((entityId: string) => {
-    const entity = getEntity(entityId);
-    if (!entity) {
-      console.error("Entity not exist: " + entityId);
-      return;
-    }
-    changeEntity(createColumn(entity));
-  }, [changeEntity, createColumn, getEntity]);
+  const handleColumnCreate = useCallback(
+    (entityId: string) => {
+      const entity = getEntity(entityId);
+      if (!entity) {
+        console.error("Entity not exist: " + entityId);
+        return;
+      }
+      changeEntity(createColumn(entity));
+    },
+    [changeEntity, createColumn, getEntity]
+  );
 
   const handleHideEntity = useCallback(
     (entityId: string) => {
