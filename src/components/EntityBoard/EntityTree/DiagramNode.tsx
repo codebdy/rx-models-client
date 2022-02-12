@@ -9,12 +9,16 @@ import { useSetRecoilState } from "recoil";
 import { selectedDiagramState } from "../recoil/atoms";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useDeleteDiagram } from "../hooks/useDeleteDiagram";
+import { useChangeDiagram } from "../hooks/useChangeDiagram";
 
 export const DiagramNode = memo(
   (props: { key?: string; diagram: DiagramMeta }) => {
     const { diagram } = props;
     const [editing, setEditing] = useState(false);
     const setSelectedDiagram = useSetRecoilState(selectedDiagramState);
+    const deleteDiagram = useDeleteDiagram();
+    const changeDiagram = useChangeDiagram();
 
     const handleClick = () => {
       setSelectedDiagram(diagram.uuid);
@@ -25,11 +29,7 @@ export const DiagramNode = memo(
     };
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      // const command = new NameChangeCommand(
-      //   diagram,
-      //   event.target.value as string
-      // );
-      // bordStore.excuteCommand(command);
+      changeDiagram({ ...diagram, name: event.target.value as string });
     };
 
     const handleNameBlur = () => {
@@ -43,8 +43,7 @@ export const DiagramNode = memo(
     };
 
     const handleDelete = (event: React.MouseEvent) => {
-      // const command = new DiagramDeleteCommand(diagram, bordStore);
-      // bordStore.excuteCommand(command);
+      deleteDiagram(diagram.uuid);
       event.stopPropagation();
     };
 
