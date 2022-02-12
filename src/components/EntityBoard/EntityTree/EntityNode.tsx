@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
@@ -32,6 +32,15 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   const changeEntity = useChangeEntity();
   const createColumn = useCreateEntityColumn();
 
+  //解决不能拖放的bug
+  const ref = useCallback((elt: Element) => {
+    elt?.addEventListener('focusin', (e) => {
+      // Disable Treeview focus system which make draggable on TreeIten unusable
+      // see https://github.com/mui-org/material-ui/issues/29518
+      e.stopImmediatePropagation();
+    })
+  }, [])
+
   useEffect(() => {
     const theDnd = graph
       ? new Dnd({
@@ -43,26 +52,33 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
     setDnd(theDnd);
   }, [graph]);
 
-  const startDragHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (!graph) {
-      return;
-    }
-    const node = graph.createNode({
-      ...NODE_INIT_SIZE,
-      height: 70 + (entity?.columns.length || 0) * 26,
-      isTempForDrag: true,
-      shape: "react-shape",
-      component: <EntityView />,
-      data: { ...entity, isTempForDrag: true },
-    });
-    dnd?.start(node, e.nativeEvent as any);
-  };
+  const startDragHandle = useCallback(
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      console.log("开始拖拽1", graph);
+      if (!graph) {
+        return;
+      }
+      console.log("开始拖拽");
+      const node = graph.createNode({
+        ...NODE_INIT_SIZE,
+        height: 70 + (entity?.columns.length || 0) * 26,
+        isTempForDrag: true,
+        shape: "react-shape",
+        component: <EntityView />,
+        data: { ...entity, isTempForDrag: true },
+      });
+      dnd?.start(node, e.nativeEvent as any);
+    },
+    [dnd, entity, graph]
+  );
 
-  const handleClick = (event: React.MouseEvent) => {
-    setSelectedElement(uuid);
-    // bordStore.setSelectedElement(entityStore);
-    event.stopPropagation();
-  };
+  const handleClick = useCallback(
+    (event: React.MouseEvent) => {
+      setSelectedElement(uuid);
+      event.stopPropagation();
+    },
+    [setSelectedElement, uuid]
+  );
   // const allScouceRelation = entityStore.getSourceRelations();
   // const sourceRelations = allScouceRelation.filter(
   //   (relation) => relation.relationType !== RelationType.INHERIT
@@ -71,17 +87,20 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   //   .getTargetRelations()
   //   .filter((relation) => relation.relationType !== RelationType.INHERIT);
 
-  const handleDelete = (event: React.MouseEvent) => {
-    deleteEntity(uuid);
-    event.stopPropagation();
-  };
+  const handleDelete = useCallback(
+    (event: React.MouseEvent) => {
+      deleteEntity(uuid);
+      event.stopPropagation();
+    },
+    [deleteEntity, uuid]
+  );
 
-  const handlePlusColumn = (event: React.MouseEvent) => {
+  const handlePlusColumn = useCallback((event: React.MouseEvent) => {
     if (entity) {
       changeEntity(createColumn(entity));
     }
     event.stopPropagation();
-  };
+  }, [changeEntity, createColumn, entity]);
 
   // const inherits = allScouceRelation.filter(
   //   (relation) => relation.relationType === RelationType.INHERIT
@@ -90,6 +109,7 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   return (
     <TreeItem
       nodeId={uuid}
+      ref={ref}
       label={
         <TreeNodeLabel
           action={

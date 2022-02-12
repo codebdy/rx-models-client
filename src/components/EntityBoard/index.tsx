@@ -43,7 +43,6 @@ export const ModelsBoard = memo(() => {
   // const { data, error, loading } = useMagicQuery<PackageMeta[]>(
   //   new MagicQueryBuilder("RxPackage")
   // );
-
   // useShowServerError(error);
 
   return (
