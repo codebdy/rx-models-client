@@ -13,6 +13,7 @@ import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import intl from "react-intl-universal";
 import { useCreateNewEntity } from "../hooks/useCreateNewEntity";
 import { useCreateNewDiagram } from "../hooks/useCreateNewDiagram";
+import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,6 +37,7 @@ export default function LocalModelAction(props: {
   const isMenuOpen = Boolean(anchorEl);
   const createNewEntity = useCreateNewEntity();
   const createNewDiagram = useCreateNewDiagram();
+  const backupSnapshot = useBackupSnapshot();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,12 +50,14 @@ export default function LocalModelAction(props: {
   };
 
   const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
+    backupSnapshot();
     createNewEntity();
     setAnchorEl(null);
     event.stopPropagation();
   };
 
   const handleAddDiagram = (event: React.MouseEvent<HTMLElement>) => {
+    backupSnapshot();
     createNewDiagram();
     setAnchorEl(null);
     event.stopPropagation();
