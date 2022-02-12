@@ -3,7 +3,7 @@ import { Graph, Node } from "@antv/x6";
 import { useCallback, useEffect } from "react";
 import { EntityView } from "./EntityView";
 import _ from "lodash";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   pressedLineTypeState,
   selectedDiagramState,
@@ -19,7 +19,8 @@ import { RelationType } from "../meta/RelationMeta";
 
 export function useNodesShow(graph?: Graph) {
   const selectedDiagram = useRecoilValue(selectedDiagramState);
-  const setSelectedElement = useSetRecoilState(selectedElementState);
+  const [selectedElement, setSelectedElement] =
+    useRecoilState(selectedElementState);
   const setNodes = useSetRecoilState(x6NodesState);
   const nodes = useDiagramNodes(selectedDiagram || "");
   const getEntity = useGetEntity();
@@ -76,7 +77,7 @@ export function useNodesShow(graph?: Graph) {
       const data = {
         ...entity,
         ...node,
-        selectedId: setSelectedElement,
+        selectedId: selectedElement,
         isPressedRelation:
           (pressedLineType !== RelationType.INHERIT && !!pressedLineType) ||
           (pressedLineType === RelationType.INHERIT && !getParentUuid(node.id)),
@@ -134,6 +135,7 @@ export function useNodesShow(graph?: Graph) {
     nodes,
     pressedLineType,
     selectedDiagram,
+    selectedElement,
     setSelectedElement,
   ]);
 }
