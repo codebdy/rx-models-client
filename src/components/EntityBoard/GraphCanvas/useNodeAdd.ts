@@ -71,7 +71,7 @@ export function useNodeAdd(graph?: Graph) {
         ]);
       }
     },
-    [backupSnapshot, graph, selectedDiagramUuid, setNodes]
+    [backupSnapshot, graph, selectedDiagramUuid, setEntities, setNodes]
   );
 
   useEffect(() => {
