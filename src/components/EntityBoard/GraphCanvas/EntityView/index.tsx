@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const EntityView = (props: {
-  onColumnSelect?: (entityId: string, columnId: string) => void;
+  onColumnSelect?: (columnId: string) => void;
   onColumnDelete?: (entityId: string, columnId: string) => void;
   onColumnCreate?: (entityId: string) => void;
   onHide?: (entityId: string) => void;
@@ -94,9 +94,9 @@ export const EntityView = (props: {
 
   const handleColumnClick = useCallback(
     (id: string) => {
-      onColumnSelect && onColumnSelect(node.id, id);
+      onColumnSelect && onColumnSelect(id);
     },
-    [node.id, onColumnSelect]
+    [onColumnSelect]
   );
 
   const handleColumnDelete = useCallback(

@@ -43,7 +43,7 @@ export function useNodesShow(graph?: Graph) {
   createColumnRef.current = createColumn;
 
   const handleColumnSelect = useCallback(
-    (entityId: string, columnId: string) => {
+    (columnId: string) => {
       setSelectedElement(columnId);
     },
     [setSelectedElement]
