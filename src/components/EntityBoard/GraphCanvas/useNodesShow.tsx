@@ -44,10 +44,7 @@ export function useNodesShow(graph?: Graph) {
 
   const handleColumnSelect = useCallback(
     (entityId: string, columnId: string) => {
-      const entity = getEntityRef.current(entityId);
-      setSelectedElement(
-        entity?.columns.find((column) => column.uuid === columnId)?.uuid
-      );
+      setSelectedElement(columnId);
     },
     [setSelectedElement]
   );
@@ -73,17 +70,14 @@ export function useNodesShow(graph?: Graph) {
     []
   );
 
-  const handleColumnCreate = useCallback(
-    (entityId: string) => {
-      const entity = getEntityRef.current(entityId);
-      if (!entity) {
-        console.error("Entity not exist: " + entityId);
-        return;
-      }
-      changeEntityRef.current(createColumnRef.current(entity));
-    },
-    []
-  );
+  const handleColumnCreate = useCallback((entityId: string) => {
+    const entity = getEntityRef.current(entityId);
+    if (!entity) {
+      console.error("Entity not exist: " + entityId);
+      return;
+    }
+    changeEntityRef.current(createColumnRef.current(entity));
+  }, []);
 
   const handleHideEntity = useCallback(
     (entityId: string) => {
