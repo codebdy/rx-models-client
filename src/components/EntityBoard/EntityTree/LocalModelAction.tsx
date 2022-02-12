@@ -15,7 +15,7 @@ import { useCreateNewEntity } from "../hooks/useCreateNewEntity";
 import { useCreateNewDiagram } from "../hooks/useCreateNewDiagram";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useSetRecoilState } from "recoil";
-import { entitiesState } from "../recoil/atoms";
+import { entitiesState, selectedDiagramState } from "../recoil/atoms";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +40,7 @@ export default function LocalModelAction(props: {
   const createNewEntity = useCreateNewEntity();
   const createNewDiagram = useCreateNewDiagram();
   const setEntities = useSetRecoilState(entitiesState);
+  const setSelectedDiagram = useSetRecoilState(selectedDiagramState);
   const backupSnapshot = useBackupSnapshot();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -62,7 +63,8 @@ export default function LocalModelAction(props: {
 
   const handleAddDiagram = (event: React.MouseEvent<HTMLElement>) => {
     backupSnapshot();
-    createNewDiagram();
+    const newDiagram = createNewDiagram();
+    setSelectedDiagram(newDiagram.uuid);
     setAnchorEl(null);
     event.stopPropagation();
   };
