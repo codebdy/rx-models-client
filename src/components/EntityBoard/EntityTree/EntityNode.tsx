@@ -14,6 +14,9 @@ import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { EntityView } from "../GraphCanvas/EntityView";
+import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
+import { useDeleteEntity } from "../hooks/useDeleteEntity";
 const { Dnd } = Addon;
 
 export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
@@ -23,7 +26,8 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   const entity = useEntity(uuid);
   const sourceRelations = useSourceRelations(uuid);
   const targetRelations = useTargetRelations(uuid);
-  
+  const deleteEntity = useDeleteEntity();
+
   useEffect(() => {
     const theDnd = graph
       ? new Dnd({
@@ -36,18 +40,18 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   }, [graph]);
 
   const startDragHandle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    // if (!bordStore.graph) {
-    //   return;
-    // }
-    // const node = bordStore.graph.createNode({
-    //   ...NODE_INIT_SIZE,
-    //   height: 70 + entityStore.columns.length * 26,
-    //   isTempForDrag: true,
-    //   shape: "react-shape",
-    //   component: <EntityView />,
-    //   data: { ...entityStore.toMeta(), isTempForDrag: true },
-    // });
-    // dnd?.start(node, e.nativeEvent as any);
+    if (!graph) {
+      return;
+    }
+    const node = graph.createNode({
+      ...NODE_INIT_SIZE,
+      height: 70 + (entity?.columns.length || 0) * 26,
+      isTempForDrag: true,
+      shape: "react-shape",
+      component: <EntityView />,
+      data: { ...entity, isTempForDrag: true },
+    });
+    dnd?.start(node, e.nativeEvent as any);
   };
 
   const handleClick = (event: React.MouseEvent) => {
@@ -63,9 +67,9 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   //   .getTargetRelations()
   //   .filter((relation) => relation.relationType !== RelationType.INHERIT);
 
-  const handleDelete = () => {
-    // const command = new EntityDeleteCommand(entityStore);
-    // bordStore.excuteCommand(command);
+  const handleDelete = (event: React.MouseEvent) => {
+    deleteEntity(uuid);
+    event.stopPropagation();
   };
 
   const handlePlusColumn = (event: React.MouseEvent) => {
@@ -135,7 +139,7 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
       )}
       {(sourceRelations.length > 0 || targetRelations.length > 0) && (
         <TreeItem
-          nodeId={entity?.uuid || "" + "relations"}
+          nodeId={(entity?.uuid || "") + "relations"}
           label={
             <TreeNodeLabel>
               <NodeText>{intl.get("relations")}</NodeText>
