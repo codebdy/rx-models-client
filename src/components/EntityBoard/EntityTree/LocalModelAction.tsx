@@ -14,6 +14,8 @@ import intl from "react-intl-universal";
 import { useCreateNewEntity } from "../hooks/useCreateNewEntity";
 import { useCreateNewDiagram } from "../hooks/useCreateNewDiagram";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
+import { useSetRecoilState } from "recoil";
+import { entitiesState } from "../recoil/atoms";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,6 +39,7 @@ export default function LocalModelAction(props: {
   const isMenuOpen = Boolean(anchorEl);
   const createNewEntity = useCreateNewEntity();
   const createNewDiagram = useCreateNewDiagram();
+  const setEntities = useSetRecoilState(entitiesState);
   const backupSnapshot = useBackupSnapshot();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -51,7 +54,8 @@ export default function LocalModelAction(props: {
 
   const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
     backupSnapshot();
-    createNewEntity();
+    const newEntity = createNewEntity();
+    setEntities((entities) => [...entities, newEntity]);
     setAnchorEl(null);
     event.stopPropagation();
   };
