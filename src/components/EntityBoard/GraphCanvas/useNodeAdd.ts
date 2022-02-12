@@ -2,12 +2,17 @@ import { Graph, Node } from "@antv/x6";
 import { useCallback, useEffect } from "react";
 import { EntityMeta } from "../meta/EntityMeta";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { selectedDiagramState, x6NodesState } from "../recoil/atoms";
+import {
+  entitiesState,
+  selectedDiagramState,
+  x6NodesState,
+} from "../recoil/atoms";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 
 export function useNodeAdd(graph?: Graph) {
   const selectedDiagramUuid = useRecoilValue(selectedDiagramState);
   const setNodes = useSetRecoilState(x6NodesState);
+  const setEntities = useSetRecoilState(entitiesState);
   const backupSnapshot = useBackupSnapshot();
 
   const nodeAdded = useCallback(
@@ -22,8 +27,18 @@ export function useNodeAdd(graph?: Graph) {
       }
 
       if (isTempForNew) {
+        setEntities((entities) => [
+          ...entities,
+          {
+            uuid: entityMeta.uuid,
+            name: entityMeta.name,
+            columns: entityMeta.columns,
+            entityType: entityMeta.entityType,
+          },
+        ]);
         node.remove({ disconnectEdges: true });
         backupSnapshot();
+
         setNodes((nodes) => [
           ...nodes,
           {

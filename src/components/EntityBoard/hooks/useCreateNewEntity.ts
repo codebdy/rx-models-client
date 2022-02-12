@@ -1,12 +1,9 @@
 import { useCallback } from "react";
-import { useSetRecoilState } from "recoil";
 import { createId } from "util/createId";
 import { ColumnType } from "../meta/ColumnMeta";
-import { entitiesState } from "../recoil/atoms";
 import { useGetEntityByName } from "./useGetEntityByName";
 
 export function useCreateNewEntity() {
-  const setEntities = useSetRecoilState(entitiesState);
   const getEntityByName = useGetEntityByName();
 
   const getNewEntityName = useCallback(() => {
@@ -33,9 +30,9 @@ export function useCreateNewEntity() {
         },
       ],
     };
-    setEntities((entites) => [...entites, newEntity]);
+    //setEntities((entites) => [...entites, newEntity]);
     return newEntity;
-  }, [getNewEntityName, setEntities]);
+  }, [getNewEntityName]);
 
   return createNewEntity;
 }
