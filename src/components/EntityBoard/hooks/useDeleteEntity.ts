@@ -20,7 +20,7 @@ export function useDeleteEntity() {
     (entityUuid: string) => {
       backupSnapshot();
       setEntites((entites) =>
-        entites.filter((entity) => entity.uuid === entityUuid)
+        entites.filter((entity) => entity.uuid !== entityUuid)
       );
       const relationIds = relations
         .filter(
