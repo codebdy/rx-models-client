@@ -4,20 +4,32 @@ import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import { ColumnMeta } from "../meta/ColumnMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { EntityMeta } from "../meta/EntityMeta";
+import { useChangeEntity } from "../hooks/useChangeEntity";
+import { useMemo } from "react";
+import { useSetRecoilState } from "recoil";
+import { selectedElementState } from "../recoil/atoms";
 
-export const ColumnNode = (props: { key?: string; column: ColumnMeta }) => {
-  const { column } = props;
-
-  const isId = column.name === "id"; /*&&
+export const ColumnNode = (props: {
+  key?: string;
+  column: ColumnMeta;
+  entity: EntityMeta;
+}) => {
+  const { column, entity } = props;
+  const changeEntity = useChangeEntity();
+  const setSelectedElement = useSetRecoilState(selectedElementState);
+  const isId = useMemo(() => column.name === "id", [column.name]); /*&&
     column.entityStore.entityType !== EntityType.INTERFACE*/
 
   const handleClick = () => {
-    // bordStore.setSelectedElement(column);
+    setSelectedElement(column.uuid);
   };
 
   const handleDelete = () => {
-    // const command = new ColumnDeleteCommand(column);
-    // bordStore.excuteCommand(command);
+    changeEntity({
+      ...entity,
+      columns: entity.columns.filter((col) => col.uuid !== column.uuid),
+    });
   };
   return (
     <TreeItem

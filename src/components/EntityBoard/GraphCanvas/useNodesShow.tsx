@@ -60,12 +60,6 @@ export function useNodesShow(graph?: Graph) {
         ...entity,
         columns: entity.columns.filter((ent) => ent.uuid !== columnId),
       });
-      // const entity = modelStore.getEntityById(entityId);
-      // const columnStore = entity?.getColumnById(columnId);
-      // if (entity && columnStore) {
-      //   const command = new ColumnDeleteCommand(columnStore);
-      //   modelStore.excuteCommand(command);
-      // }
     },
     []
   );

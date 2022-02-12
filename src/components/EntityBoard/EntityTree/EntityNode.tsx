@@ -17,6 +17,8 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { EntityView } from "../GraphCanvas/EntityView";
 import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 import { useDeleteEntity } from "../hooks/useDeleteEntity";
+import { useChangeEntity } from "../hooks/useChangeEntity";
+import { useCreateEntityColumn } from "../hooks/useCreateEntityColumn";
 const { Dnd } = Addon;
 
 export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
@@ -27,6 +29,8 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   const sourceRelations = useSourceRelations(uuid);
   const targetRelations = useTargetRelations(uuid);
   const deleteEntity = useDeleteEntity();
+  const changeEntity = useChangeEntity();
+  const createColumn = useCreateEntityColumn();
 
   useEffect(() => {
     const theDnd = graph
@@ -73,8 +77,9 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   };
 
   const handlePlusColumn = (event: React.MouseEvent) => {
-    // const command = new ColumnCreateCommand(entityStore, createId());
-    // bordStore.excuteCommand(command);
+    if (entity) {
+      changeEntity(createColumn(entity));
+    }
     event.stopPropagation();
   };
 
@@ -133,7 +138,9 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
           }
         >
           {entity?.columns.map((column) => {
-            return <ColumnNode key={column.uuid} column={column} />;
+            return (
+              <ColumnNode key={column.uuid} column={column} entity={entity} />
+            );
           })}
         </TreeItem>
       )}
