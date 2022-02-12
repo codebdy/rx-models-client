@@ -11,7 +11,7 @@ import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
 import { useShowServerError } from "store/helpers/use-show-server-error";
-import { createId } from "util/creat-id";
+import { createId } from "util/createId";
 import { mutate } from "swr";
 import { ENTITY_AUTH_QUERY } from "./consts";
 import { observer } from "mobx-react";

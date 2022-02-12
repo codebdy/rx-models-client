@@ -6,7 +6,7 @@ import { PackageStore } from "../store/package";
 import { NodeText } from "./NodeText";
 import PackageAction from "./package-action";
 import { TreeNodeLabel } from "./TreeNodeLabel";
-import { createId } from "util/creat-id";
+import { createId } from "util/createId";
 import { DiagramCreateCommand } from "../command/diagram-create-command";
 import { getNewDiagramName } from "../store/get-new-diagram-name";
 import { PackageDeleteCommand } from "../command/package-delete-command";

@@ -3,7 +3,7 @@ import { Command } from "./command";
 import { EntityStore } from "../store/entity-store";
 import { EntityType } from "../meta/EntityMeta";
 import { ColumnStore } from "../store/column";
-import { createId } from "util/creat-id";
+import { createId } from "util/createId";
 import { ColumnType } from "../meta/ColumnMeta";
 
 export class EntityTypeChangeCommand implements Command{

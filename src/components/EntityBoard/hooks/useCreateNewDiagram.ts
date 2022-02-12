@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { createId } from "util/creat-id";
+import { createId } from "util/createId";
 import { diagramsState } from "../recoil/atoms";
 import intl from "react-intl-universal";
 import { useGetDiagramByName } from "./useGetDiagramByName";

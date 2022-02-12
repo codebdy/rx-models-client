@@ -16,6 +16,8 @@ import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
 import { useGetNode } from "../hooks/useGetNode";
 import { useGetParentUuid } from "./useGetParentUuid";
 import { RelationType } from "../meta/RelationMeta";
+import { useChangeEntity } from "../hooks/useChangeEntity";
+import { useCreateEntityColumn } from "../hooks/useCreateEntityColumn";
 
 export function useNodesShow(graph?: Graph) {
   const selectedDiagram = useRecoilValue(selectedDiagramState);
@@ -28,6 +30,8 @@ export function useNodesShow(graph?: Graph) {
   const getDiagramNode = useGetDiagramNode();
   const pressedLineType = useRecoilValue(pressedLineTypeState);
   const getParentUuid = useGetParentUuid();
+  const changeEntity = useChangeEntity();
+  const createColumn = useCreateEntityColumn();
 
   const handleColumnSelect = useCallback(
     (entityId: string, columnId: string) => {
@@ -52,12 +56,13 @@ export function useNodesShow(graph?: Graph) {
   );
 
   const handleColumnCreate = useCallback((entityId: string) => {
-    // const entity = modelStore.getEntityById(entityId);
-    // if (entity) {
-    //   const command = new ColumnCreateCommand(entity, createId());
-    //   modelStore.excuteCommand(command);
-    // }
-  }, []);
+    const entity = getEntity(entityId);
+    if (!entity) {
+      console.error("Entity not exist: " + entityId);
+      return;
+    }
+    changeEntity(createColumn(entity));
+  }, [changeEntity, createColumn, getEntity]);
 
   const handleHideEntity = useCallback(
     (entityId: string) => {
