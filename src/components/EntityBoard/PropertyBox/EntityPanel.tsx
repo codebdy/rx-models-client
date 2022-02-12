@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import intl from "react-intl-universal";
 import {
   FormControl,
@@ -19,28 +19,41 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
   const { entity } = props;
   const changeEntity = useChangeEntity();
 
-  const handleNameChange = (value: string) => {
-    changeEntity({ ...entity, name: value });
-  };
+  const handleNameChange = useCallback(
+    (value: string) => {
+      changeEntity({ ...entity, name: value });
+    },
+    [changeEntity, entity]
+  );
 
-  const handleTableNameChange = (value: string) => {
-    changeEntity({ ...entity, tableName: value });
-  };
+  const handleTableNameChange = useCallback(
+    (value: string) => {
+      changeEntity({ ...entity, tableName: value });
+    },
+    [changeEntity, entity]
+  );
 
-  const handleTypeChange = (event: SelectChangeEvent<EntityType>) => {
-    const entityType = event.target.value as EntityType;
-    changeEntity({ ...entity, entityType: entityType });
-  };
+  const handleTypeChange = useCallback(
+    (event: SelectChangeEvent<EntityType>) => {
+      const entityType = event.target.value as EntityType;
+      changeEntity({ ...entity, entityType: entityType });
+    },
+    [changeEntity, entity]
+  );
 
-  const handleEnumValuesChange = (value: any) => {
-    changeEntity({ ...entity, enumValues: value });
-  };
+  const handleEnumValuesChange = useCallback(
+    (value: any) => {
+      changeEntity({ ...entity, enumValues: value });
+    },
+    [changeEntity, entity]
+  );
 
-  const handleEventableChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    changeEntity({ ...entity, eventable: event.target.checked });
-  };
+  const handleEventableChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      changeEntity({ ...entity, eventable: event.target.checked });
+    },
+    [changeEntity, entity]
+  );
 
   return (
     <>

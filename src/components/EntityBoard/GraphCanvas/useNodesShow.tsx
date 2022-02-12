@@ -70,6 +70,7 @@ export function useNodesShow(graph?: Graph) {
   );
 
   useEffect(() => {
+    console.log('哈哈');
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
       const entity = getEntity(node.id);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import intl from "react-intl-universal";
 import {
   FormControl,
@@ -26,85 +26,103 @@ export const ColumnPanel = (props: {
   const enums = useEnums();
   const interfaces = useInterfaces();
 
-  const handleStringChange = (prop: any) => (value: string) => {
-    changeColumn(
-      {
-        ...column,
-        [prop]: value,
-      },
-      entity
-    );
-  };
+  const handleStringChange = useCallback(
+    (prop: any) => (value: string) => {
+      changeColumn(
+        {
+          ...column,
+          [prop]: value,
+        },
+        entity
+      );
+    },
+    [changeColumn, column, entity]
+  );
 
   //默认值以后要改成一个单独控件
-  const handleDefaultChange = (value: string) => {
-    changeColumn(
-      {
-        ...column,
-        default: value === "" ? undefined : value,
-      },
-      entity
-    );
-  };
+  const handleDefaultChange = useCallback(
+    (value: string) => {
+      changeColumn(
+        {
+          ...column,
+          default: value === "" ? undefined : value,
+        },
+        entity
+      );
+    },
+    [changeColumn, column, entity]
+  );
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
-  const handleTypeChange = (event: SelectChangeEvent<ColumnType>) => {
-    const type = event.target.value as any;
-    let generated = column.generated;
-    if (type !== ColumnType.String && type !== ColumnType.Number) {
-      generated = undefined;
-    }
+  const handleTypeChange = useCallback(
+    (event: SelectChangeEvent<ColumnType>) => {
+      const type = event.target.value as any;
+      let generated = column.generated;
+      if (type !== ColumnType.String && type !== ColumnType.Number) {
+        generated = undefined;
+      }
 
-    changeColumn(
-      {
-        ...column,
-        type,
-        generated,
-        nullable: column.nullable,
-      },
-      entity
-    );
-  };
+      changeColumn(
+        {
+          ...column,
+          type,
+          generated,
+          nullable: column.nullable,
+        },
+        entity
+      );
+    },
+    [changeColumn, column, entity]
+  );
 
-  const handleEnumEntiyChange = (event: SelectChangeEvent<string>) => {
-    changeColumn(
-      {
-        ...column,
-        typeEnityUuid: event.target.value,
-      },
-      entity
-    );
-  };
+  const handleEnumEntiyChange = useCallback(
+    (event: SelectChangeEvent<string>) => {
+      changeColumn(
+        {
+          ...column,
+          typeEnityUuid: event.target.value,
+        },
+        entity
+      );
+    },
+    [changeColumn, column, entity]
+  );
 
-  const handleInterfaceEntiyChange = (event: SelectChangeEvent<string>) => {
-    changeColumn(
-      {
-        ...column,
-        typeEnityUuid: event.target.value,
-      },
-      entity
-    );
-  };
+  const handleInterfaceEntiyChange = useCallback(
+    (event: SelectChangeEvent<string>) => {
+      changeColumn(
+        {
+          ...column,
+          typeEnityUuid: event.target.value,
+        },
+        entity
+      );
+    },
+    [changeColumn, column, entity]
+  );
 
-  const handleGeneratedChange = (event: SelectChangeEvent<string>) => {
-    let value: any = event.target.value;
-    if (value === "true") {
-      value = true;
-    }
-    if (!value) {
-      value = undefined;
-    }
+  const handleGeneratedChange = useCallback(
+    (event: SelectChangeEvent<string>) => {
+      let value: any = event.target.value;
+      if (value === "true") {
+        value = true;
+      }
+      if (!value) {
+        value = undefined;
+      }
 
-    changeColumn(
-      {
-        ...column,
-        generated: value,
-      },
-      entity
-    );
-  };
+      changeColumn(
+        {
+          ...column,
+          generated: value,
+        },
+        entity
+      );
+    },
+    [changeColumn, column, entity]
+  );
 
-  const handleBooleanChange =
+  const handleBooleanChange = useCallback(
     (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
       changeColumn(
         {
@@ -113,21 +131,28 @@ export const ColumnPanel = (props: {
         },
         entity
       );
-    };
+    },
+    [changeColumn, column, entity]
+  );
 
-  const handleSelectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.checked ? false : undefined;
-    changeColumn(
-      {
-        ...column,
-        select: value,
-      },
-      entity
-    );
-  };
+  const handleSelectChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.checked ? false : undefined;
+      changeColumn(
+        {
+          ...column,
+          select: value,
+        },
+        entity
+      );
+    },
+    [changeColumn, column, entity]
+  );
 
-  const isId =
-    column.name === "id" && entity.entityType !== EntityType.INTERFACE;
+  const isId = useMemo(
+    () => column.name === "id" && entity.entityType !== EntityType.INTERFACE,
+    [column.name, entity.entityType]
+  );
   return (
     <>
       <Grid item xs={12}>

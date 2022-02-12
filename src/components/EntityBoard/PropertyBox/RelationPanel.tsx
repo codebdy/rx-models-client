@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import intl from "react-intl-universal";
 import {
   FormControl,
@@ -28,59 +28,80 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const changeRelation = useChangeRelation();
   const getEntity = useGetEntity();
 
-  const handleTypeChange = (event: SelectChangeEvent<RelationType>) => {
-    const ownerId =
-      relation.relationType === RelationType.ONE_TO_MANY
-        ? relation.sourceId
-        : relation.targetId;
+  const handleTypeChange = useCallback(
+    (event: SelectChangeEvent<RelationType>) => {
+      const ownerId =
+        relation.relationType === RelationType.ONE_TO_MANY
+          ? relation.sourceId
+          : relation.targetId;
 
-    changeRelation({
-      ...relation,
-      relationType: event.target.value as RelationType,
-      ownerId: ownerId,
-    });
-  };
+      changeRelation({
+        ...relation,
+        relationType: event.target.value as RelationType,
+        ownerId: ownerId,
+      });
+    },
+    [changeRelation, relation]
+  );
 
-  const handleSourceRoleChange = (value: string) => {
-    changeRelation({
-      ...relation,
-      roleOnSource: value,
-    });
-  };
+  const handleSourceRoleChange = useCallback(
+    (value: string) => {
+      changeRelation({
+        ...relation,
+        roleOnSource: value,
+      });
+    },
+    [changeRelation, relation]
+  );
 
-  const handleTargetRoleChange = (value: string) => {
-    changeRelation({
-      ...relation,
-      roleOnTarget: value,
-    });
-  };
+  const handleTargetRoleChange = useCallback(
+    (value: string) => {
+      changeRelation({
+        ...relation,
+        roleOnTarget: value,
+      });
+    },
+    [changeRelation, relation]
+  );
 
-  const handleOwnerChange = (event: SelectChangeEvent<string>) => {
-    changeRelation({
-      ...relation,
-      ownerId: event.target.value as string,
-    });
-  };
+  const handleOwnerChange = useCallback(
+    (event: SelectChangeEvent<string>) => {
+      changeRelation({
+        ...relation,
+        ownerId: event.target.value as string,
+      });
+    },
+    [changeRelation, relation]
+  );
 
-  const handleCombinationOnSourceChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    changeRelation({
-      ...relation,
-      combination: event.target.checked ? CombinationType.ON_SOURCE : undefined,
-    });
-  };
+  const handleCombinationOnSourceChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      changeRelation({
+        ...relation,
+        combination: event.target.checked
+          ? CombinationType.ON_SOURCE
+          : undefined,
+      });
+    },
+    [changeRelation, relation]
+  );
 
-  const handleCombinationOnTargetChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    changeRelation({
-      ...relation,
-      combination: event.target.checked ? CombinationType.ON_TARGET : undefined,
-    });
-  };
+  const handleCombinationOnTargetChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      changeRelation({
+        ...relation,
+        combination: event.target.checked
+          ? CombinationType.ON_TARGET
+          : undefined,
+      });
+    },
+    [changeRelation, relation]
+  );
 
-  const isInherit = RelationType.INHERIT === relation.relationType;
+  const isInherit = useMemo(
+    () => RelationType.INHERIT === relation.relationType,
+    [relation.relationType]
+  );
 
   return (
     <>
