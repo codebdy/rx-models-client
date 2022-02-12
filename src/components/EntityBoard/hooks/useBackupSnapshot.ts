@@ -5,6 +5,8 @@ import {
   entitiesState,
   redoListState,
   relationsState,
+  selectedDiagramState,
+  selectedElementState,
   undoListState,
   x6EdgesState,
   x6NodesState,
@@ -16,6 +18,8 @@ export function useBackupSnapshot() {
   const relations = useRecoilValue(relationsState);
   const x6Nodes = useRecoilValue(x6NodesState);
   const x6Edges = useRecoilValue(x6EdgesState);
+  const selectedDiagram = useRecoilValue(selectedDiagramState);
+  const selectedElement = useRecoilValue(selectedElementState);
 
   const setUndoList = useSetRecoilState(undoListState);
   const setRedoList = useSetRecoilState(redoListState);
@@ -23,13 +27,23 @@ export function useBackupSnapshot() {
   const backupSnapshot = useCallback(() => {
     setUndoList((undoList) => [
       ...undoList,
-      { diagrams, entities, relations, x6Nodes, x6Edges },
+      {
+        diagrams,
+        entities,
+        relations,
+        x6Nodes,
+        x6Edges,
+        selectedDiagram,
+        selectedElement,
+      },
     ]);
     setRedoList([]);
   }, [
     diagrams,
     entities,
     relations,
+    selectedDiagram,
+    selectedElement,
     setRedoList,
     setUndoList,
     x6Edges,

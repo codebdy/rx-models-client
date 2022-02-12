@@ -12,6 +12,8 @@ export interface Snapshot {
   relations: RelationMeta[];
   x6Nodes: X6NodeMeta[];
   x6Edges: X6EdgeMeta[];
+  selectedElement?: string;
+  selectedDiagram?: string;
 }
 
 export const changedState = atom<boolean>({

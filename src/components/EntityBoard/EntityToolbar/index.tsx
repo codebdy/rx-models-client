@@ -20,6 +20,8 @@ import {
   undoListState,
 } from "../recoil/atoms";
 import { useEntity } from "../hooks/useEntity";
+import { useUndo } from "../hooks/useUndo";
+import { useRedo } from "../hooks/useRedo";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,6 +59,8 @@ export const EntityToolbar = memo(() => {
   const redoList = useRecoilValue(redoListState);
   const selectedElement = useRecoilValue(selectedElementState);
   const selectedEntity = useEntity(selectedElement || "");
+  const undo = useUndo();
+  const redo = useRedo();
 
   const [excuteSave, { loading, error }] = useLazyMagicPost({
     onCompleted() {
@@ -68,11 +72,11 @@ export const EntityToolbar = memo(() => {
   useShowServerError(error);
 
   const handleUndo = () => {
-    //boardStore.undo();
+    undo();
   };
 
   const handleRedo = () => {
-    //boardStore.redo();
+    redo();
   };
 
   const handleDelete = () => {
