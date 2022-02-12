@@ -1,18 +1,13 @@
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { useRecoilValue } from "recoil";
 import { entitiesState } from "../recoil/atoms";
 
 export function useGetEntity() {
-  const entities = useRecoilValue(entitiesState);
-  const entitiesRef = useRef(entities);
-  entitiesRef.current = entities;
+  const entites = useRecoilValue(entitiesState);
 
-  const getEntity = useCallback(
-    (uuid: string) => {
-      return entitiesRef.current.find((entity) => entity.uuid === uuid);
-    },
-    []
-  );
+  const getEntity = useCallback((uuid: string)=>{
+    return entites.find((entity) => entity.uuid === uuid);
+  }, [entites]);
 
   return getEntity;
 }

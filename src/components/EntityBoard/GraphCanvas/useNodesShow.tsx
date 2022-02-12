@@ -1,6 +1,6 @@
 import "@antv/x6-react-shape";
 import { Graph, Node } from "@antv/x6";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { EntityView } from "./EntityView";
 import _ from "lodash";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -32,6 +32,16 @@ export function useNodesShow(graph?: Graph) {
   const getParentUuid = useGetParentUuid();
   const changeEntity = useChangeEntity();
   const createColumn = useCreateEntityColumn();
+
+  const getEntityRef = useRef(getEntity);
+  getEntityRef.current = getEntity;
+
+  const changeEntityRef = useRef(changeEntity);
+  changeEntityRef.current = changeEntity;
+
+  const createColumnRef = useRef(createColumn);
+  createColumnRef.current = createColumn;
+
   const handleColumnSelect = useCallback(
     (entityId: string, columnId: string) => {
       const entity = getEntity(entityId);
@@ -44,12 +54,12 @@ export function useNodesShow(graph?: Graph) {
 
   const handleColumnDelete = useCallback(
     (entityId: string, columnId: string) => {
-      const entity = getEntity(entityId);
+      const entity = getEntityRef.current(entityId);
       if (!entity) {
         console.error("Entity not exist: " + entityId);
         return;
       }
-      changeEntity({
+      changeEntityRef.current({
         ...entity,
         columns: entity.columns.filter((ent) => ent.uuid !== columnId),
       });
@@ -60,19 +70,19 @@ export function useNodesShow(graph?: Graph) {
       //   modelStore.excuteCommand(command);
       // }
     },
-    [changeEntity, getEntity]
+    []
   );
 
   const handleColumnCreate = useCallback(
     (entityId: string) => {
-      const entity = getEntity(entityId);
+      const entity = getEntityRef.current(entityId);
       if (!entity) {
         console.error("Entity not exist: " + entityId);
         return;
       }
-      changeEntity(createColumn(entity));
+      changeEntityRef.current(createColumnRef.current(entity));
     },
-    [changeEntity, createColumn, getEntity]
+    []
   );
 
   const handleHideEntity = useCallback(
