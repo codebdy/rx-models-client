@@ -54,11 +54,9 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
 
   const startDragHandle = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      console.log("开始拖拽1", graph);
       if (!graph) {
         return;
       }
-      console.log("开始拖拽");
       const node = graph.createNode({
         ...NODE_INIT_SIZE,
         height: 70 + (entity?.columns.length || 0) * 26,
