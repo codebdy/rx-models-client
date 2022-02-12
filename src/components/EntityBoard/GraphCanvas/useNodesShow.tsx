@@ -44,12 +44,12 @@ export function useNodesShow(graph?: Graph) {
 
   const handleColumnSelect = useCallback(
     (entityId: string, columnId: string) => {
-      const entity = getEntity(entityId);
+      const entity = getEntityRef.current(entityId);
       setSelectedElement(
         entity?.columns.find((column) => column.uuid === columnId)?.uuid
       );
     },
-    [getEntity, setSelectedElement]
+    [setSelectedElement]
   );
 
   const handleColumnDelete = useCallback(
