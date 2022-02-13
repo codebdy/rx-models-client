@@ -1,11 +1,10 @@
-import { PackageMeta } from "components/EntityBoard/meta/package-meta";
 import { makeAutoObservable } from "mobx";
 import { RxRoleStore } from "./rx-role-store";
 
 export class AuthBoardStore{
   changed:boolean = false;
   selectRole?:RxRoleStore;
-  packages: PackageMeta[] = [];
+  // packages: PackageMeta[] = [];
 
   constructor(){
     makeAutoObservable(this);
@@ -19,7 +18,7 @@ export class AuthBoardStore{
     this.selectRole = role;
   }
 
-  setPackages(packages: PackageMeta[]){
-    this.packages = packages;
-  }
+  // setPackages(packages: PackageMeta[]){
+  //   this.packages = packages;
+  // }
 }

@@ -16,8 +16,12 @@ import {
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 import SubmitButton from "components/common/submit-button";
-import { useAuthBoardStore } from "../store/helper";
 import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
+import {
+  entitiesState,
+  relationsState,
+} from "components/EntityBoard/recoil/atoms";
+import { useRecoilValue } from "recoil";
 
 const SqlWhereParser = require("sql-where-parser");
 const OPERATOR_UNARY_MINUS = Symbol("-");
@@ -56,8 +60,8 @@ export default function ExpressDialog(props: {
   const [open, setOpen] = useState(false);
   const [exp, setExp] = useState(expression);
   const [error, setError] = useState("");
-
-  const borderStore = useAuthBoardStore();
+  const entites = useRecoilValue(entitiesState);
+  const relations = useRecoilValue(relationsState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -77,35 +81,31 @@ export default function ExpressDialog(props: {
   };
 
   const getRelationByName = (entityUuid: string, roleName: string) => {
-    for (const aPackage of borderStore.packages) {
-      for (const relation of aPackage.relations || []) {
-        if (
-          relation.roleOnSource === roleName &&
-          relation.sourceId === entityUuid
-        ) {
-          return relation;
-        }
-        if (
-          relation.roleOnTarget === roleName &&
-          relation.targetId === entityUuid
-        ) {
-          return relation;
-        }
+    for (const relation of relations || []) {
+      if (
+        relation.roleOnSource === roleName &&
+        relation.sourceId === entityUuid
+      ) {
+        return relation;
+      }
+      if (
+        relation.roleOnTarget === roleName &&
+        relation.targetId === entityUuid
+      ) {
+        return relation;
       }
     }
   };
 
   const getEntityByUuid = (entityUuid: string) => {
-    for (const aPackage of borderStore.packages) {
-      for (const entity of aPackage.entities || []) {
-        if (entity.uuid === entityUuid) {
-          return entity;
-        }
+    for (const entity of entites || []) {
+      if (entity.uuid === entityUuid) {
+        return entity;
       }
     }
   };
 
-  const validateExpression = (exp: string): string | undefined => {
+  const validateExpression = (exp: string) => {
     const parser = new SqlWhereParser();
 
     const evaluator = (
@@ -167,16 +167,16 @@ export default function ExpressDialog(props: {
     try {
       parser.parse(exp, evaluator);
     } catch (error) {
-      return error.message;
+      //return error.message;
     }
   };
 
   const handleConfirm = () => {
-    const validateResult = validateExpression(exp);
-    if (validateResult) {
-      setError(validateResult);
-      return;
-    }
+    // const validateResult = validateExpression(exp);
+    // if (validateResult) {
+    //   setError(validateResult);
+    //   return;
+    // }
 
     onExpressionChange(exp);
     setOpen(false);
