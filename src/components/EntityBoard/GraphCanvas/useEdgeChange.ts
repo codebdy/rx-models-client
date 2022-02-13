@@ -36,7 +36,6 @@ export function useEdgeChange(graph?: Graph) {
 
       const [roleOnSource, roleOnTarget] = edge.getLabels();
 
-      //##代码可能有问题
       if (!edageData) {
         return;
       }
@@ -63,16 +62,19 @@ export function useEdgeChange(graph?: Graph) {
       }
 
       backupSnapshot();
-      setEdges((edages) => [
-        ...edages.filter((edage) => edage.id !== edageData?.id),
-        {
-          id: edge.id,
-          vertices: edge.getVertices(),
-          roleOnSourcePosition: roleOnSource?.position as any,
-          roleOnTargetPosition: roleOnTarget?.position as any,
-          diagramUuid: edageData?.diagramUuid,
-        },
-      ]);
+      setEdges((edages) =>
+        edages.map((eg) =>
+          eg.id === edageData?.id && eg.diagramUuid === edageData?.diagramUuid
+            ? {
+                id: edge.id,
+                vertices: edge.getVertices(),
+                roleOnSourcePosition: roleOnSource?.position as any,
+                roleOnTargetPosition: roleOnTarget?.position as any,
+                diagramUuid: edageData?.diagramUuid,
+              }
+            : eg
+        )
+      );
     },
     [
       backupSnapshot,
