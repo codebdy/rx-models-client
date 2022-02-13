@@ -1,13 +1,13 @@
 import { Button, Checkbox, FormControl, FormControlLabel, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { API_INSTALL } from 'apis/install';
-import SubmitButton from 'components/common/submit-button';
 import React, { useState } from 'react';
 import intl from "react-intl-universal";
 import { PageLayout } from './page-layout';
 import { useHistory } from 'react-router';
 import { useShowServerError } from 'store/helpers/use-show-server-error';
 import { useLazyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
+import { LoadingButton } from '@mui/lab';
 
 export const SecondPage=(
   props:{
@@ -60,14 +60,14 @@ export const SecondPage=(
           >
             {intl.get('previous-step')}
           </Button>
-          <SubmitButton fullWidth variant="contained" color="primary" size = "large" 
-            submitting = {loading}
+          <LoadingButton fullWidth variant="contained" color="primary" size = "large" 
+            loading = {loading}
             disabled = {!values.admin || !values.adminPassword}
             type = "button"
             onClick = {handleInstall}
           >
             {intl.get('install')}
-          </SubmitButton>
+          </LoadingButton>
         </>
       }
     >

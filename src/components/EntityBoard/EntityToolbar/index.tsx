@@ -3,7 +3,6 @@ import { Theme, IconButton, Box } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import intl from "react-intl-universal";
-import SubmitButton from "components/common/submit-button";
 import RouterPrompt from "components/common/RouterPrompt";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { useLazyMagicPost } from "@rxdrag/rxmodels-swr";
@@ -22,6 +21,7 @@ import { useUndo } from "../hooks/useUndo";
 import { useRedo } from "../hooks/useRedo";
 import { useColumn } from "../hooks/useColumn";
 import { useDeleteSelectedElement } from "../hooks/useDeleteSelectedElement";
+import { LoadingButton } from "@mui/lab";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -126,16 +126,16 @@ export const EntityToolbar = memo(() => {
         </IconButton>
         <Box sx={{ flex: 1 }} />
         <div className={classes.saveButtonShell}>
-          <SubmitButton
+          <LoadingButton
             variant="contained"
             color="primary"
             size="medium"
             disabled={!changed}
-            submitting={loading}
+            loading={loading}
             onClick={handleSave}
           >
             {intl.get("save")}
-          </SubmitButton>
+          </LoadingButton>
         </div>
       </div>
     </div>

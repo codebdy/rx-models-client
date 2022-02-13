@@ -15,13 +15,13 @@ import {
 } from "@mui/material";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
-import SubmitButton from "components/common/submit-button";
 import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
 import {
   entitiesState,
   relationsState,
 } from "components/EntityBoard/recoil/atoms";
 import { useRecoilValue } from "recoil";
+import { LoadingButton } from "@mui/lab";
 
 const SqlWhereParser = require("sql-where-parser");
 const OPERATOR_UNARY_MINUS = Symbol("-");
@@ -218,13 +218,13 @@ export default function ExpressDialog(props: {
         </DialogContent>
         <DialogActions className={classes.actions}>
           <Button onClick={handleClose}>{intl.get("cancel")}</Button>
-          <SubmitButton
+          <LoadingButton
             onClick={handleConfirm}
             variant="contained"
             color="primary"
           >
             {intl.get("confirm")}
-          </SubmitButton>
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </div>

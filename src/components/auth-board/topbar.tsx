@@ -9,7 +9,6 @@ import {
 } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
-import SubmitButton from "components/common/submit-button";
 import intl from "react-intl-universal";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { Skeleton } from "@mui/material";
@@ -25,6 +24,7 @@ import {
   useLazyMagicPost,
   MagicPostBuilder,
 } from "@rxdrag/rxmodels-swr";
+import { LoadingButton } from "@mui/lab";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,7 +63,7 @@ export const Topbar = observer((props: {}) => {
     boardStore.setSelecRole(role ? new RxRoleStore(role) : undefined);
   };
 
-  const handleChange = (event: SelectChangeEvent<'' | number>) => {
+  const handleChange = (event: SelectChangeEvent<"" | number>) => {
     const roleId = event.target.value;
     if (roleId !== boardStore.selectRole?.id) {
       if (boardStore.changed) {
@@ -126,16 +126,16 @@ export const Topbar = observer((props: {}) => {
         </FormControl>
       )}
 
-      <SubmitButton
+      <LoadingButton
         variant="contained"
         color="primary"
         size="medium"
         disabled={!boardStore.changed}
-        submitting={saving}
+        loading={saving}
         onClick={handleSave}
       >
         {intl.get("save")}
-      </SubmitButton>
+      </LoadingButton>
     </div>
   );
 });

@@ -23,13 +23,13 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import intl from "react-intl-universal";
 import { useHistory } from "react-router";
 import { observer } from "mobx-react";
-import SubmitButton from "./common/submit-button";
 import { INDEX_URL, PRIMARY_COLOR } from "../util/consts";
 import { useAppStore } from "../store/app-store";
 import useShadows from "../util/use-shadows";
 import { cache } from "swr";
 import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
 import { useLogin } from "hooks/useLogin";
+import { LoadingButton } from "@mui/lab";
 
 declare module "@mui/styles/defaultTheme" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -272,17 +272,17 @@ export const Login = observer(() => {
                   <a href="#forgot"> {intl.get("forgot-password")}</a>
                 </Grid>
                 <Grid item xs={6}>
-                  <SubmitButton
+                  <LoadingButton
                     fullWidth
                     variant="contained"
                     color="primary"
                     size="large"
                     style={{ fontSize: "1.2rem" }}
-                    submitting={loading}
+                    loading={loading}
                     type="submit"
                   >
                     {intl.get("login")}
-                  </SubmitButton>
+                  </LoadingButton>
                 </Grid>
               </Grid>
             </Grid>
