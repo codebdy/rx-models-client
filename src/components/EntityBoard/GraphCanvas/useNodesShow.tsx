@@ -132,7 +132,7 @@ export function useNodesShow(graph?: Graph) {
         graph?.removeNode(node.id);
       }
       //如果实体已被删除
-      if (!getNode(node.id)) {
+      if (!getNode(node.id, selectedDiagram || "")) {
         graph?.removeNode(node.id);
       }
     });

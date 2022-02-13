@@ -6,8 +6,10 @@ export function useGetNode() {
   const nodes = useRecoilValue(x6NodesState);
 
   const getNode = useCallback(
-    (uuid: string) => {
-      return nodes.find((node) => node.id === uuid);
+    (uuid: string, diagramUuid: string) => {
+      return nodes.find(
+        (node) => node.id === uuid && node.diagramUuid === diagramUuid
+      );
     },
     [nodes]
   );

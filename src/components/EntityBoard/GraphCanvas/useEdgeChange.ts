@@ -32,12 +32,12 @@ export function useEdgeChange(graph?: Graph) {
         return;
       }
 
-      const edageData = getEdge(edge.id);
+      const edageData = getEdge(edge.id, selectedDiagram);
 
       const [roleOnSource, roleOnTarget] = edge.getLabels();
 
       //##代码可能有问题
-      if(!edageData){
+      if (!edageData) {
         return;
       }
 
