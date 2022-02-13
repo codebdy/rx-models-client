@@ -17,7 +17,7 @@ import { useAppStore } from "store/app-store";
 import { useAuthBoardStore } from "./store/helper";
 import { RxRoleStore } from "./store/rx-role-store";
 import { observer } from "mobx-react";
-import RouterPrompt from "components/common/router-prompt";
+import RouterPrompt from "components/common/RouterPrompt";
 import { RxRole } from "entity-interface/RxRole";
 import {
   useMagicQuery,

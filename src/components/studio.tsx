@@ -4,10 +4,9 @@ import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { Avatar, IconButton, Link, SvgIcon, Tooltip } from "@mui/material";
+import { Avatar, Box, IconButton, Link, SvgIcon, Tooltip } from "@mui/material";
 import intl from "react-intl-universal";
 import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import Spacer from "./common/spacer";
 import ApiBoard from "./api-board";
 import { ModelsBoard } from "./EntityBoard";
 import { AuthBoard } from "./auth-board";
@@ -127,7 +126,7 @@ export const Studio = () => {
           >
             Github
           </Link>
-          <Spacer />
+          <Box sx={{ flex: 1 }} />
           <Tooltip title="Logout" aria-label="Logout" onClick={handleLogout}>
             <IconButton size="large">
               <LogoutOutlinedIcon />

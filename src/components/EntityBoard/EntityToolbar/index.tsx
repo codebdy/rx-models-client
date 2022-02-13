@@ -1,11 +1,10 @@
 import React, { memo } from "react";
-import { Theme, IconButton } from "@mui/material";
+import { Theme, IconButton, Box } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import intl from "react-intl-universal";
-import Spacer from "components/common/spacer";
 import SubmitButton from "components/common/submit-button";
-import RouterPrompt from "components/common/router-prompt";
+import RouterPrompt from "components/common/RouterPrompt";
 import { useShowServerError } from "store/helpers/use-show-server-error";
 import { useLazyMagicPost } from "@rxdrag/rxmodels-swr";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
@@ -125,7 +124,7 @@ export const EntityToolbar = memo(() => {
         >
           <DeleteOutlineOutlinedIcon sx={{ fontSize: 20 }} />
         </IconButton>
-        <Spacer />
+        <Box sx={{ flex: 1 }} />
         <div className={classes.saveButtonShell}>
           <SubmitButton
             variant="contained"
