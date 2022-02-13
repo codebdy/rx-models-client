@@ -22,6 +22,8 @@ import {
 import { useEntity } from "../hooks/useEntity";
 import { useUndo } from "../hooks/useUndo";
 import { useRedo } from "../hooks/useRedo";
+import { useColumn } from "../hooks/useColumn";
+import { useDeleteSelectedElement } from "../hooks/useDeleteSelectedElement";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,9 +60,10 @@ export const EntityToolbar = memo(() => {
   const undoList = useRecoilValue(undoListState);
   const redoList = useRecoilValue(redoListState);
   const selectedElement = useRecoilValue(selectedElementState);
-  const selectedEntity = useEntity(selectedElement || "");
+  const { column } = useColumn(selectedElement || "");
   const undo = useUndo();
   const redo = useRedo();
+  const deleteSelectedElement = useDeleteSelectedElement();
 
   const [excuteSave, { loading, error }] = useLazyMagicPost({
     onCompleted() {
@@ -80,22 +83,7 @@ export const EntityToolbar = memo(() => {
   };
 
   const handleDelete = () => {
-    // if (boardStore.selectedElement instanceof PackageStore) {
-    //   const command = new PackageDeleteCommand(boardStore.selectedElement);
-    //   boardStore.excuteCommand(command);
-    // }
-    // if (boardStore.selectedElement instanceof EntityStore) {
-    //   const command = new EntityDeleteCommand(boardStore.selectedElement);
-    //   boardStore.excuteCommand(command);
-    // }
-    // if (boardStore.selectedElement instanceof ColumnStore) {
-    //   const command = new ColumnDeleteCommand(boardStore.selectedElement);
-    //   boardStore.excuteCommand(command);
-    // }
-    // if (boardStore.selectedElement instanceof RelationStore) {
-    //   const command = new RelationDeleteCommand(boardStore.selectedElement);
-    //   boardStore.excuteCommand(command);
-    // }
+    deleteSelectedElement();
   };
 
   const handleSave = () => {
@@ -132,7 +120,7 @@ export const EntityToolbar = memo(() => {
         </IconButton>
         <IconButton
           className={classes.iconButton}
-          disabled={selectedEntity && (selectedEntity as any).name === "id"}
+          disabled={(column && column.name === "id") || !selectedElement}
           onClick={handleDelete}
           size="large"
         >

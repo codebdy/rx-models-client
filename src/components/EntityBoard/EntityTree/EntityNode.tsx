@@ -157,7 +157,7 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
         >
           {entity?.columns.map((column) => {
             return (
-              <ColumnNode key={column.uuid} column={column} entity={entity} />
+              <ColumnNode key={column.uuid} column={column} />
             );
           })}
         </TreeItem>

@@ -83,6 +83,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
 
         //不能自身继承
         if (isInherit && source.uuid === target.uuid) {
+          console.log('不能自身继承');
           return;
         }
 
@@ -93,6 +94,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
             relation.sourceId === source.uuid &&
             isInherit
           ) {
+            console.log('继承不能重复');
             return;
           }
         }
