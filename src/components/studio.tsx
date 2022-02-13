@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { Avatar, Box, IconButton, Link, SvgIcon, Tooltip } from "@mui/material";
 import intl from "react-intl-universal";
 import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import ApiBoard from "./api-board";
+import GraphiQLBoard from "./GraphiQLBoard";
 import { ModelsBoard } from "./EntityBoard";
 import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
@@ -136,7 +136,7 @@ export const Studio = () => {
       </AppBar>
       <Switch>
         <Route path="/studio/models" component={ModelsBoard}></Route>
-        <Route path="/studio/api" component={ApiBoard}></Route>
+        <Route path="/studio/api" component={GraphiQLBoard}></Route>
         <Route path="/studio/auth" component={AuthBoard}></Route>
         <Redirect to={`/studio/models`} from="/studio" />
       </Switch>
