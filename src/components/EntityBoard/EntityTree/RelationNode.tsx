@@ -2,9 +2,10 @@ import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
-import { RelationMeta, RelationType } from "../meta/RelationMeta";
-import { useEntity } from "../hooks/useEntity";
+import { RelationMeta } from "../meta/RelationMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { useSetRecoilState } from "recoil";
+import { selectedElementState } from "../recoil/atoms";
 
 export const RelationNode = (props: {
   key?: string;
@@ -12,18 +13,15 @@ export const RelationNode = (props: {
   isSource: boolean;
 }) => {
   const { relation, isSource } = props;
+  const setSelectedElement = useSetRecoilState(selectedElementState);
   const handleClick = () => {
-    // bordStore.setSelectedElement(relation);
+    setSelectedElement(relation.uuid);
   };
 
   const handleDelete = () => {
     // const command = new RelationDeleteCommand(relation);
     // bordStore.excuteCommand(command);
   };
-
-  const isInherit = relation.relationType === RelationType.INHERIT;
-
-  const targetEntity = useEntity(relation.targetId);
 
   return (
     <TreeItem
@@ -37,29 +35,15 @@ export const RelationNode = (props: {
           }
           onClick={handleClick}
         >
-          {isInherit ? (
-            <SvgIcon style={{ width: 12, height: 12 }}>
-              <path fill="currentColor" d="M12,2L1,21H23M12,6L19.53,19H4.47" />
-            </SvgIcon>
-          ) : (
-            <SvgIcon sx={{ fontSize: 12 }}>
-              <path
-                fill="currentColor"
-                d="M22 13V19H21L19 17H11V9H5L3 11H2V5H3L5 7H13V15H19L21 13Z"
-              />
-            </SvgIcon>
-          )}
+          <SvgIcon sx={{ fontSize: 12 }}>
+            <path
+              fill="currentColor"
+              d="M22 13V19H21L19 17H11V9H5L3 11H2V5H3L5 7H13V15H19L21 13Z"
+            />
+          </SvgIcon>
 
           <NodeText>
-            <>
-              {isInherit && targetEntity?.name}
-              {isSource && !isInherit
-                ? relation.roleOnSource
-                : relation.roleOnTarget}
-              {/* {relation.ownerId === entityStore.uuid && !isInherit && (
-                <MdiIcon iconClass="mdi-account-outline" size={12} />
-              )} */}
-            </>
+            {isSource ? relation.roleOnSource : relation.roleOnTarget}
           </NodeText>
         </TreeNodeLabel>
       }
