@@ -19,7 +19,6 @@ import {
   selectedElementState,
   undoListState,
 } from "../recoil/atoms";
-import { useEntity } from "../hooks/useEntity";
 import { useUndo } from "../hooks/useUndo";
 import { useRedo } from "../hooks/useRedo";
 import { useColumn } from "../hooks/useColumn";
