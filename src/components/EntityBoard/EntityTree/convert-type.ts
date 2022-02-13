@@ -1,8 +1,7 @@
-import { ColumnType } from "../meta/ColumnMeta";
-import { ColumnStore } from "../store/column";
-import { EntityStore } from "../store/entity-store";
+import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
+import { EntityMeta } from "../meta/EntityMeta";
 
-export function convertType(column: ColumnStore, enumEntities:EntityStore[], interfaceEntities: EntityStore[]): string {
+export function convertType(column: ColumnMeta, enumEntities:EntityMeta[], interfaceEntities: EntityMeta[]): string {
   const type = column.type;
   if (type === ColumnType.String 
     || type === ColumnType.Text 
