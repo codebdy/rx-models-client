@@ -25,6 +25,7 @@ export default function GraphiQLBoard() {
           });
           return data.json().catch(() => data.text());
         }}
+        // query=""
       />
     </Box>
   );
