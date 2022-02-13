@@ -17,17 +17,20 @@ export function useNodeChange(graph?: Graph) {
       }
 
       backupSnapshot();
-      setNodes((nodes) => [
-        ...nodes.filter((nd) => nd.id !== node.id),
-        {
-          id: node.id,
-          x: node.getPosition().x,
-          y: node.getPosition().y,
-          width: node.getSize().width,
-          height: node.getSize().height,
-          diagramUuid: selectedDiagram,
-        },
-      ]);
+      setNodes((nodes) =>
+        nodes.map((nd) =>
+          nd.id === node.id && nd.diagramUuid === selectedDiagram
+            ? {
+                id: node.id,
+                x: node.getPosition().x,
+                y: node.getPosition().y,
+                width: node.getSize().width,
+                height: node.getSize().height,
+                diagramUuid: selectedDiagram,
+              }
+            : nd
+        )
+      );
     },
     [backupSnapshot, selectedDiagram, setNodes]
   );
