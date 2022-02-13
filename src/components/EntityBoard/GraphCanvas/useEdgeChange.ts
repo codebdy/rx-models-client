@@ -37,6 +37,7 @@ export function useEdgeChange(graph?: Graph) {
       const [roleOnSource, roleOnTarget] = edge.getLabels();
 
       if (!edageData) {
+        console.log("edageData没找到");
         return;
       }
 
@@ -86,7 +87,6 @@ export function useEdgeChange(graph?: Graph) {
   );
 
   useEffect(() => {
-    //由于拿不到mouseup事件，使用mouseleave代替
     graph?.on("edge:mouseup", handleEdgeChange);
     return () => {
       graph?.off("edge:mouseup", handleEdgeChange);
