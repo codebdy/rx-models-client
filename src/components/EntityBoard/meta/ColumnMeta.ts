@@ -31,14 +31,14 @@ export enum ColumnType{
   /**
   * JSON类型
   */
-  SimpleJson = 'simple-json',
+  SimpleJson = 'SimpleJson',
 
   /**
   * 数组类型
   */
-  SimpleArray = 'simple-array',
+  SimpleArray = 'SimpleArray',
 
-  JsonArray = 'json-array',
+  JsonArray = 'JsonArray',
 
   /**
   * 枚举类型
