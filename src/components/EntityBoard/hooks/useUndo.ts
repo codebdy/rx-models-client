@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
+  changedState,
   diagramsState,
   entitiesState,
   redoListState,
@@ -20,6 +21,8 @@ export function useUndo() {
   const [relations, setRelations] = useRecoilState(relationsState);
   const [x6Nodes, setX6Nodes] = useRecoilState(x6NodesState);
   const [x6Edges, setX6Edges] = useRecoilState(x6EdgesState);
+  const setChanged = useSetRecoilState(changedState);
+
   const [selectedDiagram, setSelectedDiagram] =
     useRecoilState(selectedDiagramState);
   const [selectedElement, setSelectedElement] =
@@ -27,6 +30,7 @@ export function useUndo() {
 
   const undo = useCallback(() => {
     const snapshot = undoList[undoList.length - 1];
+    setChanged(true);
     setRedoList((snapshots) => [
       ...snapshots,
       {
@@ -53,6 +57,7 @@ export function useUndo() {
     relations,
     selectedDiagram,
     selectedElement,
+    setChanged,
     setDiagrams,
     setEntities,
     setRedoList,
