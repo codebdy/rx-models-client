@@ -33,7 +33,7 @@ export function usePostOne<T extends IInstance>(options?: IPostOptions<T>) {
         .request(postMutation, inputData)
         .then((data) => {
           setLoading(false);
-          options?.onCompleted && options?.onCompleted(data.login);
+          options?.onCompleted && options?.onCompleted(data[postName]);
         })
         .catch((err: ClientError) => {
           const error: GraphQLError | undefined = err.response.errors
