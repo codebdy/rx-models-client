@@ -1,6 +1,6 @@
 import { ClientError, gql } from "graphql-request";
 import { GraphQLError } from "graphql-request/dist/types";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import { createGraphQLClient } from "./createGraphQLClient";
 import { IInstance } from "./IInstance";
 
@@ -10,25 +10,27 @@ export interface IPostOptions<T extends IInstance> {
   noRefresh?: boolean;
 }
 
-export function usePost<T extends IInstance>(options?: IPostOptions<T>) {
-  const { noRefresh, ...axioOptions } = useMemo(() => options || {}, [options]);
+export function usePostOne<T extends IInstance>(options?: IPostOptions<T>) {
+  //const { noRefresh, ...axioOptions } = useMemo(() => options || {}, [options]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<GraphQLError | undefined>();
-  const postedDataRef = useRef<any>();
+  //const postedDataRef = useRef<any>();
 
   const post = useCallback(
     (data: T) => {
+      const {__type, ...inputData} = data;
       const graphQLClient = createGraphQLClient();
+      const postName = "post" + data.__type;
       const postMutation = gql`
-        mutation post${data.__type}($loginName: String!, $password: String!) {
-          login(loginName: $loginName, password: $password)
+        mutation ${postName} ($postInput: MetaPostInput!) {
+          ${postName}(object: $postInput)
         }
       `;
 
       setLoading(true);
       setError(undefined);
       graphQLClient
-        .request(postMutation)
+        .request(postMutation, inputData)
         .then((data) => {
           setLoading(false);
           options?.onCompleted && options?.onCompleted(data.login);
@@ -46,5 +48,5 @@ export function usePost<T extends IInstance>(options?: IPostOptions<T>) {
     [options]
   );
 
-  return post;
+  return [post, { loading, error }];;
 }
