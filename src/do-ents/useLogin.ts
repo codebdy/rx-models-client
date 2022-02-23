@@ -1,7 +1,7 @@
-import { ClientError, gql, GraphQLClient } from "graphql-request";
+import { ClientError, gql } from "graphql-request";
 import { GraphQLError } from "graphql-request/dist/types";
-import { useState } from "react";
-import { GRAPHQL_SERVER } from "util/consts";
+import { useCallback, useState } from "react";
+import { createGraphQLClient } from "./createGraphQLClient";
 
 const loginMutation = gql`
   mutation login($loginName: String!, $password: String!) {
@@ -23,11 +23,10 @@ export function useLogin(
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<GraphQLError | undefined>();
-  const graphQLClient = new GraphQLClient(GRAPHQL_SERVER, {
-    mode: "cors",
-  });
 
-  const login = (loginName: string, password: string) => {
+  const login = useCallback((loginName: string, password: string) => {
+    const graphQLClient = createGraphQLClient();
+
     setLoading(true);
     setError(undefined);
     graphQLClient
@@ -46,7 +45,7 @@ export function useLogin(
         console.error(err);
         options?.onError && options?.onError(error);
       });
-  };
+  }, [options]);
 
   return [login, { token, loading, error }];
 }
