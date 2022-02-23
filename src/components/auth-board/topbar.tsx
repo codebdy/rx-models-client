@@ -10,7 +10,7 @@ import {
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import intl from "react-intl-universal";
-import { useShowServerError } from "store/helpers/use-show-server-error";
+import { useShowServerError } from "recoil/hooks/useShowServerError";
 import { Skeleton } from "@mui/material";
 import { useAppStore } from "store/app-store";
 import { useAuthBoardStore } from "./store/helper";
@@ -56,7 +56,7 @@ export const Topbar = observer((props: {}) => {
     },
   });
 
-  useShowServerError(error || saveError);
+  //useShowServerError(error || saveError);
 
   const changeRole = (roleId: number | "") => {
     const role = data?.data.find((rl) => rl.id === roleId);

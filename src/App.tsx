@@ -13,7 +13,7 @@ import { Install } from "./components/install";
 import { Login } from "./components/login";
 import { Studio } from "./components/studio";
 import { ConfirmDialog } from "./components/widgets/confirm-dialog";
-import { ErrorDialog } from "./components/widgets/error-dialog";
+import { ErrorDialog } from "./components/widgets/ErrorDialog";
 import { SuccessAlertBar } from "./components/widgets/SuccessAlertBar";
 import {
   INDEX_URL,

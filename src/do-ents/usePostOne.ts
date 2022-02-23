@@ -1,24 +1,29 @@
 import { ClientError, gql } from "graphql-request";
-import { GraphQLError } from "graphql-request/dist/types";
 import { useCallback, useState } from "react";
 import { createGraphQLClient } from "./createGraphQLClient";
 import { IInstance } from "./IInstance";
+import { ServerError } from "./ServerError";
 
 export interface IPostOptions<T extends IInstance> {
   onCompleted?: (data: T) => void;
-  onError?: (error: GraphQLError) => void;
+  onError?: (error: ServerError) => void;
   noRefresh?: boolean;
 }
 
-export function usePostOne<T extends IInstance>(options?: IPostOptions<T>) {
+export function usePostOne<T extends IInstance>(
+  options?: IPostOptions<T>
+): [
+  (data: T) => void,
+  { loading: boolean; error: ServerError | undefined }
+] {
   //const { noRefresh, ...axioOptions } = useMemo(() => options || {}, [options]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<GraphQLError | undefined>();
+  const [error, setError] = useState<ServerError | undefined>();
   //const postedDataRef = useRef<any>();
 
   const post = useCallback(
     (data: T) => {
-      const {__type, ...inputData} = data;
+      const { __type, ...inputData } = data;
       const graphQLClient = createGraphQLClient();
       const postName = "post" + data.__type;
       const postMutation = gql`
@@ -36,7 +41,7 @@ export function usePostOne<T extends IInstance>(options?: IPostOptions<T>) {
           options?.onCompleted && options?.onCompleted(data[postName]);
         })
         .catch((err: ClientError) => {
-          const error: GraphQLError | undefined = err.response.errors
+          const error: ServerError | undefined = err.response.errors
             ? err.response.errors[0]
             : undefined;
           setLoading(false);
@@ -48,5 +53,5 @@ export function usePostOne<T extends IInstance>(options?: IPostOptions<T>) {
     [options]
   );
 
-  return [post, { loading, error }];;
+  return [post, { loading, error }];
 }

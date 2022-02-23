@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import intl from "react-intl-universal";
 import { PageLayout } from './page-layout';
 import { useHistory } from 'react-router';
-import { useShowServerError } from 'store/helpers/use-show-server-error';
+import { useShowServerError } from 'recoil/hooks/useShowServerError';
 import { useLazyAxios, rxModelsSwrConfig } from '@rxdrag/rxmodels-swr';
 import { LoadingButton } from '@mui/lab';
 
@@ -28,7 +28,7 @@ export const SecondPage=(
     },
   });
 
-  useShowServerError(error);
+  //useShowServerError(error);
   
   const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
     onValuesChange({ ...values, [prop]: event.target.value });

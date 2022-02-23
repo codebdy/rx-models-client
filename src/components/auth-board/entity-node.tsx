@@ -10,7 +10,7 @@ import { ColumnNode } from "./column-node";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
-import { useShowServerError } from "store/helpers/use-show-server-error";
+import { useShowServerError } from "recoil/hooks/useShowServerError";
 import { createId } from "util/createId";
 import { mutate } from "swr";
 import { ENTITY_AUTH_QUERY } from "./consts";
@@ -56,7 +56,7 @@ export const EntityNode = observer((props:{
     }
   });
 
-  useShowServerError(error);
+  //useShowServerError(error);
 
   const hanldeExpandChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
     const auth = entityAuth ? entityAuth : {uuid: createId(), entityUuid: entityMeta.uuid}

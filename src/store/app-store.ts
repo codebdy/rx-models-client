@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import { createContext, useContext } from "react";
-import { AppError } from "./app-error";
 import { Confirm } from "./confirm";
 import { User } from "./helpers/logged-user";
 
@@ -10,7 +9,6 @@ export class AppStore{
   token:string = "";
   loggedUser: User|undefined = undefined;
   successAlert: boolean|string = false;
-  error: AppError = new AppError();
   confirm: Confirm = new Confirm();
 
   constructor() {
@@ -39,16 +37,6 @@ export class AppStore{
 
   showSuccessAlert(alert:boolean|string = true){
     this.successAlert = alert;
-  }
-
-  infoError(message:string|undefined, details?:string){
-    this.error.message = message;
-    this.error.details = details;
-  }
-
-  clearError(){
-    this.error.message = undefined;
-    this.error.details = undefined;
   }
 
   confirmAction(message:string, actionCallback:()=>void){

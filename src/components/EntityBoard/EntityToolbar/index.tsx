@@ -4,12 +4,11 @@ import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import intl from "react-intl-universal";
 import RouterPrompt from "components/common/RouterPrompt";
-import { useShowServerError } from "store/helpers/use-show-server-error";
-import { useLazyMagicPost } from "@rxdrag/rxmodels-swr";
+import { useShowServerError } from "recoil/hooks/useShowServerError";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import RedoOutlinedIcon from "@mui/icons-material/RedoOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { successAlertState } from "recoil/atoms";
 import {
   changedState,
@@ -22,6 +21,8 @@ import { useRedo } from "../hooks/useRedo";
 import { useColumn } from "../hooks/useColumn";
 import { useDeleteSelectedElement } from "../hooks/useDeleteSelectedElement";
 import { LoadingButton } from "@mui/lab";
+import { usePostOne } from "do-ents/usePostOne";
+import { EntityNameMeta, Meta } from "../meta/Meta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const EntityToolbar = memo(() => {
   const classes = useStyles();
   const setSuccessAlertState = useSetRecoilState(successAlertState);
-  const changed = useRecoilValue(changedState);
+  const [changed, setChanged] = useRecoilState(changedState);
 
   const undoList = useRecoilValue(undoListState);
   const redoList = useRecoilValue(redoListState);
@@ -63,10 +64,10 @@ export const EntityToolbar = memo(() => {
   const redo = useRedo();
   const deleteSelectedElement = useDeleteSelectedElement();
 
-  const [excuteSave, { loading, error }] = useLazyMagicPost({
+  const [excuteSave, { loading, error }] = usePostOne({
     onCompleted() {
       setSuccessAlertState(true);
-      //boardStore.setChanged(false);
+      setChanged(false);
     },
   });
 
@@ -85,12 +86,13 @@ export const EntityToolbar = memo(() => {
   };
 
   const handleSave = () => {
-    // const data = new MagicPostBuilder()
-    //   .setEntity("RxPackage")
-    //   .setDatas(boardStore.getPackeMetas()) //.addModelCommand('removeOthers')
-    //   .addEntityDirective("removeOthers")
-    //   .toData();
-    // excuteSave({ data });
+    const data: Meta = {
+      __type: EntityNameMeta,
+      content: {
+        entities: [],
+      },
+    };
+    excuteSave(data);
   };
 
   return (
