@@ -23,19 +23,24 @@ export function usePostOne<T extends IInstance>(
 
   const post = useCallback(
     (data: T) => {
-      const { __type, ...inputData } = data;
+      const { __type, ...postInput } = data;
       const graphQLClient = createGraphQLClient();
-      const postName = "post" + data.__type;
+      const postName = "postOne" + data.__type;
       const postMutation = gql`
         mutation ${postName} ($postInput: MetaPostInput!) {
-          ${postName}(object: $postInput)
+          ${postName}(object: $postInput){
+            affectedRows
+            returning{
+              id
+            }
+          }
         }
       `;
 
       setLoading(true);
       setError(undefined);
       graphQLClient
-        .request(postMutation, inputData)
+        .request(postMutation, {postInput})
         .then((data) => {
           setLoading(false);
           options?.onCompleted && options?.onCompleted(data[postName]);
