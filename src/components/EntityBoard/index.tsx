@@ -14,6 +14,9 @@ import { useRecoilValue } from "recoil";
 import { selectedDiagramState } from "./recoil/atoms";
 import { Graph } from "@antv/x6";
 import "@antv/x6-react-shape";
+import { useQueryOne } from "do-ents/useQueryOne";
+import { Meta } from "./meta/Meta";
+import { useShowServerError } from "recoil/hooks/useShowServerError";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,10 +43,8 @@ export const ModelsBoard = memo(() => {
   const classes = useStyles();
   const [graph, setGraph] = useState<Graph>();
   const selectedDiagram = useRecoilValue(selectedDiagramState);
-  // const { data, error, loading } = useMagicQuery<PackageMeta[]>(
-  //   new MagicQueryBuilder("RxPackage")
-  // );
-  // useShowServerError(error);
+  const { data, error, loading } = useQueryOne<Meta>("Meta");
+  useShowServerError(error);
 
   return (
     <Box
@@ -54,7 +55,7 @@ export const ModelsBoard = memo(() => {
         height: "0",
       }}
     >
-      {false ? (
+      {loading ? (
         <Loading />
       ) : (
         <>
