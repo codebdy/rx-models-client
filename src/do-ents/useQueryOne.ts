@@ -31,8 +31,8 @@ export function useQueryOne<T extends IObject>(
       .request(gql)
       .then((data) => {
         setLoading(false);
-        if (data?.data) {
-          setData(data?.data);
+        if (data) {
+          setData(data);
         }
       })
       .catch((err: ClientError) => {
