@@ -12,10 +12,15 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { successAlertState } from "recoil/atoms";
 import {
   changedState,
+  diagramsState,
   entitiesState,
+  metaState,
   redoListState,
+  relationsState,
   selectedElementState,
   undoListState,
+  x6EdgesState,
+  x6NodesState,
 } from "../recoil/atoms";
 import { useUndo } from "../hooks/useUndo";
 import { useRedo } from "../hooks/useRedo";
@@ -54,7 +59,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EntityToolbar = memo(() => {
   const classes = useStyles();
-  const entities = useRecoilValue(entitiesState)
+  const meta = useRecoilValue(metaState);
+  const entities = useRecoilValue(entitiesState);
+  const relations = useRecoilValue(relationsState);
+  const diagrams = useRecoilValue(diagramsState);
+  const x6Nodes = useRecoilValue(x6NodesState);
+  const x6Edges = useRecoilValue(x6EdgesState);
   const setSuccessAlertState = useSetRecoilState(successAlertState);
   const [changed, setChanged] = useRecoilState(changedState);
   const undoList = useRecoilValue(undoListState);
@@ -88,9 +98,14 @@ export const EntityToolbar = memo(() => {
 
   const handleSave = () => {
     const data: Meta = {
+      ...meta,
       __type: EntityNameMeta,
       content: {
         entities,
+        relations,
+        diagrams,
+        x6Nodes,
+        x6Edges,
       },
     };
     excuteSave(data);

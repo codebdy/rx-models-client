@@ -1,6 +1,7 @@
 import { atom } from "recoil";
 import { DiagramMeta } from "../meta/DiagramMeta";
 import { EntityMeta } from "../meta/EntityMeta";
+import { Meta } from "../meta/Meta";
 import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { X6EdgeMeta } from "../meta/X6EdgeMeta";
 import { X6NodeMeta } from "../meta/X6NodeMeta";
@@ -24,6 +25,11 @@ export const changedState = atom<boolean>({
 export const diagramsState = atom<DiagramMeta[]>({
   key: "local.diagrams",
   default: [],
+});
+
+export const metaState = atom<Meta|undefined>({
+  key: "local.meta",
+  default: undefined,
 });
 
 export const entitiesState = atom<EntityMeta[]>({

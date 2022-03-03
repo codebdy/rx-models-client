@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { Box, Theme } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
@@ -10,13 +10,22 @@ import { PropertyBox } from "./PropertyBox";
 import { EntityToolbar } from "./EntityToolbar";
 import Loading from "components/common/loading";
 import EmpertyCanvas from "./EmpertyCanvas";
-import { useRecoilValue } from "recoil";
-import { selectedDiagramState } from "./recoil/atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  diagramsState,
+  entitiesState,
+  metaState,
+  relationsState,
+  selectedDiagramState,
+  x6EdgesState,
+  x6NodesState,
+} from "./recoil/atoms";
 import { Graph } from "@antv/x6";
 import "@antv/x6-react-shape";
 import { useQueryOne } from "do-ents/useQueryOne";
-import { Meta } from "./meta/Meta";
+import { EntityNameMeta, Meta } from "./meta/Meta";
 import { useShowServerError } from "recoil/hooks/useShowServerError";
+import { gql } from "graphql-request";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,9 +51,49 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ModelsBoard = memo(() => {
   const classes = useStyles();
   const [graph, setGraph] = useState<Graph>();
+  const setMeta = useSetRecoilState(metaState);
+  const setEntities = useSetRecoilState(entitiesState);
+  const setRelations = useSetRecoilState(relationsState);
+  const setDiagrams = useSetRecoilState(diagramsState);
+  const setX6Nodes = useSetRecoilState(x6NodesState);
+  const setX6Edges = useSetRecoilState(x6EdgesState);
   const selectedDiagram = useRecoilValue(selectedDiagramState);
-  const { data, error, loading } = useQueryOne<Meta>("Meta");
+  const queryName = useMemo(() => "one" + EntityNameMeta, []);
+  const queryGql = useMemo(() => {
+    return gql`
+    query ${queryName} {
+      ${queryName}{
+        id
+        content
+        version
+      }
+    }
+  `;
+  }, [queryName]);
+
+  const { data, error, loading } = useQueryOne<Meta>(queryGql);
   useShowServerError(error);
+
+  useEffect(() => {
+    if (data) {
+      const meta = data[queryName];
+      setMeta(meta);
+      setEntities(meta?.content?.entities || []);
+      setRelations(meta?.content?.relations || []);
+      setDiagrams(meta?.content?.diagrams || []);
+      setX6Nodes(meta?.content?.x6Nodes || []);
+      setX6Edges(meta?.content?.x6Edges || []);
+    }
+  }, [
+    data,
+    queryName,
+    setDiagrams,
+    setEntities,
+    setMeta,
+    setRelations,
+    setX6Edges,
+    setX6Nodes,
+  ]);
 
   return (
     <Box
