@@ -12,6 +12,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { successAlertState } from "recoil/atoms";
 import {
   changedState,
+  entitiesState,
   redoListState,
   selectedElementState,
   undoListState,
@@ -53,9 +54,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EntityToolbar = memo(() => {
   const classes = useStyles();
+  const entities = useRecoilValue(entitiesState)
   const setSuccessAlertState = useSetRecoilState(successAlertState);
   const [changed, setChanged] = useRecoilState(changedState);
-
   const undoList = useRecoilValue(undoListState);
   const redoList = useRecoilValue(redoListState);
   const selectedElement = useRecoilValue(selectedElementState);
@@ -89,7 +90,7 @@ export const EntityToolbar = memo(() => {
     const data: Meta = {
       __type: EntityNameMeta,
       content: {
-        entities: [],
+        entities,
       },
     };
     excuteSave(data);

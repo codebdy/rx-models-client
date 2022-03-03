@@ -1,16 +1,16 @@
 import { ClientError, gql } from "graphql-request";
 import { useCallback, useState } from "react";
 import { createGraphQLClient } from "./createGraphQLClient";
-import { IInstance } from "./IInstance";
+import { IObject } from "./IObject";
 import { ServerError } from "./ServerError";
 
-export interface IPostOptions<T extends IInstance> {
+export interface IPostOptions<T extends IObject> {
   onCompleted?: (data: T) => void;
   onError?: (error: ServerError) => void;
   noRefresh?: boolean;
 }
 
-export function usePostOne<T extends IInstance>(
+export function usePostOne<T extends IObject>(
   options?: IPostOptions<T>
 ): [
   (data: T) => void,
