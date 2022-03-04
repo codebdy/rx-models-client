@@ -29,10 +29,7 @@ export function usePostOne<T extends IObject>(
       const postMutation = gql`
         mutation ${postName} ($postInput: MetaPostInput!) {
           ${postName}(object: $postInput){
-            affectedRows
-            returning{
-              id
-            }
+            id
           }
         }
       `;
