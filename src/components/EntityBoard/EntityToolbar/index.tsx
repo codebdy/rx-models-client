@@ -29,6 +29,7 @@ import { useDeleteSelectedElement } from "../hooks/useDeleteSelectedElement";
 import { LoadingButton } from "@mui/lab";
 import { usePostOne } from "do-ents/usePostOne";
 import { EntityNameMeta, Meta } from "../meta/Meta";
+import { useSyncMeta } from "do-ents/useSyncMeta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -75,7 +76,7 @@ export const EntityToolbar = memo(() => {
   const redo = useRedo();
   const deleteSelectedElement = useDeleteSelectedElement();
 
-  const [excuteSave, { loading, error }] = usePostOne({
+  const [excuteSave, { loading, error }] = useSyncMeta({
     onCompleted() {
       setSuccessAlertState(true);
       setChanged(false);
