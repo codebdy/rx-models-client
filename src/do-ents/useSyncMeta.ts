@@ -17,12 +17,11 @@ export function useSyncMeta(
   //const postedDataRef = useRef<any>();
 
   const syncMeta = useCallback(
-    (data: Meta) => {
-      const { __type, ...postInput } = data;
+    () => {
       const graphQLClient = createGraphQLClient();
       const postMutation = gql`
-        mutation syncMeta ($postInput: MetaPostInput!) {
-          syncMeta(object: $postInput){
+        mutation syncMeta {
+          syncMeta{
             id
           }
         }
@@ -31,7 +30,7 @@ export function useSyncMeta(
       setLoading(true);
       setError(undefined);
       graphQLClient
-        .request(postMutation, {postInput})
+        .request(postMutation)
         .then((data) => {
           setLoading(false);
           options?.onCompleted && options?.onCompleted(data["syncMeta"]);
