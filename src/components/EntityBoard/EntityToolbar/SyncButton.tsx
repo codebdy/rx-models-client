@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, SvgIcon } from "@mui/material";
+import { Button, Divider, SvgIcon } from "@mui/material";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
@@ -11,6 +11,8 @@ import MenuList from "@mui/material/MenuList";
 import { memo } from "react";
 import { LoadingButton } from "@mui/lab";
 import intl from "react-intl-universal";
+import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
+import RedoOutlinedIcon from "@mui/icons-material/RedoOutlined";
 
 const options = ["增量发布", "重新发布"];
 
@@ -112,7 +114,7 @@ export const SyncButton = memo(() => {
                 placement === "bottom" ? "center top" : "center bottom",
             }}
           >
-            <Paper>
+            <Paper elevation={5}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu">
                   <MenuItem>
@@ -132,6 +134,11 @@ export const SyncButton = memo(() => {
                       />
                     </SvgIcon>
                     重新发布
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem disabled>
+                    <UndoOutlinedIcon fontSize="small" sx={{ mr: 1 }} />
+                    回滚
                   </MenuItem>
                 </MenuList>
               </ClickAwayListener>
