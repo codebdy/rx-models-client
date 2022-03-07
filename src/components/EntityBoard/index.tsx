@@ -65,7 +65,7 @@ export const ModelsBoard = memo(() => {
       ${queryName}{
         id
         content
-        version
+        status
       }
     }
   `;
