@@ -12,7 +12,6 @@ import { memo } from "react";
 import { LoadingButton } from "@mui/lab";
 import intl from "react-intl-universal";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
-import RedoOutlinedIcon from "@mui/icons-material/RedoOutlined";
 
 const options = ["增量发布", "重新发布"];
 
@@ -110,8 +109,7 @@ export const SyncButton = memo(() => {
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin:
-                placement === "bottom" ? "center top" : "center bottom",
+              transformOrigin: "center top" ,
             }}
           >
             <Paper elevation={5}>
