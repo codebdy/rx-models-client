@@ -15,6 +15,7 @@ import {
   diagramsState,
   entitiesState,
   metaState,
+  publishedIdState,
   relationsState,
   selectedDiagramState,
   x6EdgesState,
@@ -57,6 +58,7 @@ export const ModelsBoard = memo(() => {
   const setDiagrams = useSetRecoilState(diagramsState);
   const setX6Nodes = useSetRecoilState(x6NodesState);
   const setX6Edges = useSetRecoilState(x6EdgesState);
+  const setPublishedId = useSetRecoilState(publishedIdState);
   const selectedDiagram = useRecoilValue(selectedDiagramState);
   const queryName = useMemo(() => "one" + EntityNameMeta, []);
   const queryGql = useMemo(() => {
@@ -71,8 +73,33 @@ export const ModelsBoard = memo(() => {
   `;
   }, [queryName]);
 
+  const queryPubishedGql = useMemo(() => {
+    return gql`
+    query ${queryName} {
+      ${queryName}(_where:{
+        status:{
+          _eq:published
+        }
+      }){
+        id
+      }
+    }
+  `;
+  }, [queryName]);
+
+  const {
+    data: publishedData,
+    error: publishedError,
+    loading: publishedLoading,
+  } = useQueryOne<Meta>(queryPubishedGql);
   const { data, error, loading } = useQueryOne<Meta>(queryGql);
-  useShowServerError(error);
+  useShowServerError(error || publishedError);
+
+  useEffect(() => {
+    const meta = publishedData ? publishedData[queryName] : undefined;
+    setPublishedId(meta?.id || undefined);
+    console.log("已发布Meta", meta)
+  }, [publishedData, queryName, setPublishedId]);
 
   useEffect(() => {
     if (data) {
@@ -104,7 +131,7 @@ export const ModelsBoard = memo(() => {
         height: "0",
       }}
     >
-      {loading ? (
+      {loading || publishedLoading ? (
         <Loading />
       ) : (
         <>

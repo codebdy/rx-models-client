@@ -15,6 +15,7 @@ export enum MetaStatus {
 }
 
 export interface Meta extends IObject {
+  id?: number;
   content: {
     entities: EntityMeta[];
     diagrams: DiagramMeta[];

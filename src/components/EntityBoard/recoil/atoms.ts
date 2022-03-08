@@ -17,6 +17,11 @@ export interface Snapshot {
   selectedDiagram?: string;
 }
 
+export const publishedIdState = atom<number | undefined>({
+  key: "local.publishedId",
+  default: undefined,
+});
+
 export const changedState = atom<boolean>({
   key: "local.changed",
   default: false,
@@ -27,7 +32,7 @@ export const diagramsState = atom<DiagramMeta[]>({
   default: [],
 });
 
-export const metaState = atom<Meta|undefined>({
+export const metaState = atom<Meta | undefined>({
   key: "local.meta",
   default: undefined,
 });
