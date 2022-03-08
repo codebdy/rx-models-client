@@ -76,9 +76,6 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
               {intl.get("normal-class")}
             </MenuItem>
             <MenuItem value={EntityType.ENUM}>{intl.get("enum")}</MenuItem>
-            <MenuItem value={EntityType.ABSTRACT}>
-              {intl.get("abstract-class")}
-            </MenuItem>
             <MenuItem value={EntityType.INTERFACE}>
               {intl.get("interface")}
             </MenuItem>
