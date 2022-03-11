@@ -12,6 +12,8 @@ import { memo } from "react";
 import { LoadingButton } from "@mui/lab";
 import intl from "react-intl-universal";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
+import { changedState, publishedIdState, metaState } from "../recoil/atoms";
+import { useRecoilValue } from "recoil";
 
 const options = ["增量发布", "重新发布"];
 
@@ -19,7 +21,9 @@ export const SyncButton = memo(() => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const disabled = false;
+  const publishedId = useRecoilValue(publishedIdState);
+  const changed = useRecoilValue(changedState);
+  const meta = useRecoilValue(metaState);
   const handleClick = () => {
     console.info(`You clicked ${options[selectedIndex]}`);
   };
@@ -53,15 +57,16 @@ export const SyncButton = memo(() => {
         variant="contained"
         sx={{ ml: 1 }}
         ref={anchorRef}
-        aria-label="split button"
+        disabled = {changed}
       >
         <LoadingButton
           variant="contained"
           color="primary"
           size="medium"
+          disabled = {!!meta?.publishedAt}
           sx={{
             "&.MuiButtonGroup-grouped:not(:last-of-type)": {
-              borderRight: !disabled
+              borderRight: !changed
                 ? "rgba(255, 255, 255, 0.15) solid 1px"
                 : "rgba(0, 0, 0, 0.15) solid 1px !important",
             },
@@ -109,7 +114,7 @@ export const SyncButton = memo(() => {
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin: "center top" ,
+              transformOrigin: "center top",
             }}
           >
             <Paper elevation={5}>
