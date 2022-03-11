@@ -100,7 +100,7 @@ export const EntityToolbar = memo(() => {
   const handleSave = () => {
     const {id, ...restMeta} = meta||{};
     const data: Meta = {
-      id: meta?.publishedAt ? id : undefined,
+      id: !meta?.publishedAt ? id : undefined,
       ...restMeta,
       __type: EntityNameMeta,
       content: {
