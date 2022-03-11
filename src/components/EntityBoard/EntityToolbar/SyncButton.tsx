@@ -51,6 +51,10 @@ export const SyncButton = memo(() => {
     setOpen(false);
   };
 
+  const disableIncreasePublished = React.useMemo(()=>{
+    return !!meta?.publishedAt;
+  }, [meta?.publishedAt]);
+
   return (
     <React.Fragment>
       <ButtonGroup
@@ -63,7 +67,7 @@ export const SyncButton = memo(() => {
           variant="contained"
           color="primary"
           size="medium"
-          disabled = {!!meta?.publishedAt}
+          disabled = {disableIncreasePublished}
           sx={{
             "&.MuiButtonGroup-grouped:not(:last-of-type)": {
               borderRight: !changed
@@ -120,7 +124,7 @@ export const SyncButton = memo(() => {
             <Paper elevation={5}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu">
-                  <MenuItem>
+                  <MenuItem disabled = {disableIncreasePublished}>
                     <SvgIcon fontSize="small" sx={{ mr: 1 }}>
                       <path
                         fill="currentColor"
