@@ -8,7 +8,7 @@ import { IPostOptions } from "./usePostOne";
 export function usePublishMeta(
   options?: IPostOptions<Meta>
 ): [
-  (data: Meta) => void,
+  () => void,
   { loading: boolean; error: ServerError | undefined }
 ] {
   //const { noRefresh, ...axioOptions } = useMemo(() => options || {}, [options]);
@@ -16,7 +16,7 @@ export function usePublishMeta(
   const [error, setError] = useState<ServerError | undefined>();
   //const postedDataRef = useRef<any>();
 
-  const syncMeta = useCallback(
+  const publish = useCallback(
     () => {
       const graphQLClient = createGraphQLClient();
       const postMutation = gql`
@@ -33,7 +33,7 @@ export function usePublishMeta(
         .request(postMutation)
         .then((data) => {
           setLoading(false);
-          options?.onCompleted && options?.onCompleted(data["syncMeta"]);
+          options?.onCompleted && options?.onCompleted(data["_publish"]);
         })
         .catch((err: ClientError) => {
           const error: ServerError | undefined = err.response.errors
@@ -48,5 +48,5 @@ export function usePublishMeta(
     [options]
   );
 
-  return [syncMeta, { loading, error }];
+  return [publish, { loading, error }];
 }

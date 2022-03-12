@@ -13,34 +13,32 @@ import { LoadingButton } from "@mui/lab";
 import intl from "react-intl-universal";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import { changedState, publishedIdState, metaState } from "../recoil/atoms";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useShowServerError } from "recoil/hooks/useShowServerError";
+import { usePublishMeta } from "do-ents/usePublishMeta";
+import { successAlertState } from "recoil/atoms";
 
-const options = ["增量发布", "重新发布"];
 
 export const SyncButton = memo(() => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const setSuccessAlertState = useSetRecoilState(successAlertState);
   const publishedId = useRecoilValue(publishedIdState);
   const changed = useRecoilValue(changedState);
   const meta = useRecoilValue(metaState);
-  const handleClick = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
-  };
+  
+  const [publish, {loading, error}] = usePublishMeta({
+    onCompleted() {
+      setSuccessAlertState(true);
+    },
+  });
 
-  const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    index: number
-  ) => {
-    setSelectedIndex(index);
-    setOpen(false);
-  };
-
-  const handleToggle = () => {
+  useShowServerError(error);
+  const handleToggle = React.useCallback(() => {
     setOpen((prevOpen) => !prevOpen);
-  };
+  }, []);
 
-  const handleClose = (event: Event) => {
+  const handleClose = React.useCallback((event: Event) => {
     if (
       anchorRef.current &&
       anchorRef.current.contains(event.target as HTMLElement)
@@ -49,11 +47,15 @@ export const SyncButton = memo(() => {
     }
 
     setOpen(false);
-  };
+  }, []);
 
   const disableIncreasePublished = React.useMemo(()=>{
     return !!meta?.publishedAt;
   }, [meta?.publishedAt]);
+
+  const handlePublish = React.useCallback(()=>{
+    publish()
+  },[publish])
 
   return (
     <React.Fragment>
@@ -68,6 +70,7 @@ export const SyncButton = memo(() => {
           color="primary"
           size="medium"
           disabled = {disableIncreasePublished}
+          loading = {loading}
           sx={{
             "&.MuiButtonGroup-grouped:not(:last-of-type)": {
               borderRight: !changed
@@ -84,7 +87,7 @@ export const SyncButton = memo(() => {
               />
             </SvgIcon>
           }
-          //onClick={handleSave}
+          onClick={handlePublish}
         >
           {intl.get("publish")}
         </LoadingButton>

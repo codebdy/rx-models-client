@@ -8,7 +8,7 @@ import { IPostOptions } from "./usePostOne";
 export function useSyncMeta(
   options?: IPostOptions<Meta>
 ): [
-  (data: Meta) => void,
+  () => void,
   { loading: boolean; error: ServerError | undefined }
 ] {
   //const { noRefresh, ...axioOptions } = useMemo(() => options || {}, [options]);
