@@ -28,7 +28,7 @@ import { useColumn } from "../hooks/useColumn";
 import { useDeleteSelectedElement } from "../hooks/useDeleteSelectedElement";
 import { LoadingButton } from "@mui/lab";
 import { usePostOne } from "do-ents/usePostOne";
-import { EntityNameMeta, Meta } from "../meta/Meta";
+import { EntityNameMeta, Meta, MetaStatus } from "../meta/Meta";
 import { SyncButton } from "./SyncButton";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EntityToolbar = memo(() => {
   const classes = useStyles();
-  const meta = useRecoilValue(metaState);
+  const [meta, setMeta] = useRecoilState(metaState);
   const entities = useRecoilValue(entitiesState);
   const relations = useRecoilValue(relationsState);
   const diagrams = useRecoilValue(diagramsState);
@@ -76,10 +76,11 @@ export const EntityToolbar = memo(() => {
   const redo = useRedo();
   const deleteSelectedElement = useDeleteSelectedElement();
 
-  const [excuteSave, { loading, error }] = usePostOne({
-    onCompleted() {
+  const [excuteSave, { loading, error }] = usePostOne<Meta>({
+    onCompleted(data: Meta) {
       setSuccessAlertState(true);
       setChanged(false);
+      setMeta(data);
     },
   });
 
@@ -98,19 +99,25 @@ export const EntityToolbar = memo(() => {
   };
 
   const handleSave = () => {
-    const {id, ...restMeta} = meta||{};
-    const data: Meta = {
-      id: !meta?.publishedAt ? id : undefined,
-      ...restMeta,
-      __type: EntityNameMeta,
-      content: {
-        entities,
-        relations,
-        diagrams,
-        x6Nodes,
-        x6Edges,
-      },
+    const content = {
+      entities,
+      relations,
+      diagrams,
+      x6Nodes,
+      x6Edges,
     };
+
+    const data: Meta =
+      meta?.status === MetaStatus.META_STATUS_PUBLISHED || !meta
+        ? {
+            __type: EntityNameMeta,
+            content,
+          }
+        : {
+            ...meta,
+            __type: EntityNameMeta,
+            content,
+          };
     excuteSave(data);
   };
 

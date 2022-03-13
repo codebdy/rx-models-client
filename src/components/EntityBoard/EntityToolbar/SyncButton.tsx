@@ -26,9 +26,11 @@ export const SyncButton = memo(() => {
   const publishedId = useRecoilValue(publishedIdState);
   const changed = useRecoilValue(changedState);
   const meta = useRecoilValue(metaState);
-  
+  const setPublishedId = useSetRecoilState(publishedIdState);
+
   const [publish, {loading, error}] = usePublishMeta({
     onCompleted() {
+      setPublishedId(meta?.id);
       setSuccessAlertState(true);
     },
   });
@@ -50,8 +52,8 @@ export const SyncButton = memo(() => {
   }, []);
 
   const disableIncreasePublished = React.useMemo(()=>{
-    return !!meta?.publishedAt;
-  }, [meta?.publishedAt]);
+    return !!meta?.publishedAt || (publishedId === meta?.id && !changed);
+  }, [changed, meta?.id, meta?.publishedAt, publishedId]);
 
   const handlePublish = React.useCallback(()=>{
     publish()

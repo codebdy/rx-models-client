@@ -12,10 +12,7 @@ export interface IPostOptions<T extends IObject> {
 
 export function usePostOne<T extends IObject>(
   options?: IPostOptions<T>
-): [
-  (data: T) => void,
-  { loading: boolean; error: ServerError | undefined }
-] {
+): [(data: T) => void, { loading: boolean; error: ServerError | undefined }] {
   //const { noRefresh, ...axioOptions } = useMemo(() => options || {}, [options]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<ServerError | undefined>();
@@ -30,6 +27,9 @@ export function usePostOne<T extends IObject>(
         mutation ${postName} ($postInput: MetaPostInput!) {
           ${postName}(object: $postInput){
             id
+            ${Object.keys(data)
+              .filter((key) => key !== "id" && key !== "__type")
+              .join("\n")}
           }
         }
       `;
@@ -37,7 +37,7 @@ export function usePostOne<T extends IObject>(
       setLoading(true);
       setError(undefined);
       graphQLClient
-        .request(postMutation, {postInput})
+        .request(postMutation, { postInput })
         .then((data) => {
           setLoading(false);
           options?.onCompleted && options?.onCompleted(data[postName]);

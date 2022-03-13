@@ -98,7 +98,6 @@ export const ModelsBoard = memo(() => {
   useEffect(() => {
     const meta = publishedData ? publishedData[queryName] : undefined;
     setPublishedId(meta?.id || undefined);
-    console.log("已发布Meta", meta)
   }, [publishedData, queryName, setPublishedId]);
 
   useEffect(() => {
