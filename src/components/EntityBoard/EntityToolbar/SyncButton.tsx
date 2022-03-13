@@ -13,11 +13,11 @@ import { LoadingButton } from "@mui/lab";
 import intl from "react-intl-universal";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import { changedState, publishedIdState, metaState } from "../recoil/atoms";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useShowServerError } from "recoil/hooks/useShowServerError";
 import { usePublishMeta } from "do-ents/usePublishMeta";
 import { successAlertState } from "recoil/atoms";
-
+import { MetaStatus } from "../meta/Meta";
 
 export const SyncButton = memo(() => {
   const [open, setOpen] = React.useState(false);
@@ -25,12 +25,13 @@ export const SyncButton = memo(() => {
   const setSuccessAlertState = useSetRecoilState(successAlertState);
   const publishedId = useRecoilValue(publishedIdState);
   const changed = useRecoilValue(changedState);
-  const meta = useRecoilValue(metaState);
+  const [meta, setMeta] = useRecoilState(metaState);
   const setPublishedId = useSetRecoilState(publishedIdState);
 
-  const [publish, {loading, error}] = usePublishMeta({
+  const [publish, { loading, error }] = usePublishMeta({
     onCompleted() {
       setPublishedId(meta?.id);
+      setMeta(meta => (meta ? { ...meta, status: MetaStatus.META_STATUS_PUBLISHED } : undefined));
       setSuccessAlertState(true);
     },
   });
@@ -51,13 +52,13 @@ export const SyncButton = memo(() => {
     setOpen(false);
   }, []);
 
-  const disableIncreasePublished = React.useMemo(()=>{
+  const disableIncreasePublished = React.useMemo(() => {
     return !!meta?.publishedAt || (publishedId === meta?.id && !changed);
   }, [changed, meta?.id, meta?.publishedAt, publishedId]);
 
-  const handlePublish = React.useCallback(()=>{
-    publish()
-  },[publish])
+  const handlePublish = React.useCallback(() => {
+    publish();
+  }, [publish]);
 
   return (
     <React.Fragment>
@@ -65,14 +66,14 @@ export const SyncButton = memo(() => {
         variant="contained"
         sx={{ ml: 1 }}
         ref={anchorRef}
-        disabled = {changed}
+        disabled={changed}
       >
         <LoadingButton
           variant="contained"
           color="primary"
           size="medium"
-          disabled = {disableIncreasePublished}
-          loading = {loading}
+          disabled={disableIncreasePublished}
+          loading={loading}
           sx={{
             "&.MuiButtonGroup-grouped:not(:last-of-type)": {
               borderRight: !changed
@@ -129,7 +130,7 @@ export const SyncButton = memo(() => {
             <Paper elevation={5}>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu">
-                  <MenuItem disabled = {disableIncreasePublished}>
+                  <MenuItem disabled={disableIncreasePublished}>
                     <SvgIcon fontSize="small" sx={{ mr: 1 }}>
                       <path
                         fill="currentColor"
