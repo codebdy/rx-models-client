@@ -1,52 +1,46 @@
-
 /**
-* 字段类型，枚举，目前版本仅支持这些类型，后续可以扩展
-*/
-export enum ColumnType{
+ * 字段类型，枚举，目前版本仅支持这些类型，后续可以扩展
+ */
+export enum ColumnType {
+  ID = "ID",
+  /**
+   * 数字类型
+   */
+  Int = "Int",
+
+  Float = "Float",
+
+  Boolean = "Boolean",
+
+  String = "String",
 
   /**
-  * 数字类型
-  */
-  Number = 'Number',
+   * 日期类型
+   */
+  Date = "Date",
 
   /**
-  * 枚举类型
-  */
-  Boolean = 'Boolean',
+   * JSON类型
+   */
+  SimpleJson = "SimpleJson",
 
   /**
-  * 字符串类型
-  */  
-  String = 'String',
+   * 数组类型
+   */
+  SimpleArray = "SimpleArray",
+
+  JsonArray = "JsonArray",
 
   /**
-  * 日期类型
-  */  
-  Date = 'Date',
-
-  /**
-  * JSON类型
-  */
-  SimpleJson = 'SimpleJson',
-
-  /**
-  * 数组类型
-  */
-  SimpleArray = 'SimpleArray',
-
-  JsonArray = 'JsonArray',
-
-  /**
-  * 枚举类型
-  */
-  Enum = 'Enum'
+   * 枚举类型
+   */
+  Enum = "Enum",
 }
 
 /**
-* 字段元数据，基本跟 TypeORM Column 对应
-*/
-export interface ColumnMeta{
-
+ * 字段元数据，基本跟 TypeORM Column 对应
+ */
+export interface ColumnMeta {
   /**
    * 唯一标识
    */
@@ -115,18 +109,13 @@ export interface ColumnMeta{
    */
   length?: number;
 
+  unsigned?: boolean;
+
   /**
    * 类型是实体或者接口时使用
    */
-  typeEnityUuid?:string;
+  typeEnityUuid?: string;
 
-  /**
-   * ============以下属性跟TypeORM对应，但是尚未启用
-   */
-  width?: number;
-  version?: boolean;
-  readonly?: boolean;  
+  readonly?: boolean;
   comment?: string;
-  precision?: number;
-  scale?: number;
 }

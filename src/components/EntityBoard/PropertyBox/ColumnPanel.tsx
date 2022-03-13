@@ -58,7 +58,7 @@ export const ColumnPanel = (props: {
     (event: SelectChangeEvent<ColumnType>) => {
       const type = event.target.value as any;
       let generated = column.generated;
-      if (type !== ColumnType.String && type !== ColumnType.Number) {
+      if (type !== ColumnType.String && type !== ColumnType.Int) {
         generated = undefined;
       }
 
@@ -171,8 +171,10 @@ export const ColumnPanel = (props: {
             onChange={handleTypeChange}
             label={intl.get("data-type")}
           >
+            <MenuItem value={ColumnType.ID}>ID</MenuItem>
             <MenuItem value={ColumnType.String}>String</MenuItem>
-            <MenuItem value={ColumnType.Number}>Number</MenuItem>
+            <MenuItem value={ColumnType.Int}>Int</MenuItem>
+            <MenuItem value={ColumnType.Float}>Float</MenuItem>
             <MenuItem value={ColumnType.Boolean}>Boolean</MenuItem>
             <MenuItem value={ColumnType.Date}>Date</MenuItem>
             <MenuItem value={ColumnType.Enum}>Enum</MenuItem>
@@ -377,7 +379,7 @@ export const ColumnPanel = (props: {
         </Grid>
       )}
 
-      {(column.type === ColumnType.Number ||
+      {(column.type === ColumnType.Int ||
         column.type === ColumnType.String) && (
         <Grid item xs={12}>
           <FormControl

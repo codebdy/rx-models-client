@@ -41,7 +41,7 @@ export function convertType(
     return "boolean";
   }
 
-  if (type === ColumnType.Number) {
+  if (type === ColumnType.Int) {
     return "number";
   }
 

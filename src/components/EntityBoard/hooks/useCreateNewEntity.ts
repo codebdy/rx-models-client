@@ -24,7 +24,7 @@ export function useCreateNewEntity() {
         {
           uuid: createId(),
           name: "id",
-          type: ColumnType.Number,
+          type: ColumnType.ID,
           primary: true,
           generated: true,
         },
