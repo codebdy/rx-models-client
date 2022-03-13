@@ -36,9 +36,9 @@ export function useQueryOne<T extends IObject>(
         }
       })
       .catch((err: ClientError) => {
-        const error: GraphQLError | undefined = err.response.errors
+        const error: GraphQLError | undefined = err.response?.errors
           ? err.response.errors[0]
-          : undefined;
+          : err;
         setLoading(false);
         setError(error);
         console.error(err);
