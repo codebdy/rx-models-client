@@ -173,9 +173,6 @@ export const ColumnPanel = (props: {
           >
             <MenuItem value={ColumnType.String}>String</MenuItem>
             <MenuItem value={ColumnType.Number}>Number</MenuItem>
-            <MenuItem value={ColumnType.Text}>Text</MenuItem>
-            <MenuItem value={ColumnType.MediumText}>MediumText</MenuItem>
-            <MenuItem value={ColumnType.LongText}>LongText</MenuItem>
             <MenuItem value={ColumnType.Boolean}>Boolean</MenuItem>
             <MenuItem value={ColumnType.Date}>Date</MenuItem>
             <MenuItem value={ColumnType.Enum}>Enum</MenuItem>

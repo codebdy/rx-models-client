@@ -19,10 +19,6 @@ export enum ColumnType{
   */  
   String = 'String',
 
-  Text = 'Text',
-  MediumText = 'MediumText',
-  LongText = 'LongText',
-
   /**
   * 日期类型
   */  
@@ -117,7 +113,7 @@ export interface ColumnMeta{
   /**
    * 长度
    */
-  length?: string | number;
+  length?: number;
 
   /**
    * 类型是实体或者接口时使用
