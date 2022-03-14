@@ -43,9 +43,9 @@ export function usePostOne<T extends IObject>(
           options?.onCompleted && options?.onCompleted(data[postName]);
         })
         .catch((err: ClientError) => {
-          const error: ServerError | undefined = err.response.errors
+          const error: ServerError | undefined = err.response?.errors
             ? err.response.errors[0]
-            : undefined;
+            : err;
           setLoading(false);
           setError(error);
           console.error(err);

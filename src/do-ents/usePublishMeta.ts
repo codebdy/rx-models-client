@@ -36,9 +36,9 @@ export function usePublishMeta(
           options?.onCompleted && options?.onCompleted(data["_publish"]);
         })
         .catch((err: ClientError) => {
-          const error: ServerError | undefined = err.response.errors
+          const error: ServerError | undefined = err.response?.errors
             ? err.response.errors[0]
-            : undefined;
+            : err;
           setLoading(false);
           setError(error);
           console.error(err);
