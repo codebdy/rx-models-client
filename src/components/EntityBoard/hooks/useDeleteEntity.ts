@@ -29,7 +29,7 @@ export function useDeleteEntity() {
         )
         .map((relation) => relation.uuid);
       setRelations((relations) =>
-        relations.filter((relation) => !(relation.uuid in relationIds))
+        relations.filter((relation) => !relationIds.find(uuid=>relation.uuid === uuid))
       );
 
       setNodes((nodes) => nodes.filter((node) => node.id !== entityUuid));
