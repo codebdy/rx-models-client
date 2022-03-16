@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
 import { ColumnType } from "../meta/ColumnMeta";
+import { EntityType } from "../meta/EntityMeta";
 import { useGetEntityByName } from "./useGetEntityByName";
 
 export function useCreateNewEntity() {
@@ -20,6 +21,7 @@ export function useCreateNewEntity() {
     const newEntity = {
       uuid: createId(),
       name: getNewEntityName(),
+      entityType: EntityType.NORMAL,
       columns: [
         {
           uuid: createId(),

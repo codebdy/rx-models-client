@@ -33,7 +33,7 @@ export interface EntityMeta {
   /**
    * 实体类型
    */
-  entityType?: EntityType | "";
+  entityType: EntityType;
 
   /**
    * 字段有元数据列表
