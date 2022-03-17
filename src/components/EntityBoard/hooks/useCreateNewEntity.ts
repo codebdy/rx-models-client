@@ -28,7 +28,7 @@ export function useCreateNewEntity() {
           name: "id",
           type: ColumnType.ID,
           primary: true,
-          generated: true,
+          //generated: true,
         },
       ],
     };

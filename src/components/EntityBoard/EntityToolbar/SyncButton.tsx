@@ -66,7 +66,7 @@ export const SyncButton = memo(() => {
         variant="contained"
         sx={{ ml: 1 }}
         ref={anchorRef}
-        disabled={changed}
+        disabled={changed||loading}
       >
         <LoadingButton
           variant="contained"
