@@ -28,3 +28,8 @@ export interface Meta extends IObject {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export const CREATED_AT: string = "createdAt";
+export const UPDATED_AT: string = "updatedAt";
+export const DELETED_AT: string = "deletedAt";
+export const CONST_ID = "id"

@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { createId } from "util/createId";
 import { ColumnType } from "../meta/ColumnMeta";
 import { EntityType } from "../meta/EntityMeta";
+import { CONST_ID, CREATED_AT, UPDATED_AT } from "../meta/Meta";
 import { useGetEntityByName } from "./useGetEntityByName";
 
 export function useCreateNewEntity() {
@@ -25,10 +26,19 @@ export function useCreateNewEntity() {
       columns: [
         {
           uuid: createId(),
-          name: "id",
+          name: CONST_ID,
           type: ColumnType.ID,
           primary: true,
-          //generated: true,
+        },
+        {
+          uuid: createId(),
+          name: CREATED_AT,
+          type: ColumnType.Date,
+        },
+        {
+          uuid: createId(),
+          name: UPDATED_AT,
+          type: ColumnType.Date,
         },
       ],
     };
