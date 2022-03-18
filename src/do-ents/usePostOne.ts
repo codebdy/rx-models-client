@@ -22,10 +22,10 @@ export function usePostOne<T extends IObject>(
     (data: T) => {
       const { __type, ...postInput } = data;
       const graphQLClient = createGraphQLClient();
-      const postName = "postOne" + data.__type;
+      const postName = "saveOne" + data.__type;
       const postMutation = gql`
-        mutation ${postName} ($postInput: MetaPostInput!) {
-          ${postName}(object: $postInput){
+        mutation ${postName} ($saveInput: MetaInput!) {
+          ${postName}(object: $saveInput){
             id
             ${Object.keys(data)
               .filter((key) => key !== "id" && key !== "__type")
