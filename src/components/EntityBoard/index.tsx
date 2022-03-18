@@ -76,7 +76,7 @@ export const ModelsBoard = memo(() => {
   const queryPubishedGql = useMemo(() => {
     return gql`
     query ${queryName} {
-      ${queryName}(_where:{
+      ${queryName}(where:{
         status:{
           _eq:published
         }

@@ -20,8 +20,8 @@ export function usePublishMeta(
     () => {
       const graphQLClient = createGraphQLClient();
       const postMutation = gql`
-        mutation _publish {
-          _publish{
+        mutation publish {
+          publish{
             id
           }
         }
@@ -33,7 +33,7 @@ export function usePublishMeta(
         .request(postMutation)
         .then((data) => {
           setLoading(false);
-          options?.onCompleted && options?.onCompleted(data["_publish"]);
+          options?.onCompleted && options?.onCompleted(data["publish"]);
         })
         .catch((err: ClientError) => {
           const error: ServerError | undefined = err.response?.errors
