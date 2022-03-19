@@ -20,12 +20,12 @@ export function usePostOne<T extends IObject>(
 
   const post = useCallback(
     (data: T) => {
-      const { __type, ...postInput } = data;
+      const { __type, ...object } = data;
       const graphQLClient = createGraphQLClient();
       const postName = "saveOne" + data.__type;
       const postMutation = gql`
-        mutation ${postName} ($saveInput: MetaInput!) {
-          ${postName}(object: $saveInput){
+        mutation ${postName} ($object: MetaInput!) {
+          ${postName}(object: $object){
             id
             ${Object.keys(data)
               .filter((key) => key !== "id" && key !== "__type")
@@ -37,7 +37,7 @@ export function usePostOne<T extends IObject>(
       setLoading(true);
       setError(undefined);
       graphQLClient
-        .request(postMutation, { postInput })
+        .request(postMutation, { object })
         .then((data) => {
           setLoading(false);
           options?.onCompleted && options?.onCompleted(data[postName]);
