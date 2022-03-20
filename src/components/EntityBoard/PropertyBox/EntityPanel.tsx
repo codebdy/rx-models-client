@@ -76,10 +76,14 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
               {intl.get("normal-class")}
             </MenuItem>
             <MenuItem value={EntityType.ENUM}>{intl.get("enum")}</MenuItem>
+            <MenuItem value={EntityType.INTERFACE}>
+              {intl.get("interface")}
+            </MenuItem>
           </Select>
         </FormControl>
       </Grid>
-      {entity.entityType !== EntityType.ENUM && (
+      {entity.entityType !== EntityType.ENUM &&
+        entity.entityType !== EntityType.INTERFACE && (
           <>
             <Grid item xs={12}>
               <LazyTextField

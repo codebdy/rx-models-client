@@ -53,6 +53,7 @@ export default function ColumnView(props: {
   onDelete: (id: string) => void;
   isSelected?: boolean;
   readOnly?: boolean;
+  isInterface: boolean;
 }) {
   const {
     column,
@@ -60,11 +61,12 @@ export default function ColumnView(props: {
     onDelete,
     isSelected,
     readOnly = false,
+    isInterface,
   } = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
-  const isId = column.name === "id";
+  const isId = column.name === "id" && !isInterface;
 
   const handleClick = () => {
     onClick(column.uuid);

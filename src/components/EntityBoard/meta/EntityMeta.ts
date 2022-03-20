@@ -8,6 +8,7 @@ import { ColumnMeta } from "./ColumnMeta";
 export enum EntityType {
   NORMAL = "Normal",
   ENUM = "Enum",
+  INTERFACE = "Interface",
 }
 
 /**
