@@ -94,7 +94,7 @@ export function useNodesShow(graph?: Graph) {
         selectedId: selectedElement,
         isPressedRelation:
           (pressedLineType !== RelationType.IMPLEMENTS && !!pressedLineType) ||
-          (pressedLineType === RelationType.IMPLEMENTS && !getParentUuid(node.id)),
+          (pressedLineType === RelationType.IMPLEMENTS),
       };
       if (grahpNode) {
         //Update by diff

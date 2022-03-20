@@ -16,7 +16,6 @@ import {
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useGetEntity } from "../hooks/useGetEntity";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
-import { useGetParentUuid } from "./useGetParentUuid";
 
 export function useEdgeLineDraw(graph: Graph | undefined) {
   const [drawingLine, setDrawingLine] = useRecoilState(drawingLineState);
@@ -27,7 +26,6 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
   const backupSnapshot = useBackupSnapshot();
   const [pressedLineType, setPressedLineType] =
     useRecoilState(pressedLineTypeState);
-  const getParentUuid = useGetParentUuid();
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -74,9 +72,10 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
           return;
         }
 
+        //只能从接口继承
         if (
           target.entityType === EntityType.ENUM ||
-          target.entityType === EntityType.INTERFACE
+          target.entityType === EntityType.NORMAL
         ) {
           return;
         }
@@ -176,9 +175,9 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
       }
 
       //已经有继承关系了
-      if (pressedLineType === RelationType.IMPLEMENTS && getParentUuid(node.id)) {
-        return;
-      }
+      //if (pressedLineType === RelationType.IMPLEMENTS && getParentUuid(node.id)) {
+      //  return;
+      //}
 
       const p = graph?.clientToLocal({ x: e.clientX, y: e.clientY });
       const lineAction: LineAction = {
@@ -193,7 +192,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
       };
       setDrawingLine(lineAction);
     },
-    [getParentUuid, graph, pressedLineType, setDrawingLine]
+    [graph, pressedLineType, setDrawingLine]
   );
 
   useEffect(() => {
