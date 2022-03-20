@@ -75,8 +75,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
         }
 
         if (
-          target.entityType === EntityType.ENUM ||
-          target.entityType === EntityType.INTERFACE
+          target.entityType === EntityType.ENUM 
         ) {
           return;
         }

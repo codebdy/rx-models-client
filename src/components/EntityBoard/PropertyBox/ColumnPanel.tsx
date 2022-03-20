@@ -12,10 +12,9 @@ import {
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
-import { EntityMeta, EntityType } from "../meta/EntityMeta";
+import { EntityMeta } from "../meta/EntityMeta";
 import { useChangeColumn } from "../hooks/useChangeColumn";
 import { useEnums } from "../hooks/useEnums";
-import { useInterfaces } from "../hooks/useInterfaces";
 
 export const ColumnPanel = (props: {
   column: ColumnMeta;
@@ -24,7 +23,6 @@ export const ColumnPanel = (props: {
   const { column, entity } = props;
   const changeColumn = useChangeColumn();
   const enums = useEnums();
-  const interfaces = useInterfaces();
 
   const handleStringChange = useCallback(
     (prop: any) => (value: string) => {
@@ -88,19 +86,6 @@ export const ColumnPanel = (props: {
     [changeColumn, column, entity]
   );
 
-  const handleInterfaceEntiyChange = useCallback(
-    (event: SelectChangeEvent<string>) => {
-      changeColumn(
-        {
-          ...column,
-          typeEnityUuid: event.target.value,
-        },
-        entity
-      );
-    },
-    [changeColumn, column, entity]
-  );
-
   const handleGeneratedChange = useCallback(
     (event: SelectChangeEvent<string>) => {
       let value: any = event.target.value;
@@ -150,8 +135,8 @@ export const ColumnPanel = (props: {
   );
 
   const isId = useMemo(
-    () => column.name === "id" && entity.entityType !== EntityType.INTERFACE,
-    [column.name, entity.entityType]
+    () => column.name === "id",
+    [column.name]
   );
   return (
     <>
@@ -208,35 +193,6 @@ export const ColumnPanel = (props: {
                 return (
                   <MenuItem key={enumEntity.uuid} value={enumEntity.uuid}>
                     {enumEntity.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Grid>
-      )}
-      {(column.type === ColumnType.SimpleJson ||
-        column.type === ColumnType.JsonArray) && (
-        <Grid item xs={12}>
-          <FormControl
-            variant="outlined"
-            fullWidth
-            size="small"
-            disabled={isId}
-          >
-            <InputLabel>{intl.get("interface-class")}</InputLabel>
-            <Select
-              value={column.typeEnityUuid || ""}
-              onChange={handleInterfaceEntiyChange}
-              label={intl.get("interface-class")}
-            >
-              {interfaces.map((interfaceEntity) => {
-                return (
-                  <MenuItem
-                    key={interfaceEntity.uuid}
-                    value={interfaceEntity.uuid}
-                  >
-                    {interfaceEntity.name}
                   </MenuItem>
                 );
               })}

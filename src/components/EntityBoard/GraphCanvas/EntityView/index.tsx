@@ -83,8 +83,7 @@ export const EntityView = (props: {
 
   const canLink =
     node.data.isPressedRelation &&
-    data?.entityType !== EntityType.ENUM &&
-    data?.entityType !== EntityType.INTERFACE;
+    data?.entityType !== EntityType.ENUM 
   const disableHover = !!node.data.isPressedRelation;
 
   const handleHidden = useCallback(() => {
@@ -125,8 +124,7 @@ export const EntityView = (props: {
     >
       <div className={classes.container}>
         <div className={classes.entityName}>
-          {(data?.entityType === EntityType.ENUM ||
-            data?.entityType === EntityType.INTERFACE) && (
+          {data?.entityType === EntityType.ENUM && (
             <div className={classNames(classes.nameItem, classes.smFont)}>
               &lt;&lt; {data?.entityType} &gt;&gt;
             </div>
@@ -170,7 +168,6 @@ export const EntityView = (props: {
                   onDelete={handleColumnDelete}
                   isSelected={data.selectedId === column.uuid}
                   readOnly={disableHover}
-                  isInterface={data?.entityType === EntityType.INTERFACE}
                 />
               );
             })}
