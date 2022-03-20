@@ -95,10 +95,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   };
 
   const handleInheritClick = () => {
-    if (RelationType.INHERIT === pressedLineType) {
+    if (RelationType.IMPLEMENTS === pressedLineType) {
       setPressedLineType(undefined);
     } else {
-      setPressedLineType(RelationType.INHERIT);
+      setPressedLineType(RelationType.IMPLEMENTS);
     }
   };
 
@@ -195,12 +195,12 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
             </div>
             <div
               className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]: pressedLineType === RelationType.INHERIT,
+                [classes.selected]: pressedLineType === RelationType.IMPLEMENTS,
               })}
               onClick={handleInheritClick}
             >
               {svgInherit}
-              {intl.get("inherit")}
+              {intl.get("implements")}
             </div>
           </AccordionDetails>
         </Accordion>

@@ -68,7 +68,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
         const relationId = createId();
         const source = getEntity(drawingLine.sourceNodeId);
         const target = getEntity(targetNode.id);
-        const isInherit = drawingLine.relationType === RelationType.INHERIT;
+        const isInherit = drawingLine.relationType === RelationType.IMPLEMENTS;
 
         if (!source || !target) {
           return;
@@ -91,7 +91,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
           if (
             relation.targetId === target.uuid &&
             relation.sourceId === source.uuid &&
-            relation.relationType === RelationType.INHERIT &&
+            relation.relationType === RelationType.IMPLEMENTS &&
             isInherit
           ) {
             return;
@@ -176,7 +176,7 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
       }
 
       //已经有继承关系了
-      if (pressedLineType === RelationType.INHERIT && getParentUuid(node.id)) {
+      if (pressedLineType === RelationType.IMPLEMENTS && getParentUuid(node.id)) {
         return;
       }
 

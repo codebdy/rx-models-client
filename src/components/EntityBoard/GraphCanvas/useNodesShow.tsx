@@ -93,8 +93,8 @@ export function useNodesShow(graph?: Graph) {
         ...node,
         selectedId: selectedElement,
         isPressedRelation:
-          (pressedLineType !== RelationType.INHERIT && !!pressedLineType) ||
-          (pressedLineType === RelationType.INHERIT && !getParentUuid(node.id)),
+          (pressedLineType !== RelationType.IMPLEMENTS && !!pressedLineType) ||
+          (pressedLineType === RelationType.IMPLEMENTS && !getParentUuid(node.id)),
       };
       if (grahpNode) {
         //Update by diff

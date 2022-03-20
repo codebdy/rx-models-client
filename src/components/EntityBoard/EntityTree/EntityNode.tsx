@@ -189,7 +189,7 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
       )}
       {/* {inherits.length > 0 && (
         <TreeItem
-          nodeId={entityStore.uuid + "inherit"}
+          nodeId={entityStore.uuid + "implements"}
           label={
             <TreeNodeLabel>
               <NodeText>{intl.get("parent-entity")}</NodeText>

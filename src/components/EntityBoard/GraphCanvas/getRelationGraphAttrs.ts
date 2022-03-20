@@ -1,7 +1,7 @@
 import { RelationType } from "../meta/RelationMeta";
 
 export function getRelationGraphAttrs(relationType: RelationType){
-  if(relationType === RelationType.INHERIT){
+  if(relationType === RelationType.IMPLEMENTS){
     return  {
       line: {
         stroke: '#000',

@@ -85,7 +85,7 @@ export function useEdgesShow(graph?: Graph) {
         });
       }
 
-      if (edgeMeta.relationType !== RelationType.INHERIT) {
+      if (edgeMeta.relationType !== RelationType.IMPLEMENTS) {
         grahpEdge?.setLabels([
           {
             attrs: {
