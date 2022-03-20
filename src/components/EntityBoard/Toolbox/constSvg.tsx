@@ -6,7 +6,13 @@ export const svgInherit = <svg xmlns="http://www.w3.org/2000/svg" width="50" hei
     L 35,15
     L 15,15
     M 25,15
-    L 25,45
+    L 25,18
+    M 25,23
+    L 25,26
+    M 25,31
+    L 25,34
+    M 25,39
+    L 25,42
 " stroke="currentColor" strokeWidth="1" fill="#fff"></path>
 </svg>
 
