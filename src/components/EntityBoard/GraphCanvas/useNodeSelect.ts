@@ -3,6 +3,7 @@ import { Graph, Node } from "@antv/x6";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedDiagramState, selectedElementState } from "../recoil/atoms";
 import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
+import { CONST_CANVAS_CLICK } from "../consts";
 
 export function useNodeSelect(graph?: Graph) {
   const [selectedElement, setSelectedElement] =
@@ -30,6 +31,8 @@ export function useNodeSelect(graph?: Graph) {
       selectedDiagram &&
       getDiagramNode(selectedElement, selectedDiagram)
     ) {
+      const clickEnvent = new CustomEvent(CONST_CANVAS_CLICK);
+      document.dispatchEvent(clickEnvent);
       setSelectedElement(undefined);
     }
   }, [getDiagramNode, selectedDiagram, selectedElement, setSelectedElement]);
@@ -38,12 +41,12 @@ export function useNodeSelect(graph?: Graph) {
     graph?.on("node:click", handleNodeSelected);
     graph?.on("node:selected", handleNodeSelected);
     graph?.on("node:unselected", handleNodeUnselected);
-    graph?.on("blank:mouseup", handleNodeUnselected);
+    //graph?.on("blank:mouseup", handleNodeUnselected);
     return () => {
       graph?.off("node:click", handleNodeSelected);
       graph?.off("node:selected", handleNodeSelected);
       graph?.off("node:unselected", handleNodeUnselected);
-      graph?.off("blank:mouseup", handleNodeUnselected);
+      //graph?.off("blank:mouseup", handleNodeUnselected);
     };
   }, [graph, handleNodeSelected, handleNodeUnselected]);
 }

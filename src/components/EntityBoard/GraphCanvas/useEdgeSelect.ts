@@ -3,6 +3,7 @@ import { Edge, Graph } from "@antv/x6";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { drawingLineState, selectedElementState } from "../recoil/atoms";
 import { useSelectedRelation } from "../hooks/useSelectedRelation";
+import { CONST_CANVAS_CLICK } from "../consts";
 
 export function useEdgeSelect(graph?: Graph) {
   const drawingLine = useRecoilValue(drawingLineState);
@@ -53,6 +54,8 @@ export function useEdgeSelect(graph?: Graph) {
   }, [graph, selectedElement, selectedRelation]);
 
   const handleBlankClick = useCallback(() => {
+    const clickEnvent = new CustomEvent(CONST_CANVAS_CLICK);
+    document.dispatchEvent(clickEnvent)
     setSelectedElement(undefined);
   }, [setSelectedElement]);
 

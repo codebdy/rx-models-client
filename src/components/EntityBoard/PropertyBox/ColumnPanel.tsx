@@ -412,6 +412,15 @@ export const ColumnPanel = (props: {
           </FormControl>
         </Grid>
       )}
+      <Grid item xs={12}>
+        <LazyTextField
+          label={intl.get("description")}
+          value={column.description || ""}
+          multiline
+          rows={4}
+          onChange={handleStringChange("description")}
+        />
+      </Grid>
     </>
   );
 };
