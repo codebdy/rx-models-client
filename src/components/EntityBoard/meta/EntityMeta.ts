@@ -46,4 +46,6 @@ export interface EntityMeta {
   enumValues?: any;
 
   eventable?: boolean;
+
+  description?: string;
 }

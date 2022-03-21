@@ -80,7 +80,7 @@ export const ColumnPanel = (props: {
       changeColumn(
         {
           ...column,
-          typeEnityUuid: event.target.value,
+          enumUuid: event.target.value,
         },
         entity
       );
@@ -93,7 +93,7 @@ export const ColumnPanel = (props: {
       changeColumn(
         {
           ...column,
-          typeEnityUuid: event.target.value,
+          enumUuid: event.target.value,
         },
         entity
       );
@@ -200,7 +200,7 @@ export const ColumnPanel = (props: {
           >
             <InputLabel>{intl.get("enum-class")}</InputLabel>
             <Select
-              value={column.typeEnityUuid || ""}
+              value={column.enumUuid || ""}
               onChange={handleEnumEntiyChange}
               label={intl.get("enum-class")}
             >
@@ -226,7 +226,7 @@ export const ColumnPanel = (props: {
           >
             <InputLabel>{intl.get("interface-class")}</InputLabel>
             <Select
-              value={column.typeEnityUuid || ""}
+              value={column.enumUuid || ""}
               onChange={handleInterfaceEntiyChange}
               label={intl.get("interface-class")}
             >

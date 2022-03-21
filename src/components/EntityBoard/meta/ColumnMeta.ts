@@ -112,10 +112,11 @@ export interface ColumnMeta {
   unsigned?: boolean;
 
   /**
-   * 类型是实体或者接口时使用
+   * 类型是枚举时使用
    */
-  typeEnityUuid?: string;
+  enumUuid?: string;
 
   readonly?: boolean;
-  comment?: string;
+  
+  description?: string;
 }

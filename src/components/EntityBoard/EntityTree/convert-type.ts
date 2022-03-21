@@ -13,14 +13,14 @@ export function convertType(
 
   if (type === ColumnType.Enum) {
     return (
-      enumEntities.find((entitiy) => entitiy.uuid === column.typeEnityUuid)
+      enumEntities.find((entitiy) => entitiy.uuid === column.enumUuid)
         ?.name || "string"
     );
   }
 
   if (type === ColumnType.SimpleJson) {
     return (
-      interfaceEntities.find((entitiy) => entitiy.uuid === column.typeEnityUuid)
+      interfaceEntities.find((entitiy) => entitiy.uuid === column.enumUuid)
         ?.name || "any"
     );
   }
@@ -32,7 +32,7 @@ export function convertType(
   if (type === ColumnType.JsonArray) {
     return (
       (interfaceEntities.find(
-        (entitiy) => entitiy.uuid === column.typeEnityUuid
+        (entitiy) => entitiy.uuid === column.enumUuid
       )?.name || "any") + "[]"
     );
   }

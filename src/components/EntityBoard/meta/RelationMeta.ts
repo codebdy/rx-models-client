@@ -10,7 +10,7 @@ export enum RelationType {
   MANY_TO_MANY = 'manyToMany',
 }
 
-export enum CombinationType {
+export enum CascadeType {
   ON_SOURCE = 'onSource',
   ON_TARGET = 'onTarget'
 }
@@ -49,10 +49,14 @@ export interface RelationMeta {
   */    
   roleOnTarget?: string;
 
+  descriptionOnSource?: string;
+
+  descriptionOnTarget?: string;
+  
   /**
    * 拥有关系的实体ID，对应TypeORM的JoinTable或JoinColumn
    */
   ownerId?: string;
 
-  combination?: CombinationType;
+  cascadeType?: CascadeType;
 }

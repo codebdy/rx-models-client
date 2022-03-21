@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import {
-  CombinationType,
+  CascadeType,
   RelationMeta,
   RelationType,
 } from "../meta/RelationMeta";
@@ -78,8 +78,8 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       changeRelation({
         ...relation,
-        combination: event.target.checked
-          ? CombinationType.ON_SOURCE
+        cascadeType: event.target.checked
+          ? CascadeType.ON_SOURCE
           : undefined,
       });
     },
@@ -90,8 +90,8 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       changeRelation({
         ...relation,
-        combination: event.target.checked
-          ? CombinationType.ON_TARGET
+        cascadeType: event.target.checked
+          ? CascadeType.ON_TARGET
           : undefined,
       });
     },
@@ -176,7 +176,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={relation.combination === CombinationType.ON_SOURCE}
+                  checked={relation.cascadeType === CascadeType.ON_SOURCE}
                   onChange={handleCombinationOnSourceChange}
                   color="primary"
                 />
@@ -200,7 +200,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             <FormControlLabel
               control={
                 <Switch
-                  checked={relation.combination === CombinationType.ON_TARGET}
+                  checked={relation.cascadeType === CascadeType.ON_TARGET}
                   onChange={handleCombinationOnTargetChange}
                   color="primary"
                 />
