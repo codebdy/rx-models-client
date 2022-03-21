@@ -1,8 +1,8 @@
 import { GraphQLClient } from "graphql-request";
-import { GRAPHQL_SERVER } from "util/consts";
+import { SERVER_URL } from "util/consts";
 
 export function createGraphQLClient() {
-  return new GraphQLClient(GRAPHQL_SERVER, {
+  return new GraphQLClient(SERVER_URL, {
     mode: "cors",
   });
 }

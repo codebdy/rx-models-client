@@ -4,7 +4,7 @@ import {
   Theme,
   StyledEngineProvider,
 } from "@mui/material";
-import { rxModelsSwrConfig, initRxModelsSwr } from "@rxdrag/rxmodels-swr";
+import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
@@ -20,7 +20,6 @@ import {
   INTALL_URL,
   LOGIN_URL,
   PRIMARY_COLOR,
-  SERVER_URL,
   TOKEN_NAME,
 } from "./util/consts";
 import { useIntl } from "./util/use-intl";
@@ -32,11 +31,6 @@ declare module "@mui/styles/defaultTheme" {
 }
 
 function App() {
-  initRxModelsSwr({
-    serverUrl: SERVER_URL,
-    loginUrl: LOGIN_URL,
-    tokenName: TOKEN_NAME,
-  });
 
   const [langLoading] = useIntl();
   const theme = createTheme({
