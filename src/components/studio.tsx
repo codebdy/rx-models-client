@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import { Avatar, Box, IconButton, Link, SvgIcon, Tooltip } from "@mui/material";
 import intl from "react-intl-universal";
 import { NavLink, Redirect, Route, Switch, useHistory } from "react-router-dom";
-import GraphiQLBoard from "./GraphiQLBoard";
+import { GraphiQLBoard } from "./GraphiQLBoard";
 import { ModelsBoard } from "./EntityBoard";
 import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";

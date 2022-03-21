@@ -2,19 +2,19 @@ import { Box } from "@mui/material";
 import GraphiQL from "graphiql";
 import "graphiql/graphiql.css";
 import { SERVER_URL, SERVER_SUBSCRIPTION_URL } from "util/consts";
-import { createClient } from "graphql-ws";
 import { createGraphiQLFetcher } from "@graphiql/toolkit";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
+import { SubscriptionClient } from 'subscriptions-transport-ws';
 
-export default function GraphiQLBoard() {
+//例子連接
+//https://github.com/graphql/graphiql/blob/main/packages/graphiql-toolkit/docs/create-fetcher.md#subscriptionurl
+export const GraphiQLBoard = memo(() => {
   const fetcher = useMemo(() => {
     const fetcher = createGraphiQLFetcher({
-      url: SERVER_URL,
-      wsClient: createClient({
-        url: SERVER_SUBSCRIPTION_URL,
-        keepAlive: 2000,
-      }),
+      url:SERVER_URL,
+      legacyWsClient: new SubscriptionClient(SERVER_SUBSCRIPTION_URL),
     });
+
     return fetcher;
   }, []);
   return (
@@ -32,4 +32,4 @@ export default function GraphiQLBoard() {
       )}
     </Box>
   );
-}
+});
