@@ -18,9 +18,7 @@ import { SuccessAlertBar } from "./components/widgets/SuccessAlertBar";
 import {
   INDEX_URL,
   INTALL_URL,
-  LOGIN_URL,
   PRIMARY_COLOR,
-  TOKEN_NAME,
 } from "./util/consts";
 import { useIntl } from "./util/use-intl";
 import useShadows from "./util/use-shadows";
