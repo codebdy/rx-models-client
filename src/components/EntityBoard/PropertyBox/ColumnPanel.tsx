@@ -27,11 +27,11 @@ export const ColumnPanel = (props: {
   const interfaces = useInterfaces();
 
   const handleStringChange = useCallback(
-    (prop: any) => (value: string) => {
+    (prop: any) => (event: React.ChangeEvent<{ value: string }>) => {
       changeColumn(
         {
           ...column,
-          [prop]: value,
+          [prop]: event.target.value.trim(),
         },
         entity
       );
@@ -41,11 +41,11 @@ export const ColumnPanel = (props: {
 
   //默认值以后要改成一个单独控件
   const handleDefaultChange = useCallback(
-    (value: string) => {
+    (event: React.ChangeEvent<{ value: string }>) => {
       changeColumn(
         {
           ...column,
-          default: value === "" ? undefined : value,
+          default: event.target.value === "" ? undefined : event.target.value,
         },
         entity
       );

@@ -1,19 +1,10 @@
 import React, { useCallback } from "react";
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export interface PropsInputProps {
-  autoFocus?: boolean;
-  label?: string;
-  value: any;
-  onChange: (value: string) => void;
-  size?: string;
-  disabled?: boolean;
-}
-
-export default function LazyTextField(props: PropsInputProps) {
-  const { label, value, onChange, disabled, size = "small", ...rest } = props;
+export default function LazyTextField(props: TextFieldProps) {
+  const { label, value, onChange, disabled, multiline, size = "small", ...rest } = props;
   const [inputValue, setInputValue] = useState<any>();
   const [oldValue, setOldValue] = useState<any>();
 
@@ -24,15 +15,16 @@ export default function LazyTextField(props: PropsInputProps) {
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<{ value: unknown }>) => {
-      let newValue = (event.target.value as string).trim();
+      let newValue = event.target.value as string;
+      newValue = multiline ? newValue :newValue.trim()
       setInputValue(newValue);
     },
-    []
+    [multiline]
   );
 
   const handleFinishEdit = useCallback(() => {
     if (oldValue !== inputValue) {
-      onChange(inputValue);
+      onChange && onChange({ target: { value: inputValue }} as any);
       setOldValue(inputValue);
     }
   }, [inputValue, oldValue, onChange]);
@@ -56,6 +48,7 @@ export default function LazyTextField(props: PropsInputProps) {
       fullWidth
       disabled={disabled}
       variant="outlined"
+      multiline = {multiline}
       onKeyUp={handleKeyEnter}
       {...rest}
     />

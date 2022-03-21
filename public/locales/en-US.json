@@ -110,5 +110,6 @@
   "index": "Index",
   "eventable": "Eventable",
   "entity-model":"Entity Model",
-  "add-node":"Add node"
+  "add-node":"Add node",
+  "description":"Description"
 }

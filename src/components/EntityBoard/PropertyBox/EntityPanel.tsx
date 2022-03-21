@@ -20,15 +20,15 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
   const changeEntity = useChangeEntity();
 
   const handleNameChange = useCallback(
-    (value: string) => {
-      changeEntity({ ...entity, name: value });
+    (event: React.ChangeEvent<{ value: string }>) => {
+      changeEntity({ ...entity, name: event.target.value.trim() });
     },
     [changeEntity, entity]
   );
 
   const handleTableNameChange = useCallback(
-    (value: string) => {
-      changeEntity({ ...entity, tableName: value });
+    (event: React.ChangeEvent<{ value: string }>) => {
+      changeEntity({ ...entity, tableName: event.target.value.trim() });
     },
     [changeEntity, entity]
   );
@@ -51,6 +51,13 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
   const handleEventableChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       changeEntity({ ...entity, eventable: event.target.checked });
+    },
+    [changeEntity, entity]
+  );
+
+  const handleDescriptionChange = useCallback(
+    (event: React.ChangeEvent<{ value: string }>) => {
+      changeEntity({ ...entity, description: event.target.value });
     },
     [changeEntity, entity]
   );
@@ -117,6 +124,15 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
           />
         </Grid>
       )}
+      <Grid item xs={12}>
+        <LazyTextField
+          label={intl.get("description")}
+          value={entity.description || ""}
+          multiline
+          rows = {4}
+          onChange={handleDescriptionChange}
+        />
+      </Grid>
     </>
   );
 };

@@ -110,5 +110,6 @@
   "index":"索引",
   "eventable":"事件化",
   "entity-model":"实体模型",
-  "add-node":"添加节点"
+  "add-node":"添加节点",
+  "description":"描述"
 }

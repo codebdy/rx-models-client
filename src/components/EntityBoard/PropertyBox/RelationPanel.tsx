@@ -45,20 +45,20 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   );
 
   const handleSourceRoleChange = useCallback(
-    (value: string) => {
+    (event: React.ChangeEvent<{ value: string }>) => {
       changeRelation({
         ...relation,
-        roleOnSource: value,
+        roleOnSource: event.target.value.trim(),
       });
     },
     [changeRelation, relation]
   );
 
   const handleTargetRoleChange = useCallback(
-    (value: string) => {
+    (event: React.ChangeEvent<{ value: string }>) => {
       changeRelation({
         ...relation,
-        roleOnTarget: value,
+        roleOnTarget: event.target.value.trim(),
       });
     },
     [changeRelation, relation]
