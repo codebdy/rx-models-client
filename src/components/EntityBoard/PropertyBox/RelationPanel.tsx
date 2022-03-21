@@ -12,11 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import {
-  CascadeType,
-  RelationMeta,
-  RelationType,
-} from "../meta/RelationMeta";
+import { CascadeType, RelationMeta, RelationType } from "../meta/RelationMeta";
 import { useEntity } from "../hooks/useEntity";
 import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useGetEntity } from "../hooks/useGetEntity";
@@ -54,6 +50,15 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     [changeRelation, relation]
   );
 
+  const handleSourceDescriptionChange = useCallback(
+    (event: React.ChangeEvent<{ value: string }>) => {
+      changeRelation({
+        ...relation,
+        descriptionOnSource: event.target.value,
+      });
+    },
+    [changeRelation, relation]
+  );
   const handleTargetRoleChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {
       changeRelation({
@@ -63,6 +68,17 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     },
     [changeRelation, relation]
   );
+
+  const handleTargetDescriptionChange = useCallback(
+    (event: React.ChangeEvent<{ value: string }>) => {
+      changeRelation({
+        ...relation,
+        descriptionOnTarget: event.target.value,
+      });
+    },
+    [changeRelation, relation]
+  );
+
 
   const handleOwnerChange = useCallback(
     (event: SelectChangeEvent<string>) => {
@@ -78,9 +94,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       changeRelation({
         ...relation,
-        cascadeType: event.target.checked
-          ? CascadeType.ON_SOURCE
-          : undefined,
+        cascadeType: event.target.checked ? CascadeType.ON_SOURCE : undefined,
       });
     },
     [changeRelation, relation]
@@ -90,9 +104,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       changeRelation({
         ...relation,
-        cascadeType: event.target.checked
-          ? CascadeType.ON_TARGET
-          : undefined,
+        cascadeType: event.target.checked ? CascadeType.ON_TARGET : undefined,
       });
     },
     [changeRelation, relation]
@@ -173,6 +185,15 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             />
           </Grid>
           <Grid item xs={12}>
+            <LazyTextField
+              label={intl.get("description")}
+              value={relation.descriptionOnSource || ""}
+              multiline
+              rows={4}
+              onChange={handleSourceDescriptionChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Switch
@@ -181,7 +202,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                   color="primary"
                 />
               }
-              label={intl.get("combination")}
+              label={intl.get("cascade")}
             />
           </Grid>
           <Grid item xs={12}>
@@ -197,6 +218,15 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             />
           </Grid>
           <Grid item xs={12}>
+            <LazyTextField
+              label={intl.get("description")}
+              value={relation.descriptionOnTarget || ""}
+              multiline
+              rows={4}
+              onChange={handleTargetDescriptionChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
             <FormControlLabel
               control={
                 <Switch
@@ -205,7 +235,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                   color="primary"
                 />
               }
-              label={intl.get("combination")}
+              label={intl.get("cascade")}
             />
           </Grid>
         </>

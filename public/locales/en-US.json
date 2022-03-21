@@ -41,7 +41,7 @@
   "many-to-many": "Many to many",
   "association": "Association",
   "aggregation": "Aggregation",
-  "combination": "Combination",
+  "cascade": "Cascade",
   "properties": "Properties",
   "relations": "Relations",
   "parent-entity": "Parent entites",
