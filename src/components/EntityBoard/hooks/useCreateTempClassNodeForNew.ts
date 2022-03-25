@@ -5,7 +5,7 @@ import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 export function useCreateTempClassNodeForNew(serviceId: number) {
   const creatNewEntityMeta = useCreateNewEntity(serviceId);
   const createTempClassNodeForNew = useCallback(() => {
-    const entityMeta = creatNewEntityMeta(false);
+    const entityMeta = creatNewEntityMeta();
     return {
       uuid: "entityMeta.uuid",
       ...NODE_INIT_SIZE,

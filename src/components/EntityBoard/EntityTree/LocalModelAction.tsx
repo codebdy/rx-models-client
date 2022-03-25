@@ -57,7 +57,7 @@ export default function LocalModelAction(props: {
 
   const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
     backupSnapshot();
-    const newEntity = createNewEntity(true);
+    const newEntity = createNewEntity();
     setEntities((entities) => [...entities, newEntity]);
     setAnchorEl(null);
     event.stopPropagation();

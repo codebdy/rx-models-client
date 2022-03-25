@@ -20,10 +20,10 @@ export function useCreateNewEntity(serviceId: number) {
     return prefix + index;
   }, [getEntityByName]);
 
-  const createNewEntity = useCallback((withInnerId:boolean) => {
+  const createNewEntity = useCallback(() => {
     const newEntity = {
       uuid: createId(),
-      innerId: withInnerId ? createInnerId() : 0,
+      innerId: createInnerId(),
       name: getNewEntityName(),
       entityType: EntityType.NORMAL,
       columns: [

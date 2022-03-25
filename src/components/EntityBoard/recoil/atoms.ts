@@ -23,11 +23,6 @@ export const serviceState = atom<Service|undefined>({
   default: undefined,
 })
 
-export const nextIdState = atomFamily<number, number>({
-  key: "local.nextId",
-  default: 1,
-})
-
 export const publishedIdState = atomFamily<number | undefined, number>({
   key: "local.publishedId",
   default: undefined,
