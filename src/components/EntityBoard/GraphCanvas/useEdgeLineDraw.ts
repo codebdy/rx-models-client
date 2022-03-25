@@ -16,6 +16,7 @@ import {
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useGetEntity } from "../hooks/useGetEntity";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
+import { useCreateRelationInnerId } from "../hooks/useCreateRelationInnerId";
 
 export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
   const [drawingLine, setDrawingLine] = useRecoilState(
@@ -29,6 +30,8 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
   const [pressedLineType, setPressedLineType] = useRecoilState(
     pressedLineTypeState(serviceId)
   );
+
+  const createRelationInnerId = useCreateRelationInnerId(serviceId);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -111,6 +114,10 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
           ...relations,
           {
             uuid: relationId,
+            innerId:
+              drawingLine.relationType !== RelationType.IMPLEMENTS
+                ? createRelationInnerId()
+                : 0,
             relationType: drawingLine.relationType,
             sourceId: source.uuid,
             targetId: target.uuid,
@@ -147,6 +154,7 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
     [
       addVertex,
       backupSnapshot,
+      createRelationInnerId,
       drawingLine,
       getEntity,
       graph,

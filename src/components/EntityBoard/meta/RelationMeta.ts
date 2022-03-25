@@ -24,6 +24,8 @@ export interface RelationMeta {
   */
   uuid: string;
 
+  innerId: number;
+
   /**
   * 关系类型
   */  

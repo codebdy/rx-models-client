@@ -3,12 +3,12 @@ import { createId } from "util/createId";
 import { ColumnType } from "../meta/ColumnMeta";
 import { EntityType } from "../meta/EntityMeta";
 import { CONST_ID } from "../meta/Meta";
-import { useCreateInnerId } from "./useCreateInnerId";
+import { useCreateEntityInnerId } from "./useCreateEntityInnerId";
 import { useGetEntityByName } from "./useGetEntityByName";
 
 export function useCreateNewEntity(serviceId: number) {
   const getEntityByName = useGetEntityByName(serviceId);
-  const createInnerId = useCreateInnerId(serviceId);
+  const createInnerId = useCreateEntityInnerId(serviceId);
 
   const getNewEntityName = useCallback(() => {
     const prefix = "NewEntity";
