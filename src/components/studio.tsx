@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
@@ -13,6 +13,11 @@ import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
 import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { useSetRecoilState } from "recoil";
+import { serviceState } from "./EntityBoard/recoil/atoms";
+import { useShowServerError } from "recoil/hooks/useShowServerError";
+import Loading from "./common/loading";
+import { useService } from "do-ents/useService";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,20 +56,31 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Studio = () => {
+export const Studio = memo(() => {
   const classes = useStyles();
   const history = useHistory();
   const appStore = useAppStore();
+  const setService = useSetRecoilState(serviceState);
 
-  const handleLogout = () => {
+  const { service, loading, error } = useService();
+
+  useShowServerError(error);
+
+  useEffect(() => {
+    setService(service);
+  }, [service, setService]);
+
+  const handleLogout = useCallback(() => {
     appStore.setToken("");
     appStore.setLoggedUser(undefined);
     localStorage.removeItem(rxModelsSwrConfig.tokenName);
     rxModelsSwrConfig.token = "";
     history.push(rxModelsSwrConfig.loginUrl);
-  };
+  }, [appStore, history]);
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <div className={classes.root}>
       <AppBar
         position="static"
@@ -142,4 +158,4 @@ export const Studio = () => {
       </Switch>
     </div>
   );
-};
+});

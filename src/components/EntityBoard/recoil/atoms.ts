@@ -1,8 +1,9 @@
-import { atom } from "recoil";
+import { atom, atomFamily } from "recoil";
 import { DiagramMeta } from "../meta/DiagramMeta";
 import { EntityMeta } from "../meta/EntityMeta";
 import { Meta } from "../meta/Meta";
 import { RelationMeta, RelationType } from "../meta/RelationMeta";
+import { Service } from "../meta/Service";
 import { X6EdgeMeta } from "../meta/X6EdgeMeta";
 import { X6NodeMeta } from "../meta/X6NodeMeta";
 import { LineAction } from "./LineAction";
@@ -17,72 +18,82 @@ export interface Snapshot {
   selectedDiagram?: string;
 }
 
-export const publishedIdState = atom<number | undefined>({
+export const serviceState = atom<Service|undefined>({
+  key: "local.service",
+  default: undefined,
+})
+
+export const nextId = atomFamily<number, number>({
+  key: "local.nextId",
+  default: 1,
+})
+
+export const publishedIdState = atomFamily<number | undefined, number>({
   key: "local.publishedId",
   default: undefined,
 });
 
-export const changedState = atom<boolean>({
+export const changedState = atomFamily<boolean, number>({
   key: "local.changed",
   default: false,
 });
 
-export const diagramsState = atom<DiagramMeta[]>({
+export const diagramsState = atomFamily<DiagramMeta[], number>({
   key: "local.diagrams",
   default: [],
 });
 
-export const metaState = atom<Meta | undefined>({
+export const metaState = atomFamily<Meta | undefined, number>({
   key: "local.meta",
   default: undefined,
 });
 
-export const entitiesState = atom<EntityMeta[]>({
+export const entitiesState = atomFamily<EntityMeta[], number>({
   key: "local.entities",
   default: [],
 });
 
-export const relationsState = atom<RelationMeta[]>({
+export const relationsState = atomFamily<RelationMeta[], number>({
   key: "local.relations",
   default: [],
 });
 
-export const x6NodesState = atom<X6NodeMeta[]>({
+export const x6NodesState = atomFamily<X6NodeMeta[], number>({
   key: "local.x6Nodes",
   default: [],
 });
 
-export const x6EdgesState = atom<X6EdgeMeta[]>({
+export const x6EdgesState = atomFamily<X6EdgeMeta[], number>({
   key: "local.x6Edges",
   default: [],
 });
 
-export const undoListState = atom<Snapshot[]>({
+export const undoListState = atomFamily<Snapshot[], number>({
   key: "local.undoList",
   default: [],
 });
 
-export const redoListState = atom<Snapshot[]>({
+export const redoListState = atomFamily<Snapshot[], number>({
   key: "local.redoList",
   default: [],
 });
 
-export const selectedElementState = atom<string | undefined>({
+export const selectedElementState = atomFamily<string | undefined, number>({
   key: "local.selectedElement",
   default: undefined,
 });
 
-export const selectedDiagramState = atom<string | undefined>({
+export const selectedDiagramState = atomFamily<string | undefined, number>({
   key: "local.selectedDiagram",
   default: undefined,
 });
 
-export const drawingLineState = atom<LineAction | undefined>({
+export const drawingLineState = atomFamily<LineAction | undefined, number>({
   key: "local.drawingLine",
   default: undefined,
 });
 
-export const pressedLineTypeState = atom<RelationType | undefined>({
+export const pressedLineTypeState = atomFamily<RelationType | undefined, number>({
   key: "local.pressedLineType",
   default: undefined,
 });

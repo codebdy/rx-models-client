@@ -20,6 +20,8 @@ export interface EntityMeta {
    */
   uuid: string;
 
+  innerId: number;
+
   /**
    * 实体名称
    */
