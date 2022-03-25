@@ -5,9 +5,9 @@ import intl from "react-intl-universal";
 import { useGetDiagramByName } from "./useGetDiagramByName";
 import { useCallback } from "react";
 
-export function useCreateNewDiagram() {
-  const setDiagrams = useSetRecoilState(diagramsState);
-  const getDiagramByName = useGetDiagramByName();
+export function useCreateNewDiagram(serviceId: number) {
+  const setDiagrams = useSetRecoilState(diagramsState(serviceId));
+  const getDiagramByName = useGetDiagramByName(serviceId);
 
   const getNewDiagramName = useCallback(() => {
     const prefix = intl.get("add-diagram");

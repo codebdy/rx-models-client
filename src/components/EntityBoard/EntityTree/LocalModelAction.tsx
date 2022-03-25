@@ -16,6 +16,7 @@ import { useCreateNewDiagram } from "../hooks/useCreateNewDiagram";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useSetRecoilState } from "recoil";
 import { entitiesState, selectedDiagramState } from "../recoil/atoms";
+import { useServiceId } from "../hooks/useServiceId";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,11 +38,12 @@ export default function LocalModelAction(props: {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
-  const createNewEntity = useCreateNewEntity();
-  const createNewDiagram = useCreateNewDiagram();
-  const setEntities = useSetRecoilState(entitiesState);
-  const setSelectedDiagram = useSetRecoilState(selectedDiagramState);
-  const backupSnapshot = useBackupSnapshot();
+  const serviceId = useServiceId()
+  const createNewEntity = useCreateNewEntity(serviceId);
+  const createNewDiagram = useCreateNewDiagram(serviceId);
+  const setEntities = useSetRecoilState(entitiesState(serviceId));
+  const setSelectedDiagram = useSetRecoilState(selectedDiagramState(serviceId));
+  const backupSnapshot = useBackupSnapshot(serviceId);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -55,7 +57,7 @@ export default function LocalModelAction(props: {
 
   const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
     backupSnapshot();
-    const newEntity = createNewEntity();
+    const newEntity = createNewEntity(true);
     setEntities((entities) => [...entities, newEntity]);
     setAnchorEl(null);
     event.stopPropagation();

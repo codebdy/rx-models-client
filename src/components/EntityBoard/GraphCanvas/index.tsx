@@ -11,10 +11,12 @@ import { useNodeChange } from "./useNodeChange";
 import { useNodeSelect } from "./useNodeSelect";
 import { useEdgesShow } from "./useEdgesShow";
 import { useEdgeSelect } from "./useEdgeSelect";
+import { useServiceId } from "../hooks/useServiceId";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
     const { graph, onSetGraph } = props;
+    const serviceId = useServiceId();
     useEffect(() => {
       const config = getGraphConfig();
       const aGraph = new Graph(config as any);
@@ -26,14 +28,14 @@ export const GraphCanvas = memo(
     }, [onSetGraph]);
 
     useExplorerScrollbarHide();
-    useNodeSelect(graph);
-    useEdgeSelect(graph);
-    useNodesShow(graph);
-    useEdgeLineDraw(graph);
-    useEdgesShow(graph);
-    useNodeChange(graph);
-    useEdgeChange(graph);
-    useNodeAdd(graph);
+    useNodeSelect(graph, serviceId);
+    useEdgeSelect(graph, serviceId);
+    useNodesShow(graph, serviceId);
+    useEdgeLineDraw(graph, serviceId);
+    useEdgesShow(graph, serviceId);
+    useNodeChange(graph, serviceId);
+    useEdgeChange(graph, serviceId);
+    useNodeAdd(graph, serviceId);
 
     return (
       <Box

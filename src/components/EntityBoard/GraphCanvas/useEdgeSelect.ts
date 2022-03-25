@@ -5,11 +5,11 @@ import { drawingLineState, selectedElementState } from "../recoil/atoms";
 import { useSelectedRelation } from "../hooks/useSelectedRelation";
 import { CONST_CANVAS_CLICK } from "../consts";
 
-export function useEdgeSelect(graph?: Graph) {
-  const drawingLine = useRecoilValue(drawingLineState);
+export function useEdgeSelect(graph: Graph|undefined, serviceId :number) {
+  const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const [selectedElement, setSelectedElement] =
-    useRecoilState(selectedElementState);
-  const selectedRelation = useSelectedRelation();
+    useRecoilState(selectedElementState(serviceId));
+  const selectedRelation = useSelectedRelation(serviceId);
 
   useEffect(() => {
     if (selectedRelation) {

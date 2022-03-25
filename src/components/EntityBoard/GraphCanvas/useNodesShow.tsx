@@ -19,18 +19,18 @@ import { RelationType } from "../meta/RelationMeta";
 import { useChangeEntity } from "../hooks/useChangeEntity";
 import { useCreateEntityColumn } from "../hooks/useCreateEntityColumn";
 
-export function useNodesShow(graph?: Graph) {
-  const selectedDiagram = useRecoilValue(selectedDiagramState);
+export function useNodesShow(graph: Graph | undefined, serviceId: number) {
+  const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
   const [selectedElement, setSelectedElement] =
-    useRecoilState(selectedElementState);
-  const setNodes = useSetRecoilState(x6NodesState);
-  const nodes = useDiagramNodes(selectedDiagram || "");
-  const getEntity = useGetEntity();
-  const getNode = useGetNode();
-  const getDiagramNode = useGetDiagramNode();
-  const pressedLineType = useRecoilValue(pressedLineTypeState);
-  const getParentUuid = useGetParentUuid();
-  const changeEntity = useChangeEntity();
+    useRecoilState(selectedElementState(serviceId));
+  const setNodes = useSetRecoilState(x6NodesState(serviceId));
+  const nodes = useDiagramNodes(selectedDiagram || "", serviceId);
+  const getEntity = useGetEntity(serviceId);
+  const getNode = useGetNode(serviceId);
+  const getDiagramNode = useGetDiagramNode(serviceId);
+  const pressedLineType = useRecoilValue(pressedLineTypeState(serviceId));
+  const getParentUuid = useGetParentUuid(serviceId);
+  const changeEntity = useChangeEntity(serviceId);
   const createColumn = useCreateEntityColumn();
 
   const getEntityRef = useRef(getEntity);

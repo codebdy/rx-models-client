@@ -14,12 +14,12 @@ import {
 } from "./constLabelPosition";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 
-export function useEdgeChange(graph?: Graph) {
-  const selectedDiagram = useRecoilValue(selectedDiagramState);
-  const drawingLine = useRecoilValue(drawingLineState);
-  const setEdges = useSetRecoilState(x6EdgesState);
-  const getEdge = useGetEdge();
-  const backupSnapshot = useBackupSnapshot();
+export function useEdgeChange(graph: Graph|undefined, serviceId :number) {
+  const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
+  const drawingLine = useRecoilValue(drawingLineState(serviceId));
+  const setEdges = useSetRecoilState(x6EdgesState(serviceId));
+  const getEdge = useGetEdge(serviceId);
+  const backupSnapshot = useBackupSnapshot(serviceId);
 
   const handleEdgeChange = useCallback(
     (arg: { edge: Edge<Edge.Properties> }) => {

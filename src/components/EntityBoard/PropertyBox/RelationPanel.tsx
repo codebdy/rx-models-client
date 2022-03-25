@@ -16,13 +16,15 @@ import { CascadeType, RelationMeta, RelationType } from "../meta/RelationMeta";
 import { useEntity } from "../hooks/useEntity";
 import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useGetEntity } from "../hooks/useGetEntity";
+import { useServiceId } from "../hooks/useServiceId";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relation } = props;
-  const source = useEntity(relation.sourceId);
-  const target = useEntity(relation.targetId);
-  const changeRelation = useChangeRelation();
-  const getEntity = useGetEntity();
+  const serviceId = useServiceId();
+  const source = useEntity(relation.sourceId, serviceId);
+  const target = useEntity(relation.targetId, serviceId);
+  const changeRelation = useChangeRelation(serviceId);
+  const getEntity = useGetEntity(serviceId);
 
   const handleTypeChange = useCallback(
     (event: SelectChangeEvent<RelationType>) => {

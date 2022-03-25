@@ -3,12 +3,12 @@ import { useSetRecoilState } from "recoil";
 import { diagramsState, x6EdgesState, x6NodesState } from "../recoil/atoms";
 import { useBackupSnapshot } from "./useBackupSnapshot";
 
-export function useDeleteDiagram() {
-  const setDiagrams = useSetRecoilState(diagramsState);
-  const setNodes = useSetRecoilState(x6NodesState);
-  const setEdges = useSetRecoilState(x6EdgesState);
+export function useDeleteDiagram(serviceId: number) {
+  const setDiagrams = useSetRecoilState(diagramsState(serviceId));
+  const setNodes = useSetRecoilState(x6NodesState(serviceId));
+  const setEdges = useSetRecoilState(x6EdgesState(serviceId));
 
-  const backupSnapshot = useBackupSnapshot();
+  const backupSnapshot = useBackupSnapshot(serviceId);
 
   const deleteDiagram = useCallback(
     (diagramUuid: string) => {

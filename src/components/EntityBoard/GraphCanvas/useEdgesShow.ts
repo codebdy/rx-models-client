@@ -15,12 +15,12 @@ import {
 } from "../recoil/atoms";
 import { useDiagramEdges } from "../hooks/useDiagramEdges";
 
-export function useEdgesShow(graph?: Graph) {
-  const selectedDiagram = useRecoilValue(selectedDiagramState);
-  const selectedElement = useRecoilValue(selectedElementState);
-  const drawingLine = useRecoilValue(drawingLineState);
+export function useEdgesShow(graph: Graph|undefined, serviceId :number) {
+  const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
+  const selectedElement = useRecoilValue(selectedElementState(serviceId));
+  const drawingLine = useRecoilValue(drawingLineState(serviceId));
 
-  const edges = useDiagramEdges(selectedDiagram || "");
+  const edges = useDiagramEdges(selectedDiagram || "", serviceId);
 
   useEffect(() => {
     edges?.forEach((edgeMeta) => {

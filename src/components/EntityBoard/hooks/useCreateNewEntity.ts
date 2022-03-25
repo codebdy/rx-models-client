@@ -3,10 +3,12 @@ import { createId } from "util/createId";
 import { ColumnType } from "../meta/ColumnMeta";
 import { EntityType } from "../meta/EntityMeta";
 import { CONST_ID } from "../meta/Meta";
+import { useCreateInnerId } from "./useCreateInnerId";
 import { useGetEntityByName } from "./useGetEntityByName";
 
-export function useCreateNewEntity() {
-  const getEntityByName = useGetEntityByName();
+export function useCreateNewEntity(serviceId: number) {
+  const getEntityByName = useGetEntityByName(serviceId);
+  const createInnerId = useCreateInnerId(serviceId);
 
   const getNewEntityName = useCallback(() => {
     const prefix = "NewEntity";
@@ -18,9 +20,10 @@ export function useCreateNewEntity() {
     return prefix + index;
   }, [getEntityByName]);
 
-  const createNewEntity = useCallback(() => {
+  const createNewEntity = useCallback((withInnerId:boolean) => {
     const newEntity = {
       uuid: createId(),
+      innerId: withInnerId ? createInnerId() : 0,
       name: getNewEntityName(),
       entityType: EntityType.NORMAL,
       columns: [
@@ -44,7 +47,7 @@ export function useCreateNewEntity() {
     };
     //setEntities((entites) => [...entites, newEntity]);
     return newEntity;
-  }, [getNewEntityName]);
+  }, [createInnerId, getNewEntityName]);
 
   return createNewEntity;
 }

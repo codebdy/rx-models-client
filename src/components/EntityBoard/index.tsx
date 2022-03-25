@@ -27,6 +27,7 @@ import { useQueryOne } from "do-ents/useQueryOne";
 import { EntityNameMeta, Meta } from "./meta/Meta";
 import { useShowServerError } from "recoil/hooks/useShowServerError";
 import { gql } from "graphql-request";
+import { useServiceId } from "./hooks/useServiceId";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,14 +53,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ModelsBoard = memo(() => {
   const classes = useStyles();
   const [graph, setGraph] = useState<Graph>();
-  const setMeta = useSetRecoilState(metaState);
-  const setEntities = useSetRecoilState(entitiesState);
-  const setRelations = useSetRecoilState(relationsState);
-  const setDiagrams = useSetRecoilState(diagramsState);
-  const setX6Nodes = useSetRecoilState(x6NodesState);
-  const setX6Edges = useSetRecoilState(x6EdgesState);
-  const setPublishedId = useSetRecoilState(publishedIdState);
-  const selectedDiagram = useRecoilValue(selectedDiagramState);
+  const serviceId = useServiceId()
+  const setMeta = useSetRecoilState(metaState(serviceId));
+  const setEntities = useSetRecoilState(entitiesState(serviceId));
+  const setRelations = useSetRecoilState(relationsState(serviceId));
+  const setDiagrams = useSetRecoilState(diagramsState(serviceId));
+  const setX6Nodes = useSetRecoilState(x6NodesState(serviceId));
+  const setX6Edges = useSetRecoilState(x6EdgesState(serviceId));
+  const setPublishedId = useSetRecoilState(publishedIdState(serviceId));
+  const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
   const queryName = useMemo(() => "one" + EntityNameMeta, []);
   const queryGql = useMemo(() => {
     return gql`

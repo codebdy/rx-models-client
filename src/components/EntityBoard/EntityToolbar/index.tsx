@@ -30,6 +30,7 @@ import { LoadingButton } from "@mui/lab";
 import { usePostOne } from "do-ents/usePostOne";
 import { EntityNameMeta, Meta, MetaStatus } from "../meta/Meta";
 import { SyncButton } from "./SyncButton";
+import { useServiceId } from "../hooks/useServiceId";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,21 +61,22 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EntityToolbar = memo(() => {
   const classes = useStyles();
-  const [meta, setMeta] = useRecoilState(metaState);
-  const entities = useRecoilValue(entitiesState);
-  const relations = useRecoilValue(relationsState);
-  const diagrams = useRecoilValue(diagramsState);
-  const x6Nodes = useRecoilValue(x6NodesState);
-  const x6Edges = useRecoilValue(x6EdgesState);
+  const serviceId = useServiceId();
+  const [meta, setMeta] = useRecoilState(metaState(serviceId));
+  const entities = useRecoilValue(entitiesState(serviceId));
+  const relations = useRecoilValue(relationsState(serviceId));
+  const diagrams = useRecoilValue(diagramsState(serviceId));
+  const x6Nodes = useRecoilValue(x6NodesState(serviceId));
+  const x6Edges = useRecoilValue(x6EdgesState(serviceId));
   const setSuccessAlertState = useSetRecoilState(successAlertState);
-  const [changed, setChanged] = useRecoilState(changedState);
-  const undoList = useRecoilValue(undoListState);
-  const redoList = useRecoilValue(redoListState);
-  const selectedElement = useRecoilValue(selectedElementState);
-  const { column } = useColumn(selectedElement || "");
-  const undo = useUndo();
-  const redo = useRedo();
-  const deleteSelectedElement = useDeleteSelectedElement();
+  const [changed, setChanged] = useRecoilState(changedState(serviceId));
+  const undoList = useRecoilValue(undoListState(serviceId));
+  const redoList = useRecoilValue(redoListState(serviceId));
+  const selectedElement = useRecoilValue(selectedElementState(serviceId));
+  const { column } = useColumn(selectedElement || "", serviceId);
+  const undo = useUndo(serviceId);
+  const redo = useRedo(serviceId);
+  const deleteSelectedElement = useDeleteSelectedElement(serviceId);
 
   const [excuteSave, { loading, error }] = usePostOne<Meta>({
     onCompleted(data: Meta) {

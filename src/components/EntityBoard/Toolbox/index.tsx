@@ -24,6 +24,7 @@ import { useRecoilState } from "recoil";
 import { useCreateTempClassNodeForNew } from "../hooks/useCreateTempClassNodeForNew";
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
 import { Box } from "@mui/material";
+import { useServiceId } from "../hooks/useServiceId";
 const { Dnd } = Addon;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,10 +59,11 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   const [expandEntites, setExpandEntites] = React.useState(true);
   const [expandRelations, setExpandRelations] = React.useState(true);
   const [dnd, setDnd] = React.useState<any>();
+  const serviceId = useServiceId();
   const [pressedLineType, setPressedLineType] =
-    useRecoilState(pressedLineTypeState);
+    useRecoilState(pressedLineTypeState(serviceId));
   const scrollStyles = useScrollbarStyles(true);
-  const createTempClassNodeForNew = useCreateTempClassNodeForNew();
+  const createTempClassNodeForNew = useCreateTempClassNodeForNew(serviceId);
 
   const handleEneitiesChange =
     () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {

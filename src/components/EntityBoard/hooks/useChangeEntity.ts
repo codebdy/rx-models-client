@@ -4,9 +4,9 @@ import { EntityMeta } from "../meta/EntityMeta";
 import { entitiesState } from "../recoil/atoms";
 import { useBackupSnapshot } from "./useBackupSnapshot";
 
-export function useChangeEntity() {
-  const backupSnapshot = useBackupSnapshot();
-  const setEntities = useSetRecoilState(entitiesState);
+export function useChangeEntity(serviceId: number) {
+  const backupSnapshot = useBackupSnapshot(serviceId);
+  const setEntities = useSetRecoilState(entitiesState(serviceId));
 
   const changeEntity = useCallback(
     (entity: EntityMeta) => {

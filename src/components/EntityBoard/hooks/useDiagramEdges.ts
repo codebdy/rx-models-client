@@ -7,10 +7,10 @@ import { useDiagramNodes } from "./useDiagramNodes";
 
 export type EdgeConfig = X6EdgeMeta & RelationMeta;
 
-export function useDiagramEdges(diagramUuid: string) {
-  const diagramEdges = useRecoilValue(x6EdgesState);
-  const relations = useRecoilValue(relationsState);
-  const existsNodes = useDiagramNodes(diagramUuid);
+export function useDiagramEdges(diagramUuid: string, serviceId: number) {
+  const diagramEdges = useRecoilValue(x6EdgesState(serviceId));
+  const relations = useRecoilValue(relationsState(serviceId));
+  const existsNodes = useDiagramNodes(diagramUuid, serviceId);
 
   const existsDiagramEdges = useMemo(() => {
     return diagramEdges.filter((edge) => edge.diagramUuid === diagramUuid);

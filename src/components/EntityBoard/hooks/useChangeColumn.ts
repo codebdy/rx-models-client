@@ -3,8 +3,8 @@ import { ColumnMeta } from "../meta/ColumnMeta";
 import { EntityMeta } from "../meta/EntityMeta";
 import { useChangeEntity } from "./useChangeEntity";
 
-export function useChangeColumn() {
-  const changeEntity = useChangeEntity();
+export function useChangeColumn(serviceId: number) {
+  const changeEntity = useChangeEntity(serviceId);
 
   const changeColumn = useCallback(
     (column: ColumnMeta, entity: EntityMeta) => {

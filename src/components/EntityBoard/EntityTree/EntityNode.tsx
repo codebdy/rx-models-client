@@ -19,17 +19,19 @@ import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 import { useDeleteEntity } from "../hooks/useDeleteEntity";
 import { useChangeEntity } from "../hooks/useChangeEntity";
 import { useCreateEntityColumn } from "../hooks/useCreateEntityColumn";
+import { useServiceId } from "../hooks/useServiceId";
 const { Dnd } = Addon;
 
 export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   const { uuid, graph } = props;
   const [dnd, setDnd] = React.useState<any>();
-  const setSelectedElement = useSetRecoilState(selectedElementState);
-  const entity = useEntity(uuid);
-  const sourceRelations = useSourceRelations(uuid);
-  const targetRelations = useTargetRelations(uuid);
-  const deleteEntity = useDeleteEntity();
-  const changeEntity = useChangeEntity();
+  const serviceId = useServiceId()
+  const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
+  const entity = useEntity(uuid, serviceId);
+  const sourceRelations = useSourceRelations(uuid, serviceId);
+  const targetRelations = useTargetRelations(uuid, serviceId);
+  const deleteEntity = useDeleteEntity(serviceId);
+  const changeEntity = useChangeEntity(serviceId);
   const createColumn = useCreateEntityColumn();
 
   //解决不能拖放的bug

@@ -14,10 +14,12 @@ import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { EntityMeta, EntityType } from "../meta/EntityMeta";
 import { JsonInput } from "./JsonInput";
 import { useChangeEntity } from "../hooks/useChangeEntity";
+import { useServiceId } from "../hooks/useServiceId";
 
 export const EntityPanel = (props: { entity: EntityMeta }) => {
   const { entity } = props;
-  const changeEntity = useChangeEntity();
+  const serviceId = useServiceId();
+  const changeEntity = useChangeEntity(serviceId);
 
   const handleNameChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {

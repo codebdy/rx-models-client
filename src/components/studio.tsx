@@ -78,7 +78,7 @@ export const Studio = memo(() => {
     history.push(rxModelsSwrConfig.loginUrl);
   }, [appStore, history]);
 
-  return loading ? (
+  return loading || !service ? (
     <Loading />
   ) : (
     <div className={classes.root}>

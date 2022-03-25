@@ -8,13 +8,14 @@ import {
   x6NodesState,
 } from "../recoil/atoms";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
+import { useCreateInnerId } from "../hooks/useCreateInnerId";
 
-export function useNodeAdd(graph?: Graph) {
-  const selectedDiagramUuid = useRecoilValue(selectedDiagramState);
-  const setNodes = useSetRecoilState(x6NodesState);
-  const setEntities = useSetRecoilState(entitiesState);
-  const backupSnapshot = useBackupSnapshot();
-
+export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
+  const selectedDiagramUuid = useRecoilValue(selectedDiagramState(serviceId));
+  const setNodes = useSetRecoilState(x6NodesState(serviceId));
+  const setEntities = useSetRecoilState(entitiesState(serviceId));
+  const backupSnapshot = useBackupSnapshot(serviceId);
+  const createInnerId = useCreateInnerId(serviceId);
   const nodeAdded = useCallback(
     (arg: { node: Node<Node.Properties> }) => {
       const node = arg.node;
@@ -31,6 +32,7 @@ export function useNodeAdd(graph?: Graph) {
           ...entities,
           {
             uuid: entityMeta.uuid,
+            innerId: createInnerId(),
             name: entityMeta.name,
             columns: entityMeta.columns,
             entityType: entityMeta.entityType,
@@ -71,7 +73,7 @@ export function useNodeAdd(graph?: Graph) {
         ]);
       }
     },
-    [backupSnapshot, graph, selectedDiagramUuid, setEntities, setNodes]
+    [backupSnapshot, createInnerId, graph, selectedDiagramUuid, setEntities, setNodes]
   );
 
   useEffect(() => {

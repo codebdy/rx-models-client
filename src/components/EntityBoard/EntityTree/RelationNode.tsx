@@ -6,6 +6,7 @@ import { RelationMeta } from "../meta/RelationMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
+import { useServiceId } from "../hooks/useServiceId";
 
 export const RelationNode = (props: {
   key?: string;
@@ -13,7 +14,8 @@ export const RelationNode = (props: {
   isSource: boolean;
 }) => {
   const { relation, isSource } = props;
-  const setSelectedElement = useSetRecoilState(selectedElementState);
+  const serviceId = useServiceId();
+  const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
   const handleClick = () => {
     setSelectedElement(relation.uuid);
   };

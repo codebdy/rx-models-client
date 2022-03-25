@@ -3,11 +3,11 @@ import { useSetRecoilState } from "recoil";
 import { relationsState, x6EdgesState } from "../recoil/atoms";
 import { useBackupSnapshot } from "./useBackupSnapshot";
 
-export function useDeleteRelation() {
-  const setRelation = useSetRecoilState(relationsState);
-  const setEdges = useSetRecoilState(x6EdgesState);
+export function useDeleteRelation(serviceId: number) {
+  const setRelation = useSetRecoilState(relationsState(serviceId));
+  const setEdges = useSetRecoilState(x6EdgesState(serviceId));
 
-  const backupSnapshot = useBackupSnapshot();
+  const backupSnapshot = useBackupSnapshot(serviceId);
 
   const deleteRelation = useCallback(
     (uuid: string) => {

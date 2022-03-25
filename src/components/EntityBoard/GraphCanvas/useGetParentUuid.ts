@@ -3,8 +3,8 @@ import { useRecoilValue } from "recoil";
 import { RelationType } from "../meta/RelationMeta";
 import { relationsState } from "../recoil/atoms";
 
-export function useGetParentUuid() {
-  const relations = useRecoilValue(relationsState);
+export function useGetParentUuid(serviceId :number) {
+  const relations = useRecoilValue(relationsState(serviceId));
   const getParentUuid = useCallback(
     (entityUuid: string) => {
       return relations.find(

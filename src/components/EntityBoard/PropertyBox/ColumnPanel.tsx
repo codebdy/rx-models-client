@@ -16,15 +16,17 @@ import { EntityMeta, EntityType } from "../meta/EntityMeta";
 import { useChangeColumn } from "../hooks/useChangeColumn";
 import { useEnums } from "../hooks/useEnums";
 import { useInterfaces } from "../hooks/useInterfaces";
+import { useServiceId } from "../hooks/useServiceId";
 
 export const ColumnPanel = (props: {
   column: ColumnMeta;
   entity: EntityMeta;
 }) => {
   const { column, entity } = props;
-  const changeColumn = useChangeColumn();
-  const enums = useEnums();
-  const interfaces = useInterfaces();
+  const serviceId = useServiceId()
+  const changeColumn = useChangeColumn(serviceId);
+  const enums = useEnums(serviceId);
+  const interfaces = useInterfaces(serviceId);
 
   const handleStringChange = useCallback(
     (prop: any) => (event: React.ChangeEvent<{ value: string }>) => {

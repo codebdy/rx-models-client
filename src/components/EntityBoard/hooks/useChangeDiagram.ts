@@ -4,9 +4,9 @@ import { DiagramMeta } from "../meta/DiagramMeta";
 import { diagramsState } from "../recoil/atoms";
 import { useBackupSnapshot } from "./useBackupSnapshot";
 
-export function useChangeDiagram() {
-  const backupSnapshot = useBackupSnapshot();
-  const setDiagrams = useSetRecoilState(diagramsState);
+export function useChangeDiagram(serviceId: number) {
+  const backupSnapshot = useBackupSnapshot(serviceId);
+  const setDiagrams = useSetRecoilState(diagramsState(serviceId));
 
   const changeDiagram = useCallback(
     (diagram: DiagramMeta) => {

@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 import { x6NodesState } from "../recoil/atoms";
 
-export function useDiagramNodes(diagramUuid:string){
-  const nodes = useRecoilValue(x6NodesState);
+export function useDiagramNodes(diagramUuid:string, serviceId: number){
+  const nodes = useRecoilValue(x6NodesState(serviceId));
 
   const diagramNodes = useMemo(()=>{
     return nodes.filter(node=>node.diagramUuid === diagramUuid)

@@ -19,13 +19,15 @@ import {
 import { EntityNode } from "./EntityNode";
 import { DiagramNode } from "./DiagramNode";
 import { Graph } from "@antv/x6";
+import { useServiceId } from "../hooks/useServiceId";
 
 export const EntityTreeView = memo((props: { graph?: Graph }) => {
   const { graph } = props;
-  const selectedDiagram = useRecoilValue(selectedDiagramState);
-  const selectedElement = useRecoilValue(selectedElementState);
-  const entities = useRecoilValue(entitiesState);
-  const diagrams = useRecoilValue(diagramsState);
+  const serviceId = useServiceId();
+  const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
+  const selectedElement = useRecoilValue(selectedElementState(serviceId));
+  const entities = useRecoilValue(entitiesState(serviceId));
+  const diagrams = useRecoilValue(diagramsState(serviceId));
 
   const fileInputRef = useRef(null);
 

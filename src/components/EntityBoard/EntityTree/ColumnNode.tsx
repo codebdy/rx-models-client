@@ -8,13 +8,15 @@ import { useMemo } from "react";
 import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
 import { useDeleteColumn } from "../hooks/useDeleteColumn";
+import { useServiceId } from "../hooks/useServiceId";
 
 export const ColumnNode = (props: { key?: string; column: ColumnMeta }) => {
   const { column } = props;
-  const setSelectedElement = useSetRecoilState(selectedElementState);
+  const serviceId = useServiceId();
+  const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
   const isId = useMemo(() => column.name === "id", [column.name]); /*&&
     column.entityStore.entityType !== EntityType.INTERFACE*/
-  const deletedColumn = useDeleteColumn();
+  const deletedColumn = useDeleteColumn(serviceId);
   const handleClick = () => {
     setSelectedElement(column.uuid);
   };

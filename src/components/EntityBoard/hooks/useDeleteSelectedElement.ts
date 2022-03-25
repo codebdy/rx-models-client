@@ -11,16 +11,16 @@ import { useRelation } from "./useRelation";
 /**
  * 本方法不需要备份状态
  */
-export function useDeleteSelectedElement() {
+export function useDeleteSelectedElement(serviceId: number) {
   const [selectedElement, setSelectedElement] =
-    useRecoilState(selectedElementState);
-  const entity = useEntity(selectedElement || "");
-  const deleteEntity = useDeleteEntity();
-  const relation = useRelation(selectedElement || "");
-  const deleteRelation = useDeleteRelation();
+    useRecoilState(selectedElementState(serviceId));
+  const entity = useEntity(selectedElement || "", serviceId);
+  const deleteEntity = useDeleteEntity(serviceId);
+  const relation = useRelation(selectedElement || "", serviceId);
+  const deleteRelation = useDeleteRelation(serviceId);
 
-  const { column } = useColumn(selectedElement || "");
-  const deletedColumn = useDeleteColumn();
+  const { column } = useColumn(selectedElement || "", serviceId);
+  const deletedColumn = useDeleteColumn(serviceId);
 
   const deleteSelectedElement = useCallback(() => {
     if (entity) {

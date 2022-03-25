@@ -19,6 +19,7 @@ import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
 import {
   entitiesState,
   relationsState,
+  serviceState,
 } from "components/EntityBoard/recoil/atoms";
 import { useRecoilValue } from "recoil";
 import { LoadingButton } from "@mui/lab";
@@ -57,11 +58,12 @@ export default function ExpressDialog(props: {
 }) {
   const { entityMeta, expression, onExpressionChange } = props;
   const classes = useStyles();
+  const service = useRecoilValue(serviceState)
   const [open, setOpen] = useState(false);
   const [exp, setExp] = useState(expression);
   const [error, setError] = useState("");
-  const entites = useRecoilValue(entitiesState);
-  const relations = useRecoilValue(relationsState);
+  const entites = useRecoilValue(entitiesState(service?.id||0));
+  const relations = useRecoilValue(relationsState(service?.id||0));
 
   const handleClickOpen = () => {
     setOpen(true);

@@ -13,6 +13,7 @@ import { selectedElementState } from "../recoil/atoms";
 import { useEntity } from "../hooks/useEntity";
 import { useColumn } from "../hooks/useColumn";
 import { useRelation } from "../hooks/useRelation";
+import { useServiceId } from "../hooks/useServiceId";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,10 +33,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const PropertyBox = () => {
   const classes = useStyles();
-  const selectedElement = useRecoilValue(selectedElementState);
-  const selectedEntity = useEntity(selectedElement || "");
-  const { entity, column } = useColumn(selectedElement || "");
-  const relation = useRelation(selectedElement || "");
+  const serviceId = useServiceId();
+  const selectedElement = useRecoilValue(selectedElementState(serviceId));
+  const selectedEntity = useEntity(selectedElement || "", serviceId);
+  const { entity, column } = useColumn(selectedElement || "", serviceId);
+  const relation = useRelation(selectedElement || "", serviceId);
 
   return (
     <div className={classes.root}>

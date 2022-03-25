@@ -13,18 +13,18 @@ import {
   x6NodesState,
 } from "../recoil/atoms";
 
-export function useBackupSnapshot() {
-  const diagrams = useRecoilValue(diagramsState);
-  const entities = useRecoilValue(entitiesState);
-  const relations = useRecoilValue(relationsState);
-  const x6Nodes = useRecoilValue(x6NodesState);
-  const x6Edges = useRecoilValue(x6EdgesState);
-  const selectedDiagram = useRecoilValue(selectedDiagramState);
-  const selectedElement = useRecoilValue(selectedElementState);
-  const setChanged = useSetRecoilState(changedState);
+export function useBackupSnapshot(serviceId: number) {
+  const diagrams = useRecoilValue(diagramsState(serviceId));
+  const entities = useRecoilValue(entitiesState(serviceId));
+  const relations = useRecoilValue(relationsState(serviceId));
+  const x6Nodes = useRecoilValue(x6NodesState(serviceId));
+  const x6Edges = useRecoilValue(x6EdgesState(serviceId));
+  const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
+  const selectedElement = useRecoilValue(selectedElementState(serviceId));
+  const setChanged = useSetRecoilState(changedState(serviceId));
 
-  const setUndoList = useSetRecoilState(undoListState);
-  const setRedoList = useSetRecoilState(redoListState);
+  const setUndoList = useSetRecoilState(undoListState(serviceId));
+  const setRedoList = useSetRecoilState(redoListState(serviceId));
 
   const backupSnapshot = useCallback(() => {
     setChanged(true);

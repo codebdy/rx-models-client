@@ -17,15 +17,18 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useGetEntity } from "../hooks/useGetEntity";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 
-export function useEdgeLineDraw(graph: Graph | undefined) {
-  const [drawingLine, setDrawingLine] = useRecoilState(drawingLineState);
-  const selectedDiagram = useRecoilValue(selectedDiagramState);
-  const [relations, setRelations] = useRecoilState(relationsState);
-  const setEdges = useSetRecoilState(x6EdgesState);
-  const getEntity = useGetEntity();
-  const backupSnapshot = useBackupSnapshot();
-  const [pressedLineType, setPressedLineType] =
-    useRecoilState(pressedLineTypeState);
+export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
+  const [drawingLine, setDrawingLine] = useRecoilState(
+    drawingLineState(serviceId)
+  );
+  const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
+  const [relations, setRelations] = useRecoilState(relationsState(serviceId));
+  const setEdges = useSetRecoilState(x6EdgesState(serviceId));
+  const getEntity = useGetEntity(serviceId);
+  const backupSnapshot = useBackupSnapshot(serviceId);
+  const [pressedLineType, setPressedLineType] = useRecoilState(
+    pressedLineTypeState(serviceId)
+  );
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -75,7 +78,8 @@ export function useEdgeLineDraw(graph: Graph | undefined) {
         //只能从接口继承
         if (
           (target.entityType === EntityType.ENUM ||
-          target.entityType === EntityType.NORMAL) && isInherit
+            target.entityType === EntityType.NORMAL) &&
+          isInherit
         ) {
           return;
         }
