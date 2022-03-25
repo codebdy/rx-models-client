@@ -13,7 +13,8 @@ export function useCreateInnerId(serviceId: number) {
   }, [entities])
 
   const createInnerId = useCallback((): number => {
-    let index = 1;
+    //从1001开始表id，前1000个为系统预留
+    let index = 1001;
     while (findEntityByInnerId(index)) {
       index++;
     }
