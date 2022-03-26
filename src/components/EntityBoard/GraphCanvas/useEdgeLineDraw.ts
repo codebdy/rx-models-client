@@ -17,6 +17,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { useGetEntity } from "../hooks/useGetEntity";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useCreateRelationInnerId } from "../hooks/useCreateRelationInnerId";
+import { useTheme } from "@mui/material";
 
 export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
   const [drawingLine, setDrawingLine] = useRecoilState(
@@ -30,7 +31,7 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
   const [pressedLineType, setPressedLineType] = useRecoilState(
     pressedLineTypeState(serviceId)
   );
-
+  const theme = useTheme();
   const createRelationInnerId = useCreateRelationInnerId(serviceId);
 
   const handleMouseMove = useCallback(
@@ -199,12 +200,12 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
           source: node.id,
           target: p,
           connector: { name: "rounded" },
-          attrs: getRelationGraphAttrs(pressedLineType),
+          attrs: getRelationGraphAttrs(theme, pressedLineType),
         }).id,
       };
       setDrawingLine(lineAction);
     },
-    [graph, pressedLineType, setDrawingLine]
+    [graph, pressedLineType, setDrawingLine, theme]
   );
 
   useEffect(() => {

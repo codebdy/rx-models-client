@@ -14,11 +14,13 @@ import {
   selectedElementState,
 } from "../recoil/atoms";
 import { useDiagramEdges } from "../hooks/useDiagramEdges";
+import { useTheme } from "@mui/material";
 
-export function useEdgesShow(graph: Graph|undefined, serviceId :number) {
+export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
   const selectedElement = useRecoilValue(selectedElementState(serviceId));
   const drawingLine = useRecoilValue(drawingLineState(serviceId));
+  const theme = useTheme();
 
   const edges = useDiagramEdges(selectedDiagram || "", serviceId);
 
@@ -37,7 +39,9 @@ export function useEdgesShow(graph: Graph|undefined, serviceId :number) {
 
         if (grahpEdge.data.relationType !== edgeMeta.relationType) {
           grahpEdge.setData({ relationType: edgeMeta.relationType });
-          grahpEdge.setAttrs(getRelationGraphAttrs(edgeMeta.relationType));
+          grahpEdge.setAttrs(
+            getRelationGraphAttrs(theme, edgeMeta.relationType)
+          );
         }
       } else {
         grahpEdge = graph?.addEdge({
@@ -65,7 +69,7 @@ export function useEdgesShow(graph: Graph|undefined, serviceId :number) {
                   },
                 ]
               : [],
-          attrs: getRelationGraphAttrs(edgeMeta.relationType),
+          attrs: getRelationGraphAttrs(theme, edgeMeta.relationType),
           data: { relationType: edgeMeta.relationType },
         });
       }
@@ -116,5 +120,5 @@ export function useEdgesShow(graph: Graph|undefined, serviceId :number) {
         graph?.removeEdge(edge.id);
       }
     });
-  }, [drawingLine?.tempEdgeId, edges, graph, selectedElement]);
+  }, [drawingLine?.tempEdgeId, edges, graph, selectedElement, theme]);
 }

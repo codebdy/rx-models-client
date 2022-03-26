@@ -1,26 +1,28 @@
+import { Theme } from "@mui/material";
 import { RelationType } from "../meta/RelationMeta";
 
 export function getRelationGraphAttrs(
+  theme:Theme,
   relationType: RelationType,
   isTemp?: boolean
 ) {
   if (relationType === RelationType.IMPLEMENTS) {
     return {
       line: {
-        stroke: "#000",
+        stroke: theme.palette.text.primary,
         strokeWidth: 1,
         strokeDasharray: "3 5",
         sourceMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: ``,
         },
         targetMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 0,0
@@ -35,12 +37,12 @@ export function getRelationGraphAttrs(
   if (relationType === RelationType.ONE_TO_ONE) {
     return {
       line: {
-        stroke: "#000",
+        stroke: theme.palette.text.primary,
         strokeWidth: 1,
         sourceMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 5, 0
@@ -49,8 +51,8 @@ export function getRelationGraphAttrs(
         },
         targetMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 5, 0
@@ -64,12 +66,12 @@ export function getRelationGraphAttrs(
   if (relationType === RelationType.ONE_TO_MANY) {
     return {
       line: {
-        stroke: "#000",
+        stroke: theme.palette.text.primary,
         strokeWidth: 1,
         sourceMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 5, 0
@@ -78,8 +80,8 @@ export function getRelationGraphAttrs(
         },
         targetMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 16, 0
@@ -97,12 +99,12 @@ export function getRelationGraphAttrs(
   if (relationType === RelationType.MANY_TO_ONE) {
     return {
       line: {
-        stroke: "#000",
+        stroke: theme.palette.text.primary,
         strokeWidth: 1,
         sourceMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 16, 0
@@ -115,8 +117,8 @@ export function getRelationGraphAttrs(
         },
         targetMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 5, 0
@@ -130,12 +132,12 @@ export function getRelationGraphAttrs(
   if (relationType === RelationType.MANY_TO_MANY) {
     return {
       line: {
-        stroke: "#000",
+        stroke: theme.palette.text.primary,
         strokeWidth: 1,
         sourceMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 16, 0
@@ -148,8 +150,8 @@ export function getRelationGraphAttrs(
         },
         targetMarker: {
           tagName: "path",
-          fill: "#FFF",
-          stroke: "#000",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
           strokeWidth: 1,
           d: `
             M 16, 0
