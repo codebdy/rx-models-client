@@ -1,78 +1,134 @@
+export const svgImplement = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+    <path
+      d="
+        M 15,15
+        L 25,0
+        L 35,15
+        L 15,15
+        M 25,15
+        L 25,18
+        M 25,23
+        L 25,26
+        M 25,31
+        L 25,34
+        M 25,39
+        L 25,42
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+      fill="#fff"
+    ></path>
+  </svg>
+);
 
-export const svgImplement = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" >
-<path d="
-    M 15,15
-    L 25,0
-    L 35,15
-    L 15,15
-    M 25,15
-    L 25,18
-    M 25,23
-    L 25,26
-    M 25,31
-    L 25,34
-    M 25,39
-    L 25,42
-" stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-</svg>
+export const svgInherit = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+    <path
+      d="
+        M 15,15
+        L 25,0
+        L 35,15
+        L 15,15
+        M 25,15
+        L 25,45
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+      fill="#fff"
+    ></path>
+  </svg>
+);
 
-export const svgInherit = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" >
-<path d="
-    M 15,15
-    L 25,0
-    L 35,15
-    L 15,15
-    M 25,15
-    L 25,45
-" stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-</svg>
+export const svgTwoWayAssociation = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
+        M 0,20
+        L 50,20
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+    ></path>
+  </svg>
+);
 
-export const svgTwoWayAssociation = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
-  <path d="
-      M 0,10
-      L 25,10
-      L 25,20
-      L 50,20
-  " stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-  <circle id="mycircle" cx="10" cy="10" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-  <circle id="mycircle" cx="40" cy="20" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-</svg>
+export const svgTwoWayAggregation = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
+        M 0,20
+        L 50,20
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+    ></path>
+    <polygon
+      points="0,20 10,14 20,20 10,26"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+  </svg>
+);
 
-export const svgTwoWayAggregation = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
-<path d="
-    M 0,10
-    L 25,10
-    L 25,20
-    L 50,20
-" stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-<circle id="mycircle" cx="10" cy="10" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-<circle id="mycircle" cx="40" cy="20" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-</svg>
+export const svgTwoWayCombination = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
+        M 0,20
+        L 50,20
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+    ></path>
+    <polygon
+      points="0,20 10,14 20,20 10,26"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="currentColor"
+    />
+  </svg>
+);
 
-export const svgTwoWayCombination = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
-<path d="
-    M 0,10
-    L 25,10
-    L 25,20
-    L 50,20
-" stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-<circle id="mycircle" cx="10" cy="10" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-<circle id="mycircle" cx="40" cy="20" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-</svg>
+export const svgOneToOne = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
+        M 0,10
+        L 25,10
+        L 25,20
+        L 50,20
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+      fill="#fff"
+    ></path>
+    <circle
+      id="mycircle"
+      cx="10"
+      cy="10"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+    <circle
+      id="mycircle"
+      cx="40"
+      cy="20"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+  </svg>
+);
 
-export const svgOneToOne = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
-  <path d="
-      M 0,10
-      L 25,10
-      L 25,20
-      L 50,20
-  " stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-  <circle id="mycircle" cx="10" cy="10" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-  <circle id="mycircle" cx="40" cy="20" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-</svg>
-
-export const svgOneToMany = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
-  <path d="
+export const svgOneToMany = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
       M 0,10
       L 25,10
       L 25,20
@@ -81,13 +137,36 @@ export const svgOneToMany = <svg xmlns="http://www.w3.org/2000/svg" width="50" h
       L 50,16
       M 43,20
       L 50,24
-  " stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-  <circle id="mycircle" cx="10" cy="10" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-  <circle id="mycircle" cx="40" cy="20" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-</svg>
+  "
+      stroke="currentColor"
+      strokeWidth="1"
+      fill="#fff"
+    ></path>
+    <circle
+      id="mycircle"
+      cx="10"
+      cy="10"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+    <circle
+      id="mycircle"
+      cx="40"
+      cy="20"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+  </svg>
+);
 
-export const svgManyToOne = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
-  <path d="
+export const svgManyToOne = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
       M 0,10
       L 25,10
       L 25,20
@@ -96,13 +175,36 @@ export const svgManyToOne = <svg xmlns="http://www.w3.org/2000/svg" width="50" h
       L 0,6
       M 7,10
       L 0,14
-  " stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-  <circle id="mycircle" cx="10" cy="10" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-  <circle id="mycircle" cx="40" cy="20" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-</svg>
+  "
+      stroke="currentColor"
+      strokeWidth="1"
+      fill="#fff"
+    ></path>
+    <circle
+      id="mycircle"
+      cx="10"
+      cy="10"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+    <circle
+      id="mycircle"
+      cx="40"
+      cy="20"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+  </svg>
+);
 
-export const svgManyToMany = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" >
-  <path d="
+export const svgManyToMany = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
       M 0,10
       L 25,10
       L 25,20
@@ -115,7 +217,28 @@ export const svgManyToMany = <svg xmlns="http://www.w3.org/2000/svg" width="50" 
       L 0,6
       M 7,10
       L 0,14
-  " stroke="currentColor" strokeWidth="1" fill="#fff"></path>
-  <circle id="mycircle" cx="10" cy="10" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-  <circle id="mycircle" cx="40" cy="20" r="3" strokeWidth="1" stroke="currentColor" fill="#fff" />
-</svg>
+  "
+      stroke="currentColor"
+      strokeWidth="1"
+      fill="#fff"
+    ></path>
+    <circle
+      id="mycircle"
+      cx="10"
+      cy="10"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+    <circle
+      id="mycircle"
+      cx="40"
+      cy="20"
+      r="3"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+  </svg>
+);
