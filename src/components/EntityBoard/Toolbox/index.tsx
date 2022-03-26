@@ -217,6 +217,14 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                     marginLeft: "-1px",
                   }}
                 ></div>
+                <div
+                  style={{
+                    height: "30%",
+                    width: "47px",
+                    borderBottom: "solid 1px",
+                    marginLeft: "-1px",
+                  }}
+                ></div>
               </div>
               {intl.get("class")}
             </div>
