@@ -3,7 +3,7 @@ import { useExplorerScrollbarHide } from "./useExplorerScrollbarHide";
 import { useEdgeLineDraw } from "./useEdgeLineDraw";
 import { useEdgeChange } from "./useEdgeChange";
 import { Graph } from "@antv/x6";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { getGraphConfig } from "./getGraphConfig";
 import { useNodesShow } from "./useNodesShow";
 import { useNodeAdd } from "./useNodeAdd";
@@ -17,15 +17,16 @@ export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
     const { graph, onSetGraph } = props;
     const serviceId = useServiceId();
+    const theme = useTheme();
     useEffect(() => {
-      const config = getGraphConfig();
+      const config = getGraphConfig(theme);
       const aGraph = new Graph(config as any);
       onSetGraph(aGraph);
       return () => {
         aGraph?.dispose();
         onSetGraph(undefined);
       };
-    }, [onSetGraph]);
+    }, [onSetGraph, theme]);
 
     useExplorerScrollbarHide();
     useNodeSelect(graph, serviceId);
