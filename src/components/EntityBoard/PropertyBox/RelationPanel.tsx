@@ -27,7 +27,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const handleTypeChange = useCallback(
     (event: SelectChangeEvent<RelationType>) => {
       const ownerId =
-        relation.relationType === RelationType.ONE_TO_MANY
+        relation.relationType === RelationType.TWO_WAY_AGGREGATION
           ? relation.sourceId
           : relation.targetId;
 
@@ -109,16 +109,16 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             <MenuItem value={RelationType.IMPLEMENTS}>
               {intl.get("implements")}
             </MenuItem>
-            <MenuItem value={RelationType.ONE_TO_ONE}>
+            <MenuItem value={RelationType.TWO_WAY_ASSOCIATION}>
               {intl.get("one-to-one")}
             </MenuItem>
-            <MenuItem value={RelationType.ONE_TO_MANY}>
+            <MenuItem value={RelationType.TWO_WAY_AGGREGATION}>
               {intl.get("one-to-many")}
             </MenuItem>
-            <MenuItem value={RelationType.MANY_TO_ONE}>
+            <MenuItem value={RelationType.TWO_WAY_COMBINATION}>
               {intl.get("many-to-one")}
             </MenuItem>
-            <MenuItem value={RelationType.MANY_TO_MANY}>
+            <MenuItem value={RelationType.ONE_WAY_ASSOCIATION}>
               {intl.get("many-to-many")}
             </MenuItem>
           </Select>
@@ -130,8 +130,8 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           fullWidth
           size="small"
           disabled={
-            relation.relationType === RelationType.ONE_TO_MANY ||
-            relation.relationType === RelationType.MANY_TO_ONE ||
+            relation.relationType === RelationType.TWO_WAY_AGGREGATION ||
+            relation.relationType === RelationType.TWO_WAY_COMBINATION ||
             isInherit
           }
         >

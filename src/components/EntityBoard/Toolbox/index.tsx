@@ -131,34 +131,34 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   }, [pressedLineType, setPressedLineType]);
 
   const handleOneToOneClick = useCallback(() => {
-    if (RelationType.ONE_TO_ONE === pressedLineType) {
+    if (RelationType.TWO_WAY_ASSOCIATION === pressedLineType) {
       setPressedLineType(undefined);
     } else {
-      setPressedLineType(RelationType.ONE_TO_ONE);
+      setPressedLineType(RelationType.TWO_WAY_ASSOCIATION);
     }
   }, [pressedLineType, setPressedLineType]);
 
   const handleOneToManyClick = useCallback(() => {
-    if (RelationType.ONE_TO_MANY === pressedLineType) {
+    if (RelationType.TWO_WAY_AGGREGATION === pressedLineType) {
       setPressedLineType(undefined);
     } else {
-      setPressedLineType(RelationType.ONE_TO_MANY);
+      setPressedLineType(RelationType.TWO_WAY_AGGREGATION);
     }
   }, [pressedLineType, setPressedLineType]);
 
   const handleManyToOneClick = useCallback(() => {
-    if (RelationType.MANY_TO_ONE === pressedLineType) {
+    if (RelationType.TWO_WAY_COMBINATION === pressedLineType) {
       setPressedLineType(undefined);
     } else {
-      setPressedLineType(RelationType.MANY_TO_ONE);
+      setPressedLineType(RelationType.TWO_WAY_COMBINATION);
     }
   }, [pressedLineType, setPressedLineType]);
 
   const handleManyToManyClick = useCallback(() => {
-    if (RelationType.MANY_TO_MANY === pressedLineType) {
+    if (RelationType.ONE_WAY_ASSOCIATION === pressedLineType) {
       setPressedLineType(undefined);
     } else {
-      setPressedLineType(RelationType.MANY_TO_MANY);
+      setPressedLineType(RelationType.ONE_WAY_ASSOCIATION);
     }
   }, [pressedLineType, setPressedLineType]);
 
@@ -270,7 +270,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.ONE_TO_ONE,
+                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
                 }
               )}
               onClick={handleOneToOneClick}
@@ -285,7 +285,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.ONE_TO_ONE,
+                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
                 }
               )}
               onClick={handleOneToOneClick}
@@ -300,7 +300,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.ONE_TO_ONE,
+                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
                 }
               )}
               onClick={handleOneToOneClick}
@@ -329,7 +329,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.ONE_TO_ONE,
+                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
                 }
               )}
               onClick={handleOneToOneClick}
@@ -344,7 +344,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.ONE_TO_ONE,
+                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
                 }
               )}
               onClick={handleOneToOneClick}
@@ -359,7 +359,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.ONE_TO_ONE,
+                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
                 }
               )}
               onClick={handleOneToOneClick}

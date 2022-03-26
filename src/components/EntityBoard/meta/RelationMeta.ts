@@ -7,13 +7,10 @@ export enum RelationType {
   TWO_WAY_ASSOCIATION = "twoWayAssociation",
   TWO_WAY_AGGREGATION = "twoWayAggregation",
   TWO_WAY_COMBINATION = "twoWayCombination",
+
   ONE_WAY_ASSOCIATION = "oneWayAssociation",
   ONE_WAY_AGGREGATION = "oneWayAggregation",
   ONE_WAY_COMBINATION = "oneWayCombination",
-  ONE_TO_ONE = "oneToOne",
-  ONE_TO_MANY = "oneToMany",
-  MANY_TO_ONE = "manyToOne",
-  MANY_TO_MANY = "manyToMany",
 }
 
 /**

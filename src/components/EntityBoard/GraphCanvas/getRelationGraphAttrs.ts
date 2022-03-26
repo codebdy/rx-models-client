@@ -34,7 +34,7 @@ export function getRelationGraphAttrs(
       },
     };
   }
-  if (relationType === RelationType.ONE_TO_ONE) {
+  if (relationType === RelationType.TWO_WAY_ASSOCIATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -63,7 +63,7 @@ export function getRelationGraphAttrs(
     };
   }
 
-  if (relationType === RelationType.ONE_TO_MANY) {
+  if (relationType === RelationType.TWO_WAY_AGGREGATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -96,7 +96,7 @@ export function getRelationGraphAttrs(
     };
   }
 
-  if (relationType === RelationType.MANY_TO_ONE) {
+  if (relationType === RelationType.TWO_WAY_COMBINATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -129,7 +129,7 @@ export function getRelationGraphAttrs(
     };
   }
 
-  if (relationType === RelationType.MANY_TO_MANY) {
+  if (relationType === RelationType.ONE_WAY_ASSOCIATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,

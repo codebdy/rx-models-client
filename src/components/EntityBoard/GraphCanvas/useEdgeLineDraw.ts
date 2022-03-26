@@ -106,7 +106,7 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
         }
 
         let ownerId = source.uuid;
-        if (drawingLine.relationType === RelationType.ONE_TO_MANY) {
+        if (drawingLine.relationType === RelationType.TWO_WAY_AGGREGATION) {
           ownerId = target.uuid;
         }
 
