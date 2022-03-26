@@ -2,10 +2,10 @@ export const svgImplement = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
     <path
       d="
-        M 15,15
-        L 25,0
-        L 35,15
-        L 15,15
+        M 17,15
+        L 25,2
+        L 33,15
+        L 17,15
         M 25,15
         L 25,18
         M 25,23
@@ -26,10 +26,10 @@ export const svgInherit = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
     <path
       d="
-        M 15,15
-        L 25,0
-        L 35,15
-        L 15,15
+        M 17,15
+        L 25,2
+        L 33,15
+        L 17,15
         M 25,15
         L 25,45
       "
@@ -56,15 +56,12 @@ export const svgTwoWayAssociation = (
 export const svgTwoWayAggregation = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
     <path
-      d="
-        M 0,20
-        L 50,20
-      "
+      d="M 0,20 L 50,20"
       stroke="currentColor"
       strokeWidth="1"
     ></path>
     <polygon
-      points="0,20 10,14 20,20 10,26"
+      points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
       stroke="currentColor"
       fill="#fff"
@@ -75,15 +72,12 @@ export const svgTwoWayAggregation = (
 export const svgTwoWayCombination = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
     <path
-      d="
-        M 0,20
-        L 50,20
-      "
+      d="M 0,20 L 50,20"
       stroke="currentColor"
       strokeWidth="1"
     ></path>
     <polygon
-      points="0,20 10,14 20,20 10,26"
+      points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
       stroke="currentColor"
       fill="currentColor"
@@ -95,7 +89,7 @@ export const svgOneWayAssociation = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
     <path d="M 0,20 L 50,20" stroke="currentColor" strokeWidth="1"></path>
     <path
-      d="M 50,20 L 42, 14 L 46,20 L 42, 26 "
+      d="M 50,20 L 43,15 L 46,20 L 43, 25 "
       strokeWidth="1"
       stroke="currentColor"
     ></path>
@@ -105,21 +99,18 @@ export const svgOneWayAssociation = (
 export const svgOneWayAggregation = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
     <path
-      d="
-        M 0,20
-        L 50,20
-      "
+      d="M 0,20 L 50,20"
       stroke="currentColor"
       strokeWidth="1"
     ></path>
     <polygon
-      points="0,20 10,14 20,20 10,26"
+      points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
       stroke="currentColor"
       fill="#fff"
     />
     <path
-      d="M 50,20 L 42, 14 L 46,20 L 42, 26 "
+      d="M 50,20 L 43,15 L 46,20 L 43, 25 "
       strokeWidth="1"
       stroke="currentColor"
     ></path>
@@ -129,21 +120,18 @@ export const svgOneWayAggregation = (
 export const svgOneWayCombination = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
     <path
-      d="
-        M 0,20
-        L 50,20
-      "
+      d="M 0,20 L 50,20"
       stroke="currentColor"
       strokeWidth="1"
     ></path>
     <polygon
-      points="0,20 10,14 20,20 10,26"
+      points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
       stroke="currentColor"
       fill="currentColor"
     />
     <path
-      d="M 50,20 L 42, 14 L 46,20 L 42, 26 "
+      d="M 50,20 L 43,15 L 46,20 L 43, 25 "
       strokeWidth="1"
       stroke="currentColor"
     ></path>
