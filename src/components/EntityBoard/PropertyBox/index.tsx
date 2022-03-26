@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       flex: 1,
       overflow: "auto",
+      color: theme.palette.text.secondary,
     },
   })
 );

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       //backgroundImage:`url(${welcomeImage})`,
       //backgroundRepeat: 'no-repeat',
       //backgroundSize: 'cover',
-      background:'#f0f0f0',
+      background: theme.palette.background.paper,
     },
 
   }),
