@@ -2,17 +2,15 @@ import React, { useCallback, useMemo } from "react";
 import intl from "react-intl-universal";
 import {
   FormControl,
-  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Switch,
   Typography,
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import { CascadeType, RelationMeta, RelationType } from "../meta/RelationMeta";
+import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { useEntity } from "../hooks/useEntity";
 import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useGetEntity } from "../hooks/useGetEntity";
@@ -87,26 +85,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
       changeRelation({
         ...relation,
         ownerId: event.target.value as string,
-      });
-    },
-    [changeRelation, relation]
-  );
-
-  const handleCombinationOnSourceChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeRelation({
-        ...relation,
-        cascadeType: event.target.checked ? CascadeType.ON_SOURCE : undefined,
-      });
-    },
-    [changeRelation, relation]
-  );
-
-  const handleCombinationOnTargetChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeRelation({
-        ...relation,
-        cascadeType: event.target.checked ? CascadeType.ON_TARGET : undefined,
       });
     },
     [changeRelation, relation]
@@ -196,18 +174,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={relation.cascadeType === CascadeType.ON_SOURCE}
-                  onChange={handleCombinationOnSourceChange}
-                  color="primary"
-                />
-              }
-              label={intl.get("cascade")}
-            />
-          </Grid>
-          <Grid item xs={12}>
             <Typography variant="subtitle1">
               {target?.name} {intl.get("side")}
             </Typography>
@@ -226,18 +192,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               multiline
               rows={4}
               onChange={handleTargetDescriptionChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={relation.cascadeType === CascadeType.ON_TARGET}
-                  onChange={handleCombinationOnTargetChange}
-                  color="primary"
-                />
-              }
-              label={intl.get("cascade")}
             />
           </Grid>
         </>
