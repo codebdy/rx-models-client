@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import GraphiQL from "graphiql";
 import "graphiql/graphiql.css";
+import "./graphiql-dark-mode.css"
 import { SERVER_URL, SERVER_SUBSCRIPTION_URL } from "util/consts";
 import { createGraphiQLFetcher } from "@graphiql/toolkit";
 import { memo, useMemo } from "react";
