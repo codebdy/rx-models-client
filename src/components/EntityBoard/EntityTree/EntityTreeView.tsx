@@ -65,9 +65,9 @@ export const EntityTreeView = memo((props: { graph?: Graph }) => {
   return (
     <>
       <TreeView
-        defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultCollapseIcon={<ExpandMoreIcon sx={{color:theme=>theme.palette.text.secondary}} />}
         defaultExpanded={[TREE_ROOT_ID]}
-        defaultExpandIcon={<ChevronRightIcon />}
+        defaultExpandIcon={<ChevronRightIcon sx={{color:theme=>theme.palette.text.secondary}}/>}
         selected={[selectedDiagram || "", selectedElement || ""]}
       >
         <TreeItem

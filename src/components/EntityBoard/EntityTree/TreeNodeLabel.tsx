@@ -19,7 +19,7 @@ export function TreeNodeLabel(props: {
         padding: "5px 0",
         position: "relative",
         userSelect: "none",
-        color: theme=>theme.palette.text.primary,
+        color: theme=>theme.palette.text.secondary,
       }}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

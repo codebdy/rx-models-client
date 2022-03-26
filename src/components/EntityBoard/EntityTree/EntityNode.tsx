@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect } from "react";
-import { IconButton, SvgIcon } from "@mui/material";
+import { IconButton, SvgIcon, useTheme } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
 import { ColumnNode } from "./ColumnNode";
@@ -33,7 +33,7 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
   const deleteEntity = useDeleteEntity(serviceId);
   const changeEntity = useChangeEntity(serviceId);
   const createColumn = useCreateEntityColumn();
-
+  const theme = useTheme()
   //解决不能拖放的bug
   const ref = useCallback((elt: Element) => {
     elt?.addEventListener('focusin', (e) => {
@@ -131,9 +131,9 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
             M 1,11
             L 14,11
           "
-              stroke="#000"
+              stroke= {theme.palette.text.secondary}
               strokeWidth="1"
-              fill="#fff"
+              fill="transparent"
             ></path>
           </SvgIcon>
           <NodeText>
