@@ -91,6 +91,65 @@ export const svgTwoWayCombination = (
   </svg>
 );
 
+export const svgOneWayAssociation = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path d="M 0,20 L 50,20" stroke="currentColor" strokeWidth="1"></path>
+    <path
+      d="M 50,20 L 42, 14 L 46,20 L 42, 26 "
+      strokeWidth="1"
+      stroke="currentColor"
+    ></path>
+  </svg>
+);
+
+export const svgOneWayAggregation = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
+        M 0,20
+        L 50,20
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+    ></path>
+    <polygon
+      points="0,20 10,14 20,20 10,26"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="#fff"
+    />
+    <path
+      d="M 50,20 L 42, 14 L 46,20 L 42, 26 "
+      strokeWidth="1"
+      stroke="currentColor"
+    ></path>
+  </svg>
+);
+
+export const svgOneWayCombination = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
+        M 0,20
+        L 50,20
+      "
+      stroke="currentColor"
+      strokeWidth="1"
+    ></path>
+    <polygon
+      points="0,20 10,14 20,20 10,26"
+      strokeWidth="1"
+      stroke="currentColor"
+      fill="currentColor"
+    />
+    <path
+      d="M 50,20 L 42, 14 L 46,20 L 42, 26 "
+      strokeWidth="1"
+      stroke="currentColor"
+    ></path>
+  </svg>
+);
+
 export const svgOneToOne = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
     <path
