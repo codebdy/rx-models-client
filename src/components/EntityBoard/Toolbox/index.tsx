@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { Theme } from "@mui/material/styles";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
@@ -12,6 +12,7 @@ import { Addon, Graph } from "@antv/x6";
 import { useEffect } from "react";
 import { EntityView } from "../GraphCanvas/EntityView";
 import {
+  svgImplement,
   svgInherit,
   svgManyToMany,
   svgManyToOne,
@@ -57,23 +58,38 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   const { graph } = props;
   const classes = useStyles();
   const [expandEntites, setExpandEntites] = React.useState(true);
-  const [expandRelations, setExpandRelations] = React.useState(true);
+  const [expandTwoWayRelations, setTwoWayExpandRelations] =
+    React.useState(false);
+  const [expandOneWayRelations, setOneWayExpandRelations] =
+    React.useState(false);
   const [dnd, setDnd] = React.useState<any>();
   const serviceId = useServiceId();
-  const [pressedLineType, setPressedLineType] =
-    useRecoilState(pressedLineTypeState(serviceId));
+  const [pressedLineType, setPressedLineType] = useRecoilState(
+    pressedLineTypeState(serviceId)
+  );
   const scrollStyles = useScrollbarStyles(true);
   const createTempClassNodeForNew = useCreateTempClassNodeForNew(serviceId);
 
-  const handleEneitiesChange =
+  const handleEneitiesChange = useCallback(
     () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-      setExpandEntites(!expandEntites);
-    };
+      setExpandEntites((a) => !a);
+    },
+    []
+  );
 
-  const handleRelationsChange =
+  const handleTwoWayRelationsChange = useCallback(
     () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-      setExpandRelations(!expandRelations);
-    };
+      setTwoWayExpandRelations((a) => !a);
+    },
+    []
+  );
+
+  const handleOneWayRelationsChange = useCallback(
+    () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+      setOneWayExpandRelations((a) => !a);
+    },
+    []
+  );
 
   useEffect(() => {
     const theDnd = graph
@@ -86,7 +102,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
     setDnd(theDnd);
   }, [graph]);
 
-  const startDrag = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const startDrag = useCallback((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!graph) {
       return;
     }
@@ -94,47 +110,47 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
     nodeConfig.component = <EntityView />;
     const node = graph.createNode(nodeConfig);
     dnd?.start(node, e.nativeEvent as any);
-  };
+  }, [createTempClassNodeForNew, dnd, graph]);
 
-  const handleInheritClick = () => {
+  const handleInheritClick = useCallback(() => {
     if (RelationType.IMPLEMENTS === pressedLineType) {
       setPressedLineType(undefined);
     } else {
       setPressedLineType(RelationType.IMPLEMENTS);
     }
-  };
+  }, [pressedLineType, setPressedLineType]);
 
-  const handleOneToOneClick = () => {
+  const handleOneToOneClick = useCallback(() => {
     if (RelationType.ONE_TO_ONE === pressedLineType) {
       setPressedLineType(undefined);
     } else {
       setPressedLineType(RelationType.ONE_TO_ONE);
     }
-  };
+  }, [pressedLineType, setPressedLineType]);
 
-  const handleOneToManyClick = () => {
+  const handleOneToManyClick = useCallback(() => {
     if (RelationType.ONE_TO_MANY === pressedLineType) {
       setPressedLineType(undefined);
     } else {
       setPressedLineType(RelationType.ONE_TO_MANY);
     }
-  };
+  }, [pressedLineType, setPressedLineType]);
 
-  const handleManyToOneClick = () => {
+  const handleManyToOneClick = useCallback(() => {
     if (RelationType.MANY_TO_ONE === pressedLineType) {
       setPressedLineType(undefined);
     } else {
       setPressedLineType(RelationType.MANY_TO_ONE);
     }
-  };
+  }, [pressedLineType, setPressedLineType]);
 
-  const handleManyToManyClick = () => {
+  const handleManyToManyClick = useCallback(() => {
     if (RelationType.MANY_TO_MANY === pressedLineType) {
       setPressedLineType(undefined);
     } else {
       setPressedLineType(RelationType.MANY_TO_MANY);
     }
-  };
+  }, [pressedLineType, setPressedLineType]);
 
   return (
     <Box
@@ -201,19 +217,86 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               })}
               onClick={handleInheritClick}
             >
-              {svgInherit}
+              {svgImplement}
               {intl.get("implements")}
+            </div>
+            <div
+              className={classNames(classes.toolItem, classes.relationItem, {
+                [classes.selected]: pressedLineType === RelationType.IMPLEMENTS,
+              })}
+              onClick={handleInheritClick}
+            >
+              {svgInherit}
+              {intl.get("inherit")}
             </div>
           </AccordionDetails>
         </Accordion>
         <Accordion
           square
           sx={{ "&.MuiAccordion-root": { borderLeft: 0 } }}
-          expanded={expandRelations}
-          onChange={handleRelationsChange()}
+          expanded={expandTwoWayRelations}
+          onChange={handleTwoWayRelationsChange()}
         >
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography>{intl.get("relation")}</Typography>
+            <Typography>{intl.get("two-way-relation")}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.relationItem,
+                {
+                  [classes.selected]:
+                    pressedLineType === RelationType.ONE_TO_ONE,
+                }
+              )}
+              onClick={handleOneToOneClick}
+            >
+              {svgOneToOne}
+              {intl.get("one-to-one")}
+            </div>
+            <div
+              className={classNames(classes.toolItem, classes.relationItem, {
+                [classes.selected]:
+                  pressedLineType === RelationType.ONE_TO_MANY,
+              })}
+              onClick={handleOneToManyClick}
+            >
+              {svgOneToMany}
+              {intl.get("one-to-many")}
+            </div>
+            <div
+              className={classNames(classes.toolItem, classes.relationItem, {
+                [classes.selected]:
+                  pressedLineType === RelationType.MANY_TO_ONE,
+              })}
+              onClick={handleManyToOneClick}
+            >
+              {svgManyToOne}
+              {intl.get("many-to-one")}
+            </div>
+
+            <div
+              className={classNames(classes.toolItem, classes.relationItem, {
+                [classes.selected]:
+                  pressedLineType === RelationType.MANY_TO_MANY,
+              })}
+              onClick={handleManyToManyClick}
+            >
+              {svgManyToMany}
+              {intl.get("many-to-many")}
+            </div>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          square
+          sx={{ "&.MuiAccordion-root": { borderLeft: 0 } }}
+          expanded={expandOneWayRelations}
+          onChange={handleOneWayRelationsChange()}
+        >
+          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+            <Typography>{intl.get("one-way-relation")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <div

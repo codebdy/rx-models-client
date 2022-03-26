@@ -1,5 +1,5 @@
 
-export const svgInherit = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" >
+export const svgImplement = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" >
 <path d="
     M 15,15
     L 25,0
@@ -13,6 +13,17 @@ export const svgInherit = <svg xmlns="http://www.w3.org/2000/svg" width="50" hei
     L 25,34
     M 25,39
     L 25,42
+" stroke="currentColor" strokeWidth="1" fill="#fff"></path>
+</svg>
+
+export const svgInherit = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" >
+<path d="
+    M 15,15
+    L 25,0
+    L 35,15
+    L 15,15
+    M 25,15
+    L 25,45
 " stroke="currentColor" strokeWidth="1" fill="#fff"></path>
 </svg>
 
