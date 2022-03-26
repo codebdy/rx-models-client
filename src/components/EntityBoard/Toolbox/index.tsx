@@ -18,6 +18,9 @@ import {
   svgManyToOne,
   svgOneToMany,
   svgOneToOne,
+  svgTwoWayAggregation,
+  svgTwoWayAssociation,
+  svgTwoWayCombination,
 } from "./constSvg";
 import { RelationType } from "../meta/RelationMeta";
 import { pressedLineTypeState } from "../recoil/atoms";
@@ -178,7 +181,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
           onChange={handleEneitiesChange()}
         >
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography>{intl.get("entity")}</Typography>
+            <Typography>{intl.get("class")}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <div
@@ -209,7 +212,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                   }}
                 ></div>
               </div>
-              {intl.get("entity")}
+              {intl.get("class")}
             </div>
             <div
               className={classNames(classes.toolItem, classes.relationItem, {
@@ -253,39 +256,38 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               )}
               onClick={handleOneToOneClick}
             >
-              {svgOneToOne}
-              {intl.get("one-to-one")}
+              {svgTwoWayAssociation}
+              {intl.get("association")}
             </div>
             <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]:
-                  pressedLineType === RelationType.ONE_TO_MANY,
-              })}
-              onClick={handleOneToManyClick}
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.relationItem,
+                {
+                  [classes.selected]:
+                    pressedLineType === RelationType.ONE_TO_ONE,
+                }
+              )}
+              onClick={handleOneToOneClick}
             >
-              {svgOneToMany}
-              {intl.get("one-to-many")}
+              {svgTwoWayAggregation}
+              {intl.get("aggregation")}
             </div>
             <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]:
-                  pressedLineType === RelationType.MANY_TO_ONE,
-              })}
-              onClick={handleManyToOneClick}
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.relationItem,
+                {
+                  [classes.selected]:
+                    pressedLineType === RelationType.ONE_TO_ONE,
+                }
+              )}
+              onClick={handleOneToOneClick}
             >
-              {svgManyToOne}
-              {intl.get("many-to-one")}
-            </div>
-
-            <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]:
-                  pressedLineType === RelationType.MANY_TO_MANY,
-              })}
-              onClick={handleManyToManyClick}
-            >
-              {svgManyToMany}
-              {intl.get("many-to-many")}
+              {svgTwoWayCombination}
+              {intl.get("combination")}
             </div>
           </AccordionDetails>
         </Accordion>
