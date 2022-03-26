@@ -206,3 +206,10 @@
   .CodeMirror-hint-information .content {
     color: #a4abb7;
   }
+  .CodeMirror div.CodeMirror-cursor {
+    border-left: 2px solid #97BE7B;
+  }
+
+  .cm-ws{
+    color:#425555
+  }
