@@ -90,7 +90,7 @@ export function useEdgesShow(graph: Graph|undefined, serviceId :number) {
           {
             attrs: {
               text: {
-                text: edgeMeta.roleOnSource,
+                text: edgeMeta.roleOfTarget,
               },
             },
             position:
@@ -99,7 +99,7 @@ export function useEdgesShow(graph: Graph|undefined, serviceId :number) {
           {
             attrs: {
               text: {
-                text: edgeMeta.roleOnTarget,
+                text: edgeMeta.roleOfSource,
               },
             },
             position: edgeMeta.roleOnTargetPosition || ROLE_SOURCE_TARGET_CONST,

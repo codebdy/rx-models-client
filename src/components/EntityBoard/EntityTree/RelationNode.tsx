@@ -45,7 +45,7 @@ export const RelationNode = (props: {
           </SvgIcon>
 
           <NodeText>
-            {isSource ? relation.roleOnSource : relation.roleOnTarget}
+            {isSource ? relation.roleOfTarget : relation.roleOfSource}
           </NodeText>
         </TreeNodeLabel>
       }

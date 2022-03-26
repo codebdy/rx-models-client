@@ -85,13 +85,13 @@ export default function ExpressDialog(props: {
   const getRelationByName = (entityUuid: string, roleName: string) => {
     for (const relation of relations || []) {
       if (
-        relation.roleOnSource === roleName &&
+        relation.roleOfTarget === roleName &&
         relation.sourceId === entityUuid
       ) {
         return relation;
       }
       if (
-        relation.roleOnTarget === roleName &&
+        relation.roleOfSource === roleName &&
         relation.targetId === entityUuid
       ) {
         return relation;

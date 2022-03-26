@@ -23,8 +23,9 @@ export function usePostOne<T extends IObject>(
       const { __type, ...object } = data;
       const graphQLClient = createGraphQLClient();
       const postName = "upsertOne" + data.__type;
+      const typeName = data.__type + "Input";
       const postMutation = gql`
-        mutation ${postName} ($object: MetaInput!) {
+        mutation ${postName} ($object: ${typeName}!) {
           ${postName}(object: $object){
             id
             ${Object.keys(data)

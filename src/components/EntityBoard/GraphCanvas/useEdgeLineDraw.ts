@@ -121,10 +121,10 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
             relationType: drawingLine.relationType,
             sourceId: source.uuid,
             targetId: target.uuid,
-            roleOnSource: isInherit
+            roleOfTarget: isInherit
               ? undefined
               : target.name.toLowerCase() + seedId(),
-            roleOnTarget: isInherit
+            roleOfSource: isInherit
               ? undefined
               : source.name.toLowerCase() + seedId(),
             ownerId: ownerId,

@@ -46,7 +46,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     (event: React.ChangeEvent<{ value: string }>) => {
       changeRelation({
         ...relation,
-        roleOnSource: event.target.value.trim(),
+        roleOfTarget: event.target.value.trim(),
       });
     },
     [changeRelation, relation]
@@ -65,7 +65,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     (event: React.ChangeEvent<{ value: string }>) => {
       changeRelation({
         ...relation,
-        roleOnTarget: event.target.value.trim(),
+        roleOfSource: event.target.value.trim(),
       });
     },
     [changeRelation, relation]
@@ -182,7 +182,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           <Grid item xs={12}>
             <LazyTextField
               label={intl.get("role-name")}
-              value={relation.roleOnSource || ""}
+              value={relation.roleOfTarget || ""}
               onChange={handleSourceRoleChange}
             />
           </Grid>
@@ -215,7 +215,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           <Grid item xs={12}>
             <LazyTextField
               label={intl.get("role-name")}
-              value={relation.roleOnTarget || ""}
+              value={relation.roleOfSource || ""}
               onChange={handleTargetRoleChange}
             />
           </Grid>

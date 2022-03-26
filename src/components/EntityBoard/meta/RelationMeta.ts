@@ -44,12 +44,12 @@ export interface RelationMeta {
   /**
   * 源实体上的关系属性
   */  
-  roleOnSource?: string;
+  roleOfTarget?: string;
 
   /**
   * 目标实体上的关系属性
   */    
-  roleOnTarget?: string;
+  roleOfSource?: string;
 
   descriptionOnSource?: string;
 
