@@ -11,7 +11,7 @@ export function useCreateNewEntity(serviceId: number) {
   const createInnerId = useCreateEntityInnerId(serviceId);
 
   const getNewEntityName = useCallback(() => {
-    const prefix = "NewEntity";
+    const prefix = "NewClass";
     let index = 1;
     while (getEntityByName(prefix + index)) {
       index++;
