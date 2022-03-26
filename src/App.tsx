@@ -33,7 +33,7 @@ function App() {
   const [langLoading] = useIntl();
   const theme = createTheme({
     palette: {
-      mode: "light",
+      mode: "dark",
       primary: {
         main: PRIMARY_COLOR,
       },

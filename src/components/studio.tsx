@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100%",
       display: "flex",
       flexFlow: "column",
+      background: theme.palette.background.default,
     },
     logoIcon: {
       marginRight: theme.spacing(2),

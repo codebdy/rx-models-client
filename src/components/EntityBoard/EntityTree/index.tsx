@@ -38,7 +38,7 @@ export const EntityTree = memo((props: { graph?: Graph }) => {
           pr: 2,
         }}
       >
-        <Typography>{intl.get("entity-model")}</Typography>
+        <Typography sx={{color: theme=>theme.palette.text.primary}}>{intl.get("entity-model")}</Typography>
         <Button
           variant="contained"
           size="small"
