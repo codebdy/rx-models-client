@@ -165,7 +165,8 @@ export const ModelsBoard = memo(() => {
                           overflow: "hidden",
                           display: minMap ? "block" : "none",
                           border: (theme) =>
-                            `solid 1px ${theme.palette.divider}`,
+                            `solid 2px ${theme.palette.divider}`,
+                          boxShadow: 5,
                         }}
                         id="mini-map"
                       ></Box>
