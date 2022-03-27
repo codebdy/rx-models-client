@@ -11,6 +11,8 @@ export enum RelationType {
   ONE_WAY_ASSOCIATION = "oneWayAssociation",
   ONE_WAY_AGGREGATION = "oneWayAggregation",
   ONE_WAY_COMBINATION = "oneWayCombination",
+
+  LINK_LINE = "linkLine",
 }
 
 /**

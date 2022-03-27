@@ -15,10 +15,6 @@ import {
   svgImplement,
   svgInherit,
   svgLinkLine,
-  svgManyToMany,
-  svgManyToOne,
-  svgOneToMany,
-  svgOneToOne,
   svgOneWayAggregation,
   svgOneWayAssociation,
   svgOneWayCombination,
@@ -131,45 +127,23 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
     [createTempClassNodeForNew, dnd, graph]
   );
 
-  const handleInheritClick = useCallback(() => {
-    if (RelationType.IMPLEMENTS === pressedLineType) {
-      setPressedLineType(undefined);
-    } else {
-      setPressedLineType(RelationType.IMPLEMENTS);
-    }
-  }, [pressedLineType, setPressedLineType]);
+  const doRelationClick = useCallback(
+    (lineType: RelationType) => {
+      if (lineType === pressedLineType) {
+        setPressedLineType(undefined);
+      } else {
+        setPressedLineType(lineType);
+      }
+    },
+    [pressedLineType, setPressedLineType]
+  );
 
-  const handleOneToOneClick = useCallback(() => {
-    if (RelationType.TWO_WAY_ASSOCIATION === pressedLineType) {
-      setPressedLineType(undefined);
-    } else {
-      setPressedLineType(RelationType.TWO_WAY_ASSOCIATION);
-    }
-  }, [pressedLineType, setPressedLineType]);
-
-  const handleOneToManyClick = useCallback(() => {
-    if (RelationType.TWO_WAY_AGGREGATION === pressedLineType) {
-      setPressedLineType(undefined);
-    } else {
-      setPressedLineType(RelationType.TWO_WAY_AGGREGATION);
-    }
-  }, [pressedLineType, setPressedLineType]);
-
-  const handleManyToOneClick = useCallback(() => {
-    if (RelationType.TWO_WAY_COMBINATION === pressedLineType) {
-      setPressedLineType(undefined);
-    } else {
-      setPressedLineType(RelationType.TWO_WAY_COMBINATION);
-    }
-  }, [pressedLineType, setPressedLineType]);
-
-  const handleManyToManyClick = useCallback(() => {
-    if (RelationType.ONE_WAY_ASSOCIATION === pressedLineType) {
-      setPressedLineType(undefined);
-    } else {
-      setPressedLineType(RelationType.ONE_WAY_ASSOCIATION);
-    }
-  }, [pressedLineType, setPressedLineType]);
+  const handleRelationClick = useCallback(
+    (lineType: RelationType) => {
+      return () => doRelationClick(lineType);
+    },
+    [doRelationClick]
+  );
 
   return (
     <Box
@@ -245,16 +219,16 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               className={classNames(classes.toolItem, classes.relationItem, {
                 [classes.selected]: pressedLineType === RelationType.IMPLEMENTS,
               })}
-              onClick={handleInheritClick}
+              onClick={handleRelationClick(RelationType.IMPLEMENTS)}
             >
               {svgImplement}
               {intl.get("implements")}
             </div>
             <div
               className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]: pressedLineType === RelationType.IMPLEMENTS,
+                [classes.selected]: pressedLineType === RelationType.INHERIT,
               })}
-              onClick={handleInheritClick}
+              onClick={handleRelationClick(RelationType.INHERIT)}
             >
               {svgInherit}
               {intl.get("inherit")}
@@ -283,7 +257,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                     pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
                 }
               )}
-              onClick={handleOneToOneClick}
+              onClick={handleRelationClick(RelationType.TWO_WAY_ASSOCIATION)}
             >
               {svgTwoWayAssociation}
               {intl.get("association")}
@@ -295,10 +269,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
+                    pressedLineType === RelationType.TWO_WAY_AGGREGATION,
                 }
               )}
-              onClick={handleOneToOneClick}
+              onClick={handleRelationClick(RelationType.TWO_WAY_AGGREGATION)}
             >
               {svgTwoWayAggregation}
               {intl.get("aggregation")}
@@ -310,10 +284,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
+                    pressedLineType === RelationType.TWO_WAY_COMBINATION,
                 }
               )}
-              onClick={handleOneToOneClick}
+              onClick={handleRelationClick(RelationType.TWO_WAY_COMBINATION)}
             >
               {svgTwoWayCombination}
               {intl.get("combination")}
@@ -339,10 +313,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
+                    pressedLineType === RelationType.ONE_WAY_ASSOCIATION,
                 }
               )}
-              onClick={handleOneToOneClick}
+              onClick={handleRelationClick(RelationType.ONE_WAY_ASSOCIATION)}
             >
               {svgOneWayAssociation}
               {intl.get("association")}
@@ -354,10 +328,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
+                    pressedLineType === RelationType.ONE_WAY_AGGREGATION,
                 }
               )}
-              onClick={handleOneToOneClick}
+              onClick={handleRelationClick(RelationType.ONE_WAY_AGGREGATION)}
             >
               {svgOneWayAggregation}
               {intl.get("aggregation")}
@@ -369,10 +343,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
+                    pressedLineType === RelationType.ONE_WAY_COMBINATION,
                 }
               )}
-              onClick={handleOneToOneClick}
+              onClick={handleRelationClick(RelationType.ONE_WAY_COMBINATION)}
             >
               {svgOneWayCombination}
               {intl.get("combination")}
@@ -398,10 +372,10 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.relationItem,
                 {
                   [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
+                    pressedLineType === RelationType.LINK_LINE,
                 }
               )}
-              onClick={handleOneToOneClick}
+              onClick={handleRelationClick(RelationType.LINK_LINE)}
             >
               {svgLinkLine}
               {intl.get("link-line")}
