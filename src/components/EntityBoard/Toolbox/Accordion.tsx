@@ -1,10 +1,14 @@
-import withStyles from '@mui/styles/withStyles';
-import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
 
-export const Accordion = withStyles({
-  root: {
-    border: '1px solid rgba(0, 0, 0, .125)',
+export const Accordion = (props: AccordionProps)=>{
+  const {sx, ...rest} = props;
+  return <MuiAccordion {...rest}  sx={{
+    ...sx,
+    border: theme=> theme.palette.divider + ' 1px solid',
     boxShadow: 'none',
+    "&.MuiAccordion-root":{
+      backgroundImage:"none",
+    },
     '&:not(:last-child)': {
       borderBottom: 0,
     },
@@ -16,6 +20,5 @@ export const Accordion = withStyles({
     },
     width: '100px',
     userSelect: 'none',
-  },
-  expanded: {},
-})(MuiAccordion);
+  }}/>
+}

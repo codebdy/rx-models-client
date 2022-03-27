@@ -170,8 +170,16 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
           expanded={expandEntites}
           onChange={handleEneitiesChange()}
         >
-          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
+          <AccordionSummary
+            aria-controls="panel1d-content"
+            id="panel1d-header"
+            sx={{
+              "&.Mui-expanded": {
+                margin: 0,
+              },
+            }}
+          >
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
               {intl.get("class")}
             </Typography>
           </AccordionSummary>
@@ -237,12 +245,18 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         </Accordion>
         <Accordion
           square
-          sx={{ "&.MuiAccordion-root": { borderLeft: 0 } }}
+          sx={{ 
+            "&.MuiAccordion-root": { borderLeft: 0 },
+            "&.Mui-expanded": {
+              margin: 0,
+            },
+          }}
           expanded={expandTwoWayRelations}
           onChange={handleTwoWayRelationsChange()}
+          
         >
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
               {intl.get("two-way-relation")}
             </Typography>
           </AccordionSummary>
@@ -296,12 +310,17 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         </Accordion>
         <Accordion
           square
-          sx={{ "&.MuiAccordion-root": { borderLeft: 0 } }}
+          sx={{ 
+            "&.MuiAccordion-root": { borderLeft: 0 },
+            "&.Mui-expanded": {
+              margin: 0,
+            },
+          }}
           expanded={expandOneWayRelations}
           onChange={handleOneWayRelationsChange()}
         >
           <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
               {intl.get("one-way-relation")}
             </Typography>
           </AccordionSummary>
@@ -355,12 +374,17 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         </Accordion>
         <Accordion
           square
-          sx={{ "&.MuiAccordion-root": { borderLeft: 0 } }}
+          sx={{ 
+            "&.MuiAccordion-root": { borderLeft: 0 },
+            "&.Mui-expanded": {
+              margin: 0,
+            },
+          }}
           expanded={expandOthers}
           onChange={handleOthersChange()}
         >
           <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
               {intl.get("others")}
             </Typography>
           </AccordionSummary>
