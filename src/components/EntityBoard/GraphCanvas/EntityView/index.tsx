@@ -1,25 +1,24 @@
 import React, { useCallback, useState } from "react";
-import { Theme, IconButton, Box } from "@mui/material";
+import {
+  Theme,
+  IconButton,
+  Box,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
-import { EntityNodeData } from "../EntityNodeData";
 import ColumnView from "./ColumnView";
 import { EntityType } from "components/EntityBoard/meta/EntityMeta";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { EntityNodeData } from "./EntityNodeData";
+import { PRIMARY_COLOR } from "util/consts";
+import useShadows from "util/use-shadows";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: {
-      flex: 1,
-      border: "solid 2px",
-      borderRadius: "5px",
-      display: "flex",
-      flexFlow: "column",
-      background: "#FFFFFF",
-      overflow: "hidden",
-    },
     entityName: {
       width: "100%",
       padding: "2px 0",
@@ -61,6 +60,17 @@ export const EntityView = (props: {
   const [hover, setHover] = useState(false);
   const data: EntityNodeData | undefined = node?.data;
 
+  const theme = createTheme({
+    palette: {
+      mode: data?.themeMode || "dark",
+      primary: {
+        main: PRIMARY_COLOR,
+      },
+    },
+
+    shadows: [...useShadows()] as any,
+  });
+
   const canLink =
     node.data.isPressedRelation &&
     data?.entityType !== EntityType.ENUM &&
@@ -98,87 +108,100 @@ export const EntityView = (props: {
   }, []);
 
   return (
-    <Box
-      sx={{
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexFlow: "column",
-        background: "#FFFFFF",
-        overflow: "hidden",
-        cursor: canLink ? "crosshair" : undefined,
-      }}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div className={classes.container}>
-        <div className={classes.entityName}>
-          {(data?.entityType === EntityType.ENUM ||
-            data?.entityType === EntityType.INTERFACE) && (
-            <div className={classNames(classes.nameItem, classes.smFont)}>
-              &lt;&lt; {data?.entityType} &gt;&gt;
-            </div>
-          )}
-          <div className={classes.nameItem}>{data?.name}</div>
-          {data?.packageName && (
-            <div className={classNames(classes.nameItem, classes.smFont)}>
-              <em>{data?.packageName}</em>
-            </div>
-          )}
-          {hover && !disableHover && (
-            <IconButton
-              sx={{
-                width: "24px",
-                height: "24px",
-                zIndex: 1,
-                position: "absolute",
-                right: "0",
-                top: "0",
-              }}
-              onClick={handleHidden}
-              size="large"
-            >
-              <VisibilityOffOutlinedIcon sx={{ fontSize: 16 }} />
-            </IconButton>
-          )}
-        </div>
-        {data?.entityType !== EntityType.ENUM && (
-          <Box
-            sx={{
-              flex: 1,
-              display: "flex",
-              flexFlow: "column",
-              borderTop: "solid 1px",
-              cursor: canLink ? "crosshair" : "default",
-            }}
-          >
-            {data?.columns?.map((column) => {
-              return (
-                <ColumnView
-                  key={column.uuid}
-                  column={column}
-                  onClick={handleColumnClick}
-                  onDelete={handleColumnDelete}
-                  isSelected={data.selectedId === column.uuid}
-                  readOnly={disableHover}
-                  isInterface={data?.entityType === EntityType.INTERFACE}
-                />
-              );
-            })}
-            {hover && !disableHover && (
-              <div className={classes.columnPuls}>
-                <IconButton
-                  className={classes.columnButton}
-                  onClick={handleColumnCreate}
-                  size="large"
-                >
-                  <AddOutlinedIcon sx={{ fontSize: 20 }} />
-                </IconButton>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexFlow: "column",
+          background: theme.palette.background.paper,
+          overflow: "hidden",
+          cursor: canLink ? "crosshair" : undefined,
+        }}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Box
+          sx={{
+            flex: 1,
+            border: "solid 2px",
+            borderRadius: "5px",
+            display: "flex",
+            flexFlow: "column",
+            background: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+            overflow: "hidden",
+          }}
+        >
+          <div className={classes.entityName}>
+            {(data?.entityType === EntityType.ENUM ||
+              data?.entityType === EntityType.INTERFACE) && (
+              <div className={classNames(classes.nameItem, classes.smFont)}>
+                &lt;&lt; {data?.entityType} &gt;&gt;
               </div>
             )}
-          </Box>
-        )}
-      </div>
-    </Box>
+            <div className={classes.nameItem}>{data?.name}</div>
+            {data?.serviceName && (
+              <div className={classNames(classes.nameItem, classes.smFont)}>
+                <em>{data?.serviceName}</em>
+              </div>
+            )}
+            {hover && !disableHover && (
+              <IconButton
+                sx={{
+                  width: "24px",
+                  height: "24px",
+                  zIndex: 1,
+                  position: "absolute",
+                  right: "0",
+                  top: "0",
+                }}
+                onClick={handleHidden}
+                size="large"
+              >
+                <VisibilityOffOutlinedIcon sx={{ fontSize: 16 }} />
+              </IconButton>
+            )}
+          </div>
+          {data?.entityType !== EntityType.ENUM && (
+            <Box
+              sx={{
+                flex: 1,
+                display: "flex",
+                flexFlow: "column",
+                borderTop: "solid 1px",
+                cursor: canLink ? "crosshair" : "default",
+              }}
+            >
+              {data?.columns?.map((column) => {
+                return (
+                  <ColumnView
+                    key={column.uuid}
+                    column={column}
+                    onClick={handleColumnClick}
+                    onDelete={handleColumnDelete}
+                    isSelected={data.selectedId === column.uuid}
+                    readOnly={disableHover}
+                    isInterface={data?.entityType === EntityType.INTERFACE}
+                  />
+                );
+              })}
+              {hover && !disableHover && (
+                <div className={classes.columnPuls}>
+                  <IconButton
+                    className={classes.columnButton}
+                    onClick={handleColumnCreate}
+                    size="large"
+                  >
+                    <AddOutlinedIcon sx={{ fontSize: 20 }} />
+                  </IconButton>
+                </div>
+              )}
+            </Box>
+          )}
+        </Box>
+      </Box>
+    </ThemeProvider>
   );
 };

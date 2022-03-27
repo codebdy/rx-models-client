@@ -18,11 +18,14 @@ import { useGetParentUuid } from "./useGetParentUuid";
 import { RelationType } from "../meta/RelationMeta";
 import { useChangeEntity } from "../hooks/useChangeEntity";
 import { useCreateEntityColumn } from "../hooks/useCreateEntityColumn";
+import { EntityNodeData } from "./EntityView/EntityNodeData";
+import { themeModeState } from "recoil/atoms";
 
 export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
-  const [selectedElement, setSelectedElement] =
-    useRecoilState(selectedElementState(serviceId));
+  const [selectedElement, setSelectedElement] = useRecoilState(
+    selectedElementState(serviceId)
+  );
   const setNodes = useSetRecoilState(x6NodesState(serviceId));
   const nodes = useDiagramNodes(selectedDiagram || "", serviceId);
   const getEntity = useGetEntity(serviceId);
@@ -32,6 +35,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const getParentUuid = useGetParentUuid(serviceId);
   const changeEntity = useChangeEntity(serviceId);
   const createColumn = useCreateEntityColumn();
+  const themeMode = useRecoilValue(themeModeState);
 
   const getEntityRef = useRef(getEntity);
   getEntityRef.current = getEntity;
@@ -88,13 +92,18 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
       const entity = getEntity(node.id);
-      const data = {
+      if (!entity) {
+        console.error("cant not find entity by node id :" + node.id);
+        return;
+      }
+      const data: EntityNodeData = {
         ...entity,
         ...node,
         selectedId: selectedElement,
         isPressedRelation:
           (pressedLineType !== RelationType.IMPLEMENTS && !!pressedLineType) ||
-          (pressedLineType === RelationType.IMPLEMENTS),
+          pressedLineType === RelationType.IMPLEMENTS,
+        themeMode: themeMode,
       };
       if (grahpNode) {
         //Update by diff
@@ -151,5 +160,6 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     selectedDiagram,
     selectedElement,
     setSelectedElement,
+    themeMode,
   ]);
 }
