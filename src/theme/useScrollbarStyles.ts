@@ -35,6 +35,9 @@ export function useScrollbarStyles(fixed?: boolean) {
       //     },
       //   },
       // },
+      '&::-webkit-scrollbar-corner':{
+        display: 'none',
+      },
     }),
     [fixed, theme.palette.text.secondary]
   );

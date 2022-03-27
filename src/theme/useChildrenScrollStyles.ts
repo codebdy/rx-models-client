@@ -33,6 +33,9 @@ export function useChildrenScrollStyles() {
       //     },
       //   },
       // },
+      '& ::-webkit-scrollbar-corner':{
+        display: 'none',
+      },
     }),
     [theme.palette.text.secondary]
   );
