@@ -37,10 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
       letterSpacing: "1px",
       fontWeight: "bold",
     },
-    githubLink: {
-      color: theme.palette.text.secondary,
-      marginRight: theme.spacing(1),
-    },
 
     navLink: {
       textDecoration: "none",

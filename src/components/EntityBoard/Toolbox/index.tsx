@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexFlow: "column",
       alignItems: "center",
       marginTop: theme.spacing(2),
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.primary,
     },
     firstItem: {
       marginTop: theme.spacing(0),
@@ -188,7 +188,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
           onChange={handleEneitiesChange()}
         >
           <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
               {intl.get("class")}
             </Typography>
           </AccordionSummary>
@@ -259,7 +259,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
           onChange={handleTwoWayRelationsChange()}
         >
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
               {intl.get("two-way-relation")}
             </Typography>
           </AccordionSummary>
@@ -318,7 +318,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
           onChange={handleOneWayRelationsChange()}
         >
           <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
+            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
               {intl.get("one-way-relation")}
             </Typography>
           </AccordionSummary>

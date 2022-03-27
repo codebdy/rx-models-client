@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       marginLeft:theme.spacing(1),
       fontSize:'0.95rem',
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.primary,
     },
   }),
 );

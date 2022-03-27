@@ -131,7 +131,7 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
             M 1,11
             L 14,11
           "
-              stroke= {theme.palette.text.secondary}
+              stroke= {theme.palette.text.primary}
               strokeWidth="1"
               fill="transparent"
             ></path>
