@@ -91,10 +91,28 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
 
       if (edgeMeta.relationType !== RelationType.IMPLEMENTS) {
         grahpEdge?.setLabels([
+          // {
+          //   attrs: {
+          //     text: {
+          //       text: "哈哈哈哈哈哈",
+          //     },
+          //   },
+          //   position: {
+          //     distance:0,
+          //     offset: { x: 30, y: 0 },
+          //     options:{
+          //       absoluteOffset: true,
+          //     }
+          //   },
+          // },
           {
             attrs: {
               text: {
                 text: edgeMeta.roleOfTarget,
+                fill: theme.palette.text.primary,
+              },
+              rect: {
+                fill: "transparent",
               },
             },
             position:
@@ -104,6 +122,10 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
             attrs: {
               text: {
                 text: edgeMeta.roleOfSource,
+                fill: theme.palette.text.primary,
+              },
+              rect: {
+                fill: "transparent",
               },
             },
             position: edgeMeta.roleOnTargetPosition || ROLE_SOURCE_TARGET_CONST,
