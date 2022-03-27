@@ -46,8 +46,10 @@ export const GraphCanvas = memo(
           flex: 1,
           flexFlow: "column",
           overflow: "auto",
+          position: "relative",
         }}
-      ></Box>
+      >
+      </Box>
     );
   }
 );

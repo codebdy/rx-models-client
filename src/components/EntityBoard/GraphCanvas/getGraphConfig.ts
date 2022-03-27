@@ -47,8 +47,8 @@ export const getGraphConfig = (theme:Theme)=>{
     minimap: {
       enabled: true,
       container: document.getElementById('mini-map')||undefined,
-      width:280,
-      height:220
+      width:140,
+      height:110
     }
   }
 }

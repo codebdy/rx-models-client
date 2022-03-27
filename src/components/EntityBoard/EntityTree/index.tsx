@@ -1,32 +1,23 @@
 import React, { memo } from "react";
-import { Box, Button, SvgIcon, Theme, Typography } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
-import createStyles from "@mui/styles/createStyles";
+import { Box, Button, SvgIcon, Typography } from "@mui/material";
 import { EntityTreeView } from "./EntityTreeView";
 import intl from "react-intl-universal";
 import { Graph } from "@antv/x6";
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      flexFlow: "column",
-      borderRight: `solid 1px ${theme.palette.divider}`,
-      width: "280px",
-    },
-    miniMap: {
-      borderTop: `solid 1px ${theme.palette.divider}`,
-    },
-  })
-);
 
 export const EntityTree = memo((props: { graph?: Graph }) => {
   const { graph } = props;
-  const classes = useStyles();
   const scrollStyles = useScrollbarStyles();
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        display: "flex",
+        flexFlow: "column",
+        borderRight: (theme) => `solid 1px ${theme.palette.divider}`,
+        width: "280px",
+      }}
+    >
       <Box
         sx={{
           height: (theme) => theme.spacing(6),
@@ -38,7 +29,9 @@ export const EntityTree = memo((props: { graph?: Graph }) => {
           pr: 2,
         }}
       >
-        <Typography sx={{color: theme=>theme.palette.text.primary}}>{intl.get("entity-model")}</Typography>
+        <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
+          {intl.get("entity-model")}
+        </Typography>
         <Button
           variant="contained"
           size="small"
@@ -64,7 +57,6 @@ export const EntityTree = memo((props: { graph?: Graph }) => {
       >
         <EntityTreeView graph={graph} />
       </Box>
-      <div className={classes.miniMap} id="mini-map"></div>
-    </div>
+    </Box>
   );
 });

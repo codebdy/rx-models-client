@@ -41,19 +41,13 @@ const useStyles = makeStyles((theme: Theme) =>
       flex: 1,
       display: "flex",
     },
-    canvas: {
-      flex: 1,
-      display: "flex",
-      flexFlow: "column",
-      overflow: "auto",
-    },
   })
 );
 
 export const ModelsBoard = memo(() => {
   const classes = useStyles();
   const [graph, setGraph] = useState<Graph>();
-  const serviceId = useServiceId()
+  const serviceId = useServiceId();
   const setMeta = useSetRecoilState(metaState(serviceId));
   const setEntities = useSetRecoilState(entitiesState(serviceId));
   const setRelations = useSetRecoilState(relationsState(serviceId));
@@ -155,12 +149,38 @@ export const ModelsBoard = memo(() => {
                       "dragit-scrollbar"
                     )}
                   >
-                    <div className={classes.canvas} id="container">
+                    <Box
+                      sx={{
+                        flex: 1,
+                        display: "flex",
+                        flexFlow: "column",
+                        overflow: "auto",
+                        "& .x6-widget-minimap": {
+                          backgroundColor: "transparent",
+                          "& .x6-graph": {
+                            boxShadow: (theme) => theme.shadows[5],
+                          },
+                        },
+                      }}
+                    >
                       <GraphCanvas
                         graph={graph}
                         onSetGraph={setGraph}
                       ></GraphCanvas>
-                    </div>
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          zIndex: 1,
+                          bottom: 0,
+                          right: 0,
+                          width: 140,
+                          height: 110,
+                          border: (theme) =>
+                            `solid 1px ${theme.palette.divider}`,
+                        }}
+                        id="mini-map"
+                      ></Box>
+                    </Box>
                   </div>
                 </>
               ) : (
