@@ -210,6 +210,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                   display: "flex",
                   flexFlow: "column",
                   padding: "0",
+                  borderRadius: "3px",
                 }}
               >
                 <div
