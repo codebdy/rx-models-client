@@ -23,6 +23,13 @@ export const serviceState = atom<Service|undefined>({
   default: undefined,
 })
 
+export const minMapState = atomFamily<boolean, number>(
+  {
+    key: "local.minMap",
+    default: true,
+  }
+)
+
 export const publishedIdState = atomFamily<number | undefined, number>({
   key: "local.publishedId",
   default: undefined,

@@ -12,6 +12,7 @@ import {
   diagramsState,
   entitiesState,
   metaState,
+  minMapState,
   publishedIdState,
   relationsState,
   selectedDiagramState,
@@ -38,6 +39,7 @@ export const ModelsBoard = memo(() => {
   const setX6Edges = useSetRecoilState(x6EdgesState(serviceId));
   const setPublishedId = useSetRecoilState(publishedIdState(serviceId));
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
+  const minMap = useRecoilValue(minMapState(serviceId));
   const queryName = useMemo(() => "one" + EntityNameMeta, []);
   const queryGql = useMemo(() => {
     return gql`
@@ -128,7 +130,7 @@ export const ModelsBoard = memo(() => {
                     sx={{
                       flex: 1,
                       display: "flex",
-                      ...scrollStyles
+                      ...scrollStyles,
                     }}
                   >
                     <Box
@@ -161,6 +163,7 @@ export const ModelsBoard = memo(() => {
                           height: 110,
                           borderRadius: "5px",
                           overflow: "hidden",
+                          display: minMap ? "block" : "none",
                           border: (theme) =>
                             `solid 1px ${theme.palette.divider}`,
                         }}
