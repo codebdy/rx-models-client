@@ -140,7 +140,7 @@ export const svgLinkLine = (
         M 31,20 
         L 34,20 
         M 39,20 
-        L 42, 20 
+        L 42,20 
         M 47,20 
         L 50,20"
       stroke="currentColor"
