@@ -1,7 +1,5 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { Box, Theme } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
-import createStyles from "@mui/styles/createStyles";
+import { Box } from "@mui/material";
 import { EntityTree } from "./EntityTree";
 import { GraphCanvas } from "./GraphCanvas";
 import classNames from "classnames";
@@ -29,23 +27,7 @@ import { useShowServerError } from "recoil/hooks/useShowServerError";
 import { gql } from "graphql-request";
 import { useServiceId } from "./hooks/useServiceId";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    content: {
-      width: "100%",
-      flex: 1,
-      display: "flex",
-      height: "0",
-    },
-    canvasShell: {
-      flex: 1,
-      display: "flex",
-    },
-  })
-);
-
 export const ModelsBoard = memo(() => {
-  const classes = useStyles();
   const [graph, setGraph] = useState<Graph>();
   const serviceId = useServiceId();
   const setMeta = useSetRecoilState(metaState(serviceId));
@@ -90,7 +72,6 @@ export const ModelsBoard = memo(() => {
   } = useQueryOne<Meta>(queryPubishedGql);
   const { data, error, loading } = useQueryOne<Meta>(queryGql);
   useShowServerError(error || publishedError);
-
   useEffect(() => {
     const meta = publishedData ? publishedData[queryName] : undefined;
     setPublishedId(meta?.id || undefined);
@@ -139,15 +120,16 @@ export const ModelsBoard = memo(() => {
             }}
           >
             <EntityToolbar />
-            <div className={classNames(classes.content)}>
+            <Box sx={{ width: "100%", flex: 1, display: "flex", height: "0" }}>
               {selectedDiagram ? (
                 <>
                   <Toolbox graph={graph}></Toolbox>
-                  <div
-                    className={classNames(
-                      classes.canvasShell,
-                      "dragit-scrollbar"
-                    )}
+                  <Box
+                    className={classNames("dragit-scrollbar")}
+                    sx={{
+                      flex: 1,
+                      display: "flex",
+                    }}
                   >
                     <Box
                       sx={{
@@ -155,10 +137,12 @@ export const ModelsBoard = memo(() => {
                         display: "flex",
                         flexFlow: "column",
                         overflow: "auto",
+                        position: "relative",
                         "& .x6-widget-minimap": {
-                          backgroundColor: "transparent",
+                          backgroundColor: (theme) =>
+                            theme.palette.background.paper,
                           "& .x6-graph": {
-                            boxShadow: (theme) => theme.shadows[5],
+                            boxShadow: (theme) => theme.shadows[0],
                           },
                         },
                       }}
@@ -171,23 +155,25 @@ export const ModelsBoard = memo(() => {
                         sx={{
                           position: "absolute",
                           zIndex: 1,
-                          bottom: 0,
-                          right: 0,
+                          bottom: 3,
+                          left: 3,
                           width: 140,
                           height: 110,
+                          borderRadius: "5px",
+                          overflow: "hidden",
                           border: (theme) =>
                             `solid 1px ${theme.palette.divider}`,
                         }}
                         id="mini-map"
                       ></Box>
                     </Box>
-                  </div>
+                  </Box>
                 </>
               ) : (
                 <EmpertyCanvas></EmpertyCanvas>
               )}
               <PropertyBox></PropertyBox>
-            </div>
+            </Box>
           </Box>
         </>
       )}
