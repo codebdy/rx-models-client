@@ -55,11 +55,7 @@ export const svgTwoWayAssociation = (
 
 export const svgTwoWayAggregation = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
-    <path
-      d="M 18,20 L 50,20"
-      stroke="currentColor"
-      strokeWidth="1"
-    ></path>
+    <path d="M 18,20 L 50,20" stroke="currentColor" strokeWidth="1"></path>
     <polygon
       points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
@@ -71,11 +67,7 @@ export const svgTwoWayAggregation = (
 
 export const svgTwoWayCombination = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
-    <path
-      d="M 18,20 L 50,20"
-      stroke="currentColor"
-      strokeWidth="1"
-    ></path>
+    <path d="M 18,20 L 50,20" stroke="currentColor" strokeWidth="1"></path>
     <polygon
       points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
@@ -99,11 +91,7 @@ export const svgOneWayAssociation = (
 
 export const svgOneWayAggregation = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
-    <path
-      d="M 18,20 L 45,20"
-      stroke="currentColor"
-      strokeWidth="1"
-    ></path>
+    <path d="M 18,20 L 45,20" stroke="currentColor" strokeWidth="1"></path>
     <polygon
       points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
@@ -121,11 +109,7 @@ export const svgOneWayAggregation = (
 
 export const svgOneWayCombination = (
   <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
-    <path
-      d="M 18,20 L 45,20"
-      stroke="currentColor"
-      strokeWidth="1"
-    ></path>
+    <path d="M 18,20 L 45,20" stroke="currentColor" strokeWidth="1"></path>
     <polygon
       points="0,20 9,15 18,20 9,25"
       strokeWidth="1"
@@ -137,6 +121,30 @@ export const svgOneWayCombination = (
       strokeWidth="1"
       stroke="currentColor"
       fill="currentColor"
+    ></path>
+  </svg>
+);
+
+export const svgLinkLine = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40">
+    <path
+      d="
+        M 0,20 
+        L 3,20 
+        M 8,20 
+        L 11,20 
+        M 16,20 
+        L 19,20 
+        M 23,20 
+        L 26,20 
+        M 31,20 
+        L 34,20 
+        M 39,20 
+        L 42, 20 
+        M 47,20 
+        L 50,20"
+      stroke="currentColor"
+      strokeWidth="1"
     ></path>
   </svg>
 );

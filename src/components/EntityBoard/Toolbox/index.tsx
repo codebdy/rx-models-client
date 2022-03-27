@@ -14,6 +14,7 @@ import { EntityView } from "../GraphCanvas/EntityView";
 import {
   svgImplement,
   svgInherit,
+  svgLinkLine,
   svgManyToMany,
   svgManyToOne,
   svgOneToMany,
@@ -69,6 +70,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
     React.useState(false);
   const [expandOneWayRelations, setOneWayExpandRelations] =
     React.useState(false);
+  const [expandOthers, setExpandOthers] = React.useState(false);
   const [dnd, setDnd] = React.useState<any>();
   const serviceId = useServiceId();
   const [pressedLineType, setPressedLineType] = useRecoilState(
@@ -94,6 +96,13 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   const handleOneWayRelationsChange = useCallback(
     () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
       setOneWayExpandRelations((a) => !a);
+    },
+    []
+  );
+
+  const handleOthersChange = useCallback(
+    () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
+      setExpandOthers((a) => !a);
     },
     []
   );
@@ -367,6 +376,35 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
             >
               {svgOneWayCombination}
               {intl.get("combination")}
+            </div>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          square
+          sx={{ "&.MuiAccordion-root": { borderLeft: 0 } }}
+          expanded={expandOthers}
+          onChange={handleOthersChange()}
+        >
+          <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
+            <Typography sx={{ color: (theme) => theme.palette.text.primary }}>
+              {intl.get("others")}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.relationItem,
+                {
+                  [classes.selected]:
+                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
+                }
+              )}
+              onClick={handleOneToOneClick}
+            >
+              {svgLinkLine}
+              {intl.get("link-line")}
             </div>
           </AccordionDetails>
         </Accordion>
