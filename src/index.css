@@ -27,30 +27,6 @@ body.one-element-dragged {
   user-select: none;
 }
 
-.dragit-scrollbar ::-webkit-scrollbar {
-  display: none;
-  width: 0.5rem;
-  height: 0.5rem;
-}
-
-.dragit-scrollbar.permanent ::-webkit-scrollbar {
-  display: block;
-}
-
-.dragit-scrollbar:hover ::-webkit-scrollbar {
-  display: block;
-}
-
-.dragit-scrollbar ::-webkit-scrollbar-track {
-  border-radius: 0;
-}
-
-.dragit-scrollbar ::-webkit-scrollbar-thumb {
-  border-radius: 0.2rem;
-  background: rgba(0, 0, 0, 0.3);
-  transition: all 0.2s;
-}
-
 .can-not-be-selected {
   -webkit-user-select: none;
   -moz-user-select: none;

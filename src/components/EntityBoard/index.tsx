@@ -2,7 +2,6 @@ import React, { memo, useEffect, useMemo, useState } from "react";
 import { Box } from "@mui/material";
 import { EntityTree } from "./EntityTree";
 import { GraphCanvas } from "./GraphCanvas";
-import classNames from "classnames";
 import { Toolbox } from "./Toolbox";
 import { PropertyBox } from "./PropertyBox";
 import { EntityToolbar } from "./EntityToolbar";
@@ -26,6 +25,7 @@ import { EntityNameMeta, Meta } from "./meta/Meta";
 import { useShowServerError } from "recoil/hooks/useShowServerError";
 import { gql } from "graphql-request";
 import { useServiceId } from "./hooks/useServiceId";
+import { useChildrenScrollStyles } from "theme/useChildrenScrollStyles";
 
 export const ModelsBoard = memo(() => {
   const [graph, setGraph] = useState<Graph>();
@@ -76,7 +76,7 @@ export const ModelsBoard = memo(() => {
     const meta = publishedData ? publishedData[queryName] : undefined;
     setPublishedId(meta?.id || undefined);
   }, [publishedData, queryName, setPublishedId]);
-
+  const scrollStyles = useChildrenScrollStyles();
   useEffect(() => {
     if (data) {
       const meta = data[queryName];
@@ -125,10 +125,10 @@ export const ModelsBoard = memo(() => {
                 <>
                   <Toolbox graph={graph}></Toolbox>
                   <Box
-                    className={classNames("dragit-scrollbar")}
                     sx={{
                       flex: 1,
                       display: "flex",
+                      ...scrollStyles
                     }}
                   >
                     <Box

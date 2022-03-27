@@ -10,6 +10,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Loading from "components/common/loading";
 import { useState } from "react";
 import { RxEntityAuthSettings } from "entity-interface/RxEntityAuthSettings";
+import { useChildrenScrollStyles } from "theme/useChildrenScrollStyles";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,6 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const AuthBoard = () => {
   const classes = useStyles();
   // const [boardStore] = useState(new AuthBoardStore());
+  const scrollStyles = useChildrenScrollStyles();
   const [entityAuths, setEntityAuths] = useState<RxEntityAuthSettings[]>([]);
   // const {data, loading, error} = useSWRQuery<PackageMeta[]>(API_PUSLISHED_SCHEMA);
   // const {
@@ -72,7 +74,9 @@ export const AuthBoard = () => {
 
   return (
     <Container
-      className={classNames(classes.root, "dragit-scrollbar")}
+      sx={{
+        ...scrollStyles
+      }}
       maxWidth="lg"
     >
       {
