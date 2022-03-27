@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { Theme, IconButton } from "@mui/material";
+import { Theme, IconButton, Box } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
@@ -11,17 +11,6 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      height: "100%",
-      width: "100%",
-      display: "flex",
-      flexFlow: "column",
-      background: "#FFFFFF",
-      overflow: "hidden",
-    },
-    canLink: {
-      cursor: "crosshair",
-    },
     container: {
       flex: 1,
       border: "solid 2px",
@@ -37,15 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       flexFlow: "column",
       position: "relative",
-    },
-    propertiesArea: {
-      flex: 1,
-      display: "flex",
-      flexFlow: "column",
-      borderTop: "solid 1px",
-    },
-    defaultCusor: {
-      cursor: "default",
     },
     nameItem: {
       display: "flex",
@@ -118,8 +98,16 @@ export const EntityView = (props: {
   }, []);
 
   return (
-    <div
-      className={classNames(classes.root, { [classes.canLink]: canLink })}
+    <Box
+      sx={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        flexFlow: "column",
+        background: "#FFFFFF",
+        overflow: "hidden",
+        cursor: canLink ? "crosshair" : undefined,
+      }}
       onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >
@@ -155,11 +143,14 @@ export const EntityView = (props: {
           )}
         </div>
         {data?.entityType !== EntityType.ENUM && (
-          <div
-            className={classNames(classes.propertiesArea, {
-              [classes.canLink]: canLink,
-              [classes.defaultCusor]: !canLink,
-            })}
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              flexFlow: "column",
+              borderTop: "solid 1px",
+              cursor: canLink ? "crosshair" : "default",
+            }}
           >
             {data?.columns?.map((column) => {
               return (
@@ -185,9 +176,9 @@ export const EntityView = (props: {
                 </IconButton>
               </div>
             )}
-          </div>
+          </Box>
         )}
       </div>
-    </div>
+    </Box>
   );
 };
