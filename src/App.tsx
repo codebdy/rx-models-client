@@ -1,12 +1,13 @@
 import {
   createTheme,
   ThemeProvider,
-  Theme,
   StyledEngineProvider,
 } from "@mui/material";
 import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { themeModeState } from "recoil/atoms";
 import "./App.css";
 import Loading from "./components/common/loading";
 import { Install } from "./components/install";
@@ -23,17 +24,12 @@ import {
 import { useIntl } from "./util/use-intl";
 import useShadows from "./util/use-shadows";
 
-declare module "@mui/styles/defaultTheme" {
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface DefaultTheme extends Theme {}
-}
-
 function App() {
-
+  const themeMode = useRecoilValue(themeModeState)
   const [langLoading] = useIntl();
   const theme = createTheme({
     palette: {
-      mode: "dark",
+      mode: themeMode,
       primary: {
         main: PRIMARY_COLOR,
       },

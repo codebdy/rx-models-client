@@ -13,11 +13,14 @@ import { AuthBoard } from "./auth-board";
 import { useAppStore } from "store/app-store";
 import { rxModelsSwrConfig } from "@rxdrag/rxmodels-swr";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { serviceState } from "./EntityBoard/recoil/atoms";
 import { useShowServerError } from "recoil/hooks/useShowServerError";
 import Loading from "./common/loading";
 import { useService } from "do-ents/useService";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness5Icon from "@mui/icons-material/Brightness5";
+import { themeModeState } from "recoil/atoms";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,6 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Studio = memo(() => {
+  const [themeMode, setThemeMode] = useRecoilState(themeModeState);
   const classes = useStyles();
   const history = useHistory();
   const appStore = useAppStore();
@@ -78,6 +82,10 @@ export const Studio = memo(() => {
     rxModelsSwrConfig.token = "";
     history.push(rxModelsSwrConfig.loginUrl);
   }, [appStore, history]);
+
+  const handleSwitchThemeMode = useCallback(() => {
+    setThemeMode((mode) => (mode === "dark" ? "light" : "dark"));
+  }, [setThemeMode]);
 
   return loading || !service ? (
     <Loading />
@@ -144,8 +152,11 @@ export const Studio = memo(() => {
             Github
           </Link>
           <Box sx={{ flex: 1 }} />
-          <Tooltip title="Logout" aria-label="Logout" onClick={handleLogout}>
-            <IconButton size="large">
+          <IconButton size="large" onClick={handleSwitchThemeMode}>
+            {themeMode === "dark" ? <Brightness5Icon /> : <Brightness4Icon />}
+          </IconButton>
+          <Tooltip title="Logout" aria-label="Logout">
+            <IconButton size="large" onClick={handleLogout}>
               <LogoutOutlinedIcon />
             </IconButton>
           </Tooltip>
