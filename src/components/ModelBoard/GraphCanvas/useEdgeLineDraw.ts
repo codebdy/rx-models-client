@@ -79,11 +79,11 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
           return;
         }
 
-        //只能从接口继承
         if (
-          (target.stereoType === StereoType.Enum ||
-            target.stereoType === StereoType.Entity) &&
-          isInherit
+          target.stereoType === StereoType.Enum ||
+          target.stereoType === StereoType.Service ||
+          target.stereoType === StereoType.ValueObject ||
+          target.stereoType === StereoType.Association
         ) {
           return;
         }
