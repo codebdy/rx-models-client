@@ -106,6 +106,7 @@
   "entity-class":"实体类",
   "value-object":"值对象",
   "graphql-interface":"Graphql接口",
+  "service":"服务",
   "type":"类型",
   "expression-error":"表达式错误",
   "entity-column-not-found":"实体{enity}上没有定义列{column}",

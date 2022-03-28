@@ -97,6 +97,9 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
             <MenuItem value={StereoType.GQLInterface}>
               {intl.get("graphql-interface")}
             </MenuItem>
+            <MenuItem value={StereoType.Service}>
+              {intl.get("service")}
+            </MenuItem>
           </Select>
         </FormControl>
       </Grid>

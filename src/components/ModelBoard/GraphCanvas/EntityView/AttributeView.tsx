@@ -69,7 +69,7 @@ export default function AttributeView(props: {
         sx={{
           display: "flex",
           alignItems: "center",
-          color: (theme) => (isId ? theme.palette.text.secondary : undefined),
+          opacity: (theme) => (isId ? 0.8 : undefined),
         }}
       >
         <Typography

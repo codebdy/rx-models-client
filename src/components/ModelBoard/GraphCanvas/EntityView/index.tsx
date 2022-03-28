@@ -173,7 +173,7 @@ export const EntityView = (props: {
                 width: "100%",
                 justifyContent: "center",
                 fontSize: "0.9rem",
-                color: (theme) => theme.palette.text.secondary,
+                opacity: 0.8,
               }}
             >
               &lt;&lt; {data?.stereoType} &gt;&gt;
@@ -217,7 +217,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
-                    disabled = {data?.stereoType !== StereoType.Enum}
+                    disabled = {data?.stereoType === StereoType.Enum}
                     onClick={handleAttributeCreate}
                   >
                     <SvgIcon fontSize="small">
@@ -234,7 +234,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
-                    disabled = {data?.stereoType !== StereoType.Enum}
+                    disabled = {data?.stereoType === StereoType.Enum}
                   >
                     <SvgIcon fontSize="small">
                       <path
