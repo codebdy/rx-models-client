@@ -74,7 +74,7 @@ export interface AttributeMeta {
   /**
    * 类型是枚举时使用
    */
-  enumUuid?: string;
+  typeUuid?: string;
 
   readonly?: boolean;
   

@@ -15,4 +15,9 @@ export interface MethodMeta{
       * 字段类型
       */
      type: ValueType;
+
+     /**
+      * 类型uuid
+      */
+     typeUuid?: string;
 }

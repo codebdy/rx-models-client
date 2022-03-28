@@ -83,7 +83,7 @@ export const AttributePanel = (props: {
       changeColumn(
         {
           ...column,
-          enumUuid: event.target.value,
+          typeUuid: event.target.value,
         },
         entity
       );
@@ -96,7 +96,7 @@ export const AttributePanel = (props: {
       changeColumn(
         {
           ...column,
-          enumUuid: event.target.value,
+          typeUuid: event.target.value,
         },
         entity
       );
@@ -203,7 +203,7 @@ export const AttributePanel = (props: {
           >
             <InputLabel>{intl.get("enum-class")}</InputLabel>
             <Select
-              value={column.enumUuid || ""}
+              value={column.typeUuid || ""}
               onChange={handleEnumEntiyChange}
               label={intl.get("enum-class")}
             >
@@ -229,7 +229,7 @@ export const AttributePanel = (props: {
           >
             <InputLabel>{intl.get("interface-class")}</InputLabel>
             <Select
-              value={column.enumUuid || ""}
+              value={column.typeUuid || ""}
               onChange={handleInterfaceEntiyChange}
               label={intl.get("interface-class")}
             >
