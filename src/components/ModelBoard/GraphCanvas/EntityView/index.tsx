@@ -197,7 +197,6 @@ export const EntityView = (props: {
                 </IconButton>
                 <Menu
                   anchorEl={anchorEl}
-                  //getContentAnchorEl={null}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left",
