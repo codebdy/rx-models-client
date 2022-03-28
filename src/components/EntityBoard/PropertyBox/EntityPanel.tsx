@@ -119,7 +119,7 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
                     color="primary"
                   />
                 }
-                label={intl.get("root-node")}
+                label={intl.get("root")}
               />
             </Grid>
           </>
