@@ -22,11 +22,6 @@ export interface AttributeMeta {
   primary?: boolean;
 
   /**
-   * 是否自动生成
-   */
-  generated?: boolean;
-
-  /**
    * 是否可空
    */
   nullable?: boolean;

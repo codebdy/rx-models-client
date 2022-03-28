@@ -56,8 +56,13 @@ export const EntityView = (props: {
   node?: any;
 }) => {
   const classes = useStyles();
-  const { node, onAttributeSelect, onAttributeDelete, onAttributeCreate, onHide } =
-    props;
+  const {
+    node,
+    onAttributeSelect,
+    onAttributeDelete,
+    onAttributeCreate,
+    onHide,
+  } = props;
   const [hover, setHover] = useState(false);
   const data: EntityNodeData | undefined = node?.data;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -212,7 +217,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
-                    onClick = {handleAttributeCreate}
+                    onClick={handleAttributeCreate}
                   >
                     <SvgIcon fontSize="small">
                       <path
@@ -265,58 +270,57 @@ export const EntityView = (props: {
               </>
             )}
           </Box>
-          {data?.stereoType !== StereoType.Enum && (
+
+          <Box
+            sx={{
+              display: "flex",
+              flex: 1,
+              flexFlow: "column",
+              cursor: canLink ? "crosshair" : "default",
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
-                flex: 1,
                 flexFlow: "column",
-                cursor: canLink ? "crosshair" : "default",
+                borderTop: "solid 1px",
+                minHeight: (theme) => theme.spacing(1),
               }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexFlow: "column",
-                  borderTop: "solid 1px",
-                  minHeight: (theme) => theme.spacing(1),
-                }}
-              >
-                {data?.attributes?.map((attr) => {
-                  return (
-                    <AttributeView
-                      key={attr.uuid}
-                      attr={attr}
-                      onClick={handleAttributeClick}
-                      onDelete={handleAttributeDelete}
-                      isSelected={data.selectedId === attr.uuid}
-                      readOnly={disableHover}
-                    />
-                  );
-                })}
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexFlow: "column",
-                  borderTop: "solid 1px",
-                  minHeight: (theme) => theme.spacing(3),
-                }}
-              >
-                {data?.methods?.map((method) => {
-                  return (
-                    <MethodView
-                      key={method.uuid}
-                      method={method}
-                      onClick={handleAttributeClick}
-                      onDelete={handleAttributeDelete}
-                      isSelected={data.selectedId === method.uuid}
-                    />
-                  );
-                })}
-              </Box>
+              {data?.attributes?.map((attr) => {
+                return (
+                  <AttributeView
+                    key={attr.uuid}
+                    attr={attr}
+                    onClick={handleAttributeClick}
+                    onDelete={handleAttributeDelete}
+                    isSelected={data.selectedId === attr.uuid}
+                    readOnly={disableHover}
+                  />
+                );
+              })}
             </Box>
-          )}
+            <Box
+              sx={{
+                display: "flex",
+                flexFlow: "column",
+                borderTop: "solid 1px",
+                minHeight: (theme) => theme.spacing(3),
+              }}
+            >
+              {data?.methods?.map((method) => {
+                return (
+                  <MethodView
+                    key={method.uuid}
+                    method={method}
+                    onClick={handleAttributeClick}
+                    onDelete={handleAttributeDelete}
+                    isSelected={data.selectedId === method.uuid}
+                  />
+                );
+              })}
+            </Box>
+          </Box>
         </Box>
       </Box>
     </ThemeProvider>

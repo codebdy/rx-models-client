@@ -61,16 +61,11 @@ export const AttributePanel = (props: {
   const handleTypeChange = useCallback(
     (event: SelectChangeEvent<ValueType>) => {
       const type = event.target.value as any;
-      let generated = attribute.generated;
-      if (type !== ValueType.String && type !== ValueType.Int) {
-        generated = undefined;
-      }
 
       changeAttribute(
         {
           ...attribute,
           type,
-          generated,
           nullable: attribute.nullable,
         },
         entity
@@ -98,27 +93,6 @@ export const AttributePanel = (props: {
         {
           ...attribute,
           typeUuid: event.target.value,
-        },
-        entity
-      );
-    },
-    [changeAttribute, attribute, entity]
-  );
-
-  const handleGeneratedChange = useCallback(
-    (event: SelectChangeEvent<string>) => {
-      let value: any = event.target.value;
-      if (value === "true") {
-        value = true;
-      }
-      if (!value) {
-        value = undefined;
-      }
-
-      changeAttribute(
-        {
-          ...attribute,
-          generated: value,
         },
         entity
       );
@@ -368,39 +342,6 @@ export const AttributePanel = (props: {
         </Grid>
       )}
 
-      {(attribute.type === ValueType.Int ||
-        attribute.type === ValueType.String) && (
-        <Grid item xs={12}>
-          <FormControl
-            variant="outlined"
-            fullWidth
-            size="small"
-            disabled={isId}
-          >
-            <InputLabel>{intl.get("generated")}</InputLabel>
-            <Select
-              value={
-                (attribute.generated === true ? "true" : attribute.generated) || ""
-              }
-              onChange={handleGeneratedChange}
-              label={intl.get("generated")}
-            >
-              <MenuItem value={""}>
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"true"}>True</MenuItem>
-              {attribute.type === ValueType.String && (
-                <MenuItem value={"uuid"}>uuid</MenuItem>
-              )}
-              {attribute.type === ValueType.String && (
-                <MenuItem value={"rowid"}>rowid</MenuItem>
-              )}
-
-              <MenuItem value={"increment"}>increment</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      )}
       <Grid item xs={12}>
         <LazyTextField
           label={intl.get("description")}
