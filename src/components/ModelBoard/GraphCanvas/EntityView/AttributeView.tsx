@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Theme, IconButton } from "@mui/material";
+import { Theme, IconButton, Typography, Box } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
@@ -13,9 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selected: {
       background: "rgba(80,111,226,0.1)",
-    },
-    name: {
-      marginLeft: "3px",
     },
     property: {
       position: "relative",
@@ -33,42 +30,28 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "24px",
       height: "24px",
     },
-
-    typeText: {
-      fontSize: "0.8rem",
-      marginLeft: "5px",
-    },
-
   })
 );
 
-export default function ColumnView(props: {
-  column: AttributeMeta;
+export default function AttributeView(props: {
+  attr: AttributeMeta;
   onClick: (id: string) => void;
   onDelete: (id: string) => void;
   isSelected?: boolean;
   readOnly?: boolean;
-  isInterface: boolean;
 }) {
-  const {
-    column,
-    onClick,
-    onDelete,
-    isSelected,
-    readOnly = false,
-    isInterface,
-  } = props;
+  const { attr, onClick, onDelete, isSelected, readOnly = false } = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
-  const isId = column.name === "id" && !isInterface;
+  const isId = attr.name === "id";
 
   const handleClick = () => {
-    onClick(column.uuid);
+    onClick(attr.uuid);
   };
 
   const handleDeleteClick = () => {
-    onDelete(column.uuid);
+    onDelete(attr.uuid);
   };
 
   return (
@@ -81,8 +64,30 @@ export default function ColumnView(props: {
       onMouseLeave={() => setHover(false)}
       onClick={handleClick}
     >
-      <span className={classes.name}>{column.name}</span>:
-      <span className={classes.typeText}>{column.type}</span>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          color: (theme) => (isId ? theme.palette.text.secondary : undefined),
+        }}
+      >
+        <Typography
+          sx={{
+            marginLeft: "3px",
+          }}
+        >
+          {attr.name}
+        </Typography>
+        :
+        <Typography
+          sx={{
+            fontSize: "0.8rem",
+            marginLeft: "5px",
+          }}
+        >
+          {attr.type}
+        </Typography>
+      </Box>
       {hover && !readOnly && !isId && (
         <div className={classes.propertyTools}>
           <IconButton

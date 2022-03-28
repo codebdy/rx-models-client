@@ -14,7 +14,7 @@ import {
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
-import ColumnView from "./ColumnView";
+import AttributeView from "./AttributeView";
 import { StereoType } from "components/ModelBoard/meta/ClassMeta";
 import { EntityNodeData } from "./EntityNodeData";
 import { PRIMARY_COLOR } from "util/consts";
@@ -264,16 +264,15 @@ export const EntityView = (props: {
                 cursor: canLink ? "crosshair" : "default",
               }}
             >
-              {data?.attributes?.map((column) => {
+              {data?.attributes?.map((attr) => {
                 return (
-                  <ColumnView
-                    key={column.uuid}
-                    column={column}
+                  <AttributeView
+                    key={attr.uuid}
+                    attr={attr}
                     onClick={handleColumnClick}
                     onDelete={handleColumnDelete}
-                    isSelected={data.selectedId === column.uuid}
+                    isSelected={data.selectedId === attr.uuid}
                     readOnly={disableHover}
-                    isInterface={data?.stereoType === StereoType.Interface}
                   />
                 );
               })}
