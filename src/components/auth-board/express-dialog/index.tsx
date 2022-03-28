@@ -146,7 +146,7 @@ export default function ExpressDialog(props: {
             const targetEntity = getEntityByUuid(targetUuid);
 
             if (
-              !targetEntity?.columns.find(
+              !targetEntity?.attributes.find(
                 (column) => column.name === columnName
               )
             ) {
@@ -156,7 +156,7 @@ export default function ExpressDialog(props: {
             }
           } else {
             if (
-              !entityMeta.columns.find((column) => column.name === operands[0])
+              !entityMeta.attributes.find((column) => column.name === operands[0])
             ) {
               throw new Error(
                 `Entity ${entityMeta.name} has not column ${operands[0]}`

@@ -12,10 +12,10 @@ export function useDeleteColumn(serviceId: number) {
       backupSnapshot();
       setEntities((entities) =>
         entities.map((entity) =>
-          entity.columns.find((col) => col.uuid === columnUuid)
+          entity.attributes.find((col) => col.uuid === columnUuid)
             ? {
                 ...entity,
-                columns: entity.columns.filter(
+                attributes: entity.attributes.filter(
                   (col) => col.uuid !== columnUuid
                 ),
               }

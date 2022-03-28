@@ -29,10 +29,7 @@ export interface ClassMeta {
 
   stereoType: StereoType;
 
-  /**
-   * 字段有元数据列表
-   */
-  columns: AttributeMeta[];
+  attributes: AttributeMeta[];
 
   /**
    * 枚举值JSON，枚举类型实体使用，不参与数据库映射

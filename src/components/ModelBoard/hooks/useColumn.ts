@@ -7,7 +7,7 @@ export function useColumn(uuid: string, serviceId: number) {
 
   const rt = useMemo(() => {
     for (const entity of entites) {
-      for (const column of entity.columns) {
+      for (const column of entity.attributes) {
         if (column.uuid === uuid) {
           return { entity, column };
         }

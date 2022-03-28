@@ -61,7 +61,7 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
       }
       const node = graph.createNode({
         ...NODE_INIT_SIZE,
-        height: 70 + (entity?.columns.length || 0) * 26,
+        height: 70 + (entity?.attributes.length || 0) * 26,
         isTempForDrag: true,
         shape: "react-shape",
         component: <EntityView />,
@@ -142,7 +142,7 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
         </TreeNodeLabel>
       }
     >
-      {entity?.columns?.length && (
+      {entity?.attributes?.length && (
         <TreeItem
           nodeId={entity?.uuid + "columns"}
           label={
@@ -157,7 +157,7 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
             </TreeNodeLabel>
           }
         >
-          {entity?.columns.map((column) => {
+          {entity?.attributes.map((column) => {
             return (
               <AttributeNode key={column.uuid} column={column} />
             );

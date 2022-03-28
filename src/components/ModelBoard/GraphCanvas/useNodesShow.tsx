@@ -62,7 +62,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
       }
       changeEntityRef.current({
         ...entity,
-        columns: entity.columns.filter((ent) => ent.uuid !== columnId),
+        attributes: entity.attributes.filter((ent) => ent.uuid !== columnId),
       });
     },
     []

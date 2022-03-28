@@ -26,7 +26,7 @@ export function useCreateNewClass(serviceId: number) {
       innerId: createInnerId(),
       name: getNewClassName(),
       stereoType: StereoType.Entity,
-      columns: [
+      attributes: [
         {
           uuid: createId(),
           name: CONST_ID,

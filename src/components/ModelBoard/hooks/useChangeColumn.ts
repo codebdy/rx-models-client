@@ -10,7 +10,7 @@ export function useChangeColumn(serviceId: number) {
     (column: AttributeMeta, entity: ClassMeta) => {
       changeEntity({
         ...entity,
-        columns: entity.columns.map((col) =>
+        attributes: entity.attributes.map((col) =>
           col.uuid === column.uuid ? column : col
         ),
       });

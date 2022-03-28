@@ -34,7 +34,7 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
             uuid: entityMeta.uuid,
             innerId: createInnerId(),
             name: entityMeta.name,
-            columns: entityMeta.columns,
+            attributes: entityMeta.attributes,
             stereoType: entityMeta.stereoType,
           },
         ]);

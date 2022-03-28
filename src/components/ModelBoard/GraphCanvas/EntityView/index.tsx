@@ -268,7 +268,7 @@ export const EntityView = (props: {
                 cursor: canLink ? "crosshair" : "default",
               }}
             >
-              {data?.columns?.map((column) => {
+              {data?.attributes?.map((column) => {
                 return (
                   <ColumnView
                     key={column.uuid}

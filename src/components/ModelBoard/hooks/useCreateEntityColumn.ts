@@ -9,7 +9,7 @@ export function useCreateEntityColumn() {
     const namePrefix = "newColumn";
     while (
       // eslint-disable-next-line no-loop-func
-      entity.columns.find((column) => column.name === namePrefix + index)
+      entity.attributes.find((column) => column.name === namePrefix + index)
     ) {
       index++;
     }
@@ -20,7 +20,7 @@ export function useCreateEntityColumn() {
       type: AttributeType.String,
     };
 
-    return { ...entity, columns: [...entity.columns, column] };
+    return { ...entity, columns: [...entity.attributes, column] };
   }, []);
 
   return createColumn;
