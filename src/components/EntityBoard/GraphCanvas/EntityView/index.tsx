@@ -154,7 +154,9 @@ export const EntityView = (props: {
             display: "flex",
             flexFlow: "column",
             background: theme.palette.background.paper,
-            color: theme.palette.text.primary,
+            color: data?.root
+              ? theme.palette.primary.main
+              : theme.palette.text.primary,
             overflow: "hidden",
           }}
         >
