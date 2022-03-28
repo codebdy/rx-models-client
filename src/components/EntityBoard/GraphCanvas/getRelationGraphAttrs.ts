@@ -1,8 +1,11 @@
 import { Theme } from "@mui/material";
 import { RelationType } from "../meta/RelationMeta";
 
+const inheritMarker = "M 0,0 L 12,8 L 12,-8 L 0,0";
+const diamondMarker = "M 0,0 L 9,-5 L 18,0 L 9,5 z";
+
 export function getRelationGraphAttrs(
-  theme:Theme,
+  theme: Theme,
   relationType: RelationType,
   isTemp?: boolean
 ) {
@@ -12,24 +15,27 @@ export function getRelationGraphAttrs(
         stroke: theme.palette.text.primary,
         strokeWidth: 1,
         strokeDasharray: "3 5",
-        sourceMarker: {
-          tagName: "path",
-          fill: theme.palette.background.default,
-          stroke: theme.palette.text.primary,
-          strokeWidth: 1,
-          d: ``,
-        },
         targetMarker: {
           tagName: "path",
           fill: theme.palette.background.default,
           stroke: theme.palette.text.primary,
           strokeWidth: 1,
-          d: `
-            M 0,0
-            L 15,10
-            L 15,-10
-            L 0,0
-          `,
+          d: inheritMarker,
+        },
+      },
+    };
+  }
+  if (relationType === RelationType.INHERIT) {
+    return {
+      line: {
+        stroke: theme.palette.text.primary,
+        strokeWidth: 1,
+        targetMarker: {
+          tagName: "path",
+          fill: theme.palette.background.default,
+          stroke: theme.palette.text.primary,
+          strokeWidth: 1,
+          d: inheritMarker,
         },
       },
     };
@@ -39,26 +45,7 @@ export function getRelationGraphAttrs(
       line: {
         stroke: theme.palette.text.primary,
         strokeWidth: 1,
-        sourceMarker: {
-          tagName: "path",
-          fill: theme.palette.background.default,
-          stroke: theme.palette.text.primary,
-          strokeWidth: 1,
-          d: `
-            M 5, 0
-            a 4 4 0 1 1 0 1 z
-          `,
-        },
-        targetMarker: {
-          tagName: "path",
-          fill: theme.palette.background.default,
-          stroke: theme.palette.text.primary,
-          strokeWidth: 1,
-          d: `
-            M 5, 0
-            a 4 4 0 1 1 0 1 z
-          `,
-        },
+        targetMarker: {},
       },
     };
   }
@@ -73,25 +60,9 @@ export function getRelationGraphAttrs(
           fill: theme.palette.background.default,
           stroke: theme.palette.text.primary,
           strokeWidth: 1,
-          d: `
-            M 5, 0
-            a 4 4 0 1 1 0 1 z
-          `,
+          d:diamondMarker,
         },
-        targetMarker: {
-          tagName: "path",
-          fill: theme.palette.background.default,
-          stroke: theme.palette.text.primary,
-          strokeWidth: 1,
-          d: `
-            M 16, 0
-            a 4 4 0 1 1 0 1 z
-            M 16,0
-            L 0,6
-            M 16,0
-            L 0,-6
-          `,
-        },
+        targetMarker: {},
       },
     };
   }
@@ -103,28 +74,12 @@ export function getRelationGraphAttrs(
         strokeWidth: 1,
         sourceMarker: {
           tagName: "path",
-          fill: theme.palette.background.default,
+          fill: theme.palette.text.primary,
           stroke: theme.palette.text.primary,
           strokeWidth: 1,
-          d: `
-            M 16, 0
-            a 4 4 0 1 1 0 1 z
-            M 16,0
-            L 0,6
-            M 16,0
-            L 0,-6
-          `,
+          d:diamondMarker,
         },
-        targetMarker: {
-          tagName: "path",
-          fill: theme.palette.background.default,
-          stroke: theme.palette.text.primary,
-          strokeWidth: 1,
-          d: `
-            M 5, 0
-            a 4 4 0 1 1 0 1 z
-          `,
-        },
+        targetMarker: {},
       },
     };
   }
