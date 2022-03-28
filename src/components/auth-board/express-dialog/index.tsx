@@ -15,9 +15,9 @@ import {
 } from "@mui/material";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
-import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
+import { ClassMeta } from "components/EntityBoard/meta/ClassMeta";
 import {
-  entitiesState,
+  classesState,
   relationsState,
   serviceState,
 } from "components/EntityBoard/recoil/atoms";
@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ExpressDialog(props: {
-  entityMeta: EntityMeta;
+  entityMeta: ClassMeta;
   expression: string;
   onExpressionChange: (exp: string) => void;
 }) {
@@ -62,7 +62,7 @@ export default function ExpressDialog(props: {
   const [open, setOpen] = useState(false);
   const [exp, setExp] = useState(expression);
   const [error, setError] = useState("");
-  const entites = useRecoilValue(entitiesState(service?.id||0));
+  const entites = useRecoilValue(classesState(service?.id||0));
   const relations = useRecoilValue(relationsState(service?.id||0));
 
   const handleClickOpen = () => {

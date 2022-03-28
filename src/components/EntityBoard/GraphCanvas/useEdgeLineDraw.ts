@@ -5,7 +5,7 @@ import { getRelationGraphAttrs } from "./getRelationGraphAttrs";
 import { createId } from "util/createId";
 import { seedId } from "util/seed-id";
 import { RelationType } from "../meta/RelationMeta";
-import { EntityType } from "../meta/EntityMeta";
+import { StereoType } from "../meta/ClassMeta";
 import {
   drawingLineState,
   pressedLineTypeState,
@@ -14,7 +14,7 @@ import {
   x6EdgesState,
 } from "../recoil/atoms";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { useGetEntity } from "../hooks/useGetEntity";
+import { useGetClass } from "../hooks/useGetClass";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useCreateRelationInnerId } from "../hooks/useCreateRelationInnerId";
 import { useTheme } from "@mui/material";
@@ -26,7 +26,7 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
   const [relations, setRelations] = useRecoilState(relationsState(serviceId));
   const setEdges = useSetRecoilState(x6EdgesState(serviceId));
-  const getEntity = useGetEntity(serviceId);
+  const getEntity = useGetClass(serviceId);
   const backupSnapshot = useBackupSnapshot(serviceId);
   const [pressedLineType, setPressedLineType] = useRecoilState(
     pressedLineTypeState(serviceId)
@@ -81,8 +81,8 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
 
         //只能从接口继承
         if (
-          (target.entityType === EntityType.Enum ||
-            target.entityType === EntityType.Entity) &&
+          (target.stereoType === StereoType.Enum ||
+            target.stereoType === StereoType.Entity) &&
           isInherit
         ) {
           return;

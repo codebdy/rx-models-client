@@ -5,7 +5,7 @@ import { useColumn } from "./useColumn";
 import { useDeleteColumn } from "./useDeleteColumn";
 import { useDeleteEntity } from "./useDeleteEntity";
 import { useDeleteRelation } from "./useDeleteRelation";
-import { useEntity } from "./useEntity";
+import { useClass } from "./useClass";
 import { useRelation } from "./useRelation";
 
 /**
@@ -14,7 +14,7 @@ import { useRelation } from "./useRelation";
 export function useDeleteSelectedElement(serviceId: number) {
   const [selectedElement, setSelectedElement] =
     useRecoilState(selectedElementState(serviceId));
-  const entity = useEntity(selectedElement || "", serviceId);
+  const entity = useClass(selectedElement || "", serviceId);
   const deleteEntity = useDeleteEntity(serviceId);
   const relation = useRelation(selectedElement || "", serviceId);
   const deleteRelation = useDeleteRelation(serviceId);

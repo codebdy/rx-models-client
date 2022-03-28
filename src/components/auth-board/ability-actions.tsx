@@ -6,7 +6,7 @@ import { ActionWithExpression } from "./action-with-expression";
 import { observer } from "mobx-react";
 import { useAuthBoardStore } from "./store/helper";
 import intl from 'react-intl-universal';
-import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
+import { ClassMeta } from "components/EntityBoard/meta/ClassMeta";
 import { AbilityType } from "entity-interface/AbilityType";
 import { RxAbility } from "entity-interface/RxAbility";
 
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 export const AbilityActions = observer((props:{
-  entityMeta:EntityMeta,
+  entityMeta:ClassMeta,
   columnUuid?:string,
 })=>{
   const {entityMeta, columnUuid} = props;

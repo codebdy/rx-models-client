@@ -10,7 +10,7 @@ import EmpertyCanvas from "./EmpertyCanvas";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   diagramsState,
-  entitiesState,
+  classesState,
   metaState,
   minMapState,
   publishedIdState,
@@ -32,7 +32,7 @@ export const ModelsBoard = memo(() => {
   const [graph, setGraph] = useState<Graph>();
   const serviceId = useServiceId();
   const setMeta = useSetRecoilState(metaState(serviceId));
-  const setEntities = useSetRecoilState(entitiesState(serviceId));
+  const setEntities = useSetRecoilState(classesState(serviceId));
   const setRelations = useSetRecoilState(relationsState(serviceId));
   const setDiagrams = useSetRecoilState(diagramsState(serviceId));
   const setX6Nodes = useSetRecoilState(x6NodesState(serviceId));

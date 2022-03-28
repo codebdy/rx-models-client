@@ -2,12 +2,12 @@ import React, { memo, useCallback, useEffect } from "react";
 import { IconButton, SvgIcon, useTheme } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
-import { ColumnNode } from "./ColumnNode";
+import { AttributeNode } from "./AttributeNode";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import intl from "react-intl-universal";
 import { RelationNode } from "./RelationNode";
 import { Addon, Graph } from "@antv/x6";
-import { useEntity } from "../hooks/useEntity";
+import { useClass } from "../hooks/useClass";
 import { useSourceRelations } from "../hooks/useSourceRelations";
 import { useTargetRelations } from "../hooks/useTargetRelations";
 import { useSetRecoilState } from "recoil";
@@ -22,12 +22,12 @@ import { useCreateEntityColumn } from "../hooks/useCreateEntityColumn";
 import { useServiceId } from "../hooks/useServiceId";
 const { Dnd } = Addon;
 
-export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
+export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
   const { uuid, graph } = props;
   const [dnd, setDnd] = React.useState<any>();
   const serviceId = useServiceId()
   const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
-  const entity = useEntity(uuid, serviceId);
+  const entity = useClass(uuid, serviceId);
   const sourceRelations = useSourceRelations(uuid, serviceId);
   const targetRelations = useTargetRelations(uuid, serviceId);
   const deleteEntity = useDeleteEntity(serviceId);
@@ -159,7 +159,7 @@ export const EntityNode = memo((props: { uuid: string; graph?: Graph }) => {
         >
           {entity?.columns.map((column) => {
             return (
-              <ColumnNode key={column.uuid} column={column} />
+              <AttributeNode key={column.uuid} column={column} />
             );
           })}
         </TreeItem>

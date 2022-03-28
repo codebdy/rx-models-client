@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 import {
   changedState,
   diagramsState,
-  entitiesState,
+  classesState,
   redoListState,
   relationsState,
   selectedDiagramState,
@@ -17,7 +17,7 @@ export function useRedo(serviceId: number) {
   const setUndoList = useSetRecoilState(undoListState(serviceId));
   const [redoList, setRedoList] = useRecoilState(redoListState(serviceId));
   const [diagrams, setDiagrams] = useRecoilState(diagramsState(serviceId));
-  const [entities, setEntities] = useRecoilState(entitiesState(serviceId));
+  const [entities, setEntities] = useRecoilState(classesState(serviceId));
   const [relations, setRelations] = useRecoilState(relationsState(serviceId));
   const [x6Nodes, setX6Nodes] = useRecoilState(x6NodesState(serviceId));
   const [x6Edges, setX6Edges] = useRecoilState(x6EdgesState(serviceId));
@@ -37,7 +37,7 @@ export function useRedo(serviceId: number) {
       ...snapshots,
       {
         diagrams,
-        entities,
+        classes: entities,
         relations,
         x6Nodes,
         x6Edges,
@@ -47,7 +47,7 @@ export function useRedo(serviceId: number) {
     ]);
     setRedoList((snapshots) => snapshots.slice(0, snapshots.length - 1));
     setDiagrams(snapshot.diagrams);
-    setEntities(snapshot.entities);
+    setEntities(snapshot.classes);
     setRelations(snapshot.relations);
     setX6Nodes(snapshot.x6Nodes);
     setX6Edges(snapshot.x6Edges);

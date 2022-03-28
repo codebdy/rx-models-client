@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
-import { ColumnType } from "../meta/ColumnMeta";
-import { EntityMeta } from "../meta/EntityMeta";
+import { AttributeType } from "../meta/AttributeMeta";
+import { ClassMeta } from "../meta/ClassMeta";
 
 export function useCreateEntityColumn() {
-  const createColumn = useCallback((entity: EntityMeta) => {
+  const createColumn = useCallback((entity: ClassMeta) => {
     let index = 1;
     const namePrefix = "newColumn";
     while (
@@ -17,7 +17,7 @@ export function useCreateEntityColumn() {
     const column = {
       uuid: createId(),
       name: namePrefix + index,
-      type: ColumnType.String,
+      type: AttributeType.String,
     };
 
     return { ...entity, columns: [...entity.columns, column] };

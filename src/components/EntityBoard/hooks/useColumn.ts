@@ -1,9 +1,9 @@
 import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import { entitiesState } from "../recoil/atoms";
+import { classesState } from "../recoil/atoms";
 
 export function useColumn(uuid: string, serviceId: number) {
-  const entites = useRecoilValue(entitiesState(serviceId));
+  const entites = useRecoilValue(classesState(serviceId));
 
   const rt = useMemo(() => {
     for (const entity of entites) {

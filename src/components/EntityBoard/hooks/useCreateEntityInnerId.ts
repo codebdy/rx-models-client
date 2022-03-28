@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useRecoilValue } from "recoil";
-import { entitiesState } from "../recoil/atoms";
+import { classesState } from "../recoil/atoms";
 
 export function useCreateEntityInnerId(serviceId: number) {
-  const entities = useRecoilValue(entitiesState(serviceId));
+  const entities = useRecoilValue(classesState(serviceId));
   const findEntityByInnerId = useCallback((id:number)=>{
     for (const entity of entities) {
       if(entity.innerId === id ){

@@ -11,16 +11,16 @@ import {
   Switch,
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
-import { EntityMeta, EntityType } from "../meta/EntityMeta";
+import { AttributeMeta, AttributeType } from "../meta/AttributeMeta";
+import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { useChangeColumn } from "../hooks/useChangeColumn";
 import { useEnums } from "../hooks/useEnums";
 import { useInterfaces } from "../hooks/useInterfaces";
 import { useServiceId } from "../hooks/useServiceId";
 
 export const ColumnPanel = (props: {
-  column: ColumnMeta;
-  entity: EntityMeta;
+  column: AttributeMeta;
+  entity: ClassMeta;
 }) => {
   const { column, entity } = props;
   const serviceId = useServiceId()
@@ -57,10 +57,10 @@ export const ColumnPanel = (props: {
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
   const handleTypeChange = useCallback(
-    (event: SelectChangeEvent<ColumnType>) => {
+    (event: SelectChangeEvent<AttributeType>) => {
       const type = event.target.value as any;
       let generated = column.generated;
-      if (type !== ColumnType.String && type !== ColumnType.Int) {
+      if (type !== AttributeType.String && type !== AttributeType.Int) {
         generated = undefined;
       }
 
@@ -152,8 +152,8 @@ export const ColumnPanel = (props: {
   );
 
   const isId = useMemo(
-    () => column.name === "id" && entity.entityType !== EntityType.Interface,
-    [column.name, entity.entityType]
+    () => column.name === "id" && entity.stereoType !== StereoType.Interface,
+    [column.name, entity.stereoType]
   );
   return (
     <>
@@ -173,26 +173,26 @@ export const ColumnPanel = (props: {
             onChange={handleTypeChange}
             label={intl.get("data-type")}
           >
-            <MenuItem value={ColumnType.ID}>ID</MenuItem>
-            <MenuItem value={ColumnType.String}>String</MenuItem>
-            <MenuItem value={ColumnType.Int}>Int</MenuItem>
-            <MenuItem value={ColumnType.Float}>Float</MenuItem>
-            <MenuItem value={ColumnType.Boolean}>Boolean</MenuItem>
-            <MenuItem value={ColumnType.Date}>Date</MenuItem>
-            <MenuItem value={ColumnType.Enum}>Enum</MenuItem>
-            <MenuItem value={ColumnType.SimpleJson}>
+            <MenuItem value={AttributeType.ID}>ID</MenuItem>
+            <MenuItem value={AttributeType.String}>String</MenuItem>
+            <MenuItem value={AttributeType.Int}>Int</MenuItem>
+            <MenuItem value={AttributeType.Float}>Float</MenuItem>
+            <MenuItem value={AttributeType.Boolean}>Boolean</MenuItem>
+            <MenuItem value={AttributeType.Date}>Date</MenuItem>
+            <MenuItem value={AttributeType.Enum}>Enum</MenuItem>
+            <MenuItem value={AttributeType.SimpleJson}>
               {intl.get("simple-json")}
             </MenuItem>
-            <MenuItem value={ColumnType.SimpleArray}>
+            <MenuItem value={AttributeType.SimpleArray}>
               {intl.get("simple-array")}
             </MenuItem>
-            <MenuItem value={ColumnType.JsonArray}>
+            <MenuItem value={AttributeType.JsonArray}>
               {intl.get("json-array")}
             </MenuItem>
           </Select>
         </FormControl>
       </Grid>
-      {column.type === ColumnType.Enum && (
+      {column.type === AttributeType.Enum && (
         <Grid item xs={12}>
           <FormControl
             variant="outlined"
@@ -217,8 +217,8 @@ export const ColumnPanel = (props: {
           </FormControl>
         </Grid>
       )}
-      {(column.type === ColumnType.SimpleJson ||
-        column.type === ColumnType.JsonArray) && (
+      {(column.type === AttributeType.SimpleJson ||
+        column.type === AttributeType.JsonArray) && (
         <Grid item xs={12}>
           <FormControl
             variant="outlined"
@@ -304,7 +304,7 @@ export const ColumnPanel = (props: {
         </Grid>
       )}
 
-      {column.type === ColumnType.Date && (
+      {column.type === AttributeType.Date && (
         <Grid item xs={6}>
           <FormControlLabel
             control={
@@ -318,7 +318,7 @@ export const ColumnPanel = (props: {
           />
         </Grid>
       )}
-      {column.type === ColumnType.Date && (
+      {column.type === AttributeType.Date && (
         <Grid item xs={6}>
           <FormControlLabel
             control={
@@ -332,7 +332,7 @@ export const ColumnPanel = (props: {
           />
         </Grid>
       )}
-      {column.type === ColumnType.Date && (
+      {column.type === AttributeType.Date && (
         <Grid item xs={12}>
           <FormControlLabel
             control={
@@ -371,7 +371,7 @@ export const ColumnPanel = (props: {
         </Grid>
       )}
 
-      {!isId && column.type === ColumnType.String && (
+      {!isId && column.type === AttributeType.String && (
         <Grid item xs={12}>
           <LazyTextField
             label={intl.get("length")}
@@ -381,8 +381,8 @@ export const ColumnPanel = (props: {
         </Grid>
       )}
 
-      {(column.type === ColumnType.Int ||
-        column.type === ColumnType.String) && (
+      {(column.type === AttributeType.Int ||
+        column.type === AttributeType.String) && (
         <Grid item xs={12}>
           <FormControl
             variant="outlined"
@@ -402,10 +402,10 @@ export const ColumnPanel = (props: {
                 <em>None</em>
               </MenuItem>
               <MenuItem value={"true"}>True</MenuItem>
-              {column.type === ColumnType.String && (
+              {column.type === AttributeType.String && (
                 <MenuItem value={"uuid"}>uuid</MenuItem>
               )}
-              {column.type === ColumnType.String && (
+              {column.type === AttributeType.String && (
                 <MenuItem value={"rowid"}>rowid</MenuItem>
               )}
 

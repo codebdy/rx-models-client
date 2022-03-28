@@ -1,36 +1,36 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
-import { ColumnType } from "../meta/ColumnMeta";
-import { EntityType } from "../meta/EntityMeta";
+import { AttributeType } from "../meta/AttributeMeta";
+import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { CONST_ID } from "../meta/Meta";
 import { useCreateEntityInnerId } from "./useCreateEntityInnerId";
-import { useGetEntityByName } from "./useGetEntityByName";
+import { useGetClassByName } from "./useGetClassByName";
 
-export function useCreateNewEntity(serviceId: number) {
-  const getEntityByName = useGetEntityByName(serviceId);
+export function useCreateNewClass(serviceId: number) {
+  const getClassByName = useGetClassByName(serviceId);
   const createInnerId = useCreateEntityInnerId(serviceId);
 
-  const getNewEntityName = useCallback(() => {
+  const getNewClassName = useCallback(() => {
     const prefix = "NewClass";
     let index = 1;
-    while (getEntityByName(prefix + index)) {
+    while (getClassByName(prefix + index)) {
       index++;
     }
 
     return prefix + index;
-  }, [getEntityByName]);
+  }, [getClassByName]);
 
-  const createNewEntity = useCallback(() => {
-    const newEntity = {
+  const createNewClass = useCallback(() => {
+    const newClass:ClassMeta = {
       uuid: createId(),
       innerId: createInnerId(),
-      name: getNewEntityName(),
-      entityType: EntityType.Entity,
+      name: getNewClassName(),
+      stereoType: StereoType.Entity,
       columns: [
         {
           uuid: createId(),
           name: CONST_ID,
-          type: ColumnType.ID,
+          type: AttributeType.ID,
           primary: true,
         },
         // {
@@ -46,8 +46,8 @@ export function useCreateNewEntity(serviceId: number) {
       ],
     };
     //setEntities((entites) => [...entites, newEntity]);
-    return newEntity;
-  }, [createInnerId, getNewEntityName]);
+    return newClass;
+  }, [createInnerId, getNewClassName]);
 
-  return createNewEntity;
+  return createNewClass;
 }

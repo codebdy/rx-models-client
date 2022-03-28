@@ -3,7 +3,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   changedState,
   diagramsState,
-  entitiesState,
+  classesState,
   redoListState,
   relationsState,
   selectedDiagramState,
@@ -15,7 +15,7 @@ import {
 
 export function useBackupSnapshot(serviceId: number) {
   const diagrams = useRecoilValue(diagramsState(serviceId));
-  const entities = useRecoilValue(entitiesState(serviceId));
+  const entities = useRecoilValue(classesState(serviceId));
   const relations = useRecoilValue(relationsState(serviceId));
   const x6Nodes = useRecoilValue(x6NodesState(serviceId));
   const x6Edges = useRecoilValue(x6EdgesState(serviceId));
@@ -32,7 +32,7 @@ export function useBackupSnapshot(serviceId: number) {
       ...undoList,
       {
         diagrams,
-        entities,
+        classes: entities,
         relations,
         x6Nodes,
         x6Edges,

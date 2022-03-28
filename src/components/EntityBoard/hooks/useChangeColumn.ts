@@ -1,13 +1,13 @@
 import { useCallback } from "react";
-import { ColumnMeta } from "../meta/ColumnMeta";
-import { EntityMeta } from "../meta/EntityMeta";
+import { AttributeMeta } from "../meta/AttributeMeta";
+import { ClassMeta } from "../meta/ClassMeta";
 import { useChangeEntity } from "./useChangeEntity";
 
 export function useChangeColumn(serviceId: number) {
   const changeEntity = useChangeEntity(serviceId);
 
   const changeColumn = useCallback(
-    (column: ColumnMeta, entity: EntityMeta) => {
+    (column: AttributeMeta, entity: ClassMeta) => {
       changeEntity({
         ...entity,
         columns: entity.columns.map((col) =>

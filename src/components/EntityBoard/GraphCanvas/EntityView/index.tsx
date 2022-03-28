@@ -15,7 +15,7 @@ import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import ColumnView from "./ColumnView";
-import { EntityType } from "components/EntityBoard/meta/EntityMeta";
+import { StereoType } from "components/EntityBoard/meta/ClassMeta";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { EntityNodeData } from "./EntityNodeData";
 import { PRIMARY_COLOR } from "util/consts";
@@ -85,8 +85,8 @@ export const EntityView = (props: {
 
   const canLink =
     node.data.isPressedRelation &&
-    data?.entityType !== EntityType.Enum &&
-    data?.entityType !== EntityType.Interface;
+    data?.stereoType !== StereoType.Enum &&
+    data?.stereoType !== StereoType.Interface;
   const disableHover = !!node.data.isPressedRelation;
 
   const handleHidden = useCallback(() => {
@@ -161,10 +161,10 @@ export const EntityView = (props: {
           }}
         >
           <div className={classes.entityName}>
-            {(data?.entityType === EntityType.Enum ||
-              data?.entityType === EntityType.Interface) && (
+            {(data?.stereoType === StereoType.Enum ||
+              data?.stereoType === StereoType.Interface) && (
               <div className={classNames(classes.nameItem, classes.smFont)}>
-                &lt;&lt; {data?.entityType} &gt;&gt;
+                &lt;&lt; {data?.stereoType} &gt;&gt;
               </div>
             )}
             <div className={classes.nameItem}>{data?.name}</div>
@@ -258,7 +258,7 @@ export const EntityView = (props: {
               </>
             )}
           </div>
-          {data?.entityType !== EntityType.Enum && (
+          {data?.stereoType !== StereoType.Enum && (
             <Box
               sx={{
                 flex: 1,
@@ -277,7 +277,7 @@ export const EntityView = (props: {
                     onDelete={handleColumnDelete}
                     isSelected={data.selectedId === column.uuid}
                     readOnly={disableHover}
-                    isInterface={data?.entityType === EntityType.Interface}
+                    isInterface={data?.stereoType === StereoType.Interface}
                   />
                 );
               })}

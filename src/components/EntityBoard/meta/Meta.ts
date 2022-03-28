@@ -1,6 +1,6 @@
 import { IObject } from "do-ents/IObject";
 import { DiagramMeta } from "./DiagramMeta";
-import { EntityMeta } from "./EntityMeta";
+import { ClassMeta } from "./ClassMeta";
 import { RelationMeta } from "./RelationMeta";
 import { X6EdgeMeta } from "./X6EdgeMeta";
 import { X6NodeMeta } from "./X6NodeMeta";
@@ -17,7 +17,7 @@ export enum MetaStatus {
 export interface Meta extends IObject {
   id?: number;
   content: {
-    entities: EntityMeta[];
+    entities: ClassMeta[];
     diagrams: DiagramMeta[];
     relations: RelationMeta[];
     x6Nodes: X6NodeMeta[];

@@ -1,6 +1,6 @@
 import { atom, atomFamily } from "recoil";
 import { DiagramMeta } from "../meta/DiagramMeta";
-import { EntityMeta } from "../meta/EntityMeta";
+import { ClassMeta } from "../meta/ClassMeta";
 import { Meta } from "../meta/Meta";
 import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { Service } from "../meta/Service";
@@ -10,7 +10,7 @@ import { LineAction } from "./LineAction";
 
 export interface Snapshot {
   diagrams: DiagramMeta[];
-  entities: EntityMeta[];
+  classes: ClassMeta[];
   relations: RelationMeta[];
   x6Nodes: X6NodeMeta[];
   x6Edges: X6EdgeMeta[];
@@ -50,8 +50,8 @@ export const metaState = atomFamily<Meta | undefined, number>({
   default: undefined,
 });
 
-export const entitiesState = atomFamily<EntityMeta[], number>({
-  key: "local.entities",
+export const classesState = atomFamily<ClassMeta[], number>({
+  key: "local.classes",
   default: [],
 });
 

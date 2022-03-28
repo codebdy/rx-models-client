@@ -3,7 +3,7 @@ import { Theme, IconButton } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
-import { ColumnMeta } from "components/EntityBoard/meta/ColumnMeta";
+import { AttributeMeta } from "components/EntityBoard/meta/AttributeMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ColumnView(props: {
-  column: ColumnMeta;
+  column: AttributeMeta;
   onClick: (id: string) => void;
   onDelete: (id: string) => void;
   isSelected?: boolean;

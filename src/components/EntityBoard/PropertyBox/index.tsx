@@ -8,7 +8,7 @@ import { ColumnPanel } from "./ColumnPanel";
 import { RelationPanel } from "./RelationPanel";
 import { useRecoilValue } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
-import { useEntity } from "../hooks/useEntity";
+import { useClass } from "../hooks/useClass";
 import { useColumn } from "../hooks/useColumn";
 import { useRelation } from "../hooks/useRelation";
 import { useServiceId } from "../hooks/useServiceId";
@@ -17,7 +17,7 @@ import { useScrollbarStyles } from "theme/useScrollbarStyles";
 export const PropertyBox = () => {
   const serviceId = useServiceId();
   const selectedElement = useRecoilValue(selectedElementState(serviceId));
-  const selectedEntity = useEntity(selectedElement || "", serviceId);
+  const selectedEntity = useClass(selectedElement || "", serviceId);
   const { entity, column } = useColumn(selectedElement || "", serviceId);
   const relation = useRelation(selectedElement || "", serviceId);
   const scrollStyles = useScrollbarStyles(true);

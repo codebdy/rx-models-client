@@ -2,7 +2,7 @@ import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
-import { ColumnMeta } from "../meta/ColumnMeta";
+import { AttributeMeta } from "../meta/AttributeMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { useMemo } from "react";
 import { useSetRecoilState } from "recoil";
@@ -10,7 +10,7 @@ import { selectedElementState } from "../recoil/atoms";
 import { useDeleteColumn } from "../hooks/useDeleteColumn";
 import { useServiceId } from "../hooks/useServiceId";
 
-export const ColumnNode = (props: { key?: string; column: ColumnMeta }) => {
+export const AttributeNode = (props: { key?: string; column: AttributeMeta }) => {
   const { column } = props;
   const serviceId = useServiceId();
   const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));

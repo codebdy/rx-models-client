@@ -1,9 +1,9 @@
 import { Graph, Node } from "@antv/x6";
 import { useCallback, useEffect } from "react";
-import { EntityMeta } from "../meta/EntityMeta";
+import { ClassMeta } from "../meta/ClassMeta";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
-  entitiesState,
+  classesState,
   selectedDiagramState,
   x6NodesState,
 } from "../recoil/atoms";
@@ -13,7 +13,7 @@ import { useCreateEntityInnerId } from "../hooks/useCreateEntityInnerId";
 export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
   const selectedDiagramUuid = useRecoilValue(selectedDiagramState(serviceId));
   const setNodes = useSetRecoilState(x6NodesState(serviceId));
-  const setEntities = useSetRecoilState(entitiesState(serviceId));
+  const setEntities = useSetRecoilState(classesState(serviceId));
   const backupSnapshot = useBackupSnapshot(serviceId);
   const createInnerId = useCreateEntityInnerId(serviceId);
   const nodeAdded = useCallback(
@@ -21,7 +21,7 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
       const node = arg.node;
       const { isTempForNew, isTempForDrag, packageName, ...rest } =
         arg.node.data;
-      const entityMeta = rest as EntityMeta;
+      const entityMeta = rest as ClassMeta;
 
       if (!selectedDiagramUuid) {
         return;
@@ -35,7 +35,7 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
             innerId: createInnerId(),
             name: entityMeta.name,
             columns: entityMeta.columns,
-            entityType: entityMeta.entityType,
+            stereoType: entityMeta.stereoType,
           },
         ]);
         node.remove({ disconnectEdges: true });

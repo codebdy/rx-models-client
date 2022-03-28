@@ -13,7 +13,7 @@ import { successAlertState } from "recoil/atoms";
 import {
   changedState,
   diagramsState,
-  entitiesState,
+  classesState,
   metaState,
   minMapState,
   redoListState,
@@ -65,7 +65,7 @@ export const EntityToolbar = memo(() => {
   const classes = useStyles();
   const serviceId = useServiceId();
   const [meta, setMeta] = useRecoilState(metaState(serviceId));
-  const entities = useRecoilValue(entitiesState(serviceId));
+  const entities = useRecoilValue(classesState(serviceId));
   const relations = useRecoilValue(relationsState(serviceId));
   const diagrams = useRecoilValue(diagramsState(serviceId));
   const x6Nodes = useRecoilValue(x6NodesState(serviceId));

@@ -11,18 +11,18 @@ import {
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
 import { RelationMeta, RelationType } from "../meta/RelationMeta";
-import { useEntity } from "../hooks/useEntity";
+import { useClass } from "../hooks/useClass";
 import { useChangeRelation } from "../hooks/useChangeRelation";
-import { useGetEntity } from "../hooks/useGetEntity";
+import { useGetClass } from "../hooks/useGetClass";
 import { useServiceId } from "../hooks/useServiceId";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relation } = props;
   const serviceId = useServiceId();
-  const source = useEntity(relation.sourceId, serviceId);
-  const target = useEntity(relation.targetId, serviceId);
+  const source = useClass(relation.sourceId, serviceId);
+  const target = useClass(relation.targetId, serviceId);
   const changeRelation = useChangeRelation(serviceId);
-  const getEntity = useGetEntity(serviceId);
+  const getEntity = useGetClass(serviceId);
 
   const handleTypeChange = useCallback(
     (event: SelectChangeEvent<RelationType>) => {

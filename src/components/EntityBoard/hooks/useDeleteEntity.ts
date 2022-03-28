@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import {
-  entitiesState,
+  classesState,
   relationsState,
   x6EdgesState,
   x6NodesState,
@@ -9,7 +9,7 @@ import {
 import { useBackupSnapshot } from "./useBackupSnapshot";
 
 export function useDeleteEntity(serviceId: number) {
-  const setEntites = useSetRecoilState(entitiesState(serviceId));
+  const setEntites = useSetRecoilState(classesState(serviceId));
   const [relations, setRelations] = useRecoilState(relationsState(serviceId));
   const setNodes = useSetRecoilState(x6NodesState(serviceId));
   const setEdges = useSetRecoilState(x6EdgesState(serviceId));

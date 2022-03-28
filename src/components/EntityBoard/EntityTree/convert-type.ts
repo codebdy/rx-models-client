@@ -1,35 +1,35 @@
-import { ColumnMeta, ColumnType } from "../meta/ColumnMeta";
-import { EntityMeta } from "../meta/EntityMeta";
+import { AttributeMeta, AttributeType } from "../meta/AttributeMeta";
+import { ClassMeta } from "../meta/ClassMeta";
 
 export function convertType(
-  column: ColumnMeta,
-  enumEntities: EntityMeta[],
-  interfaceEntities: EntityMeta[]
+  column: AttributeMeta,
+  enumEntities: ClassMeta[],
+  interfaceEntities: ClassMeta[]
 ): string {
   const type = column.type;
-  if (type === ColumnType.String) {
+  if (type === AttributeType.String) {
     return "string";
   }
 
-  if (type === ColumnType.Enum) {
+  if (type === AttributeType.Enum) {
     return (
       enumEntities.find((entitiy) => entitiy.uuid === column.enumUuid)
         ?.name || "string"
     );
   }
 
-  if (type === ColumnType.SimpleJson) {
+  if (type === AttributeType.SimpleJson) {
     return (
       interfaceEntities.find((entitiy) => entitiy.uuid === column.enumUuid)
         ?.name || "any"
     );
   }
 
-  if (type === ColumnType.SimpleArray) {
+  if (type === AttributeType.SimpleArray) {
     return "any[]";
   }
 
-  if (type === ColumnType.JsonArray) {
+  if (type === AttributeType.JsonArray) {
     return (
       (interfaceEntities.find(
         (entitiy) => entitiy.uuid === column.enumUuid
@@ -37,15 +37,15 @@ export function convertType(
     );
   }
 
-  if (type === ColumnType.Boolean) {
+  if (type === AttributeType.Boolean) {
     return "boolean";
   }
 
-  if (type === ColumnType.Int) {
+  if (type === AttributeType.Int) {
     return "number";
   }
 
-  if (type === ColumnType.Date) {
+  if (type === AttributeType.Date) {
     return "Date";
   }
 

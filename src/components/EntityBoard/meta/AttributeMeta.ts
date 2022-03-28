@@ -1,7 +1,7 @@
 /**
  * 字段类型，枚举，目前版本仅支持这些类型，后续可以扩展
  */
-export enum ColumnType {
+export enum AttributeType {
   ID = "ID",
   /**
    * 数字类型
@@ -37,10 +37,7 @@ export enum ColumnType {
   Enum = "Enum",
 }
 
-/**
- * 字段元数据，基本跟 TypeORM Column 对应
- */
-export interface ColumnMeta {
+export interface AttributeMeta {
   /**
    * 唯一标识
    */
@@ -54,7 +51,7 @@ export interface ColumnMeta {
   /**
    * 字段类型
    */
-  type: ColumnType;
+  type: AttributeType;
 
   /**
    * 是否主键

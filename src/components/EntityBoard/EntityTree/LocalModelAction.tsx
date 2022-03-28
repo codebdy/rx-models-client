@@ -11,11 +11,11 @@ import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import intl from "react-intl-universal";
-import { useCreateNewEntity } from "../hooks/useCreateNewEntity";
+import { useCreateNewClass } from "../hooks/useCreateNewClass";
 import { useCreateNewDiagram } from "../hooks/useCreateNewDiagram";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useSetRecoilState } from "recoil";
-import { entitiesState, selectedDiagramState } from "../recoil/atoms";
+import { classesState, selectedDiagramState } from "../recoil/atoms";
 import { useServiceId } from "../hooks/useServiceId";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,9 +39,9 @@ export default function LocalModelAction(props: {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const serviceId = useServiceId()
-  const createNewEntity = useCreateNewEntity(serviceId);
+  const createNewEntity = useCreateNewClass(serviceId);
   const createNewDiagram = useCreateNewDiagram(serviceId);
-  const setEntities = useSetRecoilState(entitiesState(serviceId));
+  const setEntities = useSetRecoilState(classesState(serviceId));
   const setSelectedDiagram = useSetRecoilState(selectedDiagramState(serviceId));
   const backupSnapshot = useBackupSnapshot(serviceId);
 

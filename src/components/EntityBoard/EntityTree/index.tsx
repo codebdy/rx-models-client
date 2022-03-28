@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Box, Button, SvgIcon, Typography } from "@mui/material";
-import { EntityTreeView } from "./EntityTreeView";
+import { ModelTreeView } from "./ModelTreeView";
 import intl from "react-intl-universal";
 import { Graph } from "@antv/x6";
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
@@ -55,7 +55,7 @@ export const EntityTree = memo((props: { graph?: Graph }) => {
           ...scrollStyles,
         }}
       >
-        <EntityTreeView graph={graph} />
+        <ModelTreeView graph={graph} />
       </Box>
     </Box>
   );

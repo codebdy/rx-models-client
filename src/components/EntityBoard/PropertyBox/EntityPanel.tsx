@@ -11,12 +11,12 @@ import {
   Switch,
 } from "@mui/material";
 import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
-import { EntityMeta, EntityType } from "../meta/EntityMeta";
+import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { JsonInput } from "./JsonInput";
 import { useChangeEntity } from "../hooks/useChangeEntity";
 import { useServiceId } from "../hooks/useServiceId";
 
-export const EntityPanel = (props: { entity: EntityMeta }) => {
+export const EntityPanel = (props: { entity: ClassMeta }) => {
   const { entity } = props;
   const serviceId = useServiceId();
   const changeEntity = useChangeEntity(serviceId);
@@ -36,9 +36,9 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
   // );
 
   const handleTypeChange = useCallback(
-    (event: SelectChangeEvent<EntityType>) => {
-      const entityType = event.target.value as EntityType;
-      changeEntity({ ...entity, entityType: entityType });
+    (event: SelectChangeEvent<StereoType>) => {
+      const entityType = event.target.value as StereoType;
+      changeEntity({ ...entity, stereoType: entityType });
     },
     [changeEntity, entity]
   );
@@ -77,31 +77,31 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
         <FormControl variant="outlined" fullWidth size="small">
           <InputLabel>{intl.get("type")}</InputLabel>
           <Select
-            value={entity.entityType || EntityType.Entity}
+            value={entity.stereoType || StereoType.Entity}
             onChange={handleTypeChange}
             label={intl.get("type")}
           >
-            <MenuItem value={EntityType.Enum}>{intl.get("enum")}</MenuItem>
-            <MenuItem value={EntityType.Interface}>
+            <MenuItem value={StereoType.Enum}>{intl.get("enum")}</MenuItem>
+            <MenuItem value={StereoType.Interface}>
               {intl.get("interface")}
             </MenuItem>
-            <MenuItem value={EntityType.Abstract}>
+            <MenuItem value={StereoType.Abstract}>
               {intl.get("abstract-class")}
             </MenuItem>
-            <MenuItem value={EntityType.ValueObject}>
+            <MenuItem value={StereoType.ValueObject}>
               {intl.get("value-object")}
             </MenuItem>
-            <MenuItem value={EntityType.Entity}>
+            <MenuItem value={StereoType.Entity}>
               {intl.get("entity-class")}
             </MenuItem>
-            <MenuItem value={EntityType.GQLInterface}>
+            <MenuItem value={StereoType.GQLInterface}>
               {intl.get("graphql-interface")}
             </MenuItem>
           </Select>
         </FormControl>
       </Grid>
-      {entity.entityType !== EntityType.Enum &&
-        entity.entityType !== EntityType.Interface && (
+      {entity.stereoType !== StereoType.Enum &&
+        entity.stereoType !== StereoType.Interface && (
           <>
             {/* <Grid item xs={12}>
               <LazyTextField
@@ -125,7 +125,7 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
           </>
         )}
 
-      {entity.entityType === EntityType.Enum && (
+      {entity.stereoType === StereoType.Enum && (
         <Grid item xs={12}>
           <JsonInput
             label={intl.get("enum-values")}

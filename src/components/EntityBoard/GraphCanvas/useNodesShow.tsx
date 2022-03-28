@@ -11,7 +11,7 @@ import {
   x6NodesState,
 } from "../recoil/atoms";
 import { useDiagramNodes } from "../hooks/useDiagramNodes";
-import { useGetEntity } from "../hooks/useGetEntity";
+import { useGetClass } from "../hooks/useGetClass";
 import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
 import { useGetNode } from "../hooks/useGetNode";
 import { useGetParentUuid } from "./useGetParentUuid";
@@ -28,7 +28,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   );
   const setNodes = useSetRecoilState(x6NodesState(serviceId));
   const nodes = useDiagramNodes(selectedDiagram || "", serviceId);
-  const getEntity = useGetEntity(serviceId);
+  const getEntity = useGetClass(serviceId);
   const getNode = useGetNode(serviceId);
   const getDiagramNode = useGetDiagramNode(serviceId);
   const pressedLineType = useRecoilValue(pressedLineTypeState(serviceId));

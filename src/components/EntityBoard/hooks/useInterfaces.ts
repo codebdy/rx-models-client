@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
-import { EntityType } from "../meta/EntityMeta";
-import { entitiesState } from "../recoil/atoms";
+import { StereoType } from "../meta/ClassMeta";
+import { classesState } from "../recoil/atoms";
 
 export function useInterfaces(serviceId: number) {
-  const entities = useRecoilValue(entitiesState(serviceId));
+  const entities = useRecoilValue(classesState(serviceId));
   const interfaces = useMemo(() => {
-    return entities.filter((entity) => entity.entityType === EntityType.Interface);
+    return entities.filter((entity) => entity.stereoType === StereoType.Interface);
   }, [entities]);
 
   return interfaces;

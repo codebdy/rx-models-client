@@ -1,5 +1,5 @@
 import { FormControlLabel, Checkbox } from "@mui/material";
-import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
+import { ClassMeta } from "components/EntityBoard/meta/ClassMeta";
 import { RxAbility } from "entity-interface/RxAbility";
 import React from "react";
 import { ActionLabel } from "./action-label";
@@ -11,7 +11,7 @@ export function ActionWithExpression(props:{
   ability: RxAbility,
   onAbilityChange:(ability:RxAbility)=>void,
   noExpression?:boolean,
-  entityMeta:EntityMeta,
+  entityMeta:ClassMeta,
 }){
   const {label, ability, onAbilityChange, noExpression, entityMeta} = props;
 

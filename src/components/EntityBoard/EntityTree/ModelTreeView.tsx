@@ -12,21 +12,21 @@ import { SvgIcon } from "@mui/material";
 import { useRecoilValue } from "recoil";
 import {
   diagramsState,
-  entitiesState,
+  classesState,
   selectedDiagramState,
   selectedElementState,
 } from "../recoil/atoms";
-import { EntityNode } from "./EntityNode";
+import { ClassNode } from "./ClassNode";
 import { DiagramNode } from "./DiagramNode";
 import { Graph } from "@antv/x6";
 import { useServiceId } from "../hooks/useServiceId";
 
-export const EntityTreeView = memo((props: { graph?: Graph }) => {
+export const ModelTreeView = memo((props: { graph?: Graph }) => {
   const { graph } = props;
   const serviceId = useServiceId();
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
   const selectedElement = useRecoilValue(selectedElementState(serviceId));
-  const entities = useRecoilValue(entitiesState(serviceId));
+  const entities = useRecoilValue(classesState(serviceId));
   const diagrams = useRecoilValue(diagramsState(serviceId));
 
   const fileInputRef = useRef(null);
@@ -104,7 +104,7 @@ export const EntityTreeView = memo((props: { graph?: Graph }) => {
           }}
         >
           {entities.map((entity) => {
-            return <EntityNode key={entity.uuid} uuid={entity.uuid} graph = {graph}/>;
+            return <ClassNode key={entity.uuid} uuid={entity.uuid} graph = {graph}/>;
           })}
           {diagrams.map((diagram) => {
             return <DiagramNode key={diagram.uuid} diagram={diagram} />;

@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { useSetRecoilState } from "recoil";
-import { entitiesState } from "../recoil/atoms";
+import { classesState } from "../recoil/atoms";
 import { useBackupSnapshot } from "./useBackupSnapshot";
 
 export function useDeleteColumn(serviceId: number) {
-  const setEntities = useSetRecoilState(entitiesState(serviceId));
+  const setEntities = useSetRecoilState(classesState(serviceId));
   const backupSnapshot = useBackupSnapshot(serviceId);
 
   const deleteColumn = useCallback(

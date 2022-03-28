@@ -2,11 +2,11 @@ import { CircularProgress, FormControlLabel, Grid, SvgIcon, Switch, Theme } from
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import { TreeItem } from "@mui/lab";
-import { EntityMeta } from "components/EntityBoard/meta/EntityMeta";
+import { ClassMeta } from "components/EntityBoard/meta/ClassMeta";
 import { ActionLabel } from "./action-label";
 import { AbilityActions } from "./ability-actions";
 import { NodeLabel } from "./NodeLabel";
-import { ColumnNode } from "./column-node";
+import { AttributeNode } from "./ColumnNode";
 import { ExpressArea } from "./express-area";
 import { useState } from "react";
 import intl from 'react-intl-universal';
@@ -34,8 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const EntityNode = observer((props:{
-  entityMeta: EntityMeta,
+export const ClassNode = observer((props:{
+  entityMeta: ClassMeta,
   entityAuth?: RxEntityAuthSettings,
   entityAuths: RxEntityAuthSettings[]
 })=>{
@@ -127,7 +127,7 @@ export const EntityNode = observer((props:{
         entityMeta.columns.map(column=>{
           return (
             column.name !== 'id'
-              ? <ColumnNode 
+              ? <AttributeNode 
                   key = {column.uuid} 
                   entityMeta = {entityMeta}
                   columnMeta = {column} 
