@@ -11,8 +11,7 @@ export enum EntityType {
   ValueObject = "ValueObject",
   Abstract = "Abstract",
   Entity = "Entity",
-  GraphQLEntity = "GraphQLEntity",
-  GraphQLInterface = "GraphQLInterface",
+  GQLInterface = "GQLInterface",
 }
 
 /**
