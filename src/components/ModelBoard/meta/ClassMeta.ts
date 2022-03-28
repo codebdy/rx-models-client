@@ -1,4 +1,5 @@
 import { AttributeMeta } from "./AttributeMeta";
+import { MethodMeta } from "./MethodMeta";
 
 /**
  * 实体类型枚举，目前仅支持普通实体跟枚举实体，
@@ -30,6 +31,7 @@ export interface ClassMeta {
   stereoType: StereoType;
 
   attributes: AttributeMeta[];
+  methods: MethodMeta[];
 
   /**
    * 枚举值JSON，枚举类型实体使用，不参与数据库映射

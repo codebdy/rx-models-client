@@ -44,6 +44,7 @@ export function useCreateNewClass(serviceId: number) {
         //   type: ColumnType.Date,
         // },
       ],
+      methods:[]
     };
     //setEntities((entites) => [...entites, newEntity]);
     return newClass;
