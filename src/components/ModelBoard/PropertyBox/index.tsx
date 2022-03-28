@@ -3,7 +3,7 @@ import { Grid, Box } from "@mui/material";
 import ToolbarArea from "./ToolbarArea";
 import ToolbarTitle from "./ToolbarTitle";
 import intl from "react-intl-universal";
-import { EntityPanel } from "./EntityPanel";
+import { ClassPanel } from "./ClassPanel";
 import { AttributePanel } from "./AttributePanel";
 import { RelationPanel } from "./RelationPanel";
 import { useRecoilValue } from "recoil";
@@ -44,7 +44,7 @@ export const PropertyBox = () => {
         }}
       >
         <Grid container spacing={2}>
-          {selectedEntity && <EntityPanel entity={selectedEntity} />}
+          {selectedEntity && <ClassPanel cls={selectedEntity} />}
           {attribute && cls && <AttributePanel attribute={attribute} entity={cls} />}
           {relation && <RelationPanel relation={relation} />}
           {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}

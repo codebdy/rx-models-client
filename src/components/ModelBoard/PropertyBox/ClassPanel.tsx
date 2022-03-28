@@ -16,16 +16,16 @@ import { JsonInput } from "./JsonInput";
 import { useChangeClass } from "../hooks/useChangeEntity";
 import { useServiceId } from "../hooks/useServiceId";
 
-export const EntityPanel = (props: { entity: ClassMeta }) => {
-  const { entity } = props;
+export const ClassPanel = (props: { cls: ClassMeta }) => {
+  const { cls } = props;
   const serviceId = useServiceId();
   const changeEntity = useChangeClass(serviceId);
 
   const handleNameChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {
-      changeEntity({ ...entity, name: event.target.value.trim() });
+      changeEntity({ ...cls, name: event.target.value.trim() });
     },
-    [changeEntity, entity]
+    [changeEntity, cls]
   );
 
   // const handleTableNameChange = useCallback(
@@ -38,30 +38,30 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
   const handleTypeChange = useCallback(
     (event: SelectChangeEvent<StereoType>) => {
       const entityType = event.target.value as StereoType;
-      changeEntity({ ...entity, stereoType: entityType });
+      changeEntity({ ...cls, stereoType: entityType });
     },
-    [changeEntity, entity]
+    [changeEntity, cls]
   );
 
   const handleEnumValuesChange = useCallback(
     (value: any) => {
-      changeEntity({ ...entity, enumValues: value });
+      changeEntity({ ...cls, enumValues: value });
     },
-    [changeEntity, entity]
+    [changeEntity, cls]
   );
 
   const handleEventableChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeEntity({ ...entity, root: event.target.checked });
+      changeEntity({ ...cls, root: event.target.checked });
     },
-    [changeEntity, entity]
+    [changeEntity, cls]
   );
 
   const handleDescriptionChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {
-      changeEntity({ ...entity, description: event.target.value });
+      changeEntity({ ...cls, description: event.target.value });
     },
-    [changeEntity, entity]
+    [changeEntity, cls]
   );
 
   return (
@@ -69,7 +69,7 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
       <Grid item xs={12}>
         <LazyTextField
           label={intl.get("name")}
-          value={entity.name || ""}
+          value={cls.name || ""}
           onChange={handleNameChange}
         />
       </Grid>
@@ -77,7 +77,7 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
         <FormControl variant="outlined" fullWidth size="small">
           <InputLabel>{intl.get("type")}</InputLabel>
           <Select
-            value={entity.stereoType || StereoType.Entity}
+            value={cls.stereoType || StereoType.Entity}
             onChange={handleTypeChange}
             label={intl.get("type")}
           >
@@ -103,8 +103,10 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
           </Select>
         </FormControl>
       </Grid>
-      {entity.stereoType !== StereoType.Enum &&
-        entity.stereoType !== StereoType.Interface && (
+      {cls.stereoType !== StereoType.Enum &&
+        cls.stereoType !== StereoType.Interface &&
+        cls.stereoType !== StereoType.Abstract &&
+        cls.stereoType !== StereoType.ValueObject && (
           <>
             {/* <Grid item xs={12}>
               <LazyTextField
@@ -117,7 +119,7 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={entity.root || false}
+                    checked={cls.root || false}
                     onChange={handleEventableChange}
                     color="primary"
                   />
@@ -128,11 +130,11 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
           </>
         )}
 
-      {entity.stereoType === StereoType.Enum && (
+      {cls.stereoType === StereoType.Enum && (
         <Grid item xs={12}>
           <JsonInput
             label={intl.get("enum-values")}
-            value={entity.enumValues}
+            value={cls.enumValues}
             onChange={handleEnumValuesChange}
             title={intl.get("edit-enum")}
           />
@@ -141,7 +143,7 @@ export const EntityPanel = (props: { entity: ClassMeta }) => {
       <Grid item xs={12}>
         <LazyTextField
           label={intl.get("description")}
-          value={entity.description || ""}
+          value={cls.description || ""}
           multiline
           rows={4}
           onChange={handleDescriptionChange}
