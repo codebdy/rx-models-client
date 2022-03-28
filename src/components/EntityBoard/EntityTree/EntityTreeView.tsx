@@ -1,4 +1,4 @@
-import React, { memo, useRef } from "react";
+import React, { memo, useCallback, useRef } from "react";
 import TreeView from "@mui/lab/TreeView";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -31,7 +31,7 @@ export const EntityTreeView = memo((props: { graph?: Graph }) => {
 
   const fileInputRef = useRef(null);
 
-  const handlePackageFileInputChange = (
+  const handlePackageFileInputChange = useCallback((
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const pacakgeFile = event.target.files ? event.target.files[0] : undefined;
@@ -60,7 +60,7 @@ export const EntityTreeView = memo((props: { graph?: Graph }) => {
     //     rootStore.excuteCommand(command);
     //   };
     // }
-  };
+  }, []);
 
   return (
     <>

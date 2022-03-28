@@ -7,7 +7,7 @@ import RouterPrompt from "components/common/RouterPrompt";
 import { useShowServerError } from "recoil/hooks/useShowServerError";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import RedoOutlinedIcon from "@mui/icons-material/RedoOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { successAlertState } from "recoil/atoms";
 import {
@@ -159,7 +159,7 @@ export const EntityToolbar = memo(() => {
           onClick={handleDelete}
           size="large"
         >
-          <DeleteOutlineOutlinedIcon sx={{ fontSize: 20 }} />
+          <DeleteForeverOutlinedIcon sx={{ fontSize: 20 }} />
         </IconButton>
         <Box sx={{ flex: 1 }} />
         <IconButton

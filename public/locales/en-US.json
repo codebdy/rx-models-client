@@ -119,5 +119,8 @@
   "root": "Root",
   "entity-model": "Entity Model",
   "add-node": "Add node",
-  "description": "Description"
+  "description": "Description",
+  "add-attribute":"Add attribute",
+  "add-method":"Add method",
+  "hidden":"Hidden"
 }

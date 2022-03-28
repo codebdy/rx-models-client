@@ -5,17 +5,26 @@ import {
   Box,
   createTheme,
   ThemeProvider,
+  Menu,
+  MenuItem,
+  SvgIcon,
+  Typography,
+  Divider,
 } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import ColumnView from "./ColumnView";
 import { EntityType } from "components/EntityBoard/meta/EntityMeta";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { EntityNodeData } from "./EntityNodeData";
 import { PRIMARY_COLOR } from "util/consts";
 import useShadows from "util/use-shadows";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import intl from "react-intl-universal";
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,6 +68,8 @@ export const EntityView = (props: {
     props;
   const [hover, setHover] = useState(false);
   const data: EntityNodeData | undefined = node?.data;
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isMenuOpen = Boolean(anchorEl);
 
   const theme = createTheme({
     palette: {
@@ -99,6 +110,11 @@ export const EntityView = (props: {
     onColumnCreate && onColumnCreate(node.id);
   }, [node.id, onColumnCreate]);
 
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+    event.stopPropagation();
+  };
+
   const handleMouseOver = useCallback(() => {
     setHover(true);
   }, []);
@@ -106,6 +122,11 @@ export const EntityView = (props: {
   const handleMouseLeave = useCallback(() => {
     setHover(false);
   }, []);
+
+  const handleMenuClose = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(null);
+    event.stopPropagation();
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -148,20 +169,93 @@ export const EntityView = (props: {
               </div>
             )}
             {hover && !disableHover && (
-              <IconButton
-                sx={{
-                  width: "24px",
-                  height: "24px",
-                  zIndex: 1,
-                  position: "absolute",
-                  right: "0",
-                  top: "0",
-                }}
-                onClick={handleHidden}
-                size="large"
-              >
-                <VisibilityOffOutlinedIcon sx={{ fontSize: 16 }} />
-              </IconButton>
+              <>
+                <IconButton
+                  sx={{
+                    width: "24px",
+                    height: "24px",
+                    zIndex: 1,
+                    position: "absolute",
+                    right: "0",
+                    top: "0",
+                  }}
+                  onClick={handleMenuOpen}
+                  size="large"
+                >
+                  <MenuOutlinedIcon sx={{ fontSize: 16 }} />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  //getContentAnchorEl={null}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={isMenuOpen}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem
+                    sx={{
+                      padding: theme.spacing(1, 3),
+                    }}
+                  >
+                    <SvgIcon fontSize="small">
+                      <path
+                        fill="currentColor"
+                        d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+                      />
+                    </SvgIcon>
+                    <Typography sx={{ marginLeft: "16px" }}>
+                      {intl.get("add-attribute")}{" "}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      padding: theme.spacing(1, 3),
+                    }}
+                  >
+                    <SvgIcon fontSize="small">
+                      <path
+                        fill="currentColor"
+                        d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+                      />
+                    </SvgIcon>
+                    <Typography sx={{ marginLeft: "16px" }}>
+                      {intl.get("add-method")}{" "}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem
+                    sx={{
+                      padding: theme.spacing(1, 3),
+                    }}
+                  >
+                    <SvgIcon fontSize="small">
+                      <path
+                        fill="currentColor"
+                        d="M12,14V11H10V14H7V16H10V19H12V16H15V14M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18"
+                      />
+                    </SvgIcon>
+                    <Typography sx={{ marginLeft: "16px" }}>
+                      {intl.get("hidden")}{" "}
+                    </Typography>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem
+                    sx={{
+                      padding: theme.spacing(1, 3),
+                    }}
+                  >
+                    <DeleteForeverOutlinedIcon />
+                    <Typography sx={{ marginLeft: "16px" }}>
+                      {intl.get("delete")}{" "}
+                    </Typography>
+                  </MenuItem>
+                </Menu>
+              </>
             )}
           </div>
           {data?.entityType !== EntityType.Enum && (
@@ -187,17 +281,6 @@ export const EntityView = (props: {
                   />
                 );
               })}
-              {hover && !disableHover && (
-                <div className={classes.columnPuls}>
-                  <IconButton
-                    className={classes.columnButton}
-                    onClick={handleColumnCreate}
-                    size="large"
-                  >
-                    <AddOutlinedIcon sx={{ fontSize: 20 }} />
-                  </IconButton>
-                </div>
-              )}
             </Box>
           )}
         </Box>
