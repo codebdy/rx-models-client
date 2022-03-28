@@ -205,7 +205,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect stereoType="A"/>
+              <ClassRect stereoType="A" />
               {intl.get("abstract-class")}
             </div>
             <div
@@ -217,7 +217,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect stereoType="E"/>
+              <ClassRect stereoType="E" />
               {intl.get("enum")}
             </div>
             <div
@@ -229,7 +229,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect stereoType="V"/>
+              <ClassRect stereoType="V" />
               {intl.get("value-object")}
             </div>
             <div
@@ -241,19 +241,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect stereoType="R"/>
-              {intl.get("association-class")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              onMouseDown={startDrag}
-            >
-              <ClassRect  stereoType="S"/>
+              <ClassRect stereoType="S" />
               {intl.get("service-class")}
             </div>
             <div
@@ -269,7 +257,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         </Accordion>
         <Accordion
           square
-          sx={{ 
+          sx={{
             "&.MuiAccordion-root": { borderLeft: 0 },
             "&.Mui-expanded": {
               margin: 0,
@@ -277,7 +265,6 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
           }}
           expanded={expandTwoWayRelations}
           onChange={handleTwoWayRelationsChange()}
-          
         >
           <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
             <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
@@ -334,7 +321,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         </Accordion>
         <Accordion
           square
-          sx={{ 
+          sx={{
             "&.MuiAccordion-root": { borderLeft: 0 },
             "&.Mui-expanded": {
               margin: 0,
@@ -398,7 +385,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         </Accordion>
         <Accordion
           square
-          sx={{ 
+          sx={{
             "&.MuiAccordion-root": { borderLeft: 0 },
             "&.Mui-expanded": {
               margin: 0,
@@ -413,6 +400,18 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.moveable
+              )}
+              data-type="rect"
+              onMouseDown={startDrag}
+            >
+              <ClassRect stereoType="R" />
+              {intl.get("association-class")}
+            </div>
             <div
               className={classNames(
                 classes.toolItem,
