@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import {
   Theme,
   IconButton,
@@ -16,7 +16,7 @@ import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import AttributeView from "./AttributeView";
 import { StereoType } from "components/ModelBoard/meta/ClassMeta";
-import { EntityNodeData } from "./EntityNodeData";
+import { ClassNodeData } from "./ClassNodeData";
 import { PRIMARY_COLOR } from "util/consts";
 import useShadows from "util/use-shadows";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const EntityView = (props: {
+export const ClassView = (props: {
   onAttributeSelect?: (columnId: string) => void;
   onAttributeDelete?: (entityId: string, columnId: string) => void;
   onAttributeCreate?: (entityId: string) => void;
@@ -65,7 +65,7 @@ export const EntityView = (props: {
     onHide,
   } = props;
   const [hover, setHover] = useState(false);
-  const data: EntityNodeData | undefined = node?.data;
+  const data: ClassNodeData | undefined = node?.data;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
 
@@ -301,7 +301,7 @@ export const EntityView = (props: {
                       data?.stereoType === StereoType.ValueObject ||
                       data?.stereoType === StereoType.Association ||
                       data?.stereoType === StereoType.Service) ? (
-                    <></>
+                    <Fragment key={attr.uuid}></Fragment>
                   ) : (
                     <AttributeView
                       key={attr.uuid}

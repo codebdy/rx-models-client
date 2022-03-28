@@ -14,7 +14,7 @@ import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { EntityView } from "../GraphCanvas/EntityView";
+import { ClassView } from "../GraphCanvas/ClassView";
 import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 import { useDeleteEntity } from "../hooks/useDeleteEntity";
 import { useChangeClass } from "../hooks/useChangeEntity";
@@ -64,7 +64,7 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
         height: 70 + (entity?.attributes.length || 0) * 26,
         isTempForDrag: true,
         shape: "react-shape",
-        component: <EntityView />,
+        component: <ClassView />,
         data: { ...entity, isTempForDrag: true },
       });
       dnd?.start(node, e.nativeEvent as any);

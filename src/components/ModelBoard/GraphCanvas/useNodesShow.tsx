@@ -1,7 +1,7 @@
 import "@antv/x6-react-shape";
 import { Graph, Node } from "@antv/x6";
 import { useCallback, useEffect, useRef } from "react";
-import { EntityView } from "./EntityView";
+import { ClassView } from "./ClassView";
 import _ from "lodash";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
@@ -18,7 +18,7 @@ import { useGetParentUuid } from "./useGetParentUuid";
 import { RelationType } from "../meta/RelationMeta";
 import { useChangeClass } from "../hooks/useChangeEntity";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
-import { EntityNodeData } from "./EntityView/EntityNodeData";
+import { ClassNodeData } from "./ClassView/ClassNodeData";
 import { themeModeState } from "recoil/atoms";
 
 export function useNodesShow(graph: Graph | undefined, serviceId: number) {
@@ -95,7 +95,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         console.error("cant not find entity by node id :" + node.id);
         return;
       }
-      const data: EntityNodeData = {
+      const data: ClassNodeData = {
         ...entity,
         ...node,
         selectedId: selectedElement,
@@ -124,7 +124,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
           shape: "react-shape",
           data,
           component: (
-            <EntityView
+            <ClassView
               onAttributeSelect={handleAttributeSelect}
               onAttributeDelete={handleAttributeDelete}
               onAttributeCreate={handleAttributeCreate}

@@ -10,7 +10,7 @@ import { AccordionSummary } from "./AccordionSummary";
 import { AccordionDetails } from "./AccordionDetails";
 import { Addon, Graph } from "@antv/x6";
 import { useEffect } from "react";
-import { EntityView } from "../GraphCanvas/EntityView";
+import { ClassView } from "../GraphCanvas/ClassView";
 import {
   svgInherit,
   svgLinkLine,
@@ -121,7 +121,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         return;
       }
       const nodeConfig = createTempClassNodeForNew(stereoType) as any;
-      nodeConfig.component = <EntityView />;
+      nodeConfig.component = <ClassView />;
       const node = graph.createNode(nodeConfig);
       dnd?.start(node, e.nativeEvent as any);
     };
