@@ -217,6 +217,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
+                    disabled = {data?.stereoType !== StereoType.Enum}
                     onClick={handleAttributeCreate}
                   >
                     <SvgIcon fontSize="small">
@@ -233,6 +234,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
+                    disabled = {data?.stereoType !== StereoType.Enum}
                   >
                     <SvgIcon fontSize="small">
                       <path
@@ -287,7 +289,7 @@ export const EntityView = (props: {
                 minHeight: (theme) => theme.spacing(1),
               }}
             >
-              {data?.attributes?.map((attr) => {
+              { data?.stereoType !== StereoType.Enum && data?.attributes?.map((attr) => {
                 return (
                   <AttributeView
                     key={attr.uuid}
@@ -308,7 +310,7 @@ export const EntityView = (props: {
                 minHeight: (theme) => theme.spacing(3),
               }}
             >
-              {data?.methods?.map((method) => {
+              {data?.stereoType !== StereoType.Enum && data?.methods?.map((method) => {
                 return (
                   <MethodView
                     key={method.uuid}
