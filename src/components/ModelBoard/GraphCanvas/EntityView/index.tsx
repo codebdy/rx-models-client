@@ -24,6 +24,7 @@ import intl from "react-intl-universal";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import MethodView from "./MethodView";
+import { CONST_ID } from "components/ModelBoard/meta/Meta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -217,7 +218,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
-                    disabled = {data?.stereoType === StereoType.Enum}
+                    disabled={data?.stereoType === StereoType.Enum}
                     onClick={handleAttributeCreate}
                   >
                     <SvgIcon fontSize="small">
@@ -234,7 +235,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
-                    disabled = {data?.stereoType === StereoType.Enum}
+                    disabled={data?.stereoType === StereoType.Enum}
                   >
                     <SvgIcon fontSize="small">
                       <path
@@ -289,18 +290,25 @@ export const EntityView = (props: {
                 minHeight: (theme) => theme.spacing(1),
               }}
             >
-              { data?.stereoType !== StereoType.Enum && data?.attributes?.map((attr) => {
-                return (
-                  <AttributeView
-                    key={attr.uuid}
-                    attr={attr}
-                    onClick={handleAttributeClick}
-                    onDelete={handleAttributeDelete}
-                    isSelected={data.selectedId === attr.uuid}
-                    readOnly={disableHover}
-                  />
-                );
-              })}
+              {data?.stereoType !== StereoType.Enum &&
+                data?.attributes?.map((attr) => {
+                  return attr.name === CONST_ID &&
+                    (data?.stereoType === StereoType.Interface ||
+                      data?.stereoType === StereoType.Abstract ||
+                      data?.stereoType === StereoType.ValueObject ||
+                      data?.stereoType === StereoType.Service) ? (
+                    <></>
+                  ) : (
+                    <AttributeView
+                      key={attr.uuid}
+                      attr={attr}
+                      onClick={handleAttributeClick}
+                      onDelete={handleAttributeDelete}
+                      isSelected={data.selectedId === attr.uuid}
+                      readOnly={disableHover}
+                    />
+                  );
+                })}
             </Box>
             <Box
               sx={{
@@ -310,17 +318,18 @@ export const EntityView = (props: {
                 minHeight: (theme) => theme.spacing(3),
               }}
             >
-              {data?.stereoType !== StereoType.Enum && data?.methods?.map((method) => {
-                return (
-                  <MethodView
-                    key={method.uuid}
-                    method={method}
-                    onClick={handleAttributeClick}
-                    onDelete={handleAttributeDelete}
-                    isSelected={data.selectedId === method.uuid}
-                  />
-                );
-              })}
+              {data?.stereoType !== StereoType.Enum &&
+                data?.methods?.map((method) => {
+                  return (
+                    <MethodView
+                      key={method.uuid}
+                      method={method}
+                      onClick={handleAttributeClick}
+                      onDelete={handleAttributeDelete}
+                      isSelected={data.selectedId === method.uuid}
+                    />
+                  );
+                })}
             </Box>
           </Box>
         </Box>

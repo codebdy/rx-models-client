@@ -106,6 +106,7 @@
   "entity-class": "Entity class",
   "value-object":"Value object",
   "graphql-interface":"Graphql interface",
+  "association-class":"Association class",
   "service":"Service",
   "type": "Type",
   "expression-error": "Expression error",

@@ -13,6 +13,7 @@ export enum StereoType {
   ValueObject = "ValueObject",
   Entity = "Entity",
   GQLInterface = "GQLInterface",
+  Association = "Association",
   Service = "Service",//"DDD"中的 service 类
 }
 

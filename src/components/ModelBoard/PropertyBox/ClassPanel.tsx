@@ -94,6 +94,9 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
             <MenuItem value={StereoType.Entity}>
               {intl.get("entity-class")}
             </MenuItem>
+            <MenuItem value={StereoType.Association}>
+              {intl.get("association-class")}
+            </MenuItem>
             <MenuItem value={StereoType.GQLInterface}>
               {intl.get("graphql-interface")}
             </MenuItem>
