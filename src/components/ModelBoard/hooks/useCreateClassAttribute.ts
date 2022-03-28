@@ -4,24 +4,24 @@ import { ValueType } from "../meta/ValueType";
 import { ClassMeta } from "../meta/ClassMeta";
 
 export function useCreateClassAttribute() {
-  const createColumn = useCallback((entity: ClassMeta) => {
+  const createAttribute = useCallback((entity: ClassMeta) => {
     let index = 1;
-    const namePrefix = "newColumn";
+    const namePrefix = "newAttribute";
     while (
       // eslint-disable-next-line no-loop-func
-      entity.attributes.find((column) => column.name === namePrefix + index)
+      entity.attributes.find((attr) => attr.name === namePrefix + index)
     ) {
       index++;
     }
 
-    const column = {
+    const attr = {
       uuid: createId(),
       name: namePrefix + index,
       type: ValueType.String,
     };
 
-    return { ...entity, columns: [...entity.attributes, column] };
+    return { ...entity, attributes: [...entity.attributes, attr] };
   }, []);
 
-  return createColumn;
+  return createAttribute;
 }
