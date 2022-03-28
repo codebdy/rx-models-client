@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import {
   classesState,
   selectedDiagramState,
+  selectedElementState,
   x6NodesState,
 } from "../recoil/atoms";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
@@ -16,12 +17,13 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
   const setEntities = useSetRecoilState(classesState(serviceId));
   const backupSnapshot = useBackupSnapshot(serviceId);
   const createInnerId = useCreateClassInnerId(serviceId);
+  const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
   const nodeAdded = useCallback(
     (arg: { node: Node<Node.Properties> }) => {
       const node = arg.node;
       const { isTempForNew, isTempForDrag, packageName, ...rest } =
         arg.node.data;
-      const entityMeta = rest as ClassMeta;
+      const classMeta = rest as ClassMeta;
 
       if (!selectedDiagramUuid) {
         return;
@@ -31,12 +33,12 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
         setEntities((entities) => [
           ...entities,
           {
-            uuid: entityMeta.uuid,
+            uuid: classMeta.uuid,
             innerId: createInnerId(),
-            name: entityMeta.name,
-            attributes: entityMeta.attributes,
-            methods: entityMeta.methods,
-            stereoType: entityMeta.stereoType,
+            name: classMeta.name,
+            attributes: classMeta.attributes,
+            methods: classMeta.methods,
+            stereoType: classMeta.stereoType,
           },
         ]);
         node.remove({ disconnectEdges: true });
@@ -46,7 +48,7 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
           ...nodes,
           {
             //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
-            id: entityMeta.uuid || "",
+            id: classMeta.uuid || "",
             x: node.getPosition().x,
             y: node.getPosition().y,
             width: node.getSize().width,
@@ -54,17 +56,16 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
             diagramUuid: selectedDiagramUuid,
           },
         ]);
-      }
-      if (isTempForDrag) {
+      } else if (isTempForDrag) {
         node.remove({ disconnectEdges: true });
-        if (graph?.getCellById(entityMeta.uuid)) {
+        if (graph?.getCellById(classMeta.uuid)) {
           return;
         }
         setNodes((nodes) => [
           ...nodes,
           {
             //拖放时有Clone动作，ID被改变，所以取Data里面的ID使用
-            id: entityMeta.uuid || "",
+            id: classMeta.uuid || "",
             x: node.getPosition().x,
             y: node.getPosition().y,
             width: node.getSize().width,
@@ -73,8 +74,18 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
           },
         ]);
       }
+
+      setSelectedElement(classMeta.uuid);
     },
-    [backupSnapshot, createInnerId, graph, selectedDiagramUuid, setEntities, setNodes]
+    [
+      backupSnapshot,
+      createInnerId,
+      graph,
+      selectedDiagramUuid,
+      setEntities,
+      setNodes,
+      setSelectedElement,
+    ]
   );
 
   useEffect(() => {
