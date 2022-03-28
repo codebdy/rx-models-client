@@ -85,7 +85,7 @@
   "create-date":"创建",
   "update-date":"更新",
   "delete-date":"软删标识",
-  "hide-field":"查询时隐藏",
+  "hide-field":"隐藏",
   "length": "长度",
   "width":"宽度",
   "table-name":"数据库表名",

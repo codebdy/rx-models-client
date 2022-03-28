@@ -308,7 +308,7 @@ export const AttributePanel = (props: {
         </Grid>
       )}
       {!isId && (
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <FormControlLabel
             control={
               <Switch
