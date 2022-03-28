@@ -23,16 +23,10 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import intl from "react-intl-universal";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import MethodView from "./MethodView";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    entityName: {
-      width: "100%",
-      padding: "2px 0",
-      display: "flex",
-      flexFlow: "column",
-      position: "relative",
-    },
     nameItem: {
       display: "flex",
       width: "100%",
@@ -158,7 +152,15 @@ export const EntityView = (props: {
             overflow: "hidden",
           }}
         >
-          <div className={classes.entityName}>
+          <Box
+            sx={{
+              width: "100%",
+              padding: "2px 0",
+              display: "flex",
+              flexFlow: "column",
+              position: "relative",
+            }}
+          >
             <div className={classNames(classes.nameItem, classes.smFont)}>
               &lt;&lt; {data?.stereoType} &gt;&gt;
             </div>
@@ -232,7 +234,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
-                    onClick = {handleHidden}
+                    onClick={handleHidden}
                   >
                     <VisibilityOffOutlinedIcon fontSize="small" />
                     <Typography sx={{ marginLeft: "16px" }}>
@@ -253,29 +255,57 @@ export const EntityView = (props: {
                 </Menu>
               </>
             )}
-          </div>
+          </Box>
           {data?.stereoType !== StereoType.Enum && (
             <Box
               sx={{
-                flex: 1,
                 display: "flex",
+                flex:1,
                 flexFlow: "column",
-                borderTop: "solid 1px",
                 cursor: canLink ? "crosshair" : "default",
               }}
             >
-              {data?.attributes?.map((attr) => {
-                return (
-                  <AttributeView
-                    key={attr.uuid}
-                    attr={attr}
-                    onClick={handleColumnClick}
-                    onDelete={handleColumnDelete}
-                    isSelected={data.selectedId === attr.uuid}
-                    readOnly={disableHover}
-                  />
-                );
-              })}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexFlow: "column",
+                  borderTop: "solid 1px",
+                  minHeight: (theme) => theme.spacing(1),
+                }}
+              >
+                {data?.attributes?.map((attr) => {
+                  return (
+                    <AttributeView
+                      key={attr.uuid}
+                      attr={attr}
+                      onClick={handleColumnClick}
+                      onDelete={handleColumnDelete}
+                      isSelected={data.selectedId === attr.uuid}
+                      readOnly={disableHover}
+                    />
+                  );
+                })}
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexFlow: "column",
+                  borderTop: "solid 1px",
+                  minHeight: (theme) => theme.spacing(3),
+                }}
+              >
+                {data?.methods?.map((method) => {
+                  return (
+                    <MethodView
+                      key={method.uuid}
+                      method={method}
+                      onClick={handleColumnClick}
+                      onDelete={handleColumnDelete}
+                      isSelected={data.selectedId === method.uuid}
+                    />
+                  );
+                })}
+              </Box>
             </Box>
           )}
         </Box>
