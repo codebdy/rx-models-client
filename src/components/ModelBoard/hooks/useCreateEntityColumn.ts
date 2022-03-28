@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
-import { AttributeType } from "../meta/AttributeMeta";
+import { ValueType } from "../meta/AttributeMeta";
 import { ClassMeta } from "../meta/ClassMeta";
 
 export function useCreateEntityColumn() {
@@ -17,7 +17,7 @@ export function useCreateEntityColumn() {
     const column = {
       uuid: createId(),
       name: namePrefix + index,
-      type: AttributeType.String,
+      type: ValueType.String,
     };
 
     return { ...entity, columns: [...entity.attributes, column] };

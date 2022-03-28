@@ -4,7 +4,7 @@ import ToolbarArea from "./ToolbarArea";
 import ToolbarTitle from "./ToolbarTitle";
 import intl from "react-intl-universal";
 import { EntityPanel } from "./EntityPanel";
-import { ColumnPanel } from "./ColumnPanel";
+import { AttributePanel } from "./AttributePanel";
 import { RelationPanel } from "./RelationPanel";
 import { useRecoilValue } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
@@ -45,7 +45,7 @@ export const PropertyBox = () => {
       >
         <Grid container spacing={2}>
           {selectedEntity && <EntityPanel entity={selectedEntity} />}
-          {column && entity && <ColumnPanel column={column} entity={entity} />}
+          {column && entity && <AttributePanel column={column} entity={entity} />}
           {relation && <RelationPanel relation={relation} />}
           {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}
         </Grid>

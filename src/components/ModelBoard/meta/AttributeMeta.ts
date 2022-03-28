@@ -1,40 +1,23 @@
 /**
  * 字段类型，枚举，目前版本仅支持这些类型，后续可以扩展
  */
-export enum AttributeType {
+export enum ValueType {
   ID = "ID",
-  /**
-   * 数字类型
-   */
   Int = "Int",
-
   Float = "Float",
-
   Boolean = "Boolean",
-
   String = "String",
-
-  /**
-   * 日期类型
-   */
   Date = "Date",
-
-  /**
-   * JSON类型
-   */
-  SimpleJson = "SimpleJson",
-
-  /**
-   * 数组类型
-   */
-  SimpleArray = "SimpleArray",
-
-  JsonArray = "JsonArray",
-
-  /**
-   * 枚举类型
-   */
+  ValueObject = "ValueObject",
   Enum = "Enum",
+
+  IDArray = "IDArray",
+  IntArray = "IntArray",
+  FloatArray = "FloatArray",
+  StringArray = "StringArray",
+  DateArray = "DateArray",
+  ValueObjectArray = "ValueObjectArray",
+  EnumArray = "EnumArray",
 }
 
 export interface AttributeMeta {
@@ -51,7 +34,7 @@ export interface AttributeMeta {
   /**
    * 字段类型
    */
-  type: AttributeType;
+  type: ValueType;
 
   /**
    * 是否主键
