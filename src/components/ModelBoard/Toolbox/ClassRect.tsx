@@ -28,7 +28,7 @@ export const ClassRect = memo(
           }}
         >
           <Typography sx={{ fontSize: "0.2rem" }}>
-            {stereoType ? `<${stereoType}>` : ""}
+            {stereoType ? `<<${stereoType}>>` : ""}
           </Typography>
         </Box>
         
