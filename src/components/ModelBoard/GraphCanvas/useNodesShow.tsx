@@ -17,7 +17,7 @@ import { useGetNode } from "../hooks/useGetNode";
 import { useGetParentUuid } from "./useGetParentUuid";
 import { RelationType } from "../meta/RelationMeta";
 import { useChangeEntity } from "../hooks/useChangeEntity";
-import { useCreateEntityColumn } from "../hooks/useCreateEntityColumn";
+import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { EntityNodeData } from "./EntityView/EntityNodeData";
 import { themeModeState } from "recoil/atoms";
 
@@ -34,7 +34,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const pressedLineType = useRecoilValue(pressedLineTypeState(serviceId));
   const getParentUuid = useGetParentUuid(serviceId);
   const changeEntity = useChangeEntity(serviceId);
-  const createColumn = useCreateEntityColumn();
+  const createColumn = useCreateClassAttribute();
   const themeMode = useRecoilValue(themeModeState);
 
   const getEntityRef = useRef(getEntity);
@@ -126,9 +126,9 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
           data,
           component: (
             <EntityView
-              onColumnSelect={handleColumnSelect}
-              onColumnDelete={handleColumnDelete}
-              onColumnCreate={handleColumnCreate}
+              onAttributeSelect={handleColumnSelect}
+              onAttributeDelete={handleColumnDelete}
+              onAttributeCreate={handleColumnCreate}
               onHide={handleHideEntity}
             />
           ),

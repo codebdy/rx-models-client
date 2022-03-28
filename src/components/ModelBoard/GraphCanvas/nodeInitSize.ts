@@ -1,5 +1,5 @@
 
 export const NODE_INIT_SIZE = {
   width: 180,
-  height: 80,
+  height: 120,
 };

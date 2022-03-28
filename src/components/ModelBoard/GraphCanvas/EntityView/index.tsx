@@ -47,16 +47,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const EntityView = (props: {
-  onColumnSelect?: (columnId: string) => void;
-  onColumnDelete?: (entityId: string, columnId: string) => void;
-  onColumnCreate?: (entityId: string) => void;
+  onAttributeSelect?: (columnId: string) => void;
+  onAttributeDelete?: (entityId: string, columnId: string) => void;
+  onAttributeCreate?: (entityId: string) => void;
   onHide?: (entityId: string) => void;
   onDeleteProperty?: (id: string) => void;
   onAddProperty?: () => void;
   node?: any;
 }) => {
   const classes = useStyles();
-  const { node, onColumnSelect, onColumnDelete, onColumnCreate, onHide } =
+  const { node, onAttributeSelect, onAttributeDelete, onAttributeCreate, onHide } =
     props;
   const [hover, setHover] = useState(false);
   const data: EntityNodeData | undefined = node?.data;
@@ -87,21 +87,22 @@ export const EntityView = (props: {
 
   const handleColumnClick = useCallback(
     (id: string) => {
-      onColumnSelect && onColumnSelect(id);
+      onAttributeSelect && onAttributeSelect(id);
     },
-    [onColumnSelect]
+    [onAttributeSelect]
   );
 
   const handleColumnDelete = useCallback(
     (id: string) => {
-      onColumnDelete && onColumnDelete(node.id, id);
+      onAttributeDelete && onAttributeDelete(node.id, id);
     },
-    [node.id, onColumnDelete]
+    [node.id, onAttributeDelete]
   );
 
-  const handleColumnCreate = useCallback(() => {
-    onColumnCreate && onColumnCreate(node.id);
-  }, [node.id, onColumnCreate]);
+  const handleAttributeCreate = useCallback(() => {
+    onAttributeCreate && onAttributeCreate(node.id);
+    setAnchorEl(null);
+  }, [node.id, onAttributeCreate]);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -161,9 +162,17 @@ export const EntityView = (props: {
               position: "relative",
             }}
           >
-            <div className={classNames(classes.nameItem, classes.smFont)}>
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center",
+                fontSize: "0.9rem",
+                color: (theme) => theme.palette.text.secondary,
+              }}
+            >
               &lt;&lt; {data?.stereoType} &gt;&gt;
-            </div>
+            </Box>
             <div className={classes.nameItem}>{data?.name}</div>
             {data?.serviceName && (
               <div className={classNames(classes.nameItem, classes.smFont)}>
@@ -204,6 +213,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
+                    onClick = {handleAttributeCreate}
                   >
                     <SvgIcon fontSize="small">
                       <path
@@ -260,7 +270,7 @@ export const EntityView = (props: {
             <Box
               sx={{
                 display: "flex",
-                flex:1,
+                flex: 1,
                 flexFlow: "column",
                 cursor: canLink ? "crosshair" : "default",
               }}

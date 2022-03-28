@@ -8,14 +8,14 @@ import {
   x6NodesState,
 } from "../recoil/atoms";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
-import { useCreateEntityInnerId } from "../hooks/useCreateEntityInnerId";
+import { useCreateClassInnerId } from "../hooks/useCreateClassInnerId";
 
 export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
   const selectedDiagramUuid = useRecoilValue(selectedDiagramState(serviceId));
   const setNodes = useSetRecoilState(x6NodesState(serviceId));
   const setEntities = useSetRecoilState(classesState(serviceId));
   const backupSnapshot = useBackupSnapshot(serviceId);
-  const createInnerId = useCreateEntityInnerId(serviceId);
+  const createInnerId = useCreateClassInnerId(serviceId);
   const nodeAdded = useCallback(
     (arg: { node: Node<Node.Properties> }) => {
       const node = arg.node;

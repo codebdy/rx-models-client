@@ -3,7 +3,7 @@ import { AttributeMeta } from "../meta/AttributeMeta";
 import { ClassMeta } from "../meta/ClassMeta";
 import { useChangeEntity } from "./useChangeEntity";
 
-export function useChangeColumn(serviceId: number) {
+export function useChangeAttribute(serviceId: number) {
   const changeEntity = useChangeEntity(serviceId);
 
   const changeColumn = useCallback(

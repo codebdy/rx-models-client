@@ -3,7 +3,7 @@ import { createId } from "util/createId";
 import { ValueType } from "../meta/ValueType";
 import { ClassMeta } from "../meta/ClassMeta";
 
-export function useCreateEntityColumn() {
+export function useCreateClassAttribute() {
   const createColumn = useCallback((entity: ClassMeta) => {
     let index = 1;
     const namePrefix = "newColumn";

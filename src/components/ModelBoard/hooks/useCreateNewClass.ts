@@ -3,12 +3,12 @@ import { createId } from "util/createId";
 import { ValueType } from "../meta/ValueType";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { CONST_ID } from "../meta/Meta";
-import { useCreateEntityInnerId } from "./useCreateEntityInnerId";
+import { useCreateClassInnerId } from "./useCreateClassInnerId";
 import { useGetClassByName } from "./useGetClassByName";
 
 export function useCreateNewClass(serviceId: number) {
   const getClassByName = useGetClassByName(serviceId);
-  const createInnerId = useCreateEntityInnerId(serviceId);
+  const createInnerId = useCreateClassInnerId(serviceId);
 
   const getNewClassName = useCallback(() => {
     const prefix = "NewClass";

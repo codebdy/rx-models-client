@@ -45,7 +45,7 @@ export const PropertyBox = () => {
       >
         <Grid container spacing={2}>
           {selectedEntity && <EntityPanel entity={selectedEntity} />}
-          {column && entity && <AttributePanel column={column} entity={entity} />}
+          {column && entity && <AttributePanel attribute={column} entity={entity} />}
           {relation && <RelationPanel relation={relation} />}
           {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}
         </Grid>
