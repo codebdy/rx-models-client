@@ -169,17 +169,20 @@ export const EntityView = (props: {
               position: "relative",
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-                fontSize: "0.9rem",
-                opacity: 0.8,
-              }}
-            >
-              &lt;&lt; {data?.stereoType} &gt;&gt;
-            </Box>
+            {data?.stereoType !== StereoType.Entity && (
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "center",
+                  fontSize: "0.9rem",
+                  opacity: 0.8,
+                }}
+              >
+                &lt;&lt; {data?.stereoType} &gt;&gt;
+              </Box>
+            )}
+
             <div className={classes.nameItem}>{data?.name}</div>
             {data?.serviceName && (
               <div className={classNames(classes.nameItem, classes.smFont)}>
@@ -294,7 +297,7 @@ export const EntityView = (props: {
               {data?.stereoType !== StereoType.Enum &&
                 data?.attributes?.map((attr) => {
                   return attr.name === CONST_ID &&
-                    ( data?.stereoType === StereoType.Abstract ||
+                    (data?.stereoType === StereoType.Abstract ||
                       data?.stereoType === StereoType.ValueObject ||
                       data?.stereoType === StereoType.Association ||
                       data?.stereoType === StereoType.Service) ? (
