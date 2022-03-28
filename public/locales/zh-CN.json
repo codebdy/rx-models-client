@@ -104,7 +104,7 @@
   "interface-class":"接口类",
   "enum-values":"枚举值列表",
   "entity-class":"实体类",
-  "value-object":"值对象",
+  "value-object":"值类",
   "graphql-interface":"GraphQL接口",
   "association-class":"关联类",
   "service":"服务",
