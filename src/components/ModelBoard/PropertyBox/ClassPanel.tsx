@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import intl from "react-intl-universal";
-import { Checkbox, FormControlLabel, Grid, Switch } from "@mui/material";
+import { Checkbox, FormControlLabel, Grid } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { JsonInput } from "./JsonInput";
@@ -36,12 +36,19 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
     [changeClass, cls]
   );
 
-  const handleEventableChange = useCallback(
+  const handleRootChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       changeClass({ ...cls, root: event.target.checked });
     },
     [changeClass, cls]
   );
+
+  // const handleGqlInterfaceChange = useCallback(
+  //   (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     changeClass({ ...cls, gqlInterface: event.target.checked });
+  //   },
+  //   [changeClass, cls]
+  // );
 
   const handleDescriptionChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {
@@ -61,7 +68,7 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
       </Grid>
       {(cls.stereoType === StereoType.Abstract ||
         cls.stereoType === StereoType.Entity) && (
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <FormControlLabel
             control={
               <Checkbox
@@ -78,21 +85,37 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
         cls.stereoType !== StereoType.Association &&
         cls.stereoType !== StereoType.ValueObject && (
           <>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <FormControlLabel
                 control={
-                  <Switch
+                  <Checkbox
                     checked={cls.root || false}
-                    onChange={handleEventableChange}
+                    onChange={handleRootChange}
                     color="primary"
                   />
                 }
-                label={intl.get("root")}
+                label={intl.get("root-node")}
               />
             </Grid>
           </>
         )}
 
+      {/* {cls.stereoType === StereoType.Abstract && (
+          <>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={cls.gqlInterface || false}
+                    onChange={handleGqlInterfaceChange}
+                    color="primary"
+                  />
+                }
+                label={intl.get("graphql-interface")}
+              />
+            </Grid>
+          </>
+        )} */}
       {cls.stereoType === StereoType.Enum && (
         <Grid item xs={12}>
           <JsonInput

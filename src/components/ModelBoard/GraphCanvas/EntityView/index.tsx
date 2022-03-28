@@ -297,7 +297,7 @@ export const EntityView = (props: {
               {data?.stereoType !== StereoType.Enum &&
                 data?.attributes?.map((attr) => {
                   return attr.name === CONST_ID &&
-                    (data?.stereoType === StereoType.Abstract ||
+                    ((data?.stereoType === StereoType.Abstract && !data?.root) ||
                       data?.stereoType === StereoType.ValueObject ||
                       data?.stereoType === StereoType.Association ||
                       data?.stereoType === StereoType.Service) ? (

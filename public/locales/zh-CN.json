@@ -118,7 +118,7 @@
   "belongs-to-package":"所属包",
   "edit-enum":"编辑枚举值",
   "index":"索引",
-  "root":"根",
+  "root-node":"根节点",
   "entity-model":"实体模型",
   "add-node":"添加节点",
   "description":"描述",

@@ -42,5 +42,8 @@ export interface ClassMeta {
 
   root?: boolean;
 
+  //暂时不用改属性，把所有的abstract class 打散，变为多继承
+  // gqlInterface?: boolean;
+
   description?: string;
 }
