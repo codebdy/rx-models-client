@@ -29,6 +29,7 @@ import { useScrollbarStyles } from "theme/useScrollbarStyles";
 import { Box } from "@mui/material";
 import { useServiceId } from "../hooks/useServiceId";
 import { ClassRect } from "./ClassRect";
+import { StereoType } from "../meta/ClassMeta";
 const { Dnd } = Addon;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -114,18 +115,17 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
     setDnd(theDnd);
   }, [graph]);
 
-  const startDrag = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const startDragFn = (stereoType: StereoType) => {
+    return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       if (!graph) {
         return;
       }
-      const nodeConfig = createTempClassNodeForNew() as any;
+      const nodeConfig = createTempClassNodeForNew(stereoType) as any;
       nodeConfig.component = <EntityView />;
       const node = graph.createNode(nodeConfig);
       dnd?.start(node, e.nativeEvent as any);
-    },
-    [createTempClassNodeForNew, dnd, graph]
-  );
+    };
+  };
 
   const doRelationClick = useCallback(
     (lineType: RelationType) => {
@@ -191,7 +191,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.moveable
               )}
               data-type="rect"
-              onMouseDown={startDrag}
+              onMouseDown={startDragFn(StereoType.Entity)}
             >
               <ClassRect first={true} />
               {intl.get("entity-class")}
@@ -203,7 +203,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.moveable
               )}
               data-type="rect"
-              onMouseDown={startDrag}
+              onMouseDown={startDragFn(StereoType.Abstract)}
             >
               <ClassRect stereoType="A" />
               {intl.get("abstract-class")}
@@ -215,7 +215,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.moveable
               )}
               data-type="rect"
-              onMouseDown={startDrag}
+              onMouseDown={startDragFn(StereoType.Enum)}
             >
               <ClassRect stereoType="E" />
               {intl.get("enum")}
@@ -227,7 +227,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.moveable
               )}
               data-type="rect"
-              onMouseDown={startDrag}
+              onMouseDown={startDragFn(StereoType.ValueObject)}
             >
               <ClassRect stereoType="V" />
               {intl.get("value-object")}
@@ -239,7 +239,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.moveable
               )}
               data-type="rect"
-              onMouseDown={startDrag}
+              onMouseDown={startDragFn(StereoType.Service)}
             >
               <ClassRect stereoType="S" />
               {intl.get("service-class")}
@@ -407,7 +407,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.moveable
               )}
               data-type="rect"
-              onMouseDown={startDrag}
+              onMouseDown={startDragFn(StereoType.Association)}
             >
               <ClassRect stereoType="R" />
               {intl.get("association-class")}
