@@ -2,7 +2,7 @@ import { AttributeMeta } from "./AttributeMeta";
 import { MethodMeta } from "./MethodMeta";
 
 /**
- * 实体类型枚举，目前仅支持普通实体跟枚举实体，
+ * 实体类型枚举
  * 枚举实体类似语法糖，不映射数据库，
  * 枚举类型的字段映射到数据库是sttring类型
  */
@@ -13,6 +13,7 @@ export enum StereoType {
   ValueObject = "ValueObject",
   Entity = "Entity",
   GQLInterface = "GQLInterface",
+  Service = "Service",//"DDD"中的 service 类
 }
 
 /**

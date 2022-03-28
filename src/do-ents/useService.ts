@@ -1,7 +1,7 @@
 import { ClientError, GraphQLError } from "graphql-request/dist/types";
 import { useCallback, useEffect, useState } from "react";
 import { createGraphQLClient } from "./createGraphQLClient";
-import { Service } from "components/ModelBoard/meta/Service";
+import { ServiceNode } from "components/ModelBoard/meta/ServiceNode";
 
 export interface IQueryOpions {}
 export type MutateFn<T> = (data?: T) => void;
@@ -15,13 +15,13 @@ const gql = `
 `
 
 export function useService(): {
-  service?: Service;
+  service?: ServiceNode;
   loading?: boolean;
   error?: GraphQLError;
 } {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<GraphQLError>();
-  const [service, setService] = useState<Service>();
+  const [service, setService] = useState<ServiceNode>();
   const excute = useCallback(() => {
     const graphQLClient = createGraphQLClient();
 
