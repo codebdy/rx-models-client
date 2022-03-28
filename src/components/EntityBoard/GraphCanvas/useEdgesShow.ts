@@ -49,7 +49,7 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
           source: edgeMeta.sourceId,
           target: edgeMeta.targetId,
           vertices: edgeMeta.vertices,
-          connector: { name: "rounded" },
+          //connector: { name: "rounded" },
           //解决直连时，不能显示选中状态的bug
           tools:
             selectedElement === edgeMeta.id

@@ -24,8 +24,7 @@ export function getRelationGraphAttrs(
         },
       },
     };
-  }
-  if (relationType === RelationType.INHERIT) {
+  } else if (relationType === RelationType.INHERIT) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -39,8 +38,7 @@ export function getRelationGraphAttrs(
         },
       },
     };
-  }
-  if (relationType === RelationType.TWO_WAY_ASSOCIATION) {
+  } else if (relationType === RelationType.TWO_WAY_ASSOCIATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -48,9 +46,7 @@ export function getRelationGraphAttrs(
         targetMarker: {},
       },
     };
-  }
-
-  if (relationType === RelationType.TWO_WAY_AGGREGATION) {
+  } else if (relationType === RelationType.TWO_WAY_AGGREGATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -60,14 +56,12 @@ export function getRelationGraphAttrs(
           fill: theme.palette.background.default,
           stroke: theme.palette.text.primary,
           strokeWidth: 1,
-          d:diamondMarker,
+          d: diamondMarker,
         },
         targetMarker: {},
       },
     };
-  }
-
-  if (relationType === RelationType.TWO_WAY_COMBINATION) {
+  } else if (relationType === RelationType.TWO_WAY_COMBINATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -77,14 +71,19 @@ export function getRelationGraphAttrs(
           fill: theme.palette.text.primary,
           stroke: theme.palette.text.primary,
           strokeWidth: 1,
-          d:diamondMarker,
+          d: diamondMarker,
         },
         targetMarker: {},
       },
     };
-  }
-
-  if (relationType === RelationType.ONE_WAY_ASSOCIATION) {
+  } else if (relationType === RelationType.ONE_WAY_ASSOCIATION) {
+    return {
+      line: {
+        stroke: theme.palette.text.primary,
+        strokeWidth: 1,
+      },
+    };
+  } else if (relationType === RelationType.ONE_WAY_AGGREGATION) {
     return {
       line: {
         stroke: theme.palette.text.primary,
@@ -94,28 +93,21 @@ export function getRelationGraphAttrs(
           fill: theme.palette.background.default,
           stroke: theme.palette.text.primary,
           strokeWidth: 1,
-          d: `
-            M 16, 0
-            a 4 4 0 1 1 0 1 z
-            M 16,0
-            L 0,6
-            M 16,0
-            L 0,-6
-          `,
+          d: diamondMarker,
         },
-        targetMarker: {
+      },
+    };
+  } else if (relationType === RelationType.ONE_WAY_COMBINATION) {
+    return {
+      line: {
+        stroke: theme.palette.text.primary,
+        strokeWidth: 1,
+        sourceMarker: {
           tagName: "path",
-          fill: theme.palette.background.default,
+          fill: theme.palette.text.primary,
           stroke: theme.palette.text.primary,
           strokeWidth: 1,
-          d: `
-            M 16, 0
-            a 4 4 0 1 1 0 1 z
-            M 16,0
-            L 0,6
-            M 16,0
-            L 0,-6
-          `,
+          d: diamondMarker,
         },
       },
     };
