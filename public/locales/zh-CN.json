@@ -107,7 +107,7 @@
   "value-object":"值类",
   "graphql-interface":"GraphQL接口",
   "association-class":"关联类",
-  "service":"服务",
+  "service-class":"服务类",
   "type":"类型",
   "expression-error":"表达式错误",
   "entity-column-not-found":"实体{enity}上没有定义列{column}",

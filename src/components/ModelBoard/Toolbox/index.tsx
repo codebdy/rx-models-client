@@ -194,7 +194,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               onMouseDown={startDrag}
             >
               <ClassRect first={true} />
-              {intl.get("class")}
+              {intl.get("entity-class")}
             </div>
             <div
               className={classNames(
@@ -205,8 +205,8 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect />
-              {intl.get("class")}
+              <ClassRect stereoType="A"/>
+              {intl.get("abstract-class")}
             </div>
             <div
               className={classNames(
@@ -217,8 +217,8 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect />
-              {intl.get("class")}
+              <ClassRect stereoType="E"/>
+              {intl.get("enum")}
             </div>
             <div
               className={classNames(
@@ -229,8 +229,8 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect />
-              {intl.get("class")}
+              <ClassRect stereoType="V"/>
+              {intl.get("value-object")}
             </div>
             <div
               className={classNames(
@@ -241,8 +241,8 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect />
-              {intl.get("class")}
+              <ClassRect stereoType="R"/>
+              {intl.get("association-class")}
             </div>
             <div
               className={classNames(
@@ -253,8 +253,8 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <ClassRect />
-              {intl.get("class")}
+              <ClassRect  stereoType="S"/>
+              {intl.get("service-class")}
             </div>
             <div
               className={classNames(classes.toolItem, classes.relationItem, {

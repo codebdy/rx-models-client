@@ -107,7 +107,7 @@
   "value-object":"Value class",
   "graphql-interface":"GraphQL interface",
   "association-class":"Association class",
-  "service":"Service",
+  "service-service":"Service class",
   "type": "Type",
   "expression-error": "Expression error",
   "entity-column-not-found": "Entity {enity} has not column {column}",
