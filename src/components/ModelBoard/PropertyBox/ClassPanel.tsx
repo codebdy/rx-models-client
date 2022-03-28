@@ -82,9 +82,9 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
             label={intl.get("type")}
           >
             <MenuItem value={StereoType.Enum}>{intl.get("enum")}</MenuItem>
-            <MenuItem value={StereoType.Interface}>
+            {/* <MenuItem value={StereoType.Interface}>
               {intl.get("interface")}
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem value={StereoType.Abstract}>
               {intl.get("abstract-class")}
             </MenuItem>
@@ -97,9 +97,9 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
             <MenuItem value={StereoType.Association}>
               {intl.get("association-class")}
             </MenuItem>
-            <MenuItem value={StereoType.GQLInterface}>
+            {/* <MenuItem value={StereoType.GQLInterface}>
               {intl.get("graphql-interface")}
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem value={StereoType.Service}>
               {intl.get("service")}
             </MenuItem>
@@ -107,7 +107,6 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
         </FormControl>
       </Grid>
       {cls.stereoType !== StereoType.Enum &&
-        cls.stereoType !== StereoType.Interface &&
         cls.stereoType !== StereoType.Abstract &&
         cls.stereoType !== StereoType.Association &&
         cls.stereoType !== StereoType.ValueObject && (

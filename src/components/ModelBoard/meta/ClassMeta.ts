@@ -8,11 +8,11 @@ import { MethodMeta } from "./MethodMeta";
  */
 export enum StereoType {
   Enum = "Enum",
-  Interface = "Interface",
+  //Interface = "Interface",
   Abstract = "Abstract",
   ValueObject = "ValueObject",
   Entity = "Entity",
-  GQLInterface = "GQLInterface",
+  //GQLInterface = "GQLInterface",
   Association = "Association",
   Service = "Service",//"DDD"中的 service 类
 }

@@ -83,7 +83,8 @@ export const EntityView = (props: {
   const canLink =
     node.data.isPressedRelation &&
     data?.stereoType !== StereoType.Enum &&
-    data?.stereoType !== StereoType.Interface;
+    data?.stereoType !== StereoType.ValueObject &&
+    data?.stereoType !== StereoType.Service;
   const disableHover = !!node.data.isPressedRelation;
 
   const handleHidden = useCallback(() => {
@@ -293,8 +294,7 @@ export const EntityView = (props: {
               {data?.stereoType !== StereoType.Enum &&
                 data?.attributes?.map((attr) => {
                   return attr.name === CONST_ID &&
-                    (data?.stereoType === StereoType.Interface ||
-                      data?.stereoType === StereoType.Abstract ||
+                    ( data?.stereoType === StereoType.Abstract ||
                       data?.stereoType === StereoType.ValueObject ||
                       data?.stereoType === StereoType.Association ||
                       data?.stereoType === StereoType.Service) ? (

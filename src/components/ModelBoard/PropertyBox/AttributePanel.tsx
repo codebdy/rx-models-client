@@ -13,10 +13,10 @@ import {
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { AttributeMeta } from "../meta/AttributeMeta";
 import { ValueType } from "../meta/ValueType";
-import { ClassMeta, StereoType } from "../meta/ClassMeta";
+import { ClassMeta } from "../meta/ClassMeta";
 import { useChangeAttribute } from "../hooks/useChangeAttribute";
 import { useEnums } from "../hooks/useEnums";
-import { useInterfaces } from "../hooks/useInterfaces";
+import { useValueObjects } from "../hooks/useValueObjects";
 import { useServiceId } from "../hooks/useServiceId";
 import { CONST_ID } from "../meta/Meta";
 
@@ -25,10 +25,10 @@ export const AttributePanel = (props: {
   entity: ClassMeta;
 }) => {
   const { attribute, entity } = props;
-  const serviceId = useServiceId()
+  const serviceId = useServiceId();
   const changeAttribute = useChangeAttribute(serviceId);
   const enums = useEnums(serviceId);
-  const interfaces = useInterfaces(serviceId);
+  const interfaces = useValueObjects(serviceId);
 
   const handleStringChange = useCallback(
     (prop: any) => (event: React.ChangeEvent<{ value: string }>) => {
@@ -128,8 +128,8 @@ export const AttributePanel = (props: {
   );
 
   const isId = useMemo(
-    () => attribute.name === CONST_ID && entity.stereoType !== StereoType.Interface,
-    [attribute.name, entity.stereoType]
+    () => attribute.name === CONST_ID,
+    [attribute.name]
   );
   return (
     <>
