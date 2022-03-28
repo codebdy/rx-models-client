@@ -264,7 +264,6 @@ export const Login = observer(() => {
                     }
                     label={
                       <Typography variant="subtitle1" color="textSecondary">
-                        {" "}
                         {intl.get("remember-me")}
                       </Typography>
                     }

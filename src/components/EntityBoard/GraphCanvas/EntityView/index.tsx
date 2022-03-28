@@ -24,7 +24,8 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import intl from "react-intl-universal";
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -125,6 +126,7 @@ export const EntityView = (props: {
 
   const handleMenuClose = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(null);
+    setHover(false);
     event.stopPropagation();
   };
 
@@ -210,7 +212,7 @@ export const EntityView = (props: {
                       />
                     </SvgIcon>
                     <Typography sx={{ marginLeft: "16px" }}>
-                      {intl.get("add-attribute")}{" "}
+                      {intl.get("add-attribute")}
                     </Typography>
                   </MenuItem>
                   <MenuItem
@@ -225,7 +227,7 @@ export const EntityView = (props: {
                       />
                     </SvgIcon>
                     <Typography sx={{ marginLeft: "16px" }}>
-                      {intl.get("add-method")}{" "}
+                      {intl.get("add-method")}
                     </Typography>
                   </MenuItem>
                   <MenuItem
@@ -233,14 +235,9 @@ export const EntityView = (props: {
                       padding: theme.spacing(1, 3),
                     }}
                   >
-                    <SvgIcon fontSize="small">
-                      <path
-                        fill="currentColor"
-                        d="M12,14V11H10V14H7V16H10V19H12V16H15V14M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18"
-                      />
-                    </SvgIcon>
+                    <VisibilityOffOutlinedIcon fontSize="small" />
                     <Typography sx={{ marginLeft: "16px" }}>
-                      {intl.get("hidden")}{" "}
+                      {intl.get("hide-class")}
                     </Typography>
                   </MenuItem>
                   <Divider />
@@ -249,9 +246,9 @@ export const EntityView = (props: {
                       padding: theme.spacing(1, 3),
                     }}
                   >
-                    <DeleteForeverOutlinedIcon />
+                    <DeleteForeverOutlinedIcon fontSize="small" />
                     <Typography sx={{ marginLeft: "16px" }}>
-                      {intl.get("delete")}{" "}
+                      {intl.get("delete")}
                     </Typography>
                   </MenuItem>
                 </Menu>

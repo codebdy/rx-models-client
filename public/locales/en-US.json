@@ -122,5 +122,5 @@
   "description": "Description",
   "add-attribute":"Add attribute",
   "add-method":"Add method",
-  "hidden":"Hidden"
+  "hide-class":"Hide"
 }

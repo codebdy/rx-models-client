@@ -81,7 +81,7 @@ export default function ColumnView(props: {
       onMouseLeave={() => setHover(false)}
       onClick={handleClick}
     >
-      <span className={classes.name}>{column.name}</span>:{" "}
+      <span className={classes.name}>{column.name}</span>:
       <span className={classes.typeText}>{column.type}</span>
       {hover && !readOnly && !isId && (
         <div className={classes.propertyTools}>
