@@ -16,7 +16,7 @@ import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
 import { useGetNode } from "../hooks/useGetNode";
 import { useGetParentUuid } from "./useGetParentUuid";
 import { RelationType } from "../meta/RelationMeta";
-import { useChangeEntity } from "../hooks/useChangeEntity";
+import { useChangeClass } from "../hooks/useChangeEntity";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { EntityNodeData } from "./EntityView/EntityNodeData";
 import { themeModeState } from "recoil/atoms";
@@ -28,61 +28,60 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   );
   const setNodes = useSetRecoilState(x6NodesState(serviceId));
   const nodes = useDiagramNodes(selectedDiagram || "", serviceId);
-  const getEntity = useGetClass(serviceId);
+  const getClass = useGetClass(serviceId);
   const getNode = useGetNode(serviceId);
   const getDiagramNode = useGetDiagramNode(serviceId);
   const pressedLineType = useRecoilValue(pressedLineTypeState(serviceId));
   const getParentUuid = useGetParentUuid(serviceId);
-  const changeEntity = useChangeEntity(serviceId);
-  const createColumn = useCreateClassAttribute();
+  const changeClass = useChangeClass(serviceId);
+  const createAttribute = useCreateClassAttribute();
   const themeMode = useRecoilValue(themeModeState);
 
-  const getEntityRef = useRef(getEntity);
-  getEntityRef.current = getEntity;
+  const getClassRef = useRef(getClass);
+  getClassRef.current = getClass;
 
-  const changeEntityRef = useRef(changeEntity);
-  changeEntityRef.current = changeEntity;
+  const changeClassRef = useRef(changeClass);
+  changeClassRef.current = changeClass;
 
-  const createColumnRef = useRef(createColumn);
-  createColumnRef.current = createColumn;
+  const createAttributeRef = useRef(createAttribute);
+  createAttributeRef.current = createAttribute;
 
-  const handleColumnSelect = useCallback(
-    (columnId: string) => {
-      setSelectedElement(columnId);
+  const handleAttributeSelect = useCallback(
+    (attrId: string) => {
+      setSelectedElement(attrId);
     },
     [setSelectedElement]
   );
 
-  const handleColumnDelete = useCallback(
-    (entityId: string, columnId: string) => {
-      const entity = getEntityRef.current(entityId);
-      if (!entity) {
-        console.error("Entity not exist: " + entityId);
+  const handleAttributeDelete = useCallback(
+    (classId: string, attrId: string) => {
+      const cls = getClassRef.current(classId);
+      if (!cls) {
+        console.error("Entity not exist: " + classId);
         return;
       }
-      changeEntityRef.current({
-        ...entity,
-        attributes: entity.attributes.filter((ent) => ent.uuid !== columnId),
+      changeClassRef.current({
+        ...cls,
+        attributes: cls.attributes.filter((ent) => ent.uuid !== attrId),
       });
     },
     []
   );
 
-  const handleColumnCreate = useCallback((entityId: string) => {
-    const entity = getEntityRef.current(entityId);
-    if (!entity) {
-      console.error("Entity not exist: " + entityId);
+  const handleAttributeCreate = useCallback((classUuid: string) => {
+    const cls = getClassRef.current(classUuid);
+    if (!cls) {
+      console.error("Entity not exist: " + classUuid);
       return;
     }
-    changeEntityRef.current(createColumnRef.current(entity));
+    changeClassRef.current(createAttributeRef.current(cls));
   }, []);
 
-  const handleHideEntity = useCallback(
+  const handleHideClass = useCallback(
     (entityId: string) => {
       if (!selectedDiagram) {
         return;
       }
-
       setNodes((nodes) => nodes.filter((node) => node.id !== entityId));
     },
     [selectedDiagram, setNodes]
@@ -91,7 +90,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   useEffect(() => {
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
-      const entity = getEntity(node.id);
+      const entity = getClass(node.id);
       if (!entity) {
         console.error("cant not find entity by node id :" + node.id);
         return;
@@ -126,10 +125,10 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
           data,
           component: (
             <EntityView
-              onAttributeSelect={handleColumnSelect}
-              onAttributeDelete={handleColumnDelete}
-              onAttributeCreate={handleColumnCreate}
-              onHide={handleHideEntity}
+              onAttributeSelect={handleAttributeSelect}
+              onAttributeDelete={handleAttributeDelete}
+              onAttributeCreate={handleAttributeCreate}
+              onHide={handleHideClass}
             />
           ),
         });
@@ -147,14 +146,14 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     });
   }, [
     getDiagramNode,
-    getEntity,
+    getClass,
     getNode,
     getParentUuid,
     graph,
-    handleColumnCreate,
-    handleColumnDelete,
-    handleColumnSelect,
-    handleHideEntity,
+    handleAttributeCreate,
+    handleAttributeDelete,
+    handleAttributeSelect,
+    handleHideClass,
     nodes,
     pressedLineType,
     selectedDiagram,

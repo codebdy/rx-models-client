@@ -4,7 +4,7 @@ import { ClassMeta } from "../meta/ClassMeta";
 import { classesState } from "../recoil/atoms";
 import { useBackupSnapshot } from "./useBackupSnapshot";
 
-export function useChangeEntity(serviceId: number) {
+export function useChangeClass(serviceId: number) {
   const backupSnapshot = useBackupSnapshot(serviceId);
   const setEntities = useSetRecoilState(classesState(serviceId));
 
