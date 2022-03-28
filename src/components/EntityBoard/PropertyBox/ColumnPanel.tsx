@@ -152,7 +152,7 @@ export const ColumnPanel = (props: {
   );
 
   const isId = useMemo(
-    () => column.name === "id" && entity.entityType !== EntityType.INTERFACE,
+    () => column.name === "id" && entity.entityType !== EntityType.Interface,
     [column.name, entity.entityType]
   );
   return (

@@ -6,7 +6,7 @@ import { entitiesState } from "../recoil/atoms";
 export function useEnums(serviceId: number) {
   const entities = useRecoilValue(entitiesState(serviceId));
   const enums = useMemo(() => {
-    return entities.filter((entity) => entity.entityType === EntityType.ENUM);
+    return entities.filter((entity) => entity.entityType === EntityType.Enum);
   }, [entities]);
 
   return enums;

@@ -6,7 +6,7 @@ import { entitiesState } from "../recoil/atoms";
 export function useInterfaces(serviceId: number) {
   const entities = useRecoilValue(entitiesState(serviceId));
   const interfaces = useMemo(() => {
-    return entities.filter((entity) => entity.entityType === EntityType.INTERFACE);
+    return entities.filter((entity) => entity.entityType === EntityType.Interface);
   }, [entities]);
 
   return interfaces;

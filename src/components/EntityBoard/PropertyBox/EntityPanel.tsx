@@ -77,22 +77,22 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
         <FormControl variant="outlined" fullWidth size="small">
           <InputLabel>{intl.get("type")}</InputLabel>
           <Select
-            value={entity.entityType || EntityType.NORMAL}
+            value={entity.entityType || EntityType.Entity}
             onChange={handleTypeChange}
             label={intl.get("type")}
           >
-            <MenuItem value={EntityType.NORMAL}>
+            <MenuItem value={EntityType.Entity}>
               {intl.get("normal-class")}
             </MenuItem>
-            <MenuItem value={EntityType.ENUM}>{intl.get("enum")}</MenuItem>
-            <MenuItem value={EntityType.INTERFACE}>
+            <MenuItem value={EntityType.Enum}>{intl.get("enum")}</MenuItem>
+            <MenuItem value={EntityType.Interface}>
               {intl.get("interface")}
             </MenuItem>
           </Select>
         </FormControl>
       </Grid>
-      {entity.entityType !== EntityType.ENUM &&
-        entity.entityType !== EntityType.INTERFACE && (
+      {entity.entityType !== EntityType.Enum &&
+        entity.entityType !== EntityType.Interface && (
           <>
             <Grid item xs={12}>
               <LazyTextField
@@ -116,7 +116,7 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
           </>
         )}
 
-      {entity.entityType === EntityType.ENUM && (
+      {entity.entityType === EntityType.Enum && (
         <Grid item xs={12}>
           <JsonInput
             label={intl.get("enum-values")}

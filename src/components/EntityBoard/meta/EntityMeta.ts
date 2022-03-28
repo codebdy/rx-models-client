@@ -6,9 +6,13 @@ import { ColumnMeta } from "./ColumnMeta";
  * 枚举类型的字段映射到数据库是sttring类型
  */
 export enum EntityType {
-  NORMAL = "Normal",
-  ENUM = "Enum",
-  INTERFACE = "Interface",
+  Enum = "Enum",
+  Interface = "Interface",
+  ValueObject = "ValueObject",
+  Abstract = "Abstract",
+  Entity = "Entity",
+  GraphQLEntity = "GraphQLEntity",
+  GraphQLInterface = "GraphQLInterface",
 }
 
 /**

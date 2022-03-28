@@ -81,8 +81,8 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
 
         //只能从接口继承
         if (
-          (target.entityType === EntityType.ENUM ||
-            target.entityType === EntityType.NORMAL) &&
+          (target.entityType === EntityType.Enum ||
+            target.entityType === EntityType.Entity) &&
           isInherit
         ) {
           return;

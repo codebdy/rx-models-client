@@ -25,7 +25,7 @@ export function useCreateNewEntity(serviceId: number) {
       uuid: createId(),
       innerId: createInnerId(),
       name: getNewEntityName(),
-      entityType: EntityType.NORMAL,
+      entityType: EntityType.Entity,
       columns: [
         {
           uuid: createId(),
