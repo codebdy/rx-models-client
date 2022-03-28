@@ -11,7 +11,8 @@ import {
   Switch,
 } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
-import { AttributeMeta, ValueType } from "../meta/AttributeMeta";
+import { AttributeMeta } from "../meta/AttributeMeta";
+import { ValueType } from "../meta/ValueType";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { useChangeColumn } from "../hooks/useChangeColumn";
 import { useEnums } from "../hooks/useEnums";

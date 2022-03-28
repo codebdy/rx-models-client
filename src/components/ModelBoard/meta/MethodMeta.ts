@@ -1,4 +1,4 @@
-import { ValueType } from "./AttributeMeta";
+import { ValueType } from "./ValueType";
 
 export interface MethodMeta{
     /**

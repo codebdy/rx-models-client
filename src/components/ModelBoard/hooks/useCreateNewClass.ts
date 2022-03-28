@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
-import { ValueType } from "../meta/AttributeMeta";
+import { ValueType } from "../meta/ValueType";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { CONST_ID } from "../meta/Meta";
 import { useCreateEntityInnerId } from "./useCreateEntityInnerId";

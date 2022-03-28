@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
-import { ValueType } from "../meta/AttributeMeta";
+import { ValueType } from "../meta/ValueType";
 import { ClassMeta } from "../meta/ClassMeta";
 
 export function useCreateEntityColumn() {
