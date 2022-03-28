@@ -2,7 +2,7 @@ import { CircularProgress, FormControlLabel, Grid, SvgIcon, Switch, Theme } from
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import { TreeItem } from "@mui/lab";
-import { ClassMeta } from "components/EntityBoard/meta/ClassMeta";
+import { ClassMeta } from "components/ModelBoard/meta/ClassMeta";
 import { ActionLabel } from "./action-label";
 import { AbilityActions } from "./ability-actions";
 import { NodeLabel } from "./NodeLabel";

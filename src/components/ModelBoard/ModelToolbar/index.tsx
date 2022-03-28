@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const EntityToolbar = memo(() => {
+export const ModelToolbar = memo(() => {
   const classes = useStyles();
   const serviceId = useServiceId();
   const [meta, setMeta] = useRecoilState(metaState(serviceId));

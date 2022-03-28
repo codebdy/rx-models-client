@@ -1,7 +1,7 @@
 import { ClientError, GraphQLError } from "graphql-request/dist/types";
 import { useCallback, useEffect, useState } from "react";
 import { createGraphQLClient } from "./createGraphQLClient";
-import { Service } from "components/EntityBoard/meta/Service";
+import { Service } from "components/ModelBoard/meta/Service";
 
 export interface IQueryOpions {}
 export type MutateFn<T> = (data?: T) => void;

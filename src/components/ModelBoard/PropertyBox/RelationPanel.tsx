@@ -9,7 +9,7 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
-import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
+import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { useClass } from "../hooks/useClass";
 import { useChangeRelation } from "../hooks/useChangeRelation";

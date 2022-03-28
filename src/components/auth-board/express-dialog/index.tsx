@@ -15,12 +15,12 @@ import {
 } from "@mui/material";
 import createStyles from "@mui/styles/createStyles";
 import makeStyles from "@mui/styles/makeStyles";
-import { ClassMeta } from "components/EntityBoard/meta/ClassMeta";
+import { ClassMeta } from "components/ModelBoard/meta/ClassMeta";
 import {
   classesState,
   relationsState,
   serviceState,
-} from "components/EntityBoard/recoil/atoms";
+} from "components/ModelBoard/recoil/atoms";
 import { useRecoilValue } from "recoil";
 import { LoadingButton } from "@mui/lab";
 

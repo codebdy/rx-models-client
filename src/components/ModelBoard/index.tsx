@@ -4,7 +4,7 @@ import { EntityTree } from "./EntityTree";
 import { GraphCanvas } from "./GraphCanvas";
 import { Toolbox } from "./Toolbox";
 import { PropertyBox } from "./PropertyBox";
-import { EntityToolbar } from "./EntityToolbar";
+import { ModelToolbar } from "./ModelToolbar";
 import Loading from "components/common/loading";
 import EmpertyCanvas from "./EmpertyCanvas";
 import { useRecoilValue, useSetRecoilState } from "recoil";
@@ -121,7 +121,7 @@ export const ModelsBoard = memo(() => {
               flexFlow: "column",
             }}
           >
-            <EntityToolbar />
+            <ModelToolbar />
             <Box sx={{ width: "100%", flex: 1, display: "flex", height: "0" }}>
               {selectedDiagram ? (
                 <>

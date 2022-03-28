@@ -10,7 +10,7 @@ import {
   SelectChangeEvent,
   Switch,
 } from "@mui/material";
-import LazyTextField from "components/EntityBoard/PropertyBox/LazyTextField";
+import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { JsonInput } from "./JsonInput";
 import { useChangeEntity } from "../hooks/useChangeEntity";

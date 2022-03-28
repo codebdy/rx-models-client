@@ -6,7 +6,7 @@ import { ActionWithExpression } from "./action-with-expression";
 import { observer } from "mobx-react";
 import { useAuthBoardStore } from "./store/helper";
 import intl from 'react-intl-universal';
-import { ClassMeta } from "components/EntityBoard/meta/ClassMeta";
+import { ClassMeta } from "components/ModelBoard/meta/ClassMeta";
 import { AbilityType } from "entity-interface/AbilityType";
 import { RxAbility } from "entity-interface/RxAbility";
 

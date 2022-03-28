@@ -3,7 +3,7 @@ import { Theme, IconButton } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
-import { AttributeMeta } from "components/EntityBoard/meta/AttributeMeta";
+import { AttributeMeta } from "components/ModelBoard/meta/AttributeMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>

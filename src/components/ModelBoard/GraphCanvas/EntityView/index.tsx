@@ -15,7 +15,7 @@ import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import ColumnView from "./ColumnView";
-import { StereoType } from "components/EntityBoard/meta/ClassMeta";
+import { StereoType } from "components/ModelBoard/meta/ClassMeta";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { EntityNodeData } from "./EntityNodeData";
 import { PRIMARY_COLOR } from "util/consts";

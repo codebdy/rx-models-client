@@ -1,4 +1,4 @@
-import { Meta } from "components/EntityBoard/meta/Meta";
+import { Meta } from "components/ModelBoard/meta/Meta";
 import { ClientError, gql } from "graphql-request";
 import { useCallback, useState } from "react";
 import { createGraphQLClient } from "./createGraphQLClient";
