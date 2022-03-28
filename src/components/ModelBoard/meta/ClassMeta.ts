@@ -4,7 +4,7 @@ import { MethodMeta } from "./MethodMeta";
 /**
  * 实体类型枚举
  * 枚举实体类似语法糖，不映射数据库，
- * 枚举类型的字段映射到数据库是sttring类型
+ * 枚举类型的字段映射到数据库是string类型
  */
 export enum StereoType {
   Enum = "Enum",

@@ -16,12 +16,9 @@ import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import ColumnView from "./ColumnView";
 import { StereoType } from "components/ModelBoard/meta/ClassMeta";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { EntityNodeData } from "./EntityNodeData";
 import { PRIMARY_COLOR } from "util/consts";
 import useShadows from "util/use-shadows";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import intl from "react-intl-universal";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
@@ -91,6 +88,7 @@ export const EntityView = (props: {
 
   const handleHidden = useCallback(() => {
     onHide && onHide(node.id);
+    setAnchorEl(null);
   }, [node.id, onHide]);
 
   const handleColumnClick = useCallback(
@@ -161,12 +159,9 @@ export const EntityView = (props: {
           }}
         >
           <div className={classes.entityName}>
-            {(data?.stereoType === StereoType.Enum ||
-              data?.stereoType === StereoType.Interface) && (
-              <div className={classNames(classes.nameItem, classes.smFont)}>
-                &lt;&lt; {data?.stereoType} &gt;&gt;
-              </div>
-            )}
+            <div className={classNames(classes.nameItem, classes.smFont)}>
+              &lt;&lt; {data?.stereoType} &gt;&gt;
+            </div>
             <div className={classes.nameItem}>{data?.name}</div>
             {data?.serviceName && (
               <div className={classNames(classes.nameItem, classes.smFont)}>
@@ -237,6 +232,7 @@ export const EntityView = (props: {
                     sx={{
                       padding: theme.spacing(1, 3),
                     }}
+                    onClick = {handleHidden}
                   >
                     <VisibilityOffOutlinedIcon fontSize="small" />
                     <Typography sx={{ marginLeft: "16px" }}>
