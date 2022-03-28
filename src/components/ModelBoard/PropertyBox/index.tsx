@@ -9,7 +9,7 @@ import { RelationPanel } from "./RelationPanel";
 import { useRecoilValue } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
 import { useClass } from "../hooks/useClass";
-import { useColumn } from "../hooks/useColumn";
+import { useAttribute } from "../hooks/useAttribute";
 import { useRelation } from "../hooks/useRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
@@ -18,7 +18,7 @@ export const PropertyBox = () => {
   const serviceId = useServiceId();
   const selectedElement = useRecoilValue(selectedElementState(serviceId));
   const selectedEntity = useClass(selectedElement || "", serviceId);
-  const { entity, column } = useColumn(selectedElement || "", serviceId);
+  const { cls, attribute } = useAttribute(selectedElement || "", serviceId);
   const relation = useRelation(selectedElement || "", serviceId);
   const scrollStyles = useScrollbarStyles(true);
 
@@ -45,7 +45,7 @@ export const PropertyBox = () => {
       >
         <Grid container spacing={2}>
           {selectedEntity && <EntityPanel entity={selectedEntity} />}
-          {column && entity && <AttributePanel attribute={column} entity={entity} />}
+          {attribute && cls && <AttributePanel attribute={attribute} entity={cls} />}
           {relation && <RelationPanel relation={relation} />}
           {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}
         </Grid>

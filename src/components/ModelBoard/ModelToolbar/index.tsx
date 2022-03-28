@@ -26,11 +26,11 @@ import {
 } from "../recoil/atoms";
 import { useUndo } from "../hooks/useUndo";
 import { useRedo } from "../hooks/useRedo";
-import { useColumn } from "../hooks/useColumn";
+import { useAttribute } from "../hooks/useAttribute";
 import { useDeleteSelectedElement } from "../hooks/useDeleteSelectedElement";
 import { LoadingButton } from "@mui/lab";
 import { usePostOne } from "do-ents/usePostOne";
-import { EntityNameMeta, Meta, MetaStatus } from "../meta/Meta";
+import { CONST_ID, EntityNameMeta, Meta, MetaStatus } from "../meta/Meta";
 import { SyncButton } from "./SyncButton";
 import { useServiceId } from "../hooks/useServiceId";
 
@@ -76,7 +76,7 @@ export const ModelToolbar = memo(() => {
   const redoList = useRecoilValue(redoListState(serviceId));
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
   const selectedElement = useRecoilValue(selectedElementState(serviceId));
-  const { column } = useColumn(selectedElement || "", serviceId);
+  const { attribute } = useAttribute(selectedElement || "", serviceId);
   const undo = useUndo(serviceId);
   const redo = useRedo(serviceId);
   const deleteSelectedElement = useDeleteSelectedElement(serviceId);
@@ -155,7 +155,7 @@ export const ModelToolbar = memo(() => {
         </IconButton>
         <IconButton
           className={classes.iconButton}
-          disabled={(column && column.name === "id") || !selectedElement}
+          disabled={(attribute && attribute.name === CONST_ID) || !selectedElement}
           onClick={handleDelete}
           size="large"
         >

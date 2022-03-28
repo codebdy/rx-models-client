@@ -1,3 +1,4 @@
+import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { ClientError, gql } from "graphql-request";
 import { useCallback, useState } from "react";
 import { createGraphQLClient } from "./createGraphQLClient";
@@ -29,7 +30,7 @@ export function usePostOne<T extends IObject>(
           ${postName}(object: $object){
             id
             ${Object.keys(data)
-              .filter((key) => key !== "id" && key !== "__type")
+              .filter((key) => key !== CONST_ID && key !== "__type")
               .join("\n")}
           }
         }

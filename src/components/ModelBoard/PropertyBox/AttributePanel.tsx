@@ -18,6 +18,7 @@ import { useChangeAttribute } from "../hooks/useChangeAttribute";
 import { useEnums } from "../hooks/useEnums";
 import { useInterfaces } from "../hooks/useInterfaces";
 import { useServiceId } from "../hooks/useServiceId";
+import { CONST_ID } from "../meta/Meta";
 
 export const AttributePanel = (props: {
   attribute: AttributeMeta;
@@ -153,7 +154,7 @@ export const AttributePanel = (props: {
   );
 
   const isId = useMemo(
-    () => attribute.name === "id" && entity.stereoType !== StereoType.Interface,
+    () => attribute.name === CONST_ID && entity.stereoType !== StereoType.Interface,
     [attribute.name, entity.stereoType]
   );
   return (

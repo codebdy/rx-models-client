@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
-import { useColumn } from "./useColumn";
-import { useDeleteColumn } from "./useDeleteColumn";
+import { useAttribute } from "./useAttribute";
+import { useDeleteAttribute } from "./useDeleteAttribute";
 import { useDeleteEntity } from "./useDeleteEntity";
 import { useDeleteRelation } from "./useDeleteRelation";
 import { useClass } from "./useClass";
@@ -19,8 +19,8 @@ export function useDeleteSelectedElement(serviceId: number) {
   const relation = useRelation(selectedElement || "", serviceId);
   const deleteRelation = useDeleteRelation(serviceId);
 
-  const { column } = useColumn(selectedElement || "", serviceId);
-  const deletedColumn = useDeleteColumn(serviceId);
+  const { attribute } = useAttribute(selectedElement || "", serviceId);
+  const deletedColumn = useDeleteAttribute(serviceId);
 
   const deleteSelectedElement = useCallback(() => {
     if (entity) {
@@ -30,12 +30,12 @@ export function useDeleteSelectedElement(serviceId: number) {
       deleteRelation(relation.uuid);
     }
 
-    if (column) {
-      deletedColumn(column.uuid);
+    if (attribute) {
+      deletedColumn(attribute.uuid);
     }
     setSelectedElement(undefined);
   }, [
-    column,
+    attribute,
     deleteEntity,
     deleteRelation,
     deletedColumn,

@@ -159,7 +159,7 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
         >
           {entity?.attributes.map((column) => {
             return (
-              <AttributeNode key={column.uuid} column={column} />
+              <AttributeNode key={column.uuid} attribute={column} />
             );
           })}
         </TreeItem>

@@ -5,6 +5,7 @@ import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import { AttributeMeta } from "components/ModelBoard/meta/AttributeMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { CONST_ID } from "components/ModelBoard/meta/Meta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +45,7 @@ export default function AttributeView(props: {
   const classes = useStyles();
   const [hover, setHover] = useState(false);
 
-  const isId = attr.name === "id";
+  const isId = attr.name === CONST_ID;
 
   const handleClick = () => {
     onClick(attr.uuid);
