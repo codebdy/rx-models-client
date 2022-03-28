@@ -12,7 +12,6 @@ import { Addon, Graph } from "@antv/x6";
 import { useEffect } from "react";
 import { EntityView } from "../GraphCanvas/EntityView";
 import {
-  svgImplement,
   svgInherit,
   svgLinkLine,
   svgOneWayAggregation,
@@ -29,6 +28,7 @@ import { useCreateTempClassNodeForNew } from "../hooks/useCreateTempClassNodeFor
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
 import { Box } from "@mui/material";
 import { useServiceId } from "../hooks/useServiceId";
+import { ClassRect } from "./ClassRect";
 const { Dnd } = Addon;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -193,34 +193,67 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               data-type="rect"
               onMouseDown={startDrag}
             >
-              <div
-                style={{
-                  width: "45px",
-                  height: "30px",
-                  border: "solid 2px",
-                  display: "flex",
-                  flexFlow: "column",
-                  padding: "0",
-                  borderRadius: "3px",
-                }}
-              >
-                <div
-                  style={{
-                    height: "30%",
-                    width: "47px",
-                    borderBottom: "solid 1px",
-                    marginLeft: "-1px",
-                  }}
-                ></div>
-                <div
-                  style={{
-                    height: "30%",
-                    width: "47px",
-                    borderBottom: "solid 1px",
-                    marginLeft: "-1px",
-                  }}
-                ></div>
-              </div>
+              <ClassRect first={true} />
+              {intl.get("class")}
+            </div>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.moveable
+              )}
+              data-type="rect"
+              onMouseDown={startDrag}
+            >
+              <ClassRect />
+              {intl.get("class")}
+            </div>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.moveable
+              )}
+              data-type="rect"
+              onMouseDown={startDrag}
+            >
+              <ClassRect />
+              {intl.get("class")}
+            </div>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.moveable
+              )}
+              data-type="rect"
+              onMouseDown={startDrag}
+            >
+              <ClassRect />
+              {intl.get("class")}
+            </div>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.moveable
+              )}
+              data-type="rect"
+              onMouseDown={startDrag}
+            >
+              <ClassRect />
+              {intl.get("class")}
+            </div>
+            <div
+              className={classNames(
+                classes.toolItem,
+                classes.firstItem,
+                classes.moveable
+              )}
+              data-type="rect"
+              onMouseDown={startDrag}
+            >
+              <ClassRect />
               {intl.get("class")}
             </div>
             <div
