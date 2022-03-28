@@ -1,15 +1,6 @@
 import React, { useCallback } from "react";
 import intl from "react-intl-universal";
-import {
-  FormControl,
-  FormControlLabel,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Switch,
-} from "@mui/material";
+import { Checkbox, FormControlLabel, Grid, Switch } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { JsonInput } from "./JsonInput";
@@ -19,49 +10,44 @@ import { useServiceId } from "../hooks/useServiceId";
 export const ClassPanel = (props: { cls: ClassMeta }) => {
   const { cls } = props;
   const serviceId = useServiceId();
-  const changeEntity = useChangeClass(serviceId);
+  const changeClass = useChangeClass(serviceId);
 
   const handleNameChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {
-      changeEntity({ ...cls, name: event.target.value.trim() });
+      changeClass({ ...cls, name: event.target.value.trim() });
     },
-    [changeEntity, cls]
+    [changeClass, cls]
   );
 
-  // const handleTableNameChange = useCallback(
-  //   (event: React.ChangeEvent<{ value: string }>) => {
-  //     changeEntity({ ...entity, tableName: event.target.value.trim() });
-  //   },
-  //   [changeEntity, entity]
-  // );
-
-  const handleTypeChange = useCallback(
-    (event: SelectChangeEvent<StereoType>) => {
-      const entityType = event.target.value as StereoType;
-      changeEntity({ ...cls, stereoType: entityType });
+  const handelAbtractChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const stereoType = event.target.checked
+        ? StereoType.Abstract
+        : StereoType.Entity;
+      changeClass({ ...cls, stereoType });
     },
-    [changeEntity, cls]
+    [changeClass, cls]
   );
 
   const handleEnumValuesChange = useCallback(
     (value: any) => {
-      changeEntity({ ...cls, enumValues: value });
+      changeClass({ ...cls, enumValues: value });
     },
-    [changeEntity, cls]
+    [changeClass, cls]
   );
 
   const handleEventableChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeEntity({ ...cls, root: event.target.checked });
+      changeClass({ ...cls, root: event.target.checked });
     },
-    [changeEntity, cls]
+    [changeClass, cls]
   );
 
   const handleDescriptionChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {
-      changeEntity({ ...cls, description: event.target.value });
+      changeClass({ ...cls, description: event.target.value });
     },
-    [changeEntity, cls]
+    [changeClass, cls]
   );
 
   return (
@@ -73,51 +59,25 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
           onChange={handleNameChange}
         />
       </Grid>
-      <Grid item xs={12}>
-        <FormControl variant="outlined" fullWidth size="small">
-          <InputLabel>{intl.get("type")}</InputLabel>
-          <Select
-            value={cls.stereoType || StereoType.Entity}
-            onChange={handleTypeChange}
-            label={intl.get("type")}
-          >
-            <MenuItem value={StereoType.Enum}>{intl.get("enum")}</MenuItem>
-            {/* <MenuItem value={StereoType.Interface}>
-              {intl.get("interface")}
-            </MenuItem> */}
-            <MenuItem value={StereoType.Abstract}>
-              {intl.get("abstract-class")}
-            </MenuItem>
-            <MenuItem value={StereoType.ValueObject}>
-              {intl.get("value-object")}
-            </MenuItem>
-            <MenuItem value={StereoType.Entity}>
-              {intl.get("entity-class")}
-            </MenuItem>
-            <MenuItem value={StereoType.Association}>
-              {intl.get("association-class")}
-            </MenuItem>
-            {/* <MenuItem value={StereoType.GQLInterface}>
-              {intl.get("graphql-interface")}
-            </MenuItem> */}
-            <MenuItem value={StereoType.Service}>
-              {intl.get("service")}
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
+      {(cls.stereoType === StereoType.Abstract ||
+        cls.stereoType === StereoType.Entity) && (
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={cls.stereoType === StereoType.Abstract}
+                onChange={handelAbtractChange}
+              />
+            }
+            label={intl.get("abstract-class")}
+          />
+        </Grid>
+      )}
+
       {cls.stereoType !== StereoType.Enum &&
-        cls.stereoType !== StereoType.Abstract &&
         cls.stereoType !== StereoType.Association &&
         cls.stereoType !== StereoType.ValueObject && (
           <>
-            {/* <Grid item xs={12}>
-              <LazyTextField
-                label={intl.get("table-name")}
-                value={entity.tableName || ""}
-                onChange={handleTableNameChange}
-              />
-            </Grid> */}
             <Grid item xs={12}>
               <FormControlLabel
                 control={
