@@ -18,6 +18,7 @@ import { useGetClass } from "../hooks/useGetClass";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useCreateRelationInnerId } from "../hooks/useCreateRelationInnerId";
 import { useTheme } from "@mui/material";
+import { canStartLink } from "./canStartLink";
 
 export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
   const [drawingLine, setDrawingLine] = useRecoilState(
@@ -187,10 +188,9 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
         return;
       }
 
-      //已经有继承关系了
-      //if (pressedLineType === RelationType.IMPLEMENTS && getParentUuid(node.id)) {
-      //  return;
-      //}
+      if (!canStartLink(pressedLineType, node.data)) {
+        return;
+      }
 
       const p = graph?.clientToLocal({ x: e.clientX, y: e.clientY });
       const lineAction: LineAction = {

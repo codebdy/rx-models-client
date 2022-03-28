@@ -15,7 +15,6 @@ import { useGetClass } from "../hooks/useGetClass";
 import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
 import { useGetNode } from "../hooks/useGetNode";
 import { useGetParentUuid } from "./useGetParentUuid";
-import { RelationType } from "../meta/RelationMeta";
 import { useChangeClass } from "../hooks/useChangeEntity";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { ClassNodeData } from "./ClassView/ClassNodeData";
@@ -99,9 +98,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         ...entity,
         ...node,
         selectedId: selectedElement,
-        isPressedRelation:
-          (pressedLineType !== RelationType.INHERIT && !!pressedLineType) ||
-          pressedLineType === RelationType.INHERIT,
+        pressedLineType:pressedLineType,
         themeMode: themeMode,
       };
       if (grahpNode) {
