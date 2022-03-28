@@ -41,12 +41,12 @@ export function useNodeSelect(graph: Graph | undefined, serviceId: number) {
     graph?.on("node:click", handleNodeSelected);
     graph?.on("node:selected", handleNodeSelected);
     graph?.on("node:unselected", handleNodeUnselected);
-    //graph?.on("blank:mouseup", handleNodeUnselected);
+    graph?.on("blank:mouseup", handleNodeUnselected);
     return () => {
       graph?.off("node:click", handleNodeSelected);
       graph?.off("node:selected", handleNodeSelected);
       graph?.off("node:unselected", handleNodeUnselected);
-      //graph?.off("blank:mouseup", handleNodeUnselected);
+      graph?.off("blank:mouseup", handleNodeUnselected);
     };
   }, [graph, handleNodeSelected, handleNodeUnselected]);
 }
