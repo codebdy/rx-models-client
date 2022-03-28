@@ -109,6 +109,7 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
       {cls.stereoType !== StereoType.Enum &&
         cls.stereoType !== StereoType.Interface &&
         cls.stereoType !== StereoType.Abstract &&
+        cls.stereoType !== StereoType.Association &&
         cls.stereoType !== StereoType.ValueObject && (
           <>
             {/* <Grid item xs={12}>

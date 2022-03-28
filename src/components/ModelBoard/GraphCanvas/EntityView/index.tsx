@@ -296,6 +296,7 @@ export const EntityView = (props: {
                     (data?.stereoType === StereoType.Interface ||
                       data?.stereoType === StereoType.Abstract ||
                       data?.stereoType === StereoType.ValueObject ||
+                      data?.stereoType === StereoType.Association ||
                       data?.stereoType === StereoType.Service) ? (
                     <></>
                   ) : (

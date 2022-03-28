@@ -105,7 +105,7 @@
   "enum-values": "Enum value list",
   "entity-class": "Entity class",
   "value-object":"Value object",
-  "graphql-interface":"Graphql interface",
+  "graphql-interface":"GraphQL interface",
   "association-class":"Association class",
   "service":"Service",
   "type": "Type",
