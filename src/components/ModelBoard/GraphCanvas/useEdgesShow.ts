@@ -89,7 +89,7 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
         });
       }
 
-      if (edgeMeta.relationType !== RelationType.IMPLEMENTS) {
+      if (edgeMeta.relationType !== RelationType.INHERIT) {
         grahpEdge?.setLabels([
           // {
           //   attrs: {

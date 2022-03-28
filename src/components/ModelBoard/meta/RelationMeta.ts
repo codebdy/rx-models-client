@@ -2,7 +2,6 @@
  * 关系类型
  */
 export enum RelationType {
-  IMPLEMENTS = "implements",
   INHERIT = "inherit",
   TWO_WAY_ASSOCIATION = "twoWayAssociation",
   TWO_WAY_AGGREGATION = "twoWayAggregation",

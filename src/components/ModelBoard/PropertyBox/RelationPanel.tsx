@@ -91,7 +91,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   );
 
   const isInherit = useMemo(
-    () => RelationType.IMPLEMENTS === relation.relationType,
+    () => RelationType.INHERIT === relation.relationType,
     [relation.relationType]
   );
 
@@ -106,7 +106,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             label={intl.get("relation-type")}
             disabled={isInherit}
           >
-            <MenuItem value={RelationType.IMPLEMENTS}>
+            <MenuItem value={RelationType.INHERIT}>
               {intl.get("implements")}
             </MenuItem>
             <MenuItem value={RelationType.TWO_WAY_ASSOCIATION}>

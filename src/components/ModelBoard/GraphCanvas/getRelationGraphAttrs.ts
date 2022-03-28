@@ -9,22 +9,7 @@ export function getRelationGraphAttrs(
   relationType: RelationType,
   isTemp?: boolean
 ) {
-  if (relationType === RelationType.IMPLEMENTS) {
-    return {
-      line: {
-        stroke: theme.palette.text.primary,
-        strokeWidth: 1,
-        strokeDasharray: "3 5",
-        targetMarker: {
-          tagName: "path",
-          fill: theme.palette.background.default,
-          stroke: theme.palette.text.primary,
-          strokeWidth: 1,
-          d: inheritMarker,
-        },
-      },
-    };
-  } else if (relationType === RelationType.INHERIT) {
+  if (relationType === RelationType.INHERIT) {
     return {
       line: {
         stroke: theme.palette.text.primary,

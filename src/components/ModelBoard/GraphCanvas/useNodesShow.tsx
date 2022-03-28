@@ -100,8 +100,8 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         ...node,
         selectedId: selectedElement,
         isPressedRelation:
-          (pressedLineType !== RelationType.IMPLEMENTS && !!pressedLineType) ||
-          pressedLineType === RelationType.IMPLEMENTS,
+          (pressedLineType !== RelationType.INHERIT && !!pressedLineType) ||
+          pressedLineType === RelationType.INHERIT,
         themeMode: themeMode,
       };
       if (grahpNode) {

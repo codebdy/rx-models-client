@@ -10,7 +10,7 @@ export function useTargetRelations(entityUuid: string, serviceId: number) {
     return relations.filter(
       (relation) =>
         relation.targetId === entityUuid &&
-        relation.relationType !== RelationType.IMPLEMENTS
+        relation.relationType !== RelationType.INHERIT
     );
   }, [entityUuid, relations]);
 

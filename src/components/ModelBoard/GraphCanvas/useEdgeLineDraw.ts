@@ -73,7 +73,7 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
         const relationId = createId();
         const source = getEntity(drawingLine.sourceNodeId);
         const target = getEntity(targetNode.id);
-        const isInherit = drawingLine.relationType === RelationType.IMPLEMENTS;
+        const isInherit = drawingLine.relationType === RelationType.INHERIT;
 
         if (!source || !target) {
           return;
@@ -98,7 +98,7 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
           if (
             relation.targetId === target.uuid &&
             relation.sourceId === source.uuid &&
-            relation.relationType === RelationType.IMPLEMENTS &&
+            relation.relationType === RelationType.INHERIT &&
             isInherit
           ) {
             return;
@@ -116,7 +116,7 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
           {
             uuid: relationId,
             innerId:
-              drawingLine.relationType !== RelationType.IMPLEMENTS
+              drawingLine.relationType !== RelationType.INHERIT
                 ? createRelationInnerId()
                 : 0,
             relationType: drawingLine.relationType,

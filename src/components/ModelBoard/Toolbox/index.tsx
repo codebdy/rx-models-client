@@ -225,15 +225,6 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
             </div>
             <div
               className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]: pressedLineType === RelationType.IMPLEMENTS,
-              })}
-              onClick={handleRelationClick(RelationType.IMPLEMENTS)}
-            >
-              {svgImplement}
-              {intl.get("implements")}
-            </div>
-            <div
-              className={classNames(classes.toolItem, classes.relationItem, {
                 [classes.selected]: pressedLineType === RelationType.INHERIT,
               })}
               onClick={handleRelationClick(RelationType.INHERIT)}

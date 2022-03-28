@@ -10,7 +10,7 @@ export function useGetParentUuid(serviceId :number) {
       return relations.find(
         (relation) =>
           relation.sourceId === entityUuid &&
-          relation.relationType === RelationType.IMPLEMENTS
+          relation.relationType === RelationType.INHERIT
       )?.uuid;
     },
     [relations]
