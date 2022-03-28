@@ -114,7 +114,7 @@
   "belongs-to-package":"所属包",
   "edit-enum":"编辑枚举值",
   "index":"索引",
-  "eventable":"事件化",
+  "root":"根",
   "entity-model":"实体模型",
   "add-node":"添加节点",
   "description":"描述"

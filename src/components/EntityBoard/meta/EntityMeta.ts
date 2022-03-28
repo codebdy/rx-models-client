@@ -50,7 +50,7 @@ export interface EntityMeta {
    */
   enumValues?: any;
 
-  eventable?: boolean;
+  root?: boolean;
 
   description?: string;
 }

@@ -52,7 +52,7 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
 
   const handleEventableChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      changeEntity({ ...entity, eventable: event.target.checked });
+      changeEntity({ ...entity, root: event.target.checked });
     },
     [changeEntity, entity]
   );
@@ -105,12 +105,12 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={entity.eventable || false}
+                    checked={entity.root || false}
                     onChange={handleEventableChange}
                     color="primary"
                   />
                 }
-                label={intl.get("eventable")}
+                label={intl.get("root")}
               />
             </Grid>
           </>

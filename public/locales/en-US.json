@@ -114,7 +114,7 @@
   "belongs-to-package": "Belongs to package",
   "edit-enum": "Edit enum",
   "index": "Index",
-  "eventable": "Eventable",
+  "root": "Root",
   "entity-model": "Entity Model",
   "add-node": "Add node",
   "description": "Description"
