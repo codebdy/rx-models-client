@@ -5,6 +5,7 @@ import { ClassView } from "./ClassView";
 import _ from "lodash";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
+  drawingLineState,
   pressedLineTypeState,
   selectedDiagramState,
   selectedElementState,
@@ -35,7 +36,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const changeClass = useChangeClass(serviceId);
   const createAttribute = useCreateClassAttribute();
   const themeMode = useRecoilValue(themeModeState);
-
+  const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const getClassRef = useRef(getClass);
   getClassRef.current = getClass;
 
@@ -98,7 +99,8 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         ...entity,
         ...node,
         selectedId: selectedElement,
-        pressedLineType:pressedLineType,
+        pressedLineType: pressedLineType,
+        drawingLine: drawingLine,
         themeMode: themeMode,
       };
       if (grahpNode) {
@@ -157,5 +159,6 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     selectedElement,
     setSelectedElement,
     themeMode,
+    drawingLine,
   ]);
 }

@@ -10,6 +10,7 @@ import {
   SvgIcon,
   Typography,
   Divider,
+  alpha,
 } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
@@ -26,6 +27,7 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 import MethodView from "./MethodView";
 import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { canStartLink } from "../canStartLink";
+import { green, red } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -138,6 +140,30 @@ export const ClassView = memo(
       event.stopPropagation();
     };
 
+    const boxShadow = useMemo(() => {
+      const shadowConst = "0 0 0 3px ";
+      if (hover) {
+        if (!data?.pressedLineType) {
+          return shadowConst + alpha(theme.palette.primary.main, 0.5);
+        }
+      } else {
+        if (!!data?.drawingLine) {
+          return (
+            shadowConst +
+            (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
+          );
+        }
+      }
+
+      return "";
+    }, [
+      canLink,
+      data?.drawingLine,
+      data?.pressedLineType,
+      hover,
+      theme.palette.primary.main,
+    ]);
+
     return (
       <ThemeProvider theme={theme}>
         <Box
@@ -149,9 +175,11 @@ export const ClassView = memo(
             background: theme.palette.background.paper,
             overflow: "hidden",
             cursor: canLink ? "crosshair" : undefined,
+            boxShadow: boxShadow,
+            borderRadius: "5px",
           }}
           onMouseOver={handleMouseOver}
-          onMouseLeave={handleMouseLeave}
+          onMouseOut={handleMouseLeave}
         >
           <Box
             sx={{
