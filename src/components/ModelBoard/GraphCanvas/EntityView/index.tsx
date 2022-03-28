@@ -85,14 +85,14 @@ export const EntityView = (props: {
     setAnchorEl(null);
   }, [node.id, onHide]);
 
-  const handleColumnClick = useCallback(
+  const handleAttributeClick = useCallback(
     (id: string) => {
       onAttributeSelect && onAttributeSelect(id);
     },
     [onAttributeSelect]
   );
 
-  const handleColumnDelete = useCallback(
+  const handleAttributeDelete = useCallback(
     (id: string) => {
       onAttributeDelete && onAttributeDelete(node.id, id);
     },
@@ -288,8 +288,8 @@ export const EntityView = (props: {
                     <AttributeView
                       key={attr.uuid}
                       attr={attr}
-                      onClick={handleColumnClick}
-                      onDelete={handleColumnDelete}
+                      onClick={handleAttributeClick}
+                      onDelete={handleAttributeDelete}
                       isSelected={data.selectedId === attr.uuid}
                       readOnly={disableHover}
                     />
@@ -309,8 +309,8 @@ export const EntityView = (props: {
                     <MethodView
                       key={method.uuid}
                       method={method}
-                      onClick={handleColumnClick}
-                      onDelete={handleColumnDelete}
+                      onClick={handleAttributeClick}
+                      onDelete={handleAttributeDelete}
                       isSelected={data.selectedId === method.uuid}
                     />
                   );
