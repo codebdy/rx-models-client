@@ -28,12 +28,12 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
     [changeEntity, entity]
   );
 
-  const handleTableNameChange = useCallback(
-    (event: React.ChangeEvent<{ value: string }>) => {
-      changeEntity({ ...entity, tableName: event.target.value.trim() });
-    },
-    [changeEntity, entity]
-  );
+  // const handleTableNameChange = useCallback(
+  //   (event: React.ChangeEvent<{ value: string }>) => {
+  //     changeEntity({ ...entity, tableName: event.target.value.trim() });
+  //   },
+  //   [changeEntity, entity]
+  // );
 
   const handleTypeChange = useCallback(
     (event: SelectChangeEvent<EntityType>) => {
@@ -103,13 +103,13 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
       {entity.entityType !== EntityType.Enum &&
         entity.entityType !== EntityType.Interface && (
           <>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <LazyTextField
                 label={intl.get("table-name")}
                 value={entity.tableName || ""}
                 onChange={handleTableNameChange}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <FormControlLabel
                 control={

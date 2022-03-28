@@ -4,7 +4,6 @@ import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import { ColumnMeta } from "components/EntityBoard/meta/ColumnMeta";
-import KeyOutlinedIcon from "@mui/icons-material/KeyOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,10 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "5px",
     },
 
-    pk: {
-      fontSize: "1rem",
-      marginLeft: "3px",
-    },
   })
 );
 
@@ -86,11 +81,6 @@ export default function ColumnView(props: {
       onMouseLeave={() => setHover(false)}
       onClick={handleClick}
     >
-      {isId && (
-        <div className={classes.pk}>
-          <KeyOutlinedIcon sx={{ fontSize: 14, color: "green" }} />
-        </div>
-      )}
       <span className={classes.name}>{column.name}</span>:{" "}
       <span className={classes.typeText}>{column.type}</span>
       {hover && !readOnly && !isId && (
