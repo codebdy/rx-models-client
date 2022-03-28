@@ -8,8 +8,8 @@ import { ColumnMeta } from "./ColumnMeta";
 export enum EntityType {
   Enum = "Enum",
   Interface = "Interface",
-  ValueObject = "ValueObject",
   Abstract = "Abstract",
+  ValueObject = "ValueObject",
   Entity = "Entity",
   GQLInterface = "GQLInterface",
 }

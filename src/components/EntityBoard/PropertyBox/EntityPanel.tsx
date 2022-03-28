@@ -81,12 +81,21 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
             onChange={handleTypeChange}
             label={intl.get("type")}
           >
-            <MenuItem value={EntityType.Entity}>
-              {intl.get("normal-class")}
-            </MenuItem>
             <MenuItem value={EntityType.Enum}>{intl.get("enum")}</MenuItem>
             <MenuItem value={EntityType.Interface}>
               {intl.get("interface")}
+            </MenuItem>
+            <MenuItem value={EntityType.Abstract}>
+              {intl.get("abstract-class")}
+            </MenuItem>
+            <MenuItem value={EntityType.ValueObject}>
+              {intl.get("value-object")}
+            </MenuItem>
+            <MenuItem value={EntityType.Entity}>
+              {intl.get("entity-class")}
+            </MenuItem>
+            <MenuItem value={EntityType.GQLInterface}>
+              {intl.get("graphql-interface")}
             </MenuItem>
           </Select>
         </FormControl>
@@ -131,7 +140,7 @@ export const EntityPanel = (props: { entity: EntityMeta }) => {
           label={intl.get("description")}
           value={entity.description || ""}
           multiline
-          rows = {4}
+          rows={4}
           onChange={handleDescriptionChange}
         />
       </Grid>
