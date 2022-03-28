@@ -7,7 +7,7 @@ import RouterPrompt from "components/common/RouterPrompt";
 import { useShowServerError } from "recoil/hooks/useShowServerError";
 import UndoOutlinedIcon from "@mui/icons-material/UndoOutlined";
 import RedoOutlinedIcon from "@mui/icons-material/RedoOutlined";
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { successAlertState } from "recoil/atoms";
 import {
@@ -65,7 +65,7 @@ export const EntityToolbar = memo(() => {
   const classes = useStyles();
   const serviceId = useServiceId();
   const [meta, setMeta] = useRecoilState(metaState(serviceId));
-  const entities = useRecoilValue(classesState(serviceId));
+  const classeMetas = useRecoilValue(classesState(serviceId));
   const relations = useRecoilValue(relationsState(serviceId));
   const diagrams = useRecoilValue(diagramsState(serviceId));
   const x6Nodes = useRecoilValue(x6NodesState(serviceId));
@@ -109,7 +109,7 @@ export const EntityToolbar = memo(() => {
 
   const handleSave = useCallback(() => {
     const content = {
-      entities,
+      classes: classeMetas,
       relations,
       diagrams,
       x6Nodes,
@@ -128,7 +128,7 @@ export const EntityToolbar = memo(() => {
             content,
           };
     excuteSave(data);
-  }, [diagrams, entities, excuteSave, meta, relations, x6Edges, x6Nodes]);
+  }, [classeMetas, diagrams, excuteSave, meta, relations, x6Edges, x6Nodes]);
 
   return (
     <div className={classes.toolbar}>
@@ -164,7 +164,7 @@ export const EntityToolbar = memo(() => {
         <Box sx={{ flex: 1 }} />
         <IconButton
           color={minMap ? "primary" : "default"}
-          disabled = {!selectedDiagram}
+          disabled={!selectedDiagram}
           onClick={toggleMinMap}
         >
           <SvgIcon>

@@ -83,7 +83,7 @@ export const ModelsBoard = memo(() => {
     if (data) {
       const meta = data[queryName];
       setMeta(meta);
-      setEntities(meta?.content?.entities || []);
+      setEntities(meta?.content?.classes || []);
       setRelations(meta?.content?.relations || []);
       setDiagrams(meta?.content?.diagrams || []);
       setX6Nodes(meta?.content?.x6Nodes || []);
