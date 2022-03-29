@@ -115,7 +115,6 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         alignItems: "center",
         overflowY: "auto",
         overflowX: "hidden",
-        pl: 0.5,
         ...scrollStyles,
       }}
     >

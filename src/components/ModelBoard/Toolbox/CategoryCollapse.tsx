@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo, useState } from "react";
-import { Box, Collapse, Typography, useTheme } from "@mui/material";
+import { Box, Collapse, Paper, Typography, useTheme } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -31,7 +31,7 @@ export const CategoryCollapse = memo(
           flexFlow: "column",
         }}
       >
-        <Box
+        <Paper
           sx={{
             cursor: "pointer",
             display: "flex",
@@ -39,10 +39,10 @@ export const CategoryCollapse = memo(
             justifyContent: "space-between",
             alignItems: "center",
             zIndex: 1,
-            borderBottom: (theme) => theme.palette.divider + " solid 1px",
             p: 0.5,
             pl: 1,
           }}
+          square
           onClick={handleToggle}
         >
           <Typography
@@ -68,7 +68,7 @@ export const CategoryCollapse = memo(
               fontSize="small"
             />
           )}
-        </Box>
+        </Paper>
         <Collapse
           in={expanded && !disabled}
           timeout="auto"
