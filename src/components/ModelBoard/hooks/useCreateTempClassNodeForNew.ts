@@ -11,11 +11,12 @@ export function useCreateTempClassNodeForNew(serviceId: number) {
       return {
         uuid: "entityMeta.uuid",
         ...NODE_INIT_SIZE,
-        
+
         shape: "react-shape",
         data: {
           ...classMeta,
           stereoType,
+          root: stereoType === StereoType.Service,
           isTempForNew: true,
         },
       };

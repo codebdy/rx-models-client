@@ -39,6 +39,7 @@ export function useNodeAdd(graph: Graph | undefined, serviceId: number) {
             attributes: classMeta.attributes,
             methods: classMeta.methods,
             stereoType: classMeta.stereoType,
+            root: classMeta.root,
           },
         ]);
         node.remove({ disconnectEdges: true });
