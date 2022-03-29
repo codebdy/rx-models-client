@@ -127,5 +127,6 @@
   "hide-class":"隐藏",
   "array":"数组",
   "multiplicity":"重数",
-  "enable":"启用"
+  "enable":"启用",
+  "field-list":"字段列表"
 }

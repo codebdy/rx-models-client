@@ -127,5 +127,6 @@
   "hide-class":"Hide",
   "array":"Array",
   "multiplicity":"Multiplicity",
-  "enable":"Enable"
+  "enable":"Enable",
+  "field-list":"Field list"
 }
