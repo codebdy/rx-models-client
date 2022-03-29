@@ -177,6 +177,17 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               </Grid>
             </Grid>
           </RelationBlockCollapse>
+          <RelationBlockCollapse title={intl.get("association-class")}>
+            <Grid container spacing={2} sx={{ pt: 2, pl: 2 }}>
+            <Grid item xs={12}>
+                <LazyTextField
+                  label={intl.get("name")}
+                  value={relation.roleOfSource || ""}
+                  onChange={handleTargetRoleChange}
+                />
+              </Grid>
+            </Grid>
+          </RelationBlockCollapse>
         </>
       )}
     </>
