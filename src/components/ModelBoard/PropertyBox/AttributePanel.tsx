@@ -67,6 +67,7 @@ export const AttributePanel = (props: {
           ...attribute,
           type,
           nullable: attribute.nullable,
+          typeUuid: undefined,
         },
         entity
       );
@@ -74,7 +75,7 @@ export const AttributePanel = (props: {
     [changeAttribute, attribute, entity]
   );
 
-  const handleEnumEntiyChange = useCallback(
+  const handleTypeEntiyChange = useCallback(
     (event: SelectChangeEvent<string>) => {
       changeAttribute(
         {
@@ -194,7 +195,7 @@ export const AttributePanel = (props: {
             <InputLabel>{intl.get("enum-class")}</InputLabel>
             <Select
               value={attribute.typeUuid || ""}
-              onChange={handleEnumEntiyChange}
+              onChange={handleTypeEntiyChange}
               label={intl.get("enum-class")}
             >
               {enums.map((enumEntity) => {
