@@ -1,13 +1,5 @@
 import React, { memo, useCallback } from "react";
-import { Theme } from "@mui/material/styles";
-import createStyles from "@mui/styles/createStyles";
-import makeStyles from "@mui/styles/makeStyles";
-import Typography from "@mui/material/Typography";
-import classNames from "classnames";
 import intl from "react-intl-universal";
-import { Accordion } from "./Accordion";
-import { AccordionSummary } from "./AccordionSummary";
-import { AccordionDetails } from "./AccordionDetails";
 import { Addon, Graph } from "@antv/x6";
 import { useEffect } from "react";
 import { ClassView } from "../GraphCanvas/ClassView";
@@ -30,44 +22,40 @@ import { Box } from "@mui/material";
 import { useServiceId } from "../hooks/useServiceId";
 import { ClassRect } from "./ClassRect";
 import { StereoType } from "../meta/ClassMeta";
+import { CategoryCollapse } from "./CategoryCollapse";
 const { Dnd } = Addon;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolItem: {
-      display: "flex",
-      flexFlow: "column",
-      alignItems: "center",
-      marginTop: theme.spacing(2),
-      color: theme.palette.text.primary,
-    },
-    firstItem: {
-      marginTop: theme.spacing(0),
-    },
-    relationItem: {
-      cursor: "pointer",
-    },
-    moveable: {
-      cursor: "move",
-    },
-    clickable: {
-      cursor: "pointer",
-    },
-    selected: {
-      color: theme.palette.primary.main,
-    },
-  })
+export const ToolItem = memo(
+  (props: {
+    selected?: boolean;
+    children: React.ReactNode;
+    onMouseDown?: React.MouseEventHandler<HTMLDivElement>;
+    onClick?: React.MouseEventHandler<HTMLDivElement>;
+  }) => {
+    const { children, onMouseDown, onClick, selected } = props;
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexFlow: "column",
+          alignItems: "center",
+          marginBottom: (theme) => theme.spacing(2),
+          color: (theme) =>
+            selected ? theme.palette.primary.main : theme.palette.text.primary,
+          cursor: onClick ? "pointer" : "move",
+        }}
+        data-type="rect"
+        onMouseDown={onMouseDown}
+        onClick={onClick}
+      >
+        {children}
+      </Box>
+    );
+  }
 );
 
 export const Toolbox = memo((props: { graph?: Graph }) => {
   const { graph } = props;
-  const classes = useStyles();
-  const [expandEntites, setExpandEntites] = React.useState(true);
-  const [expandTwoWayRelations, setTwoWayExpandRelations] =
-    React.useState(false);
-  const [expandOneWayRelations, setOneWayExpandRelations] =
-    React.useState(false);
-  const [expandOthers, setExpandOthers] = React.useState(false);
   const [dnd, setDnd] = React.useState<any>();
   const serviceId = useServiceId();
   const [pressedLineType, setPressedLineType] = useRecoilState(
@@ -75,34 +63,6 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
   );
   const scrollStyles = useScrollbarStyles(true);
   const createTempClassNodeForNew = useCreateTempClassNodeForNew(serviceId);
-
-  const handleEneitiesChange = useCallback(
-    () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-      setExpandEntites((a) => !a);
-    },
-    []
-  );
-
-  const handleTwoWayRelationsChange = useCallback(
-    () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-      setTwoWayExpandRelations((a) => !a);
-    },
-    []
-  );
-
-  const handleOneWayRelationsChange = useCallback(
-    () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-      setOneWayExpandRelations((a) => !a);
-    },
-    []
-  );
-
-  const handleOthersChange = useCallback(
-    () => (event: React.ChangeEvent<{}>, newExpanded: boolean) => {
-      setExpandOthers((a) => !a);
-    },
-    []
-  );
 
   useEffect(() => {
     const theDnd = graph
@@ -158,278 +118,98 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         ...scrollStyles,
       }}
     >
-      <div>
-        <Accordion
-          square
-          sx={{
-            "&.MuiAccordion-root": {
-              borderLeft: 0,
-              borderTop: 0,
-            },
-          }}
-          expanded={expandEntites}
-          onChange={handleEneitiesChange()}
-        >
-          <AccordionSummary
-            aria-controls="panel1d-content"
-            id="panel1d-header"
-            sx={{
-              "&.Mui-expanded": {
-                margin: 0,
-              },
-            }}
+      <Box>
+        <CategoryCollapse title={intl.get("class")} defaultOpen>
+          <ToolItem onMouseDown={startDragFn(StereoType.Entity)}>
+            <ClassRect first={true} />
+            {intl.get("entity-class")}
+          </ToolItem>
+          <ToolItem onMouseDown={startDragFn(StereoType.Abstract)}>
+            <ClassRect stereoType="A" />
+            {intl.get("abstract-class")}
+          </ToolItem>
+          <ToolItem onMouseDown={startDragFn(StereoType.Enum)}>
+            <ClassRect stereoType="E" />
+            {intl.get("enum")}
+          </ToolItem>
+          <ToolItem onMouseDown={startDragFn(StereoType.ValueObject)}>
+            <ClassRect stereoType="V" />
+            {intl.get("value-object")}
+          </ToolItem>
+          <ToolItem onMouseDown={startDragFn(StereoType.Service)}>
+            <ClassRect stereoType="S" />
+            {intl.get("service-class")}
+          </ToolItem>
+          <ToolItem
+            selected={pressedLineType === RelationType.INHERIT}
+            onClick={handleRelationClick(RelationType.INHERIT)}
           >
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
-              {intl.get("class")}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              onMouseDown={startDragFn(StereoType.Entity)}
-            >
-              <ClassRect first={true} />
-              {intl.get("entity-class")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              onMouseDown={startDragFn(StereoType.Abstract)}
-            >
-              <ClassRect stereoType="A" />
-              {intl.get("abstract-class")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              onMouseDown={startDragFn(StereoType.Enum)}
-            >
-              <ClassRect stereoType="E" />
-              {intl.get("enum")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              onMouseDown={startDragFn(StereoType.ValueObject)}
-            >
-              <ClassRect stereoType="V" />
-              {intl.get("value-object")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              onMouseDown={startDragFn(StereoType.Service)}
-            >
-              <ClassRect stereoType="S" />
-              {intl.get("service-class")}
-            </div>
-            <div
-              className={classNames(classes.toolItem, classes.relationItem, {
-                [classes.selected]: pressedLineType === RelationType.INHERIT,
-              })}
-              onClick={handleRelationClick(RelationType.INHERIT)}
-            >
-              {svgInherit}
-              {intl.get("inherit")}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          square
-          sx={{
-            "&.MuiAccordion-root": { borderLeft: 0 },
-            "&.Mui-expanded": {
-              margin: 0,
-            },
-          }}
-          expanded={expandTwoWayRelations}
-          onChange={handleTwoWayRelationsChange()}
-        >
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
-              {intl.get("two-way-relation")}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_ASSOCIATION,
-                }
-              )}
-              onClick={handleRelationClick(RelationType.TWO_WAY_ASSOCIATION)}
-            >
-              {svgTwoWayAssociation}
-              {intl.get("association")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_AGGREGATION,
-                }
-              )}
-              onClick={handleRelationClick(RelationType.TWO_WAY_AGGREGATION)}
-            >
-              {svgTwoWayAggregation}
-              {intl.get("aggregation")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.TWO_WAY_COMBINATION,
-                }
-              )}
-              onClick={handleRelationClick(RelationType.TWO_WAY_COMBINATION)}
-            >
-              {svgTwoWayCombination}
-              {intl.get("combination")}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          square
-          sx={{
-            "&.MuiAccordion-root": { borderLeft: 0 },
-            "&.Mui-expanded": {
-              margin: 0,
-            },
-          }}
-          expanded={expandOneWayRelations}
-          onChange={handleOneWayRelationsChange()}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
-              {intl.get("one-way-relation")}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.ONE_WAY_ASSOCIATION,
-                }
-              )}
-              onClick={handleRelationClick(RelationType.ONE_WAY_ASSOCIATION)}
-            >
-              {svgOneWayAssociation}
-              {intl.get("association")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.ONE_WAY_AGGREGATION,
-                }
-              )}
-              onClick={handleRelationClick(RelationType.ONE_WAY_AGGREGATION)}
-            >
-              {svgOneWayAggregation}
-              {intl.get("aggregation")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.ONE_WAY_COMBINATION,
-                }
-              )}
-              onClick={handleRelationClick(RelationType.ONE_WAY_COMBINATION)}
-            >
-              {svgOneWayCombination}
-              {intl.get("combination")}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          square
-          sx={{
-            "&.MuiAccordion-root": { borderLeft: 0 },
-            "&.Mui-expanded": {
-              margin: 0,
-            },
-          }}
-          expanded={expandOthers}
-          onChange={handleOthersChange()}
-        >
-          <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-            <Typography sx={{ color: (theme) => theme.palette.text.secondary }}>
-              {intl.get("others")}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails sx={{opacity:0.3}}>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.moveable
-              )}
-              data-type="rect"
-              // onMouseDown={startDragFn(StereoType.Association)}
-            >
-              <ClassRect stereoType="R" />
-              {intl.get("association-class")}
-            </div>
-            <div
-              className={classNames(
-                classes.toolItem,
-                classes.firstItem,
-                classes.relationItem,
-                {
-                  [classes.selected]:
-                    pressedLineType === RelationType.LINK_LINE,
-                }
-              )}
-              // onClick={handleRelationClick(RelationType.LINK_LINE)}
-            >
-              {svgLinkLine}
-              {intl.get("link-line")}
-            </div>
-          </AccordionDetails>
-        </Accordion>
-      </div>
+            {svgInherit}
+            {intl.get("inherit")}
+          </ToolItem>
+        </CategoryCollapse>
+        <CategoryCollapse title={intl.get("two-way-relation")}>
+          <ToolItem
+            selected={pressedLineType === RelationType.TWO_WAY_ASSOCIATION}
+            onClick={handleRelationClick(RelationType.TWO_WAY_ASSOCIATION)}
+          >
+            {svgTwoWayAssociation}
+            {intl.get("association")}
+          </ToolItem>
+          <ToolItem
+            selected={pressedLineType === RelationType.TWO_WAY_AGGREGATION}
+            onClick={handleRelationClick(RelationType.TWO_WAY_AGGREGATION)}
+          >
+            {svgTwoWayAggregation}
+            {intl.get("aggregation")}
+          </ToolItem>
+          <ToolItem
+            selected={pressedLineType === RelationType.TWO_WAY_COMBINATION}
+            onClick={handleRelationClick(RelationType.TWO_WAY_COMBINATION)}
+          >
+            {svgTwoWayCombination}
+            {intl.get("combination")}
+          </ToolItem>
+        </CategoryCollapse>
+        <CategoryCollapse title={intl.get("one-way-relation")}>
+          <ToolItem
+            selected={pressedLineType === RelationType.ONE_WAY_ASSOCIATION}
+            onClick={handleRelationClick(RelationType.ONE_WAY_ASSOCIATION)}
+          >
+            {svgOneWayAssociation}
+            {intl.get("association")}
+          </ToolItem>
+          <ToolItem
+            selected={pressedLineType === RelationType.ONE_WAY_AGGREGATION}
+            onClick={handleRelationClick(RelationType.ONE_WAY_AGGREGATION)}
+          >
+            {svgOneWayAggregation}
+            {intl.get("aggregation")}
+          </ToolItem>
+          <ToolItem
+            selected={pressedLineType === RelationType.ONE_WAY_COMBINATION}
+            onClick={handleRelationClick(RelationType.ONE_WAY_COMBINATION)}
+          >
+            {svgOneWayCombination}
+            {intl.get("combination")}
+          </ToolItem>
+        </CategoryCollapse>
+        <CategoryCollapse title={intl.get("others")} disabled>
+          <ToolItem
+          // onMouseDown={startDragFn(StereoType.Association)}
+          >
+            <ClassRect stereoType="R" />
+            {intl.get("association-class")}
+          </ToolItem>
+          <ToolItem
+            selected={pressedLineType === RelationType.LINK_LINE}
+            //onClick={handleRelationClick(RelationType.LINK_LINE)}
+          >
+            {svgLinkLine}
+            {intl.get("link-line")}
+          </ToolItem>
+        </CategoryCollapse>
+      </Box>
     </Box>
   );
 });
