@@ -15,8 +15,8 @@ export enum RelationType {
 }
 
 export enum RelationMultiplicity{
-  ZERO_ONE = "zeroOne",
-  ZERO_MANY = "zeroMany"
+  ZERO_ONE = "0..1",
+  ZERO_MANY = "0..*"
 }
 
 /**

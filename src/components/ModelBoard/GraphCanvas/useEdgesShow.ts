@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { getRelationGraphAttrs } from "./getRelationGraphAttrs";
 import _ from "lodash";
 import {
+  MULTI_SOURCE_POSITION_CONST,
+  MULTI_SOURCE_TARGET_CONST,
   ROLE_SOURCE_POSITION_CONST,
   ROLE_SOURCE_TARGET_CONST,
 } from "./constLabelPosition";
@@ -110,6 +112,19 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
           {
             attrs: {
               text: {
+                text: edgeMeta.sourceMutiplicity,
+                fill: theme.palette.text.primary,
+              },
+              rect: {
+                fill: "transparent",
+              },
+            },
+            position:
+              edgeMeta.roleOnSourcePosition || MULTI_SOURCE_POSITION_CONST,
+          },
+          {
+            attrs: {
+              text: {
                 text: edgeMeta.roleOfTarget,
                 fill: theme.palette.text.primary,
               },
@@ -118,6 +133,18 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
               },
             },
             position: edgeMeta.roleOnTargetPosition || ROLE_SOURCE_TARGET_CONST,
+          },
+          {
+            attrs: {
+              text: {
+                text: edgeMeta.targetMultiplicity,
+                fill: theme.palette.text.primary,
+              },
+              rect: {
+                fill: "transparent",
+              },
+            },
+            position: edgeMeta.roleOnTargetPosition || MULTI_SOURCE_TARGET_CONST,
           },
         ]);
       }
