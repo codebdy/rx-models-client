@@ -121,7 +121,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
     >
       <CategoryCollapse title={intl.get("class")} defaultOpen>
         <ToolItem onMouseDown={startDragFn(StereoType.Entity)}>
-          <ClassRect first={true} />
+          <ClassRect />
           {intl.get("entity-class")}
         </ToolItem>
         <ToolItem onMouseDown={startDragFn(StereoType.Abstract)}>
