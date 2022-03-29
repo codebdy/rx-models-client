@@ -1,12 +1,10 @@
-export const EVENT_ELEMENT_SELECTED = "elementSelected";
-export const EVENT_ELEMENT_UNSELECTED = "elementUnselected";
-export const EVENT_LINE_PRESSED = "linePressed";
-export const EVENT_LINE_DRAWING = "lineDrawing";
+export const EVENT_ELEMENT_SELECTED_CHANGE = "elementSelectedChange";
 export const EVENT_PREPARE_LINK_TO = "prepareLinkTo";
 
 
 export interface ICanvasEvent {
   name: string;
+  data: any;
 }
 
 export function onCanvasEvent(name: string, listener: EventListener) {
@@ -18,6 +16,6 @@ export function offCanvasEvent(name: string, listener: EventListener) {
 }
 
 export function triggerCanvasEvent(canvasEvent: ICanvasEvent) {
-  const event = new CustomEvent(canvasEvent.name, { detail: canvasEvent });
+  const event = new CustomEvent(canvasEvent.name, { detail: canvasEvent.data });
   document.dispatchEvent(event);
 }

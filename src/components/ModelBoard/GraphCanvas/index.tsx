@@ -12,6 +12,7 @@ import { useNodeSelect } from "./useNodeSelect";
 import { useEdgesShow } from "./useEdgesShow";
 import { useEdgeSelect } from "./useEdgeSelect";
 import { useServiceId } from "../hooks/useServiceId";
+import { useTriggerSelectedEvent } from "./useTriggerSelectedEvent";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
@@ -29,6 +30,7 @@ export const GraphCanvas = memo(
     }, [onSetGraph, theme]);
 
     useExplorerScrollbarHide();
+    useTriggerSelectedEvent(serviceId);
     useNodeSelect(graph, serviceId);
     useEdgeSelect(graph, serviceId);
     useNodesShow(graph, serviceId);
@@ -48,8 +50,7 @@ export const GraphCanvas = memo(
           overflow: "auto",
           position: "relative",
         }}
-      >
-      </Box>
+      ></Box>
     );
   }
 );

@@ -1,19 +1,24 @@
-import React, { useState } from "react";
-import { Theme, IconButton, Typography, Box } from "@mui/material";
+import React, { useCallback, useEffect, useState } from "react";
+import { Theme, IconButton, Typography, Box, alpha } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import { AttributeMeta } from "components/ModelBoard/meta/AttributeMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { CONST_ID } from "components/ModelBoard/meta/Meta";
+import {
+  EVENT_ELEMENT_SELECTED_CHANGE,
+  offCanvasEvent,
+  onCanvasEvent,
+} from "../events";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     hover: {
-      background: "rgba(80,111,226,0.05)",
+      background: alpha(theme.palette.primary.main, 0.1),
     },
     selected: {
-      background: "rgba(80,111,226,0.1)",
+      background: alpha(theme.palette.primary.main, 0.3),
     },
     property: {
       position: "relative",
@@ -47,13 +52,25 @@ export default function AttributeView(props: {
 
   const isId = attr.name === CONST_ID;
 
-  const handleClick = () => {
-    onClick(attr.uuid);
-  };
+  const handleChangeSelected = useCallback((event: Event) => {
+    const selectedId = (event as CustomEvent).detail;
+    setIsSelected(selectedId === attr.uuid);
+  }, [attr.uuid]);
 
-  const handleDeleteClick = () => {
+  useEffect(() => {
+    onCanvasEvent(EVENT_ELEMENT_SELECTED_CHANGE, handleChangeSelected);
+    return () => {
+      offCanvasEvent(EVENT_ELEMENT_SELECTED_CHANGE, handleChangeSelected);
+    };
+  }, [handleChangeSelected]);
+
+  const handleClick = useCallback(() => {
+    onClick(attr.uuid);
+  }, [attr.uuid, onClick]);
+
+  const handleDeleteClick = useCallback(() => {
     onDelete(attr.uuid);
-  };
+  }, [attr.uuid, onDelete]);
 
   return (
     <div

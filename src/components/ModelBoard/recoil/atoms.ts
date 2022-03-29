@@ -18,17 +18,15 @@ export interface Snapshot {
   selectedDiagram?: string;
 }
 
-export const serviceState = atom<ServiceNode|undefined>({
+export const serviceState = atom<ServiceNode | undefined>({
   key: "local.service",
   default: undefined,
-})
+});
 
-export const minMapState = atomFamily<boolean, number>(
-  {
-    key: "local.minMap",
-    default: true,
-  }
-)
+export const minMapState = atomFamily<boolean, number>({
+  key: "local.minMap",
+  default: true,
+});
 
 export const publishedIdState = atomFamily<number | undefined, number>({
   key: "local.publishedId",
@@ -95,7 +93,10 @@ export const drawingLineState = atomFamily<LineAction | undefined, number>({
   default: undefined,
 });
 
-export const pressedLineTypeState = atomFamily<RelationType | undefined, number>({
+export const pressedLineTypeState = atomFamily<
+  RelationType | undefined,
+  number
+>({
   key: "local.pressedLineType",
   default: undefined,
 });
