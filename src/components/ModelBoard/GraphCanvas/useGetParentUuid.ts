@@ -6,12 +6,12 @@ import { relationsState } from "../recoil/atoms";
 export function useGetParentUuid(serviceId :number) {
   const relations = useRecoilValue(relationsState(serviceId));
   const getParentUuid = useCallback(
-    (entityUuid: string) => {
+    (uuid: string) => {
       return relations.find(
         (relation) =>
-          relation.sourceId === entityUuid &&
+          relation.sourceId === uuid &&
           relation.relationType === RelationType.INHERIT
-      )?.uuid;
+      )?.targetId;
     },
     [relations]
   );
