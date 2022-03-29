@@ -1,5 +1,7 @@
-import { memo, useCallback, useState } from "react";
-import { Box, Collapse, Typography } from "@mui/material";
+import { memo, useCallback, useMemo, useState } from "react";
+import { Box, Collapse, Typography, useTheme } from "@mui/material";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export const CategoryCollapse = memo(
   (props: {
@@ -14,6 +16,13 @@ export const CategoryCollapse = memo(
       setExpanded((a) => !a);
     }, []);
 
+    const theme = useTheme();
+    const color = useMemo(() => {
+      return disabled
+        ? theme.palette.action.disabled
+        : theme.palette.text.secondary;
+    }, [disabled, theme.palette.action.disabled, theme.palette.text.secondary]);
+
     return (
       <Box
         sx={{
@@ -27,25 +36,38 @@ export const CategoryCollapse = memo(
             cursor: "pointer",
             display: "flex",
             flexFlow: "row",
-            justifyContent: "center",
+            justifyContent: "space-between",
             alignItems: "center",
             zIndex: 1,
             borderBottom: (theme) => theme.palette.divider + " solid 1px",
             p: 0.5,
+            pl: 1,
           }}
           onClick={handleToggle}
         >
           <Typography
             variant="subtitle1"
             sx={{
-              color: (theme) =>
-                disabled
-                  ? theme.palette.action.disabled
-                  : theme.palette.text.secondary,
+              color: color,
             }}
           >
             {title}
           </Typography>
+          {expanded && !disabled ? (
+            <KeyboardArrowDownIcon
+              sx={{
+                color: color,
+              }}
+              fontSize="small"
+            />
+          ) : (
+            <ChevronRightIcon
+              sx={{
+                color: color,
+              }}
+              fontSize="small"
+            />
+          )}
         </Box>
         <Collapse
           in={expanded && !disabled}
