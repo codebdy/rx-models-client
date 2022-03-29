@@ -126,5 +126,6 @@
   "add-method":"Add method",
   "hide-class":"Hide",
   "array":"Array",
-  "multiplicity":"Multiplicity"
+  "multiplicity":"Multiplicity",
+  "enable":"Enable"
 }

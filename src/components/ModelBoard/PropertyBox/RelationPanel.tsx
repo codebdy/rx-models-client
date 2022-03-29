@@ -2,11 +2,13 @@ import React, { useCallback, useMemo } from "react";
 import intl from "react-intl-universal";
 import {
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
+  Switch,
 } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import {
@@ -80,6 +82,16 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
       changeRelation({
         ...relation,
         descriptionOnTarget: event.target.value,
+      });
+    },
+    [changeRelation, relation]
+  );
+
+  const handleEnableAssociationClass = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      changeRelation({
+        ...relation,
+        enableAssociaitonClass: event.target.checked,
       });
     },
     [changeRelation, relation]
@@ -179,13 +191,29 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           </RelationBlockCollapse>
           <RelationBlockCollapse title={intl.get("association-class")}>
             <Grid container spacing={2} sx={{ pt: 2, pl: 2 }}>
-            <Grid item xs={12}>
-                <LazyTextField
-                  label={intl.get("name")}
-                  value={relation.roleOfSource || ""}
-                  onChange={handleTargetRoleChange}
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={relation.enableAssociaitonClass || false}
+                      onChange={handleEnableAssociationClass}
+                      color="primary"
+                    />
+                  }
+                  label={intl.get("enable")}
                 />
               </Grid>
+              {relation.enableAssociaitonClass && (
+                <>
+                  <Grid item xs={12}>
+                    <LazyTextField
+                      label={intl.get("name")}
+                      value={relation.roleOfSource || ""}
+                      onChange={handleTargetRoleChange}
+                    />
+                  </Grid>
+                </>
+              )}
             </Grid>
           </RelationBlockCollapse>
         </>

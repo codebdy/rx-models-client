@@ -1,3 +1,5 @@
+import { AttributeMeta } from "./AttributeMeta";
+
 /**
  * 关系类型
  */
@@ -14,9 +16,9 @@ export enum RelationType {
   LINK_LINE = "linkLine",
 }
 
-export enum RelationMultiplicity{
+export enum RelationMultiplicity {
   ZERO_ONE = "0..1",
-  ZERO_MANY = "0..*"
+  ZERO_MANY = "0..*",
 }
 
 /**
@@ -62,4 +64,9 @@ export interface RelationMeta {
   sourceMutiplicity: RelationMultiplicity;
 
   targetMultiplicity: RelationMultiplicity;
+  enableAssociaitonClass?: boolean;
+  associationClass?: {
+    name: string;
+    attributes: AttributeMeta[];
+  };
 }
