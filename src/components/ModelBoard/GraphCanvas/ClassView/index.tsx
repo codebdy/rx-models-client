@@ -72,7 +72,6 @@ export const ClassView = memo(
     const data: ClassNodeData | undefined = node?.data;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
-    const [isSelected, setIsSelected] = React.useState(false);
 
     const theme = createTheme({
       palette: {
@@ -148,22 +147,16 @@ export const ClassView = memo(
           return shadowConst + alpha(theme.palette.primary.main, 0.5);
         }
       } else {
-        if (!!data?.drawingLine) {
-          return (
-            shadowConst +
-            (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
-          );
-        }
+        // if (!!data?.drawingLine) {
+        //   return (
+        //     shadowConst +
+        //     (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
+        //   );
+        // }
       }
 
       return "";
-    }, [
-      canLink,
-      data?.drawingLine,
-      data?.pressedLineType,
-      hover,
-      theme.palette.primary.main,
-    ]);
+    }, [data?.pressedLineType, hover, theme.palette.primary.main]);
 
     return (
       <ThemeProvider theme={theme}>
