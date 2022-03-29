@@ -99,3 +99,8 @@ export const pressedLineTypeState = atomFamily<RelationType | undefined, number>
   key: "local.pressedLineType",
   default: undefined,
 });
+
+export const prepareLinkToNodeState = atomFamily<string | undefined, number>({
+  key: "local.prepareLinkToNode",
+  default: undefined,
+});

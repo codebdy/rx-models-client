@@ -38,12 +38,12 @@ export default function AttributeView(props: {
   attr: AttributeMeta;
   onClick: (id: string) => void;
   onDelete: (id: string) => void;
-  isSelected?: boolean;
   readOnly?: boolean;
 }) {
-  const { attr, onClick, onDelete, isSelected, readOnly = false } = props;
+  const { attr, onClick, onDelete, readOnly = false } = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
+  const [isSelected, setIsSelected] = React.useState(false);
 
   const isId = attr.name === CONST_ID;
 

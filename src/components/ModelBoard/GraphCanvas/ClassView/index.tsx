@@ -72,6 +72,7 @@ export const ClassView = memo(
     const data: ClassNodeData | undefined = node?.data;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const isMenuOpen = Boolean(anchorEl);
+    const [isSelected, setIsSelected] = React.useState(false);
 
     const theme = createTheme({
       palette: {
@@ -84,14 +85,16 @@ export const ClassView = memo(
       shadows: [...useShadows()] as any,
     });
 
-    const canLink = useMemo(
-      () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
-      [data]
-    );
-    const disableHover = useMemo(
-      () => !!data?.pressedLineType,
-      [data?.pressedLineType]
-    );
+    const canLink = false;
+    //  useMemo(
+    //   () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
+    //   [data]
+    // );
+    const disableHover = false;
+    // useMemo(
+    //   () => !!data?.pressedLineType,
+    //   [data?.pressedLineType]
+    // );
 
     const handleHidden = useCallback(() => {
       onHide && onHide(node.id);
@@ -142,27 +145,21 @@ export const ClassView = memo(
 
     const boxShadow = useMemo(() => {
       const shadowConst = "0 0 0 3px ";
-      if (hover) {
-        if (!data?.pressedLineType) {
-          return shadowConst + alpha(theme.palette.primary.main, 0.5);
-        }
-      } else {
-        if (!!data?.drawingLine) {
-          return (
-            shadowConst +
-            (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
-          );
-        }
-      }
+      // if (hover) {
+      //   if (!data?.pressedLineType) {
+      //     return shadowConst + alpha(theme.palette.primary.main, 0.5);
+      //   }
+      // } else {
+      //   if (!!data?.drawingLine) {
+      //     return (
+      //       shadowConst +
+      //       (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
+      //     );
+      //   }
+      // }
 
       return "";
-    }, [
-      canLink,
-      data?.drawingLine,
-      data?.pressedLineType,
-      hover,
-      theme.palette.primary.main,
-    ]);
+    }, []);
 
     return (
       <ThemeProvider theme={theme}>
@@ -344,7 +341,6 @@ export const ClassView = memo(
                         attr={attr}
                         onClick={handleAttributeClick}
                         onDelete={handleAttributeDelete}
-                        isSelected={data.selectedId === attr.uuid}
                         readOnly={disableHover}
                       />
                     );
@@ -366,7 +362,6 @@ export const ClassView = memo(
                         method={method}
                         onClick={handleAttributeClick}
                         onDelete={handleAttributeDelete}
-                        isSelected={data.selectedId === method.uuid}
                       />
                     );
                   })}

@@ -98,9 +98,9 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
       const data: ClassNodeData = {
         ...entity,
         ...node,
-        selectedId: selectedElement,
-        pressedLineType: pressedLineType,
-        drawingLine: drawingLine,
+        //selectedId: selectedElement,
+        //pressedLineType: pressedLineType,
+        //drawingLine: drawingLine,
         themeMode: themeMode,
       };
       if (grahpNode) {

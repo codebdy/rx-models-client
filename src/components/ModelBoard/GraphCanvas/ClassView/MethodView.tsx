@@ -37,11 +37,11 @@ export default function MethodView(props: {
   method: MethodMeta;
   onClick: (id: string) => void;
   onDelete: (id: string) => void;
-  isSelected?: boolean;
 }) {
-  const { method, onClick, onDelete, isSelected } = props;
+  const { method, onClick, onDelete } = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
+  const [isSelected, setIsSelected] = React.useState(false);
 
   const isId = method.name === "id";
 
