@@ -27,7 +27,7 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 import MethodView from "./MethodView";
 import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { canStartLink } from "../canStartLink";
-import { green, red } from "@mui/material/colors";
+import { green, orange, red } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,7 +84,7 @@ export const ClassView = memo(
       shadows: [...useShadows()] as any,
     });
 
-    const canLink = useMemo(
+    const canLinkFrom = useMemo(
       () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
       [data]
     );
@@ -145,6 +145,9 @@ export const ClassView = memo(
       if (hover) {
         if (!data?.pressedLineType) {
           return shadowConst + alpha(theme.palette.primary.main, 0.5);
+        } else {
+          const greenShadow = shadowConst + alpha(green[500], 0.7);
+          return canLinkFrom ? greenShadow : "";
         }
       } else {
         // if (!!data?.drawingLine) {
@@ -156,7 +159,7 @@ export const ClassView = memo(
       }
 
       return "";
-    }, [data?.pressedLineType, hover, theme.palette.primary.main]);
+    }, [canLinkFrom, data?.pressedLineType, hover, theme.palette.primary.main]);
 
     return (
       <ThemeProvider theme={theme}>
@@ -168,7 +171,7 @@ export const ClassView = memo(
             flexFlow: "column",
             background: theme.palette.background.paper,
             overflow: "hidden",
-            cursor: canLink ? "crosshair" : undefined,
+            cursor: canLinkFrom ? "crosshair" : undefined,
             boxShadow: boxShadow,
             borderRadius: "5px",
           }}
@@ -312,7 +315,7 @@ export const ClassView = memo(
                 display: "flex",
                 flex: 1,
                 flexFlow: "column",
-                cursor: canLink ? "crosshair" : "default",
+                cursor: canLinkFrom ? "crosshair" : "default",
               }}
             >
               <Box
