@@ -127,10 +127,7 @@ export const AttributePanel = (props: {
     [changeAttribute, attribute, entity]
   );
 
-  const isId = useMemo(
-    () => attribute.name === CONST_ID,
-    [attribute.name]
-  );
+  const isId = useMemo(() => attribute.name === CONST_ID, [attribute.name]);
   return (
     <>
       <Grid item xs={12}>
@@ -150,25 +147,43 @@ export const AttributePanel = (props: {
             label={intl.get("data-type")}
           >
             <MenuItem value={ValueType.ID}>ID</MenuItem>
-            <MenuItem value={ValueType.String}>String</MenuItem>
             <MenuItem value={ValueType.Int}>Int</MenuItem>
             <MenuItem value={ValueType.Float}>Float</MenuItem>
             <MenuItem value={ValueType.Boolean}>Boolean</MenuItem>
+            <MenuItem value={ValueType.String}>String</MenuItem>
             <MenuItem value={ValueType.Date}>Date</MenuItem>
-            <MenuItem value={ValueType.Enum}>Enum</MenuItem>
+            <MenuItem value={ValueType.Enum}>{intl.get("enum")}</MenuItem>
             <MenuItem value={ValueType.ValueObject}>
-              {intl.get("simple-json")}
+              {intl.get("value-object")}
             </MenuItem>
-            {/* <MenuItem value={ValueType.Array}>
-              {intl.get("simple-array")}
+            <MenuItem value={ValueType.IDArray}>
+              ID {intl.get("array")}
             </MenuItem>
-            <MenuItem value={ValueType.JsonArray}>
-              {intl.get("json-array")}
-            </MenuItem> */}
+            <MenuItem value={ValueType.IntArray}>
+              Int {intl.get("array")}
+            </MenuItem>
+            <MenuItem value={ValueType.FloatArray}>
+              Float {intl.get("array")}
+            </MenuItem>
+            <MenuItem value={ValueType.StringArray}>
+              String {intl.get("array")}
+            </MenuItem>
+            <MenuItem value={ValueType.DateArray}>
+              Date {intl.get("array")}
+            </MenuItem>
+            <MenuItem value={ValueType.EnumArray}>
+              {intl.get("enum")}
+              {intl.get("array")}
+            </MenuItem>
+            <MenuItem value={ValueType.ValueObjectArray}>
+              {intl.get("value-object")}
+              {intl.get("array")}
+            </MenuItem>
           </Select>
         </FormControl>
       </Grid>
-      {attribute.type === ValueType.Enum && (
+      {(attribute.type === ValueType.Enum ||
+        attribute.type === ValueType.EnumArray) && (
         <Grid item xs={12}>
           <FormControl
             variant="outlined"
@@ -202,11 +217,11 @@ export const AttributePanel = (props: {
             size="small"
             disabled={isId}
           >
-            <InputLabel>{intl.get("interface-class")}</InputLabel>
+            <InputLabel>{intl.get("value-object")}</InputLabel>
             <Select
               value={attribute.typeUuid || ""}
               onChange={handleInterfaceEntiyChange}
-              label={intl.get("interface-class")}
+              label={intl.get("value-object")}
             >
               {interfaces.map((interfaceEntity) => {
                 return (

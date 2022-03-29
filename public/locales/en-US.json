@@ -124,5 +124,6 @@
   "description": "Description",
   "add-attribute":"Add attribute",
   "add-method":"Add method",
-  "hide-class":"Hide"
+  "hide-class":"Hide",
+  "array":"Array"
 }

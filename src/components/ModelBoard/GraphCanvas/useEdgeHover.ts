@@ -20,9 +20,6 @@ export function useEdgeHover(graph: Graph | undefined, serviceId: number) {
   const handleEdgeMouseLeave = useCallback(({ edge }) => {
     if (edge) {
       edge.attr({
-        outline: {
-          stroke: "rgba(0,0,0,0)",
-        },
         line: {
           strokeWidth: 1,
         },

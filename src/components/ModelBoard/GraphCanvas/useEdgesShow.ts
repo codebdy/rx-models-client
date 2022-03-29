@@ -94,20 +94,6 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
 
       if (edgeMeta.relationType !== RelationType.INHERIT) {
         grahpEdge?.setLabels([
-          // {
-          //   attrs: {
-          //     text: {
-          //       text: "哈哈哈哈哈哈",
-          //     },
-          //   },
-          //   position: {
-          //     distance:0,
-          //     offset: { x: 30, y: 0 },
-          //     options:{
-          //       absoluteOffset: true,
-          //     }
-          //   },
-          // },
           {
             attrs: {
               text: {
