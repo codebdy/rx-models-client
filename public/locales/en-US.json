@@ -125,5 +125,6 @@
   "add-attribute":"Add attribute",
   "add-method":"Add method",
   "hide-class":"Hide",
-  "array":"Array"
+  "array":"Array",
+  "multiplicity":"Multiplicity"
 }

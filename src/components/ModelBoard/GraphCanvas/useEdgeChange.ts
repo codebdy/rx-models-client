@@ -9,12 +9,14 @@ import {
 } from "../recoil/atoms";
 import { useGetEdge } from "../hooks/useGetEdge";
 import {
+  MULTI_SOURCE_POSITION_CONST,
+  MULTI_SOURCE_TARGET_CONST,
   ROLE_SOURCE_POSITION_CONST,
   ROLE_SOURCE_TARGET_CONST,
 } from "./constLabelPosition";
 import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 
-export function useEdgeChange(graph: Graph|undefined, serviceId :number) {
+export function useEdgeChange(graph: Graph | undefined, serviceId: number) {
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
   const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const setEdges = useSetRecoilState(x6EdgesState(serviceId));
@@ -34,7 +36,12 @@ export function useEdgeChange(graph: Graph|undefined, serviceId :number) {
 
       const edageData = getEdge(edge.id, selectedDiagram);
 
-      const [roleOnSource, roleOnTarget] = edge.getLabels();
+      const [
+        roleOnSource,
+        sourceMultiplicity,
+        roleOnTarget,
+        targetMultiplicity,
+      ] = edge.getLabels();
 
       if (!edageData) {
         console.log("edageData没找到");
@@ -47,8 +54,12 @@ export function useEdgeChange(graph: Graph|undefined, serviceId :number) {
         edge.getVertices().length === 0 &&
         (!roleOnSource?.position ||
           _.isEqual(roleOnSource?.position, ROLE_SOURCE_POSITION_CONST)) &&
+        (!sourceMultiplicity?.position ||
+          _.isEqual(sourceMultiplicity?.position, MULTI_SOURCE_POSITION_CONST)) &&
         (!roleOnTarget?.position ||
-          _.isEqual(roleOnTarget?.position, ROLE_SOURCE_TARGET_CONST))
+          _.isEqual(roleOnTarget?.position, ROLE_SOURCE_TARGET_CONST)) &&
+        (!targetMultiplicity?.position ||
+          _.isEqual(targetMultiplicity?.position, MULTI_SOURCE_TARGET_CONST))
       ) {
         return;
       }
@@ -57,7 +68,9 @@ export function useEdgeChange(graph: Graph|undefined, serviceId :number) {
       if (
         _.isEqual(edageData?.vertices, edge.getVertices()) &&
         _.isEqual(edageData?.roleOnSourcePosition, roleOnSource?.position) &&
-        _.isEqual(edageData?.roleOnTargetPosition, roleOnTarget?.position)
+        _.isEqual(edageData?.sourceMultiplicityPosition, sourceMultiplicity?.position) &&
+        _.isEqual(edageData?.roleOnTargetPosition, roleOnTarget?.position) &&
+        _.isEqual(edageData?.targetMultiplicityPosition, targetMultiplicity?.position)
       ) {
         return;
       }
@@ -70,7 +83,9 @@ export function useEdgeChange(graph: Graph|undefined, serviceId :number) {
                 id: edge.id,
                 vertices: edge.getVertices(),
                 roleOnSourcePosition: roleOnSource?.position as any,
+                sourceMultiplicityPosition: sourceMultiplicity?.position as any,
                 roleOnTargetPosition: roleOnTarget?.position as any,
+                targetMultiplicityPosition: targetMultiplicity?.position as any,
                 diagramUuid: edageData?.diagramUuid,
               }
             : eg

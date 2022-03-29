@@ -125,5 +125,6 @@
   "add-attribute":"添加属性",
   "add-method":"添加方法",
   "hide-class":"隐藏",
-  "array":"数组"
+  "array":"数组",
+  "multiplicity":"重数"
 }

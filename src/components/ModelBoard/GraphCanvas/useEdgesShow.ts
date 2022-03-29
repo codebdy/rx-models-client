@@ -120,7 +120,7 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
               },
             },
             position:
-              edgeMeta.roleOnSourcePosition || MULTI_SOURCE_POSITION_CONST,
+              edgeMeta.sourceMultiplicityPosition || MULTI_SOURCE_POSITION_CONST,
           },
           {
             attrs: {
@@ -144,7 +144,7 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
                 fill: "transparent",
               },
             },
-            position: edgeMeta.roleOnTargetPosition || MULTI_SOURCE_TARGET_CONST,
+            position: edgeMeta.targetMultiplicityPosition || MULTI_SOURCE_TARGET_CONST,
           },
         ]);
       }

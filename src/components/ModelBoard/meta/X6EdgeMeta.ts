@@ -1,6 +1,6 @@
 import { Point } from "@antv/x6";
 
-export type RolePosition = {
+export type LabelPosition = {
   distance: number,
   offset: number,
   angle: number,
@@ -13,10 +13,13 @@ export interface X6EdgeMeta{
   vertices?: Point.PointLike[];
 
   /** 源关系属性位置标签 */
-  roleOnSourcePosition?: RolePosition;
+  roleOnSourcePosition?: LabelPosition;
+
+  sourceMultiplicityPosition?: LabelPosition;
 
   /** 目标关系属性位置标签 */
-  roleOnTargetPosition?: RolePosition;
+  roleOnTargetPosition?: LabelPosition;
 
+  targetMultiplicityPosition?: LabelPosition;
   diagramUuid: string;
 }
