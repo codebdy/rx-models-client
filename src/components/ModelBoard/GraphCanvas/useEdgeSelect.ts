@@ -4,13 +4,14 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { drawingLineState, selectedElementState } from "../recoil/atoms";
 import { useSelectedRelation } from "../hooks/useSelectedRelation";
 import { CONST_CANVAS_CLICK } from "../consts";
+import { useTheme } from "@mui/material";
 
 export function useEdgeSelect(graph: Graph|undefined, serviceId :number) {
   const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const [selectedElement, setSelectedElement] =
     useRecoilState(selectedElementState(serviceId));
   const selectedRelation = useSelectedRelation(serviceId);
-
+  const theme = useTheme();
   useEffect(() => {
     if (selectedRelation) {
       const edge = graph?.getCellById(selectedElement || "") as
@@ -23,7 +24,18 @@ export function useEdgeSelect(graph: Graph|undefined, serviceId :number) {
             stopPropagation: false,
           },
         },
-        "boundary",
+        {
+          name: "boundary",
+          args: {
+            padding: 5,
+            attrs: {
+              //fill: "#7c68fc",
+              stroke: theme.palette.text.primary,
+              strokeWidth: 0.5,
+              fillOpacity: 0,
+            },
+          },
+        },
         {
           name: "segments",
           args: {
