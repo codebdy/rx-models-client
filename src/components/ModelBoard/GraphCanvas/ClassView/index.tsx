@@ -37,7 +37,7 @@ import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { canStartLink } from "../canStartLink";
 import { green } from "@mui/material/colors";
 import {
-  EVENT_NODE_CHANGED,
+  EVENT_CLASS_CHANGED,
   EVENT_PREPARE_LINK_TO,
   offCanvasEvent,
   onCanvasEvent,
@@ -87,7 +87,6 @@ export const ClassView = memo(
     const [showLinkTo, setShowLinkTo] = React.useState(false);
     const isMenuOpen = Boolean(anchorEl);
     const mountRef = useRef<boolean>(false);
-
     const [data, setData] = useState<ClassNodeData>()
 
     useEffect(()=>{
@@ -125,20 +124,20 @@ export const ClassView = memo(
     const handleNodeChanged = useCallback(
       (event: Event) => {
         const newData = (event as CustomEvent).detail;
-        if (mountRef.current && newData.id === data?.id) {
-          setData(newData);
+        if (mountRef.current && newData.uuid === data?.id) {
+          setData({...data, ...newData});
         }
       },
-      [data?.id]
+      [data]
     );
 
 
     useEffect(() => {
       onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
-      onCanvasEvent(EVENT_NODE_CHANGED, handleNodeChanged);
+      onCanvasEvent(EVENT_CLASS_CHANGED, handleNodeChanged);
       return () => {
         offCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
-        offCanvasEvent(EVENT_NODE_CHANGED, handleNodeChanged);
+        offCanvasEvent(EVENT_CLASS_CHANGED, handleNodeChanged);
       };
     }, [handleChangePrepareToLink, handleNodeChanged]);
 
