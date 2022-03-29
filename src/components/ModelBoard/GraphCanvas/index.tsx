@@ -13,7 +13,7 @@ import { useEdgesShow } from "./useEdgesShow";
 import { useEdgeSelect } from "./useEdgeSelect";
 import { useServiceId } from "../hooks/useServiceId";
 import { useTriggerSelectedEvent } from "./useTriggerSelectedEvent";
-import { useLineHover } from "./useLineHover";
+import { useEdgeHover } from "./useEdgeHover";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
@@ -40,7 +40,7 @@ export const GraphCanvas = memo(
     useNodeChange(graph, serviceId);
     useEdgeChange(graph, serviceId);
     useNodeAdd(graph, serviceId);
-    useLineHover(graph);
+    useEdgeHover(graph, serviceId);
 
     return (
       <Box

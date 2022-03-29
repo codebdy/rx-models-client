@@ -96,5 +96,14 @@ export function getRelationGraphAttrs(
         },
       },
     };
+  } else if (relationType === RelationType.LINK_LINE) {
+    return {
+      line: {
+        stroke: theme.palette.text.primary,
+        strokeWidth: 1,
+        sourceMarker: {},
+        targetMarker: {},
+      },
+    };
   }
 }
