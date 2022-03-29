@@ -1,4 +1,12 @@
-import React, { Fragment, memo, useCallback, useMemo, useState } from "react";
+import React, {
+  Fragment,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   Theme,
   IconButton,
@@ -27,7 +35,12 @@ import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined
 import MethodView from "./MethodView";
 import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { canStartLink } from "../canStartLink";
-import { green, orange, red } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
+import {
+  EVENT_PREPARE_LINK_TO,
+  offCanvasEvent,
+  onCanvasEvent,
+} from "../events";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,7 +84,16 @@ export const ClassView = memo(
     const [hover, setHover] = useState(false);
     const data: ClassNodeData | undefined = node?.data;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [showLinkTo, setShowLinkTo] = React.useState(false);
     const isMenuOpen = Boolean(anchorEl);
+    const mountRef = useRef<boolean>(false);
+
+    useEffect(() => {
+      mountRef.current = true;
+      return () => {
+        mountRef.current = false;
+      };
+    }, []);
 
     const theme = createTheme({
       palette: {
@@ -83,6 +105,23 @@ export const ClassView = memo(
 
       shadows: [...useShadows()] as any,
     });
+
+    const handleChangePrepareToLink = useCallback(
+      (event: Event) => {
+        const showId = (event as CustomEvent).detail;
+        if (mountRef.current) {
+          setShowLinkTo(showId === data?.id);
+        }
+      },
+      [data?.id]
+    );
+
+    useEffect(() => {
+      onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
+      return () => {
+        offCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
+      };
+    }, [handleChangePrepareToLink]);
 
     const canLinkFrom = useMemo(
       () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
@@ -142,24 +181,27 @@ export const ClassView = memo(
 
     const boxShadow = useMemo(() => {
       const shadowConst = "0 0 0 3px ";
+      const greenShadow = shadowConst + alpha(green[500], 0.7);
       if (hover) {
         if (!data?.pressedLineType) {
           return shadowConst + alpha(theme.palette.primary.main, 0.5);
         } else {
-          const greenShadow = shadowConst + alpha(green[500], 0.7);
           return canLinkFrom ? greenShadow : "";
         }
       } else {
-        // if (!!data?.drawingLine) {
-        //   return (
-        //     shadowConst +
-        //     (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
-        //   );
-        // }
+        if (showLinkTo) {
+          return greenShadow;
+        }
       }
 
       return "";
-    }, [canLinkFrom, data?.pressedLineType, hover, theme.palette.primary.main]);
+    }, [
+      canLinkFrom,
+      data?.pressedLineType,
+      hover,
+      showLinkTo,
+      theme.palette.primary.main,
+    ]);
 
     return (
       <ThemeProvider theme={theme}>

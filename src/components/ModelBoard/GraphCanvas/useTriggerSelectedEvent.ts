@@ -10,7 +10,7 @@ export function useTriggerSelectedEvent(serviceId: number) {
   useEffect(() => {
     triggerCanvasEvent({
       name: EVENT_ELEMENT_SELECTED_CHANGE,
-      data: selectedElement,
+      detail: selectedElement,
     });
   }, [selectedElement]);
 }

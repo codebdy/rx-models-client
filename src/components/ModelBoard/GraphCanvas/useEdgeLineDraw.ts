@@ -5,7 +5,6 @@ import { getRelationGraphAttrs } from "./getRelationGraphAttrs";
 import { createId } from "util/createId";
 import { seedId } from "util/seed-id";
 import { RelationType } from "../meta/RelationMeta";
-import { StereoType } from "../meta/ClassMeta";
 import {
   drawingLineState,
   pressedLineTypeState,
@@ -19,21 +18,24 @@ import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useCreateRelationInnerId } from "../hooks/useCreateRelationInnerId";
 import { useTheme } from "@mui/material";
 import { canStartLink } from "./canStartLink";
+import { EVENT_PREPARE_LINK_TO, triggerCanvasEvent } from "./events";
+import { useCheckCanLinkTo } from "./useCheckCanLinkTo";
 
 export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
   const [drawingLine, setDrawingLine] = useRecoilState(
     drawingLineState(serviceId)
   );
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
-  const [relations, setRelations] = useRecoilState(relationsState(serviceId));
+  const setRelations = useSetRecoilState(relationsState(serviceId));
   const setEdges = useSetRecoilState(x6EdgesState(serviceId));
-  const getEntity = useGetClass(serviceId);
+  const getClass = useGetClass(serviceId);
   const backupSnapshot = useBackupSnapshot(serviceId);
   const [pressedLineType, setPressedLineType] = useRecoilState(
     pressedLineTypeState(serviceId)
   );
   const theme = useTheme();
   const createRelationInnerId = useCreateRelationInnerId(serviceId);
+  const canLinkTo = useCheckCanLinkTo(serviceId);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -45,8 +47,17 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
       if (tempEdge) {
         tempEdge.setTarget(p as any);
       }
+      if (p) {
+        const [targetNode] = graph?.getNodesFromPoint(p?.x, p?.y) || [];
+        if(targetNode && canLinkTo(targetNode)){
+          triggerCanvasEvent({name:EVENT_PREPARE_LINK_TO, detail:targetNode.id})
+        }
+        else{
+          triggerCanvasEvent({name:EVENT_PREPARE_LINK_TO, detail:undefined})
+        }
+      }
     },
-    [drawingLine?.tempEdgeId, graph]
+    [canLinkTo, drawingLine?.tempEdgeId, graph]
   );
 
   const addVertex = useCallback(
@@ -72,38 +83,16 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
 
       if (drawingLine && targetNode && drawingLine?.tempEdgeId) {
         const relationId = createId();
-        const source = getEntity(drawingLine.sourceNodeId);
-        const target = getEntity(targetNode.id);
+        const source = getClass(drawingLine.sourceNodeId);
+        const target = getClass(targetNode.id);
         const isInherit = drawingLine.relationType === RelationType.INHERIT;
 
         if (!source || !target) {
           return;
         }
 
-        if (
-          target.stereoType === StereoType.Enum ||
-          target.stereoType === StereoType.Service ||
-          target.stereoType === StereoType.ValueObject ||
-          target.stereoType === StereoType.Association
-        ) {
+        if (!canLinkTo(targetNode)) {
           return;
-        }
-
-        //不能自身继承
-        if (isInherit && source.uuid === target.uuid) {
-          return;
-        }
-
-        //继承不能重复
-        for (const relation of relations) {
-          if (
-            relation.targetId === target.uuid &&
-            relation.sourceId === source.uuid &&
-            relation.relationType === RelationType.INHERIT &&
-            isInherit
-          ) {
-            return;
-          }
         }
 
         let ownerId = source.uuid;
@@ -156,11 +145,11 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
     [
       addVertex,
       backupSnapshot,
+      canLinkTo,
       createRelationInnerId,
       drawingLine,
-      getEntity,
+      getClass,
       graph,
-      relations,
       selectedDiagram,
       setDrawingLine,
       setEdges,

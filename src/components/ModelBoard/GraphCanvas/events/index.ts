@@ -4,7 +4,7 @@ export const EVENT_PREPARE_LINK_TO = "prepareLinkTo";
 
 export interface ICanvasEvent {
   name: string;
-  data: any;
+  detail: any;
 }
 
 export function onCanvasEvent(name: string, listener: EventListener) {
@@ -16,6 +16,6 @@ export function offCanvasEvent(name: string, listener: EventListener) {
 }
 
 export function triggerCanvasEvent(canvasEvent: ICanvasEvent) {
-  const event = new CustomEvent(canvasEvent.name, { detail: canvasEvent.data });
+  const event = new CustomEvent(canvasEvent.name, { detail: canvasEvent.detail });
   document.dispatchEvent(event);
 }
