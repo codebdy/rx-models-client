@@ -123,7 +123,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
       ) : (
         <>
           <RelationBlockCollapse title={source?.name + intl.get("side")} defaultExpand>
-            <Grid container spacing={2} sx={{ pt: 2, pl: 2 }}>
+            <Grid container spacing={2} sx={{ p:2,pr:0,}}>
               <Grid item xs={12}>
                 <LazyTextField
                   label={intl.get("role-name")}
@@ -165,7 +165,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             </Grid>
           </RelationBlockCollapse>
           <RelationBlockCollapse title={target?.name + intl.get("side")} defaultExpand>
-            <Grid container spacing={2} sx={{ pt: 2, pl: 2 }}>
+            <Grid container spacing={2} sx={{ p:2,pr:0, }}>
               <Grid item xs={12}>
                 <LazyTextField
                   label={intl.get("role-name")}
@@ -202,7 +202,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             </Grid>
           </RelationBlockCollapse>
           <RelationBlockCollapse title={intl.get("association-class")}>
-            <Grid container spacing={2} sx={{ pt: 2, pl: 2 }}>
+            <Grid container spacing={2} sx={{ p:2,pr:0,}}>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={

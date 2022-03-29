@@ -5,7 +5,7 @@ export function useScrollbarStyles(fixed?: boolean) {
   const theme = useTheme();
   const styles = useMemo(
     () => ({
-      scrollbarGutter: "stable",
+      //scrollbarGutter: "stable",
       "&::-webkit-scrollbar": {
         display: "block",
         width: "0.5rem",

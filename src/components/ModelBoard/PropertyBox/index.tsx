@@ -36,16 +36,18 @@ export const PropertyBox = () => {
       </ToolbarArea>
       <Box
         sx={{
-          padding: theme=>theme.spacing(2),
+          p: 2,
           flex: 1,
           overflow: "auto",
-          color: theme=>theme.palette.text.secondary,
+          color: (theme) => theme.palette.text.secondary,
           ...scrollStyles,
         }}
       >
         <Grid container spacing={2}>
           {selectedEntity && <ClassPanel cls={selectedEntity} />}
-          {attribute && cls && <AttributePanel attribute={attribute} entity={cls} />}
+          {attribute && cls && (
+            <AttributePanel attribute={attribute} entity={cls} />
+          )}
           {relation && <RelationPanel relation={relation} />}
           {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}
         </Grid>
