@@ -101,6 +101,7 @@ export function getRelationGraphAttrs(
       line: {
         stroke: theme.palette.text.primary,
         strokeWidth: 1,
+        strokeDasharray: '3 5',
         sourceMarker: {},
         targetMarker: {},
       },
