@@ -85,16 +85,14 @@ export const ClassView = memo(
       shadows: [...useShadows()] as any,
     });
 
-    const canLink = false;
-    //  useMemo(
-    //   () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
-    //   [data]
-    // );
-    const disableHover = false;
-    // useMemo(
-    //   () => !!data?.pressedLineType,
-    //   [data?.pressedLineType]
-    // );
+    const canLink = useMemo(
+      () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
+      [data]
+    );
+    const disableHover = useMemo(
+      () => !!data?.pressedLineType,
+      [data?.pressedLineType]
+    );
 
     const handleHidden = useCallback(() => {
       onHide && onHide(node.id);
@@ -145,21 +143,27 @@ export const ClassView = memo(
 
     const boxShadow = useMemo(() => {
       const shadowConst = "0 0 0 3px ";
-      // if (hover) {
-      //   if (!data?.pressedLineType) {
-      //     return shadowConst + alpha(theme.palette.primary.main, 0.5);
-      //   }
-      // } else {
-      //   if (!!data?.drawingLine) {
-      //     return (
-      //       shadowConst +
-      //       (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
-      //     );
-      //   }
-      // }
+      if (hover) {
+        if (!data?.pressedLineType) {
+          return shadowConst + alpha(theme.palette.primary.main, 0.5);
+        }
+      } else {
+        if (!!data?.drawingLine) {
+          return (
+            shadowConst +
+            (canLink ? alpha(green[500], 0.7) : alpha(red[500], 0.7))
+          );
+        }
+      }
 
       return "";
-    }, []);
+    }, [
+      canLink,
+      data?.drawingLine,
+      data?.pressedLineType,
+      hover,
+      theme.palette.primary.main,
+    ]);
 
     return (
       <ThemeProvider theme={theme}>

@@ -99,8 +99,8 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         ...entity,
         ...node,
         //selectedId: selectedElement,
-        //pressedLineType: pressedLineType,
-        //drawingLine: drawingLine,
+        pressedLineType: pressedLineType,
+        drawingLine: drawingLine,
         themeMode: themeMode,
       };
       if (grahpNode) {
