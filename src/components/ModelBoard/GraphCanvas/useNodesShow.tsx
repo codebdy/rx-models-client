@@ -20,6 +20,7 @@ import { useChangeClass } from "../hooks/useChangeEntity";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { ClassNodeData } from "./ClassView/ClassNodeData";
 import { themeModeState } from "recoil/atoms";
+import { EVENT_NODE_CHANGED, triggerCanvasEvent } from "./events";
 
 export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
@@ -107,6 +108,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         //Update by diff
         if (!_.isEqual(data, grahpNode.data)) {
           grahpNode.replaceData(data);
+          triggerCanvasEvent({ name: EVENT_NODE_CHANGED, detail: data });
         }
         if (
           node.x !== grahpNode.getPosition().x ||

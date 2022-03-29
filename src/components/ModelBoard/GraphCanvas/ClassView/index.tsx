@@ -37,6 +37,7 @@ import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { canStartLink } from "../canStartLink";
 import { green } from "@mui/material/colors";
 import {
+  EVENT_NODE_CHANGED,
   EVENT_PREPARE_LINK_TO,
   offCanvasEvent,
   onCanvasEvent,
@@ -82,11 +83,16 @@ export const ClassView = memo(
       onHide,
     } = props;
     const [hover, setHover] = useState(false);
-    const data: ClassNodeData | undefined = node?.data;
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [showLinkTo, setShowLinkTo] = React.useState(false);
     const isMenuOpen = Boolean(anchorEl);
     const mountRef = useRef<boolean>(false);
+
+    const [data, setData] = useState<ClassNodeData>()
+
+    useEffect(()=>{
+      setData(node?.data)
+    }, [node?.data])
 
     useEffect(() => {
       mountRef.current = true;
@@ -116,12 +122,25 @@ export const ClassView = memo(
       [data?.id]
     );
 
+    const handleNodeChanged = useCallback(
+      (event: Event) => {
+        const newData = (event as CustomEvent).detail;
+        if (mountRef.current && newData.id === data?.id) {
+          setData(newData);
+        }
+      },
+      [data?.id]
+    );
+
+
     useEffect(() => {
       onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
+      onCanvasEvent(EVENT_NODE_CHANGED, handleNodeChanged);
       return () => {
         offCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
+        offCanvasEvent(EVENT_NODE_CHANGED, handleNodeChanged);
       };
-    }, [handleChangePrepareToLink]);
+    }, [handleChangePrepareToLink, handleNodeChanged]);
 
     const canLinkFrom = useMemo(
       () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
@@ -218,7 +237,7 @@ export const ClassView = memo(
             borderRadius: "5px",
           }}
           onMouseOver={handleMouseOver}
-          onMouseOut={handleMouseLeave}
+          onMouseLeave={handleMouseLeave}
         >
           <Box
             sx={{

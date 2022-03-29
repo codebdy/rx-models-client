@@ -1,5 +1,6 @@
 export const EVENT_ELEMENT_SELECTED_CHANGE = "elementSelectedChange";
 export const EVENT_PREPARE_LINK_TO = "prepareLinkTo";
+export const EVENT_NODE_CHANGED = "nodeChanged";
 
 
 export interface ICanvasEvent {
