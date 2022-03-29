@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Theme, IconButton, Typography, Box, alpha } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
@@ -49,13 +49,26 @@ export default function AttributeView(props: {
   const classes = useStyles();
   const [hover, setHover] = useState(false);
   const [isSelected, setIsSelected] = React.useState(false);
+  const mountRef = useRef<boolean>(false);
+
+  useEffect(() => {
+    mountRef.current = true;
+    return () => {
+      mountRef.current = false;
+    };
+  }, []);
 
   const isId = attr.name === CONST_ID;
 
-  const handleChangeSelected = useCallback((event: Event) => {
-    const selectedId = (event as CustomEvent).detail;
-    setIsSelected(selectedId === attr.uuid);
-  }, [attr.uuid]);
+  const handleChangeSelected = useCallback(
+    (event: Event) => {
+      const selectedId = (event as CustomEvent).detail;
+      if (mountRef.current) {
+        setIsSelected(selectedId === attr.uuid);
+      }
+    },
+    [attr.uuid]
+  );
 
   useEffect(() => {
     onCanvasEvent(EVENT_ELEMENT_SELECTED_CHANGE, handleChangeSelected);
