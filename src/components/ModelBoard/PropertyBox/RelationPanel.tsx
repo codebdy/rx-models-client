@@ -10,7 +10,11 @@ import {
   Typography,
 } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
-import { RelationMeta, RelationType } from "../meta/RelationMeta";
+import {
+  RelationMeta,
+  RelationMultiplicity,
+  RelationType,
+} from "../meta/RelationMeta";
 import { useClass } from "../hooks/useClass";
 import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useServiceId } from "../hooks/useServiceId";
@@ -22,11 +26,21 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const target = useClass(relation.targetId, serviceId);
   const changeRelation = useChangeRelation(serviceId);
 
-  const handleTypeChange = useCallback(
-    (event: SelectChangeEvent<RelationType>) => {
+  const handleSourceMultiplicityChange = useCallback(
+    (event: SelectChangeEvent<RelationMultiplicity>) => {
       changeRelation({
         ...relation,
-        relationType: event.target.value as RelationType,
+        sourceMutiplicity: event.target.value as RelationMultiplicity,
+      });
+    },
+    [changeRelation, relation]
+  );
+
+  const handleTargetMultiplicityChange = useCallback(
+    (event: SelectChangeEvent<RelationMultiplicity>) => {
+      changeRelation({
+        ...relation,
+        targetMultiplicity: event.target.value as RelationMultiplicity,
       });
     },
     [changeRelation, relation]
@@ -78,33 +92,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
 
   return (
     <>
-      <Grid item xs={12}>
-        <FormControl variant="outlined" fullWidth size="small">
-          <InputLabel>{intl.get("relation-type")}</InputLabel>
-          <Select
-            value={relation.relationType}
-            onChange={handleTypeChange}
-            label={intl.get("relation-type")}
-            disabled={isInherit}
-          >
-            <MenuItem value={RelationType.INHERIT}>
-              {intl.get("implements")}
-            </MenuItem>
-            <MenuItem value={RelationType.TWO_WAY_ASSOCIATION}>
-              {intl.get("one-to-one")}
-            </MenuItem>
-            <MenuItem value={RelationType.TWO_WAY_AGGREGATION}>
-              {intl.get("one-to-many")}
-            </MenuItem>
-            <MenuItem value={RelationType.TWO_WAY_COMBINATION}>
-              {intl.get("many-to-one")}
-            </MenuItem>
-            <MenuItem value={RelationType.ONE_WAY_ASSOCIATION}>
-              {intl.get("many-to-many")}
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
       {!isInherit && (
         <>
           <Grid item xs={12}>
@@ -118,6 +105,27 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               value={relation.roleOfTarget || ""}
               onChange={handleSourceRoleChange}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl variant="outlined" fullWidth size="small">
+              <InputLabel>{intl.get("multiplicity")}</InputLabel>
+              <Select
+                value={relation.sourceMutiplicity || ""}
+                onChange={handleSourceMultiplicityChange}
+                label={intl.get("multiplicity")}
+              >
+                <MenuItem value={RelationMultiplicity.ZERO_ONE}>
+                  {RelationMultiplicity.ZERO_ONE}
+                </MenuItem>
+                {relation.relationType !== RelationType.ONE_WAY_COMBINATION &&
+                  relation.relationType !==
+                    RelationType.TWO_WAY_COMBINATION && (
+                    <MenuItem value={RelationMultiplicity.ZERO_MANY}>
+                      {RelationMultiplicity.ZERO_MANY}
+                    </MenuItem>
+                  )}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <LazyTextField
@@ -139,6 +147,23 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               value={relation.roleOfSource || ""}
               onChange={handleTargetRoleChange}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl variant="outlined" fullWidth size="small">
+              <InputLabel>{intl.get("multiplicity")}</InputLabel>
+              <Select
+                value={relation.targetMultiplicity || ""}
+                onChange={handleTargetMultiplicityChange}
+                label={intl.get("multiplicity")}
+              >
+                <MenuItem value={RelationMultiplicity.ZERO_ONE}>
+                  {RelationMultiplicity.ZERO_ONE}
+                </MenuItem>
+                <MenuItem value={RelationMultiplicity.ZERO_MANY}>
+                  {RelationMultiplicity.ZERO_MANY}
+                </MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <LazyTextField
