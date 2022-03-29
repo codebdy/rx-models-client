@@ -14,6 +14,11 @@ export enum RelationType {
   LINK_LINE = "linkLine",
 }
 
+export enum RelationMultiplicity{
+  ZERO_ONE = "zeroOne",
+  ZERO_MANY = "zeroMany"
+}
+
 /**
  * 关系元数据
  */
@@ -54,8 +59,7 @@ export interface RelationMeta {
 
   descriptionOnTarget?: string;
 
-  /**
-   * 拥有关系的实体ID，对应TypeORM的JoinTable或JoinColumn
-   */
-  ownerId?: string;
+  sourceMutiplicity: RelationMultiplicity;
+
+  targetMultiplicity: RelationMultiplicity;
 }

@@ -13,7 +13,6 @@ import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { RelationMeta, RelationType } from "../meta/RelationMeta";
 import { useClass } from "../hooks/useClass";
 import { useChangeRelation } from "../hooks/useChangeRelation";
-import { useGetClass } from "../hooks/useGetClass";
 import { useServiceId } from "../hooks/useServiceId";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
@@ -22,19 +21,12 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const source = useClass(relation.sourceId, serviceId);
   const target = useClass(relation.targetId, serviceId);
   const changeRelation = useChangeRelation(serviceId);
-  const getEntity = useGetClass(serviceId);
 
   const handleTypeChange = useCallback(
     (event: SelectChangeEvent<RelationType>) => {
-      const ownerId =
-        relation.relationType === RelationType.TWO_WAY_AGGREGATION
-          ? relation.sourceId
-          : relation.targetId;
-
       changeRelation({
         ...relation,
         relationType: event.target.value as RelationType,
-        ownerId: ownerId,
       });
     },
     [changeRelation, relation]
@@ -79,17 +71,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     [changeRelation, relation]
   );
 
-
-  const handleOwnerChange = useCallback(
-    (event: SelectChangeEvent<string>) => {
-      changeRelation({
-        ...relation,
-        ownerId: event.target.value as string,
-      });
-    },
-    [changeRelation, relation]
-  );
-
   const isInherit = useMemo(
     () => RelationType.INHERIT === relation.relationType,
     [relation.relationType]
@@ -120,32 +101,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             </MenuItem>
             <MenuItem value={RelationType.ONE_WAY_ASSOCIATION}>
               {intl.get("many-to-many")}
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      <Grid item xs={12}>
-        <FormControl
-          variant="outlined"
-          fullWidth
-          size="small"
-          disabled={
-            relation.relationType === RelationType.TWO_WAY_AGGREGATION ||
-            relation.relationType === RelationType.TWO_WAY_COMBINATION ||
-            isInherit
-          }
-        >
-          <InputLabel>{intl.get("owner")}</InputLabel>
-          <Select
-            value={relation.ownerId}
-            onChange={handleOwnerChange}
-            label={intl.get("owner")}
-          >
-            <MenuItem value={relation.sourceId}>
-              {getEntity(relation.sourceId)?.name}
-            </MenuItem>
-            <MenuItem value={relation.targetId}>
-              {getEntity(relation.targetId)?.name}
             </MenuItem>
           </Select>
         </FormControl>

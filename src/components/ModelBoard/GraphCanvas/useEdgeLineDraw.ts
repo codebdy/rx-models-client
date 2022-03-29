@@ -4,7 +4,7 @@ import { Edge, Graph, Node } from "@antv/x6";
 import { getRelationGraphAttrs } from "./getRelationGraphAttrs";
 import { createId } from "util/createId";
 import { seedId } from "util/seed-id";
-import { RelationType } from "../meta/RelationMeta";
+import { RelationMultiplicity, RelationType } from "../meta/RelationMeta";
 import {
   drawingLineState,
   pressedLineTypeState,
@@ -95,11 +95,6 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
           return;
         }
 
-        let ownerId = source.uuid;
-        if (drawingLine.relationType === RelationType.TWO_WAY_AGGREGATION) {
-          ownerId = target.uuid;
-        }
-
         backupSnapshot();
         setRelations((relations) => [
           ...relations,
@@ -118,7 +113,8 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
             roleOfSource: isInherit
               ? undefined
               : source.name.toLowerCase() + seedId(),
-            ownerId: ownerId,
+            sourceMutiplicity: RelationMultiplicity.ZERO_ONE,
+            targetMultiplicity: RelationMultiplicity.ZERO_ONE,
           },
         ]);
 
