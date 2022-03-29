@@ -15,7 +15,13 @@ export const CategoryCollapse = memo(
     }, []);
 
     return (
-      <>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexFlow: "column",
+        }}
+      >
         <Box
           sx={{
             cursor: "pointer",
@@ -49,7 +55,7 @@ export const CategoryCollapse = memo(
         >
           {children}
         </Collapse>
-      </>
+      </Box>
     );
   }
 );

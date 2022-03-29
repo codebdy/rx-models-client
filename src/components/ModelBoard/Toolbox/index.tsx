@@ -115,101 +115,100 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         alignItems: "center",
         overflowY: "auto",
         overflowX: "hidden",
+        pl: 0.5,
         ...scrollStyles,
       }}
     >
-      <Box>
-        <CategoryCollapse title={intl.get("class")} defaultOpen>
-          <ToolItem onMouseDown={startDragFn(StereoType.Entity)}>
-            <ClassRect first={true} />
-            {intl.get("entity-class")}
-          </ToolItem>
-          <ToolItem onMouseDown={startDragFn(StereoType.Abstract)}>
-            <ClassRect stereoType="A" />
-            {intl.get("abstract-class")}
-          </ToolItem>
-          <ToolItem onMouseDown={startDragFn(StereoType.Enum)}>
-            <ClassRect stereoType="E" />
-            {intl.get("enum")}
-          </ToolItem>
-          <ToolItem onMouseDown={startDragFn(StereoType.ValueObject)}>
-            <ClassRect stereoType="V" />
-            {intl.get("value-object")}
-          </ToolItem>
-          <ToolItem onMouseDown={startDragFn(StereoType.Service)}>
-            <ClassRect stereoType="S" />
-            {intl.get("service-class")}
-          </ToolItem>
-          <ToolItem
-            selected={pressedLineType === RelationType.INHERIT}
-            onClick={handleRelationClick(RelationType.INHERIT)}
-          >
-            {svgInherit}
-            {intl.get("inherit")}
-          </ToolItem>
-        </CategoryCollapse>
-        <CategoryCollapse title={intl.get("two-way-relation")}>
-          <ToolItem
-            selected={pressedLineType === RelationType.TWO_WAY_ASSOCIATION}
-            onClick={handleRelationClick(RelationType.TWO_WAY_ASSOCIATION)}
-          >
-            {svgTwoWayAssociation}
-            {intl.get("association")}
-          </ToolItem>
-          <ToolItem
-            selected={pressedLineType === RelationType.TWO_WAY_AGGREGATION}
-            onClick={handleRelationClick(RelationType.TWO_WAY_AGGREGATION)}
-          >
-            {svgTwoWayAggregation}
-            {intl.get("aggregation")}
-          </ToolItem>
-          <ToolItem
-            selected={pressedLineType === RelationType.TWO_WAY_COMBINATION}
-            onClick={handleRelationClick(RelationType.TWO_WAY_COMBINATION)}
-          >
-            {svgTwoWayCombination}
-            {intl.get("combination")}
-          </ToolItem>
-        </CategoryCollapse>
-        <CategoryCollapse title={intl.get("one-way-relation")}>
-          <ToolItem
-            selected={pressedLineType === RelationType.ONE_WAY_ASSOCIATION}
-            onClick={handleRelationClick(RelationType.ONE_WAY_ASSOCIATION)}
-          >
-            {svgOneWayAssociation}
-            {intl.get("association")}
-          </ToolItem>
-          <ToolItem
-            selected={pressedLineType === RelationType.ONE_WAY_AGGREGATION}
-            onClick={handleRelationClick(RelationType.ONE_WAY_AGGREGATION)}
-          >
-            {svgOneWayAggregation}
-            {intl.get("aggregation")}
-          </ToolItem>
-          <ToolItem
-            selected={pressedLineType === RelationType.ONE_WAY_COMBINATION}
-            onClick={handleRelationClick(RelationType.ONE_WAY_COMBINATION)}
-          >
-            {svgOneWayCombination}
-            {intl.get("combination")}
-          </ToolItem>
-        </CategoryCollapse>
-        <CategoryCollapse title={intl.get("others")} disabled>
-          <ToolItem
-          // onMouseDown={startDragFn(StereoType.Association)}
-          >
-            <ClassRect stereoType="R" />
-            {intl.get("association-class")}
-          </ToolItem>
-          <ToolItem
-            selected={pressedLineType === RelationType.LINK_LINE}
-            //onClick={handleRelationClick(RelationType.LINK_LINE)}
-          >
-            {svgLinkLine}
-            {intl.get("link-line")}
-          </ToolItem>
-        </CategoryCollapse>
-      </Box>
+      <CategoryCollapse title={intl.get("class")} defaultOpen>
+        <ToolItem onMouseDown={startDragFn(StereoType.Entity)}>
+          <ClassRect first={true} />
+          {intl.get("entity-class")}
+        </ToolItem>
+        <ToolItem onMouseDown={startDragFn(StereoType.Abstract)}>
+          <ClassRect stereoType="A" />
+          {intl.get("abstract-class")}
+        </ToolItem>
+        <ToolItem onMouseDown={startDragFn(StereoType.Enum)}>
+          <ClassRect stereoType="E" />
+          {intl.get("enum")}
+        </ToolItem>
+        <ToolItem onMouseDown={startDragFn(StereoType.ValueObject)}>
+          <ClassRect stereoType="V" />
+          {intl.get("value-object")}
+        </ToolItem>
+        <ToolItem onMouseDown={startDragFn(StereoType.Service)}>
+          <ClassRect stereoType="S" />
+          {intl.get("service-class")}
+        </ToolItem>
+        <ToolItem
+          selected={pressedLineType === RelationType.INHERIT}
+          onClick={handleRelationClick(RelationType.INHERIT)}
+        >
+          {svgInherit}
+          {intl.get("inherit")}
+        </ToolItem>
+      </CategoryCollapse>
+      <CategoryCollapse title={intl.get("two-way-relation")}>
+        <ToolItem
+          selected={pressedLineType === RelationType.TWO_WAY_ASSOCIATION}
+          onClick={handleRelationClick(RelationType.TWO_WAY_ASSOCIATION)}
+        >
+          {svgTwoWayAssociation}
+          {intl.get("association")}
+        </ToolItem>
+        <ToolItem
+          selected={pressedLineType === RelationType.TWO_WAY_AGGREGATION}
+          onClick={handleRelationClick(RelationType.TWO_WAY_AGGREGATION)}
+        >
+          {svgTwoWayAggregation}
+          {intl.get("aggregation")}
+        </ToolItem>
+        <ToolItem
+          selected={pressedLineType === RelationType.TWO_WAY_COMBINATION}
+          onClick={handleRelationClick(RelationType.TWO_WAY_COMBINATION)}
+        >
+          {svgTwoWayCombination}
+          {intl.get("combination")}
+        </ToolItem>
+      </CategoryCollapse>
+      <CategoryCollapse title={intl.get("one-way-relation")}>
+        <ToolItem
+          selected={pressedLineType === RelationType.ONE_WAY_ASSOCIATION}
+          onClick={handleRelationClick(RelationType.ONE_WAY_ASSOCIATION)}
+        >
+          {svgOneWayAssociation}
+          {intl.get("association")}
+        </ToolItem>
+        <ToolItem
+          selected={pressedLineType === RelationType.ONE_WAY_AGGREGATION}
+          onClick={handleRelationClick(RelationType.ONE_WAY_AGGREGATION)}
+        >
+          {svgOneWayAggregation}
+          {intl.get("aggregation")}
+        </ToolItem>
+        <ToolItem
+          selected={pressedLineType === RelationType.ONE_WAY_COMBINATION}
+          onClick={handleRelationClick(RelationType.ONE_WAY_COMBINATION)}
+        >
+          {svgOneWayCombination}
+          {intl.get("combination")}
+        </ToolItem>
+      </CategoryCollapse>
+      <CategoryCollapse title={intl.get("others")} disabled>
+        <ToolItem
+        // onMouseDown={startDragFn(StereoType.Association)}
+        >
+          <ClassRect stereoType="R" />
+          {intl.get("association-class")}
+        </ToolItem>
+        <ToolItem
+          selected={pressedLineType === RelationType.LINK_LINE}
+          //onClick={handleRelationClick(RelationType.LINK_LINE)}
+        >
+          {svgLinkLine}
+          {intl.get("link-line")}
+        </ToolItem>
+      </CategoryCollapse>
     </Box>
   );
 });
