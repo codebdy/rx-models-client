@@ -21,6 +21,7 @@ import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { RelationBlockCollapse } from "./RelationBlockCollapse";
 import { useCreateNewClass } from "../hooks/useCreateNewClass";
+import { FieldList } from "./FieldList";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relation } = props;
@@ -223,6 +224,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                       onChange={handleTargetRoleChange}
                     />
                   </Grid>
+                  <FieldList />
                 </>
               )}
             </Grid>
