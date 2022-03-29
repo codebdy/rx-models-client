@@ -20,6 +20,7 @@ import { useClass } from "../hooks/useClass";
 import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { RelationBlockCollapse } from "./RelationBlockCollapse";
+import { useCreateNewClass } from "../hooks/useCreateNewClass";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relation } = props;
@@ -27,6 +28,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const source = useClass(relation.sourceId, serviceId);
   const target = useClass(relation.targetId, serviceId);
   const changeRelation = useChangeRelation(serviceId);
+  const createClass = useCreateNewClass(serviceId);
 
   const handleSourceMultiplicityChange = useCallback(
     (event: SelectChangeEvent<RelationMultiplicity>) => {
@@ -89,12 +91,21 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
 
   const handleEnableAssociationClass = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
+      const enabled = event.target.checked;
+      const newClass = createClass();
       changeRelation({
         ...relation,
-        enableAssociaitonClass: event.target.checked,
+        enableAssociaitonClass: enabled,
+        associationClass:
+          enabled && !relation.associationClass
+            ? {
+                name: newClass.name,
+                attributes: [],
+              }
+            : relation.associationClass,
       });
     },
-    [changeRelation, relation]
+    [changeRelation, createClass, relation]
   );
 
   const isInherit = useMemo(
@@ -208,7 +219,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                   <Grid item xs={12}>
                     <LazyTextField
                       label={intl.get("name")}
-                      value={relation.roleOfSource || ""}
+                      value={relation.associationClass?.name || ""}
                       onChange={handleTargetRoleChange}
                     />
                   </Grid>
