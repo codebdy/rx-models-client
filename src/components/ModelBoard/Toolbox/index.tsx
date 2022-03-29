@@ -399,7 +399,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
               {intl.get("others")}
             </Typography>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails sx={{opacity:0.3}}>
             <div
               className={classNames(
                 classes.toolItem,
@@ -407,7 +407,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                 classes.moveable
               )}
               data-type="rect"
-              onMouseDown={startDragFn(StereoType.Association)}
+              // onMouseDown={startDragFn(StereoType.Association)}
             >
               <ClassRect stereoType="R" />
               {intl.get("association-class")}
@@ -422,7 +422,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
                     pressedLineType === RelationType.LINK_LINE,
                 }
               )}
-              onClick={handleRelationClick(RelationType.LINK_LINE)}
+              // onClick={handleRelationClick(RelationType.LINK_LINE)}
             >
               {svgLinkLine}
               {intl.get("link-line")}
