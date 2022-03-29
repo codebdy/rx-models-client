@@ -87,11 +87,11 @@ export const ClassView = memo(
     const [showLinkTo, setShowLinkTo] = React.useState(false);
     const isMenuOpen = Boolean(anchorEl);
     const mountRef = useRef<boolean>(false);
-    const [data, setData] = useState<ClassNodeData>()
+    const [data, setData] = useState<ClassNodeData>();
 
-    useEffect(()=>{
-      setData(node?.data)
-    }, [node?.data])
+    useEffect(() => {
+      setData(node?.data);
+    }, [node?.data]);
 
     useEffect(() => {
       mountRef.current = true;
@@ -125,12 +125,11 @@ export const ClassView = memo(
       (event: Event) => {
         const newData = (event as CustomEvent).detail;
         if (mountRef.current && newData.uuid === data?.id) {
-          setData({...data, ...newData});
+          setData({ ...data, ...newData });
         }
       },
       [data]
     );
-
 
     useEffect(() => {
       onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
@@ -202,7 +201,12 @@ export const ClassView = memo(
       const greenShadow = shadowConst + alpha(green[500], 0.7);
       if (hover) {
         if (!data?.pressedLineType) {
-          return shadowConst + alpha(theme.palette.primary.main, 0.5);
+          return (
+            shadowConst +
+            (theme.palette.mode === "light"
+              ? alpha(theme.palette.text.primary, 0.2)
+              : alpha(theme.palette.text.primary, 0.4))
+          );
         } else {
           return canLinkFrom ? greenShadow : "";
         }
@@ -218,7 +222,8 @@ export const ClassView = memo(
       data?.pressedLineType,
       hover,
       showLinkTo,
-      theme.palette.primary.main,
+      theme.palette.mode,
+      theme.palette.text.primary,
     ]);
 
     return (
