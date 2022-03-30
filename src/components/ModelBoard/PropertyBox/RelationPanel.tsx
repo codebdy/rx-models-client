@@ -20,7 +20,6 @@ import { useClass } from "../hooks/useClass";
 import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { RelationBlockCollapse } from "./RelationBlockCollapse";
-import { useCreateNewClass } from "../hooks/useCreateNewClass";
 import { FieldList } from "./FieldList";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
@@ -29,7 +28,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const source = useClass(relation.sourceId, serviceId);
   const target = useClass(relation.targetId, serviceId);
   const changeRelation = useChangeRelation(serviceId);
-  const createClass = useCreateNewClass(serviceId);
 
   const handleSourceMultiplicityChange = useCallback(
     (event: SelectChangeEvent<RelationMultiplicity>) => {
@@ -93,20 +91,33 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
   const handleEnableAssociationClass = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const enabled = event.target.checked;
-      const newClass = createClass();
       changeRelation({
         ...relation,
         enableAssociaitonClass: enabled,
         associationClass:
           enabled && !relation.associationClass
             ? {
-                name: newClass.name,
+                name: "AssociationClass",
                 attributes: [],
               }
             : relation.associationClass,
       });
     },
-    [changeRelation, createClass, relation]
+    [changeRelation, relation]
+  );
+
+  const handleAssociationClassNameChange = useCallback(
+    (event: React.ChangeEvent<{ value: string }>) => {
+      relation.associationClass &&
+        changeRelation({
+          ...relation,
+          associationClass: {
+            ...relation.associationClass,
+            name: event.target.value,
+          },
+        });
+    },
+    [changeRelation, relation]
   );
 
   const isInherit = useMemo(
@@ -122,8 +133,11 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
         </Grid>
       ) : (
         <>
-          <RelationBlockCollapse title={source?.name + intl.get("side")} defaultExpand>
-            <Grid container spacing={2} sx={{ p:2,pr:0,}}>
+          <RelationBlockCollapse
+            title={source?.name + intl.get("side")}
+            defaultExpand
+          >
+            <Grid container spacing={2} sx={{ p: 2, pr: 0 }}>
               <Grid item xs={12}>
                 <LazyTextField
                   label={intl.get("role-name")}
@@ -164,8 +178,11 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               </Grid>
             </Grid>
           </RelationBlockCollapse>
-          <RelationBlockCollapse title={target?.name + intl.get("side")} defaultExpand>
-            <Grid container spacing={2} sx={{ p:2,pr:0, }}>
+          <RelationBlockCollapse
+            title={target?.name + intl.get("side")}
+            defaultExpand
+          >
+            <Grid container spacing={2} sx={{ p: 2, pr: 0 }}>
               <Grid item xs={12}>
                 <LazyTextField
                   label={intl.get("role-name")}
@@ -202,7 +219,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             </Grid>
           </RelationBlockCollapse>
           <RelationBlockCollapse title={intl.get("association-class")}>
-            <Grid container spacing={2} sx={{ p:2,pr:0,}}>
+            <Grid container spacing={2} sx={{ p: 2, pr: 0 }}>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={
@@ -221,7 +238,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                     <LazyTextField
                       label={intl.get("name")}
                       value={relation.associationClass?.name || ""}
-                      onChange={handleTargetRoleChange}
+                      onChange={handleAssociationClassNameChange}
                     />
                   </Grid>
                   <FieldList />

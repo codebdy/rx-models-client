@@ -30,10 +30,15 @@ export const FieldList = memo(() => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          background: "red",
+          "&:hover": {
+            background: (theme) => theme.palette.action.hover,
+          },
           ml: 1,
-          mr: 1,
+          mr: 0,
+          pt: 0.5,
+          pb: 0.5,
           pl: 1,
+          borderRadius: 1,
         }}
       >
         <Typography>alt:String</Typography>
