@@ -1,24 +1,14 @@
 import React, { useCallback, useMemo } from "react";
 import intl from "react-intl-universal";
-import {
-  FormControl,
-  FormControlLabel,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Switch,
-} from "@mui/material";
+import { FormControlLabel, Grid, Switch } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { AttributeMeta } from "../meta/AttributeMeta";
 import { ValueType } from "../meta/ValueType";
 import { ClassMeta } from "../meta/ClassMeta";
 import { useChangeAttribute } from "../hooks/useChangeAttribute";
-import { useEnums } from "../hooks/useEnums";
-import { useValueObjects } from "../hooks/useValueObjects";
 import { useServiceId } from "../hooks/useServiceId";
 import { CONST_ID } from "../meta/Meta";
+import { TypeInput } from "./TypeInput";
 
 export const AttributePanel = (props: {
   attribute: AttributeMeta;
@@ -27,8 +17,6 @@ export const AttributePanel = (props: {
   const { attribute, entity } = props;
   const serviceId = useServiceId();
   const changeAttribute = useChangeAttribute(serviceId);
-  const enums = useEnums(serviceId);
-  const interfaces = useValueObjects(serviceId);
 
   const handleStringChange = useCallback(
     (prop: any) => (event: React.ChangeEvent<{ value: string }>) => {
@@ -59,9 +47,7 @@ export const AttributePanel = (props: {
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
   const handleTypeChange = useCallback(
-    (event: SelectChangeEvent<ValueType>) => {
-      const type = event.target.value as any;
-
+    (type: ValueType) => {
       changeAttribute(
         {
           ...attribute,
@@ -75,25 +61,12 @@ export const AttributePanel = (props: {
     [changeAttribute, attribute, entity]
   );
 
-  const handleTypeEntiyChange = useCallback(
-    (event: SelectChangeEvent<string>) => {
+  const handleValueObjectChange = useCallback(
+    (uuid: string) => {
       changeAttribute(
         {
           ...attribute,
-          typeUuid: event.target.value,
-        },
-        entity
-      );
-    },
-    [changeAttribute, attribute, entity]
-  );
-
-  const handleInterfaceEntiyChange = useCallback(
-    (event: SelectChangeEvent<string>) => {
-      changeAttribute(
-        {
-          ...attribute,
-          typeUuid: event.target.value,
+          typeUuid: uuid,
         },
         entity
       );
@@ -139,105 +112,13 @@ export const AttributePanel = (props: {
           disabled={isId}
         />
       </Grid>
-      <Grid item xs={12}>
-        <FormControl variant="outlined" fullWidth size="small" disabled={isId}>
-          <InputLabel>{intl.get("data-type")}</InputLabel>
-          <Select
-            value={attribute.type}
-            onChange={handleTypeChange}
-            label={intl.get("data-type")}
-          >
-            <MenuItem value={ValueType.ID}>ID</MenuItem>
-            <MenuItem value={ValueType.Int}>Int</MenuItem>
-            <MenuItem value={ValueType.Float}>Float</MenuItem>
-            <MenuItem value={ValueType.Boolean}>Boolean</MenuItem>
-            <MenuItem value={ValueType.String}>String</MenuItem>
-            <MenuItem value={ValueType.Date}>Date</MenuItem>
-            <MenuItem value={ValueType.Enum}>{intl.get("enum")}</MenuItem>
-            <MenuItem value={ValueType.ValueObject}>
-              {intl.get("value-object")}
-            </MenuItem>
-            <MenuItem value={ValueType.IDArray}>
-              ID {intl.get("array")}
-            </MenuItem>
-            <MenuItem value={ValueType.IntArray}>
-              Int {intl.get("array")}
-            </MenuItem>
-            <MenuItem value={ValueType.FloatArray}>
-              Float {intl.get("array")}
-            </MenuItem>
-            <MenuItem value={ValueType.StringArray}>
-              String {intl.get("array")}
-            </MenuItem>
-            <MenuItem value={ValueType.DateArray}>
-              Date {intl.get("array")}
-            </MenuItem>
-            <MenuItem value={ValueType.EnumArray}>
-              {intl.get("enum")}
-              {intl.get("array")}
-            </MenuItem>
-            <MenuItem value={ValueType.ValueObjectArray}>
-              {intl.get("value-object")}
-              {intl.get("array")}
-            </MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
-      {(attribute.type === ValueType.Enum ||
-        attribute.type === ValueType.EnumArray) && (
-        <Grid item xs={12}>
-          <FormControl
-            variant="outlined"
-            fullWidth
-            size="small"
-            disabled={isId}
-          >
-            <InputLabel>{intl.get("enum-class")}</InputLabel>
-            <Select
-              value={attribute.typeUuid || ""}
-              onChange={handleTypeEntiyChange}
-              label={intl.get("enum-class")}
-            >
-              {enums.map((enumEntity) => {
-                return (
-                  <MenuItem key={enumEntity.uuid} value={enumEntity.uuid}>
-                    {enumEntity.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Grid>
-      )}
-      {(attribute.type === ValueType.ValueObject ||
-        attribute.type === ValueType.ValueObjectArray) && (
-        <Grid item xs={12}>
-          <FormControl
-            variant="outlined"
-            fullWidth
-            size="small"
-            disabled={isId}
-          >
-            <InputLabel>{intl.get("value-object")}</InputLabel>
-            <Select
-              value={attribute.typeUuid || ""}
-              onChange={handleInterfaceEntiyChange}
-              label={intl.get("value-object")}
-            >
-              {interfaces.map((interfaceEntity) => {
-                return (
-                  <MenuItem
-                    key={interfaceEntity.uuid}
-                    value={interfaceEntity.uuid}
-                  >
-                    {interfaceEntity.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Grid>
-      )}
+      <TypeInput
+        valueType={attribute.type}
+        typeUuid={attribute.typeUuid}
+        onTypeChange={handleTypeChange}
+        onTypeUuidChange={handleValueObjectChange}
+        disabled={isId}
+      />
       {!isId && (
         <Grid item xs={6}>
           <FormControlLabel

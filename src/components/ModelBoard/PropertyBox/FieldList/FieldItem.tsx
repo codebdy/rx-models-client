@@ -11,7 +11,7 @@ import {
   Select,
   MenuItem,
 } from "@mui/material";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import React from "react";
@@ -28,13 +28,16 @@ export const FieldItem = memo(() => {
     null
   );
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      setAnchorEl(event.currentTarget);
+    },
+    []
+  );
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
 
   const open = Boolean(anchorEl);
 
@@ -128,27 +131,23 @@ export const FieldItem = memo(() => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-          <FormControl
-            variant="outlined"
-            fullWidth
-            size="small"
-          >
-            <InputLabel>{intl.get("enum-class")}</InputLabel>
-            <Select
-              //value={attribute.typeUuid || ""}
-              //onChange={handleTypeEntiyChange}
-              label={intl.get("enum-class")}
-            >
-              {enums.map((enumEntity) => {
-                return (
-                  <MenuItem key={enumEntity.uuid} value={enumEntity.uuid}>
-                    {enumEntity.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-        </Grid>
+            <FormControl variant="outlined" fullWidth size="small">
+              <InputLabel>{intl.get("enum-class")}</InputLabel>
+              <Select
+                //value={attribute.typeUuid || ""}
+                //onChange={handleTypeEntiyChange}
+                label={intl.get("enum-class")}
+              >
+                {enums.map((enumEntity) => {
+                  return (
+                    <MenuItem key={enumEntity.uuid} value={enumEntity.uuid}>
+                      {enumEntity.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
           <Grid item xs={12}>
             <Button color="inherit" size="small" onClick={handleClose}>
               {intl.get("cancel")}

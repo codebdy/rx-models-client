@@ -66,9 +66,6 @@ export interface AttributeMeta {
 
   unsigned?: boolean;
 
-  /**
-   * 类型是枚举时使用
-   */
   typeUuid?: string;
 
   readonly?: boolean;
