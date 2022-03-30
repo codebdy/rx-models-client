@@ -241,7 +241,9 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                       onChange={handleAssociationClassNameChange}
                     />
                   </Grid>
-                  <FieldList />
+                  <FieldList
+                    fields={relation.associationClass?.attributes || []}
+                  />
                 </>
               )}
             </Grid>

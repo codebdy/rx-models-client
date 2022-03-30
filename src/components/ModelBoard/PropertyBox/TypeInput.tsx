@@ -18,10 +18,11 @@ export const TypeInput = memo(
     disabled?: boolean;
     valueType: ValueType;
     typeUuid?: string;
+    withEntityType?: boolean;
     onTypeChange: (valueType: ValueType) => void;
     onTypeUuidChange: (typeUuid: string) => void;
   }) => {
-    const { disabled, valueType, typeUuid, onTypeChange, onTypeUuidChange } = props;
+    const { disabled, valueType, typeUuid, withEntityType, onTypeChange, onTypeUuidChange } = props;
     const serviceId = useServiceId();
     const enums = useEnums(serviceId);
     const valueObjects = useValueObjects(serviceId);
