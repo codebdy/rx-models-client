@@ -51,26 +51,23 @@ export const FieldItem = memo(
         field.type === ValueType.Int ||
         field.type === ValueType.Float ||
         field.type === ValueType.String ||
-        field.type === ValueType.Date
+        field.type === ValueType.Date ||
+        field.type === ValueType.IDArray ||
+        field.type === ValueType.IntArray ||
+        field.type === ValueType.FloatArray ||
+        field.type === ValueType.StringArray ||
+        field.type === ValueType.DateArray
       ) {
         return field.type;
-      } else if (
-        field.type === ValueType.Enum ||
-        field.type === ValueType.ValueObject ||
-        field.type === ValueType.ClassType
-      ) {
-        return `${field.type}[]`;
       } else {
         const cls = getClass(field.typeUuid || "");
         if (!cls) {
           return "";
         }
         if (
-          field.type === ValueType.IDArray ||
-          field.type === ValueType.IntArray ||
-          field.type === ValueType.FloatArray ||
-          field.type === ValueType.StringArray ||
-          field.type === ValueType.DateArray
+          field.type === ValueType.Enum ||
+          field.type === ValueType.ValueObject ||
+          field.type === ValueType.ClassType
         ) {
           return cls.name;
         } else if (
