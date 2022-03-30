@@ -21,9 +21,8 @@ export const ClassRect = memo((props: { stereoType?: string }) => {
       <Box
         sx={{
           height: stereoType ? "60%" : "30%",
-          width: "47px",
+          width: "100%",
           borderBottom: "solid 1px",
-          marginLeft: "-1px",
           textAlign: "center",
         }}
       >
@@ -35,9 +34,8 @@ export const ClassRect = memo((props: { stereoType?: string }) => {
       <Box
         sx={{
           height: "10%",
-          width: "47px",
+          width: "100%",
           borderBottom: "solid 1px",
-          marginLeft: "-1px",
         }}
       ></Box>
     </Box>
