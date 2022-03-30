@@ -6,9 +6,6 @@ export function canStartLink(lineType: RelationType, classMeta: ClassMeta) {
     (lineType &&
       classMeta.stereoType !== StereoType.Enum &&
       classMeta.stereoType !== StereoType.ValueObject &&
-      classMeta.stereoType !== StereoType.Service &&
-      classMeta.stereoType !== StereoType.Association) ||
-    (classMeta.stereoType === StereoType.Association &&
-      lineType === RelationType.LINK_LINE)
+      classMeta.stereoType !== StereoType.Service) 
   );
 }

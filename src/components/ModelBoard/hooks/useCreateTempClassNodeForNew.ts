@@ -8,6 +8,13 @@ export function useCreateTempClassNodeForNew(serviceId: number) {
   const createTempClassNodeForNew = useCallback(
     (stereoType: StereoType) => {
       const classMeta = creatNewClassMeta();
+      if (
+        stereoType === StereoType.ValueObject ||
+        stereoType === StereoType.Service ||
+        stereoType === StereoType.Enum
+      ) {
+        classMeta.attributes = [];
+      }
       return {
         uuid: "entityMeta.uuid",
         ...NODE_INIT_SIZE,

@@ -13,7 +13,7 @@ export enum StereoType {
   ValueObject = "ValueObject",
   Entity = "Entity",
   //GQLInterface = "GQLInterface",
-  Association = "Association",
+  //Association = "Association",
   Service = "Service",//"DDD"中的 service 类
 }
 
@@ -34,11 +34,6 @@ export interface ClassMeta {
 
   attributes: AttributeMeta[];
   methods: MethodMeta[];
-
-  /**
-   * 枚举值JSON，枚举类型实体使用，不参与数据库映射
-   */
-  enumValues?: any;
 
   root?: boolean;
 

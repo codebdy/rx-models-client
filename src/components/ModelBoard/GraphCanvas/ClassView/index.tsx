@@ -319,7 +319,6 @@ export const ClassView = memo(
                       sx={{
                         padding: theme.spacing(1, 3),
                       }}
-                      disabled={data?.stereoType === StereoType.Enum}
                       onClick={handleAttributeCreate}
                     >
                       <SvgIcon fontSize="small">
@@ -383,54 +382,56 @@ export const ClassView = memo(
                 cursor: canLinkFrom ? "crosshair" : "default",
               }}
             >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexFlow: "column",
-                  borderTop: "solid 1px",
-                  minHeight: (theme) => theme.spacing(1),
-                }}
-              >
-                {data?.stereoType !== StereoType.Enum &&
-                  data?.attributes?.map((attr) => {
+              {data?.stereoType !== StereoType.Service && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexFlow: "column",
+                    borderTop: "solid 1px",
+                    minHeight: (theme) => theme.spacing(1),
+                  }}
+                >
+                  {data?.attributes?.map((attr) => {
                     return attr.name === CONST_ID &&
-                      ((data?.stereoType === StereoType.Abstract &&
-                        !data?.root) ||
-                        data?.stereoType === StereoType.ValueObject ||
-                        data?.stereoType === StereoType.Association ||
-                        data?.stereoType === StereoType.Service) ? (
+                      data?.stereoType === StereoType.Abstract &&
+                      !data?.root ? (
                       <Fragment key={attr.uuid}></Fragment>
                     ) : (
                       <AttributeView
                         key={attr.uuid}
                         attr={attr}
+                        stereoType={data.stereoType}
                         onClick={handleAttributeClick}
                         onDelete={handleAttributeDelete}
                         readOnly={disableHover}
                       />
                     );
                   })}
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexFlow: "column",
-                  borderTop: "solid 1px",
-                  minHeight: (theme) => theme.spacing(3),
-                }}
-              >
-                {data?.stereoType !== StereoType.Enum &&
-                  data?.methods?.map((method) => {
-                    return (
-                      <MethodView
-                        key={method.uuid}
-                        method={method}
-                        onClick={handleAttributeClick}
-                        onDelete={handleAttributeDelete}
-                      />
-                    );
-                  })}
-              </Box>
+                </Box>
+              )}
+
+              {data?.stereoType !== StereoType.Enum &&
+                data?.stereoType !== StereoType.ValueObject && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexFlow: "column",
+                      borderTop: "solid 1px",
+                      minHeight: (theme) => theme.spacing(3),
+                    }}
+                  >
+                    {data?.methods?.map((method) => {
+                      return (
+                        <MethodView
+                          key={method.uuid}
+                          method={method}
+                          onClick={handleAttributeClick}
+                          onDelete={handleAttributeDelete}
+                        />
+                      );
+                    })}
+                  </Box>
+                )}
             </Box>
           </Box>
         </Box>

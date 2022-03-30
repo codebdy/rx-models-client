@@ -11,6 +11,7 @@ import {
   offCanvasEvent,
   onCanvasEvent,
 } from "../events";
+import { StereoType } from "components/ModelBoard/meta/ClassMeta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,11 +42,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function AttributeView(props: {
   attr: AttributeMeta;
+  stereoType: StereoType;
   onClick: (id: string) => void;
   onDelete: (id: string) => void;
   readOnly?: boolean;
 }) {
-  const { attr, onClick, onDelete, readOnly = false } = props;
+  const { attr, stereoType, onClick, onDelete, readOnly = false } = props;
   const classes = useStyles();
   const [hover, setHover] = useState(false);
   const [isSelected, setIsSelected] = React.useState(false);
@@ -109,15 +111,19 @@ export default function AttributeView(props: {
         >
           {attr.name}
         </Typography>
-        :
-        <Typography
-          sx={{
-            fontSize: "0.8rem",
-            marginLeft: "5px",
-          }}
-        >
-          {attr.type}
-        </Typography>
+        {stereoType !== StereoType.Enum && (
+          <>
+            :
+            <Typography
+              sx={{
+                fontSize: "0.8rem",
+                marginLeft: "5px",
+              }}
+            >
+              {attr.type}
+            </Typography>
+          </>
+        )}
       </Box>
       {hover && !readOnly && !isId && (
         <div className={classes.propertyTools}>

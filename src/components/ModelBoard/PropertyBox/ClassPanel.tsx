@@ -3,7 +3,6 @@ import intl from "react-intl-universal";
 import { Checkbox, FormControlLabel, Grid } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
-import { JsonInput } from "./JsonInput";
 import { useChangeClass } from "../hooks/useChangeEntity";
 import { useServiceId } from "../hooks/useServiceId";
 
@@ -25,13 +24,6 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
         ? StereoType.Abstract
         : StereoType.Entity;
       changeClass({ ...cls, stereoType });
-    },
-    [changeClass, cls]
-  );
-
-  const handleEnumValuesChange = useCallback(
-    (value: any) => {
-      changeClass({ ...cls, enumValues: value });
     },
     [changeClass, cls]
   );
@@ -82,7 +74,6 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
       )}
 
       {cls.stereoType !== StereoType.Enum &&
-        cls.stereoType !== StereoType.Association &&
         cls.stereoType !== StereoType.ValueObject && (
           <>
             <Grid item xs={6}>
@@ -116,7 +107,7 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
             </Grid>
           </>
         )} */}
-      {cls.stereoType === StereoType.Enum && (
+      {/* {cls.stereoType === StereoType.Enum && (
         <Grid item xs={12}>
           <JsonInput
             label={intl.get("enum-values")}
@@ -125,7 +116,7 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
             title={intl.get("edit-enum")}
           />
         </Grid>
-      )}
+      )} */}
       <Grid item xs={12}>
         <LazyTextField
           label={intl.get("description")}

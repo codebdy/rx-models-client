@@ -33,16 +33,6 @@ export function useCreateNewClass(serviceId: number) {
           type: ValueType.ID,
           primary: true,
         },
-        // {
-        //   uuid: createId(),
-        //   name: CREATED_AT,
-        //   type: ColumnType.Date,
-        // },
-        // {
-        //   uuid: createId(),
-        //   name: UPDATED_AT,
-        //   type: ColumnType.Date,
-        // },
       ],
       methods:[]
     };
