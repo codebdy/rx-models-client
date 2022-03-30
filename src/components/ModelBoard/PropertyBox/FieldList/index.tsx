@@ -26,6 +26,13 @@ export const FieldList = memo(
       [fields, onChange]
     );
 
+    const handleChange = useCallback(
+      (field: FieldMeta) => {
+        onChange(fields.map((fd) => (fd.uuid === field.uuid ? field : fd)));
+      },
+      [fields, onChange]
+    );
+
     return (
       <Grid container item xs={12} spacing={2} sx={{ pb: 4 }}>
         <Grid
@@ -51,6 +58,7 @@ export const FieldList = memo(
               field={field}
               withEntityType={withEntityType}
               onDelete={handleDelete}
+              onChange={handleChange}
             />
           );
         })}
