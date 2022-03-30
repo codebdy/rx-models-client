@@ -72,6 +72,7 @@ export const ClassView = memo(
     onHide?: (entityId: string) => void;
     onDeleteProperty?: (id: string) => void;
     onAddProperty?: () => void;
+    onDelete?: (uuid: string) => void;
     node?: any;
   }) => {
     const classes = useStyles();
@@ -80,6 +81,7 @@ export const ClassView = memo(
       onAttributeSelect,
       onAttributeDelete,
       onAttributeCreate,
+      onDelete,
       onHide,
     } = props;
     const [hover, setHover] = useState(false);
@@ -190,11 +192,19 @@ export const ClassView = memo(
       setHover(false);
     }, []);
 
-    const handleMenuClose = (event: React.MouseEvent<HTMLElement>) => {
+    const handleMenuClose = useCallback(
+      (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(null);
+        setHover(false);
+        event.stopPropagation();
+      },
+      []
+    );
+
+    const handleDelete = useCallback(() => {
+      onDelete && onDelete(data?.uuid || "");
       setAnchorEl(null);
-      setHover(false);
-      event.stopPropagation();
-    };
+    }, [data?.uuid, onDelete]);
 
     const boxShadow = useMemo(() => {
       const shadowConst = "0 0 0 3px ";
@@ -367,6 +377,7 @@ export const ClassView = memo(
                       sx={{
                         padding: theme.spacing(1, 3),
                       }}
+                      onClick={handleDelete}
                     >
                       <DeleteForeverOutlinedIcon fontSize="small" />
                       <Typography sx={{ marginLeft: "16px" }}>

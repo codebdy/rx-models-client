@@ -3,7 +3,7 @@ import { useRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
 import { useAttribute } from "./useAttribute";
 import { useDeleteAttribute } from "./useDeleteAttribute";
-import { useDeleteEntity } from "./useDeleteEntity";
+import { useDeleteClass } from "./useDeleteClass";
 import { useDeleteRelation } from "./useDeleteRelation";
 import { useClass } from "./useClass";
 import { useRelation } from "./useRelation";
@@ -15,7 +15,7 @@ export function useDeleteSelectedElement(serviceId: number) {
   const [selectedElement, setSelectedElement] =
     useRecoilState(selectedElementState(serviceId));
   const entity = useClass(selectedElement || "", serviceId);
-  const deleteEntity = useDeleteEntity(serviceId);
+  const deleteEntity = useDeleteClass(serviceId);
   const relation = useRelation(selectedElement || "", serviceId);
   const deleteRelation = useDeleteRelation(serviceId);
 

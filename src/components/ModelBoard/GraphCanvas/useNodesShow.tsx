@@ -20,6 +20,7 @@ import { useChangeClass } from "../hooks/useChangeEntity";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { ClassNodeData } from "./ClassView/ClassNodeData";
 import { themeModeState } from "recoil/atoms";
+import { useDeleteClass } from "../hooks/useDeleteClass";
 
 export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
@@ -38,6 +39,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const themeMode = useRecoilValue(themeModeState);
   const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const getClassRef = useRef(getClass);
+  const deleteClass = useDeleteClass(serviceId);
   getClassRef.current = getClass;
 
   const changeClassRef = useRef(changeClass);
@@ -87,6 +89,13 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     [selectedDiagram, setNodes]
   );
 
+  const handelDeleteClass = useCallback(
+    (uuid: string) => {
+      deleteClass(uuid);
+    },
+    [deleteClass]
+  );
+
   useEffect(() => {
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
@@ -127,6 +136,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
               onAttributeSelect={handleAttributeSelect}
               onAttributeDelete={handleAttributeDelete}
               onAttributeCreate={handleAttributeCreate}
+              onDelete={handelDeleteClass}
               onHide={handleHideClass}
             />
           ),
@@ -160,5 +170,6 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     setSelectedElement,
     themeMode,
     drawingLine,
+    handelDeleteClass,
   ]);
 }
