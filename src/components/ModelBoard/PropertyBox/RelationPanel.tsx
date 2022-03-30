@@ -21,6 +21,7 @@ import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { RelationBlockCollapse } from "./RelationBlockCollapse";
 import { FieldList } from "./FieldList";
+import { AttributeMeta } from "../meta/AttributeMeta";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relation } = props;
@@ -114,6 +115,20 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           associationClass: {
             ...relation.associationClass,
             name: event.target.value,
+          },
+        });
+    },
+    [changeRelation, relation]
+  );
+
+  const handleAssociationFieldsChange = useCallback(
+    (attrs: AttributeMeta[]) => {
+      relation.associationClass &&
+        changeRelation({
+          ...relation,
+          associationClass: {
+            ...relation.associationClass,
+            attributes: attrs,
           },
         });
     },
@@ -243,6 +258,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                   </Grid>
                   <FieldList
                     fields={relation.associationClass?.attributes || []}
+                    onChange={handleAssociationFieldsChange}
                   />
                 </>
               )}
