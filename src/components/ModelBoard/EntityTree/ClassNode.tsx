@@ -17,7 +17,7 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { ClassView } from "../GraphCanvas/ClassView";
 import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 import { useDeleteClass } from "../hooks/useDeleteClass";
-import { useChangeClass } from "../hooks/useChangeEntity";
+import { useChangeClass } from "../hooks/useChangeClass";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { useServiceId } from "../hooks/useServiceId";
 const { Dnd } = Addon;

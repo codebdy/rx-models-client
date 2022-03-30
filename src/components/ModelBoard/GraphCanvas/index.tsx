@@ -14,6 +14,7 @@ import { useEdgeSelect } from "./useEdgeSelect";
 import { useServiceId } from "../hooks/useServiceId";
 import { useTriggerSelectedEvent } from "./useTriggerSelectedEvent";
 import { useEdgeHover } from "./useEdgeHover";
+import { useTriggerPressedLineTypeEvent } from "./useTriggerPressedLineTypeEvent";
 
 export const GraphCanvas = memo(
   (props: { graph?: Graph; onSetGraph: (graph?: Graph) => void }) => {
@@ -32,6 +33,7 @@ export const GraphCanvas = memo(
 
     useExplorerScrollbarHide();
     useTriggerSelectedEvent(serviceId);
+    useTriggerPressedLineTypeEvent(serviceId);
     useNodeSelect(graph, serviceId);
     useEdgeSelect(graph, serviceId);
     useNodesShow(graph, serviceId);

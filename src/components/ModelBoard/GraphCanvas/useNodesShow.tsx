@@ -16,7 +16,7 @@ import { useGetClass } from "../hooks/useGetClass";
 import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
 import { useGetNode } from "../hooks/useGetNode";
 import { useGetParentUuid } from "./useGetParentUuid";
-import { useChangeClass } from "../hooks/useChangeEntity";
+import { useChangeClass } from "../hooks/useChangeClass";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { ClassNodeData } from "./ClassView/ClassNodeData";
 import { themeModeState } from "recoil/atoms";
@@ -108,7 +108,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         ...entity,
         ...node,
         //selectedId: selectedElement,
-        pressedLineType: pressedLineType,
+        //pressedLineType: pressedLineType,
         //drawingLine: drawingLine,
         themeMode: themeMode,
       };
@@ -116,6 +116,8 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         //Update by diff
         if (!_.isEqual(data, grahpNode.data)) {
           grahpNode.replaceData(data);
+          graph?.removeCell(grahpNode.id);
+          graph?.addCell(grahpNode);
         }
         if (
           node.x !== grahpNode.getPosition().x ||

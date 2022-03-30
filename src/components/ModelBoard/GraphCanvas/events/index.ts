@@ -1,6 +1,7 @@
 export const EVENT_ELEMENT_SELECTED_CHANGE = "elementSelectedChange";
 export const EVENT_PREPARE_LINK_TO = "prepareLinkTo";
-export const EVENT_CLASS_CHANGED = "classChanged";
+export const EVENT_PRESSED_LINE_TYPE = "pressedLineType";
+//export const EVENT_CLASS_CHANGED = "classChanged";
 
 
 export interface ICanvasEvent {

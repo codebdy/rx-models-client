@@ -37,11 +37,12 @@ import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { canStartLink } from "../canStartLink";
 import { green } from "@mui/material/colors";
 import {
-  EVENT_CLASS_CHANGED,
   EVENT_PREPARE_LINK_TO,
+  EVENT_PRESSED_LINE_TYPE,
   offCanvasEvent,
   onCanvasEvent,
 } from "../events";
+import { RelationType } from "components/ModelBoard/meta/RelationMeta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,6 +91,7 @@ export const ClassView = memo(
     const isMenuOpen = Boolean(anchorEl);
     const mountRef = useRef<boolean>(false);
     const [data, setData] = useState<ClassNodeData>();
+    const [pressedLineType, setPressedLineType] = useState<RelationType>();
 
     useEffect(() => {
       setData(node?.data);
@@ -123,33 +125,27 @@ export const ClassView = memo(
       [data?.id]
     );
 
-    const handleNodeChanged = useCallback(
-      (event: Event) => {
-        const newData = (event as CustomEvent).detail;
-        if (mountRef.current && newData.uuid === data?.id) {
-          setData({ ...data, ...newData });
-        }
-      },
-      [data]
-    );
+    const pressedLineTypeChanged = useCallback((event: Event) => {
+      const newData = (event as CustomEvent).detail;
+      if (mountRef.current) {
+        setPressedLineType(newData);
+      }
+    }, []);
 
     useEffect(() => {
       onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
-      onCanvasEvent(EVENT_CLASS_CHANGED, handleNodeChanged);
+      onCanvasEvent(EVENT_PRESSED_LINE_TYPE, pressedLineTypeChanged);
       return () => {
         offCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
-        offCanvasEvent(EVENT_CLASS_CHANGED, handleNodeChanged);
+        offCanvasEvent(EVENT_PRESSED_LINE_TYPE, pressedLineTypeChanged);
       };
-    }, [handleChangePrepareToLink, handleNodeChanged]);
+    }, [handleChangePrepareToLink, pressedLineTypeChanged]);
 
     const canLinkFrom = useMemo(
-      () => data?.pressedLineType && canStartLink(data?.pressedLineType, data),
-      [data]
+      () => data && pressedLineType && canStartLink(pressedLineType, data),
+      [data, pressedLineType]
     );
-    const disableHover = useMemo(
-      () => !!data?.pressedLineType,
-      [data?.pressedLineType]
-    );
+    const disableHover = useMemo(() => !!pressedLineType, [pressedLineType]);
 
     const handleHidden = useCallback(() => {
       onHide && onHide(node.id);
@@ -210,7 +206,7 @@ export const ClassView = memo(
       const shadowConst = "0 0 0 3px ";
       const greenShadow = shadowConst + alpha(green[500], 0.7);
       if (hover) {
-        if (!data?.pressedLineType) {
+        if (!pressedLineType) {
           return (
             shadowConst +
             (theme.palette.mode === "light"
@@ -229,8 +225,8 @@ export const ClassView = memo(
       return "";
     }, [
       canLinkFrom,
-      data?.pressedLineType,
       hover,
+      pressedLineType,
       showLinkTo,
       theme.palette.mode,
       theme.palette.text.primary,

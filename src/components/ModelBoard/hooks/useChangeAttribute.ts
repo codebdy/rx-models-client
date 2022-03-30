@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { AttributeMeta } from "../meta/AttributeMeta";
 import { ClassMeta } from "../meta/ClassMeta";
-import { useChangeClass } from "./useChangeEntity";
+import { useChangeClass } from "./useChangeClass";
 
 export function useChangeAttribute(serviceId: number) {
   const changeEntity = useChangeClass(serviceId);

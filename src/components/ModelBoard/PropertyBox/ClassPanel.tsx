@@ -3,7 +3,7 @@ import intl from "react-intl-universal";
 import { Checkbox, FormControlLabel, Grid } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
-import { useChangeClass } from "../hooks/useChangeEntity";
+import { useChangeClass } from "../hooks/useChangeClass";
 import { useServiceId } from "../hooks/useServiceId";
 
 export const ClassPanel = (props: { cls: ClassMeta }) => {
