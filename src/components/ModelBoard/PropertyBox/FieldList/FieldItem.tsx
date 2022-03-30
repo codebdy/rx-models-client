@@ -7,13 +7,15 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import { memo, useCallback } from "react";
+import { memo, useCallback, useMemo } from "react";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import React from "react";
 import intl from "react-intl-universal";
 import { TypeInput } from "../TypeInput";
 import { ValueType } from "components/ModelBoard/meta/ValueType";
+import { useServiceId } from "components/ModelBoard/hooks/useServiceId";
+import { useGetClass } from "components/ModelBoard/hooks/useGetClass";
 
 export interface FieldMeta {
   name: string;
@@ -29,6 +31,48 @@ export const FieldItem = memo(
     onDelete: (uuid: string) => void;
   }) => {
     const { field, withEntityType, onDelete } = props;
+    const serviceId = useServiceId();
+    const getClass = useGetClass(serviceId);
+
+    const typeName = useMemo(() => {
+      if (
+        field.type === ValueType.ID ||
+        field.type === ValueType.Boolean ||
+        field.type === ValueType.Int ||
+        field.type === ValueType.Float ||
+        field.type === ValueType.String ||
+        field.type === ValueType.Date
+      ) {
+        return field.type;
+      } else if (
+        field.type === ValueType.Enum ||
+        field.type === ValueType.ValueObject ||
+        field.type === ValueType.ClassType
+      ) {
+        return `${field.type}[]`;
+      } else {
+        const cls = getClass(field.typeUuid || "");
+        if (!cls) {
+          return "";
+        }
+        if (
+          field.type === ValueType.IDArray ||
+          field.type === ValueType.IntArray ||
+          field.type === ValueType.FloatArray ||
+          field.type === ValueType.StringArray ||
+          field.type === ValueType.DateArray
+        ) {
+          return cls.name;
+        } else if (
+          field.type === ValueType.EnumArray ||
+          field.type === ValueType.ValueObjectArray ||
+          field.type === ValueType.ClassTypeArray
+        ) {
+          return `${cls.name}[]`;
+        }
+      }
+    }, [field.type, field.typeUuid, getClass]);
+
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
       null
     );
@@ -72,7 +116,10 @@ export const FieldItem = memo(
           borderRadius: 1,
         }}
       >
-        <Typography>alt:String</Typography>
+        <Typography>
+          {field.name}
+          {typeName ? ":" + typeName : ""}
+        </Typography>
         <Box sx={{ display: "flex" }}>
           <IconButton size="small" onClick={handleClick}>
             <ModeEditIcon fontSize="small" />
