@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import { EVENT_UNDO_REDO, triggerCanvasEvent } from "../GraphCanvas/events";
 import {
   changedState,
   diagramsState,
@@ -51,6 +52,9 @@ export function useUndo(serviceId: number) {
     setX6Edges(snapshot.x6Edges);
     setSelectedDiagram(snapshot.selectedDiagram);
     setSelectedElement(snapshot.selectedElement);
+    triggerCanvasEvent({
+      name: EVENT_UNDO_REDO,
+    });
   }, [
     diagrams,
     entities,

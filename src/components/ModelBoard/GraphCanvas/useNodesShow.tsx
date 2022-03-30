@@ -116,8 +116,6 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
         //Update by diff
         if (!_.isEqual(data, grahpNode.data)) {
           grahpNode.replaceData(data);
-          graph?.removeCell(grahpNode.id);
-          graph?.addCell(grahpNode);
         }
         if (
           node.x !== grahpNode.getPosition().x ||

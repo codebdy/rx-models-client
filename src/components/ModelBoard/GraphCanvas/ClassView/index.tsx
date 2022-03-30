@@ -37,8 +37,10 @@ import { CONST_ID } from "components/ModelBoard/meta/Meta";
 import { canStartLink } from "../canStartLink";
 import { green } from "@mui/material/colors";
 import {
+  EVENT_CLASS_CHANGED,
   EVENT_PREPARE_LINK_TO,
   EVENT_PRESSED_LINE_TYPE,
+  EVENT_UNDO_REDO,
   offCanvasEvent,
   onCanvasEvent,
 } from "../events";
@@ -131,15 +133,39 @@ export const ClassView = memo(
         setPressedLineType(newData);
       }
     }, []);
+    const handleNodeChanged = useCallback(
+      (event: Event) => {
+        const newData = (event as CustomEvent).detail;
+        if (mountRef.current && newData.uuid === data?.id) {
+          setData({ ...data, ...newData });
+        }
+      },
+      [data]
+    );
+
+    const handleUndoRedo = useCallback((event: Event) => {
+      if (mountRef.current) {
+        setData((data) => ({ ...data } as any));
+      }
+    }, []);
 
     useEffect(() => {
       onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
       onCanvasEvent(EVENT_PRESSED_LINE_TYPE, pressedLineTypeChanged);
+      onCanvasEvent(EVENT_CLASS_CHANGED, handleNodeChanged);
+      onCanvasEvent(EVENT_UNDO_REDO, handleUndoRedo);
       return () => {
         offCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
         offCanvasEvent(EVENT_PRESSED_LINE_TYPE, pressedLineTypeChanged);
+        offCanvasEvent(EVENT_CLASS_CHANGED, handleNodeChanged);
+        offCanvasEvent(EVENT_UNDO_REDO, handleUndoRedo);
       };
-    }, [handleChangePrepareToLink, pressedLineTypeChanged]);
+    }, [
+      handleChangePrepareToLink,
+      handleNodeChanged,
+      handleUndoRedo,
+      pressedLineTypeChanged,
+    ]);
 
     const canLinkFrom = useMemo(
       () => data && pressedLineType && canStartLink(pressedLineType, data),
