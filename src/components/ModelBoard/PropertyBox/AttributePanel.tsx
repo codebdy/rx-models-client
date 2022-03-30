@@ -4,7 +4,7 @@ import { FormControlLabel, Grid, Switch } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { AttributeMeta } from "../meta/AttributeMeta";
 import { ValueType } from "../meta/ValueType";
-import { ClassMeta } from "../meta/ClassMeta";
+import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { useChangeAttribute } from "../hooks/useChangeAttribute";
 import { useServiceId } from "../hooks/useServiceId";
 import { CONST_ID } from "../meta/Meta";
@@ -12,9 +12,9 @@ import { TypeInput } from "./TypeInput";
 
 export const AttributePanel = (props: {
   attribute: AttributeMeta;
-  entity: ClassMeta;
+  cls: ClassMeta;
 }) => {
-  const { attribute, entity } = props;
+  const { attribute, cls } = props;
   const serviceId = useServiceId();
   const changeAttribute = useChangeAttribute(serviceId);
 
@@ -25,10 +25,10 @@ export const AttributePanel = (props: {
           ...attribute,
           [prop]: event.target.value.trim(),
         },
-        entity
+        cls
       );
     },
-    [changeAttribute, attribute, entity]
+    [changeAttribute, attribute, cls]
   );
 
   //默认值以后要改成一个单独控件
@@ -39,10 +39,10 @@ export const AttributePanel = (props: {
           ...attribute,
           default: event.target.value === "" ? undefined : event.target.value,
         },
-        entity
+        cls
       );
     },
-    [changeAttribute, attribute, entity]
+    [changeAttribute, attribute, cls]
   );
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
@@ -55,10 +55,10 @@ export const AttributePanel = (props: {
           nullable: attribute.nullable,
           typeUuid: undefined,
         },
-        entity
+        cls
       );
     },
-    [changeAttribute, attribute, entity]
+    [changeAttribute, attribute, cls]
   );
 
   const handleValueObjectChange = useCallback(
@@ -68,10 +68,10 @@ export const AttributePanel = (props: {
           ...attribute,
           typeUuid: uuid,
         },
-        entity
+        cls
       );
     },
-    [changeAttribute, attribute, entity]
+    [changeAttribute, attribute, cls]
   );
 
   const handleBooleanChange = useCallback(
@@ -81,10 +81,10 @@ export const AttributePanel = (props: {
           ...attribute,
           [prop]: event.target.checked,
         },
-        entity
+        cls
       );
     },
-    [changeAttribute, attribute, entity]
+    [changeAttribute, attribute, cls]
   );
 
   const handleSelectChange = useCallback(
@@ -95,10 +95,10 @@ export const AttributePanel = (props: {
           ...attribute,
           select: value,
         },
-        entity
+        cls
       );
     },
-    [changeAttribute, attribute, entity]
+    [changeAttribute, attribute, cls]
   );
 
   const isId = useMemo(() => attribute.name === CONST_ID, [attribute.name]);
@@ -112,142 +112,147 @@ export const AttributePanel = (props: {
           disabled={isId}
         />
       </Grid>
-      <TypeInput
-        valueType={attribute.type}
-        typeUuid={attribute.typeUuid}
-        onTypeChange={handleTypeChange}
-        onTypeUuidChange={handleValueObjectChange}
-        disabled={isId}
-      />
-      {!isId && (
-        <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={attribute.nullable || false}
-                onChange={handleBooleanChange("nullable")}
-                color="primary"
-              />
-            }
-            label={intl.get("nullable")}
-          />
-        </Grid>
-      )}
-      {!isId && (
-        <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={attribute.unique || false}
-                onChange={handleBooleanChange("unique")}
-                color="primary"
-              />
-            }
-            label={intl.get("unique")}
-          />
-        </Grid>
-      )}
-      {!isId && (
-        <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={attribute.index || false}
-                onChange={handleBooleanChange("index")}
-                color="primary"
-              />
-            }
-            label={intl.get("index")}
-          />
-        </Grid>
-      )}
 
-      {attribute.type === ValueType.Date && (
-        <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={attribute.createDate || false}
-                onChange={handleBooleanChange("createDate")}
-                color="primary"
-              />
-            }
-            label={intl.get("create-date")}
+      {cls.stereoType !== StereoType.Enum && (
+        <>
+          <TypeInput
+            valueType={attribute.type}
+            typeUuid={attribute.typeUuid}
+            onTypeChange={handleTypeChange}
+            onTypeUuidChange={handleValueObjectChange}
+            disabled={isId}
           />
-        </Grid>
-      )}
-      {attribute.type === ValueType.Date && (
-        <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={attribute.updateDate || false}
-                onChange={handleBooleanChange("updateDate")}
-                color="primary"
+          {!isId && (
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={attribute.nullable || false}
+                    onChange={handleBooleanChange("nullable")}
+                    color="primary"
+                  />
+                }
+                label={intl.get("nullable")}
               />
-            }
-            label={intl.get("update-date")}
-          />
-        </Grid>
-      )}
-      {attribute.type === ValueType.Date && (
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={attribute.deleteDate || false}
-                onChange={handleBooleanChange("deleteDate")}
-                color="primary"
+            </Grid>
+          )}
+          {!isId && (
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={attribute.unique || false}
+                    onChange={handleBooleanChange("unique")}
+                    color="primary"
+                  />
+                }
+                label={intl.get("unique")}
               />
-            }
-            label={intl.get("delete-date")}
-          />
-        </Grid>
-      )}
-      {!isId && (
-        <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={attribute.select === false ? true : false}
-                onChange={handleSelectChange}
-                color="primary"
+            </Grid>
+          )}
+          {!isId && (
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={attribute.index || false}
+                    onChange={handleBooleanChange("index")}
+                    color="primary"
+                  />
+                }
+                label={intl.get("index")}
               />
-            }
-            label={intl.get("hide-field")}
-          />
-        </Grid>
-      )}
+            </Grid>
+          )}
 
-      {!isId && (
-        <Grid item xs={12}>
-          <LazyTextField
-            label={intl.get("default-value")}
-            value={attribute.default || ""}
-            onChange={handleDefaultChange}
-          />
-        </Grid>
-      )}
+          {attribute.type === ValueType.Date && (
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={attribute.createDate || false}
+                    onChange={handleBooleanChange("createDate")}
+                    color="primary"
+                  />
+                }
+                label={intl.get("create-date")}
+              />
+            </Grid>
+          )}
+          {attribute.type === ValueType.Date && (
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={attribute.updateDate || false}
+                    onChange={handleBooleanChange("updateDate")}
+                    color="primary"
+                  />
+                }
+                label={intl.get("update-date")}
+              />
+            </Grid>
+          )}
+          {attribute.type === ValueType.Date && (
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={attribute.deleteDate || false}
+                    onChange={handleBooleanChange("deleteDate")}
+                    color="primary"
+                  />
+                }
+                label={intl.get("delete-date")}
+              />
+            </Grid>
+          )}
+          {!isId && (
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={attribute.select === false ? true : false}
+                    onChange={handleSelectChange}
+                    color="primary"
+                  />
+                }
+                label={intl.get("hide-field")}
+              />
+            </Grid>
+          )}
 
-      {!isId && attribute.type === ValueType.String && (
-        <Grid item xs={12}>
-          <LazyTextField
-            label={intl.get("length")}
-            value={attribute.default || ""}
-            onChange={handleStringChange("length")}
-          />
-        </Grid>
-      )}
+          {!isId && (
+            <Grid item xs={12}>
+              <LazyTextField
+                label={intl.get("default-value")}
+                value={attribute.default || ""}
+                onChange={handleDefaultChange}
+              />
+            </Grid>
+          )}
 
-      <Grid item xs={12}>
-        <LazyTextField
-          label={intl.get("description")}
-          value={attribute.description || ""}
-          multiline
-          rows={4}
-          onChange={handleStringChange("description")}
-        />
-      </Grid>
+          {!isId && attribute.type === ValueType.String && (
+            <Grid item xs={12}>
+              <LazyTextField
+                label={intl.get("length")}
+                value={attribute.default || ""}
+                onChange={handleStringChange("length")}
+              />
+            </Grid>
+          )}
+
+          <Grid item xs={12}>
+            <LazyTextField
+              label={intl.get("description")}
+              value={attribute.description || ""}
+              multiline
+              rows={4}
+              onChange={handleStringChange("description")}
+            />
+          </Grid>
+        </>
+      )}
     </>
   );
 };
