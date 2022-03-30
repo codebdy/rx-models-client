@@ -120,23 +120,23 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
     >
       <CategoryCollapse title={intl.get("class")} defaultOpen>
         <ToolItem onMouseDown={startDragFn(StereoType.Entity)}>
-          <ClassRect />
+          <ClassRect oneBorder={false} />
           {intl.get("entity-class")}
         </ToolItem>
         <ToolItem onMouseDown={startDragFn(StereoType.Abstract)}>
-          <ClassRect stereoType="A" />
+          <ClassRect stereoChar="A" oneBorder={false} />
           {intl.get("abstract-class")}
         </ToolItem>
         <ToolItem onMouseDown={startDragFn(StereoType.Enum)}>
-          <ClassRect stereoType="E" />
+          <ClassRect stereoChar="E" oneBorder={true} />
           {intl.get("enum")}
         </ToolItem>
         <ToolItem onMouseDown={startDragFn(StereoType.ValueObject)}>
-          <ClassRect stereoType="V" />
+          <ClassRect stereoChar="V" oneBorder={true} />
           {intl.get("value-object")}
         </ToolItem>
         <ToolItem onMouseDown={startDragFn(StereoType.Service)}>
-          <ClassRect stereoType="S" />
+          <ClassRect stereoChar="S" oneBorder={true} />
           {intl.get("service-class")}
         </ToolItem>
         <ToolItem
@@ -197,7 +197,7 @@ export const Toolbox = memo((props: { graph?: Graph }) => {
         <ToolItem
         // onMouseDown={startDragFn(StereoType.Association)}
         >
-          <ClassRect stereoType="R" />
+          <ClassRect stereoChar="R" oneBorder = {true} />
           {intl.get("association-class")}
         </ToolItem>
         <ToolItem
