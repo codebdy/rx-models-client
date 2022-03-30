@@ -3,10 +3,10 @@ import { createId } from "util/createId";
 import { AttributeMeta } from "../meta/AttributeMeta";
 import { ValueType } from "../meta/ValueType";
 
-export function useCreateAttribute(){
+export function useCreateAttribute(prefix?: string) {
   const createName = useCallback((attributes: AttributeMeta[]) => {
     let index = 1;
-    const namePrefix = "newAttribute";
+    const namePrefix = prefix || "newAttribute";
     while (
       // eslint-disable-next-line no-loop-func
       attributes.find((attr) => attr.name === namePrefix + index)
@@ -21,7 +21,7 @@ export function useCreateAttribute(){
     };
 
     return attr;
-  }, []);
+  }, [prefix]);
 
   return createName;
 }

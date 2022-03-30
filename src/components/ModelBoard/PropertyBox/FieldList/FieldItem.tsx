@@ -23,8 +23,12 @@ export interface FieldMeta {
 }
 
 export const FieldItem = memo(
-  (props: { field: FieldMeta; withEntityType?: boolean }) => {
-    const { field, withEntityType } = props;
+  (props: {
+    field: FieldMeta;
+    withEntityType?: boolean;
+    onDelete: (uuid: string) => void;
+  }) => {
+    const { field, withEntityType, onDelete } = props;
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
       null
     );
@@ -45,6 +49,10 @@ export const FieldItem = memo(
     const handleTypeChange = useCallback(() => {}, []);
 
     const handleTypeUuidChange = useCallback(() => {}, []);
+
+    const handleDelete = useCallback(() => {
+      onDelete(field.uuid);
+    }, [field.uuid, onDelete]);
 
     return (
       <Box
@@ -69,7 +77,7 @@ export const FieldItem = memo(
           <IconButton size="small" onClick={handleClick}>
             <ModeEditIcon fontSize="small" />
           </IconButton>
-          <IconButton size="small">
+          <IconButton size="small" onClick={handleDelete}>
             <DeleteOutlineIcon fontSize="small" />
           </IconButton>
         </Box>

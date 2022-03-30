@@ -3,6 +3,7 @@ import { memo, useCallback } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import intl from "react-intl-universal";
 import { FieldItem, FieldMeta } from "./FieldItem";
+import { useCreateAttribute } from "components/ModelBoard/hooks/useCreateAttribute";
 
 export const FieldList = memo(
   (props: {
@@ -10,11 +11,20 @@ export const FieldList = memo(
     withEntityType?: boolean;
     onChange: (fields: FieldMeta[]) => void;
   }) => {
-    const { fields, withEntityType } = props;
+    const { fields, withEntityType, onChange } = props;
+    const createAttribute = useCreateAttribute();
 
     const handleAdd = useCallback(() => {
-      
-    }, []);
+      const attr = createAttribute(fields);
+      onChange([...fields, attr]);
+    }, [createAttribute, fields, onChange]);
+
+    const handleDelete = useCallback(
+      (uuid: string) => {
+        onChange(fields.filter((fd) => fd.uuid !== uuid));
+      },
+      [fields, onChange]
+    );
 
     return (
       <Grid container item xs={12} spacing={2} sx={{ pb: 4 }}>
@@ -40,6 +50,7 @@ export const FieldList = memo(
               key={field.uuid}
               field={field}
               withEntityType={withEntityType}
+              onDelete={handleDelete}
             />
           );
         })}
