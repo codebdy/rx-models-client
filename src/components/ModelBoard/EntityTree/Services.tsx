@@ -10,13 +10,14 @@ import { ClassNode } from "./ClassNode";
 import intl from "react-intl-universal";
 import { memo } from "react";
 import { Graph } from "@antv/x6";
+import { useServices } from "../hooks/useServices";
 
 export const Services = memo((props: { graph?: Graph }) => {
   const { graph } = props;
   const serviceId = useServiceId();
-  const entities = useRecoilValue(classesState(serviceId));
+  const services = useServices(serviceId);
 
-  return entities.length > 0 ? (
+  return services.length > 0 ? (
     <TreeItem
       nodeId={TREE_ROOT_ID + "SERVICES"}
       label={
@@ -26,7 +27,7 @@ export const Services = memo((props: { graph?: Graph }) => {
         </TreeNodeLabel>
       }
     >
-      {entities.map((entity) => {
+      {services.map((entity) => {
         return <ClassNode key={entity.uuid} uuid={entity.uuid} graph={graph} />;
       })}
     </TreeItem>
