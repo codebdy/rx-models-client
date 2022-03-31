@@ -211,5 +211,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     drawingLine,
     handelDeleteClass,
     handleMethodCreate,
+    handleMethodSelect,
+    handleMothodDelete,
   ]);
 }
