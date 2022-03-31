@@ -92,7 +92,7 @@ export default function MethodView(props: {
             marginLeft: "3px",
           }}
         >
-          {method.name}
+          {method.name}()
         </Typography>
         :
         <Typography

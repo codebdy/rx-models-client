@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { memo, useCallback } from "react";
 import intl from "react-intl-universal";
+import { useEntities } from "../hooks/useEntities";
 import { useEnums } from "../hooks/useEnums";
 import { useServiceId } from "../hooks/useServiceId";
 import { useValueObjects } from "../hooks/useValueObjects";
@@ -22,10 +23,18 @@ export const TypeInput = memo(
     onTypeChange: (valueType: ValueType) => void;
     onTypeUuidChange: (typeUuid: string) => void;
   }) => {
-    const { disabled, valueType, typeUuid, withEntityType, onTypeChange, onTypeUuidChange } = props;
+    const {
+      disabled,
+      valueType,
+      typeUuid,
+      withEntityType,
+      onTypeChange,
+      onTypeUuidChange,
+    } = props;
     const serviceId = useServiceId();
     const enums = useEnums(serviceId);
     const valueObjects = useValueObjects(serviceId);
+    const entities = useEntities(serviceId);
     const handleTypeChange = useCallback(
       (event: SelectChangeEvent<ValueType>) => {
         const type = event.target.value as any;
@@ -34,9 +43,9 @@ export const TypeInput = memo(
       [onTypeChange]
     );
 
-    const handleValueObjectChange = useCallback(
+    const handleTypeUuidChange = useCallback(
       (event: SelectChangeEvent<string>) => {
-        onTypeUuidChange(event.target.value)
+        onTypeUuidChange(event.target.value);
       },
       [onTypeUuidChange]
     );
@@ -66,6 +75,11 @@ export const TypeInput = memo(
               <MenuItem value={ValueType.ValueObject}>
                 {intl.get("value-object")}
               </MenuItem>
+              {withEntityType && (
+                <MenuItem value={ValueType.Entity}>
+                  {intl.get("entity")}
+                </MenuItem>
+              )}
               <MenuItem value={ValueType.IDArray}>
                 ID {intl.get("array")}
               </MenuItem>
@@ -89,6 +103,12 @@ export const TypeInput = memo(
                 {intl.get("value-object")}
                 {intl.get("array")}
               </MenuItem>
+              {withEntityType && (
+                <MenuItem value={ValueType.EntityArray}>
+                  {intl.get("entity")}
+                  {intl.get("array")}
+                </MenuItem>
+              )}
             </Select>
           </FormControl>
         </Grid>
@@ -104,7 +124,7 @@ export const TypeInput = memo(
               <InputLabel>{intl.get("enum-class")}</InputLabel>
               <Select
                 value={typeUuid || ""}
-                onChange={handleValueObjectChange}
+                onChange={handleTypeUuidChange}
                 label={intl.get("enum-class")}
               >
                 {enums.map((enumEntity) => {
@@ -130,7 +150,7 @@ export const TypeInput = memo(
               <InputLabel>{intl.get("value-object")}</InputLabel>
               <Select
                 value={typeUuid || ""}
-                onChange={handleValueObjectChange}
+                onChange={handleTypeUuidChange}
                 label={intl.get("value-object")}
               >
                 {valueObjects.map((interfaceEntity) => {
@@ -140,6 +160,35 @@ export const TypeInput = memo(
                       value={interfaceEntity.uuid}
                     >
                       {interfaceEntity.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+        )}
+        {(valueType === ValueType.Entity ||
+          valueType === ValueType.EntityArray) && (
+          <Grid item xs={12}>
+            <FormControl
+              variant="outlined"
+              fullWidth
+              size="small"
+              disabled={disabled}
+            >
+              <InputLabel>{intl.get("entity-class")}</InputLabel>
+              <Select
+                value={typeUuid || ""}
+                onChange={handleTypeUuidChange}
+                label={intl.get("entity-class")}
+              >
+                {entities.map((entity) => {
+                  return (
+                    <MenuItem
+                      key={entity.uuid}
+                      value={entity.uuid}
+                    >
+                      {entity.name}
                     </MenuItem>
                   );
                 })}

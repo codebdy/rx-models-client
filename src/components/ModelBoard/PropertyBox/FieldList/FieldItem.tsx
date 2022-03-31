@@ -67,13 +67,13 @@ export const FieldItem = memo(
         if (
           field.type === ValueType.Enum ||
           field.type === ValueType.ValueObject ||
-          field.type === ValueType.ClassType
+          field.type === ValueType.Entity
         ) {
           return cls.name;
         } else if (
           field.type === ValueType.EnumArray ||
           field.type === ValueType.ValueObjectArray ||
-          field.type === ValueType.ClassTypeArray
+          field.type === ValueType.EntityArray
         ) {
           return `${cls.name}[]`;
         }

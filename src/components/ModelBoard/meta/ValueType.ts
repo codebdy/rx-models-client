@@ -10,7 +10,7 @@ export enum ValueType {
   Date = "Date",
   Enum = "Enum",
   ValueObject = "ValueObject",
-  ClassType = "ClassType",
+  Entity = "Entity",
   
   IDArray = "ID[]",
   IntArray = "Int[]",
@@ -19,5 +19,5 @@ export enum ValueType {
   DateArray = "Date[]",
   EnumArray = "EnumArray",
   ValueObjectArray = "ValueObjectArray",
-  ClassTypeArray = "ClassTypeArray",
+  EntityArray = "EntityArray",
 }

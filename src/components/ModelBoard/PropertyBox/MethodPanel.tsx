@@ -1,13 +1,11 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import intl from "react-intl-universal";
-import { FormControlLabel, Grid, Switch } from "@mui/material";
+import { Grid } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { MethodMeta } from "../meta/MethodMeta";
 import { ValueType } from "../meta/ValueType";
-import { ClassMeta, StereoType } from "../meta/ClassMeta";
-import { useChangeAttribute } from "../hooks/useChangeAttribute";
+import { ClassMeta } from "../meta/ClassMeta";
 import { useServiceId } from "../hooks/useServiceId";
-import { CONST_ID } from "../meta/Meta";
 import { TypeInput } from "./TypeInput";
 import { useChangeMethod } from "../hooks/useChangeMethod";
 
@@ -70,7 +68,6 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
     [changeMethod, method, cls]
   );
 
-  const isId = useMemo(() => method.name === CONST_ID, [method.name]);
   return (
     <>
       <Grid item xs={12}>
@@ -78,7 +75,6 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
           label={intl.get("name")}
           value={method.name || ""}
           onChange={handleStringChange("name")}
-          disabled={isId}
         />
       </Grid>
 
@@ -87,7 +83,7 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         typeUuid={method.typeUuid}
         onTypeChange={handleTypeChange}
         onTypeUuidChange={handleValueObjectChange}
-        disabled={isId}
+        withEntityType={true}
       />
     </>
   );
