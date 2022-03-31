@@ -114,7 +114,7 @@ export default function AttributeView(props: {
                 marginLeft: "5px",
               }}
             >
-              {attr.type}
+              {attr.typeLabel}
             </Typography>
           </>
         )}

@@ -15,13 +15,14 @@ import intl from "react-intl-universal";
 import { TypeInput } from "../TypeInput";
 import { ValueType } from "components/ModelBoard/meta/ValueType";
 import { useServiceId } from "components/ModelBoard/hooks/useServiceId";
-import { useGetClass } from "components/ModelBoard/hooks/useGetClass";
+import { useGetTypeName } from "components/ModelBoard/hooks/useGetTypeName";
 
 export interface FieldMeta {
   name: string;
   uuid: string;
   type: ValueType;
   typeUuid?: string;
+  typeLabel: string;
 }
 
 export const FieldItem = memo(
@@ -42,43 +43,11 @@ export const FieldItem = memo(
     }, [field]);
 
     const serviceId = useServiceId();
-    const getClass = useGetClass(serviceId);
+    const getTypeName = useGetTypeName(serviceId);
 
     const typeName = useMemo(() => {
-      if (
-        field.type === ValueType.ID ||
-        field.type === ValueType.Boolean ||
-        field.type === ValueType.Int ||
-        field.type === ValueType.Float ||
-        field.type === ValueType.String ||
-        field.type === ValueType.Date ||
-        field.type === ValueType.IDArray ||
-        field.type === ValueType.IntArray ||
-        field.type === ValueType.FloatArray ||
-        field.type === ValueType.StringArray ||
-        field.type === ValueType.DateArray
-      ) {
-        return field.type;
-      } else {
-        const cls = getClass(field.typeUuid || "");
-        if (!cls) {
-          return "";
-        }
-        if (
-          field.type === ValueType.Enum ||
-          field.type === ValueType.ValueObject ||
-          field.type === ValueType.Entity
-        ) {
-          return cls.name;
-        } else if (
-          field.type === ValueType.EnumArray ||
-          field.type === ValueType.ValueObjectArray ||
-          field.type === ValueType.EntityArray
-        ) {
-          return `${cls.name}[]`;
-        }
-      }
-    }, [field.type, field.typeUuid, getClass]);
+      return getTypeName(type, typeUuid);
+    }, [getTypeName, type, typeUuid]);
 
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
       null

@@ -17,6 +17,7 @@ import { useBackupSnapshot } from "../hooks/useBackupSnapshot";
 import { useSetRecoilState } from "recoil";
 import { classesState, selectedDiagramState } from "../recoil/atoms";
 import { useServiceId } from "../hooks/useServiceId";
+import { StereoType } from "../meta/ClassMeta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,7 +39,7 @@ export default function LocalModelAction(props: {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
-  const serviceId = useServiceId()
+  const serviceId = useServiceId();
   const createNewEntity = useCreateNewClass(serviceId);
   const createNewDiagram = useCreateNewDiagram(serviceId);
   const setEntities = useSetRecoilState(classesState(serviceId));
@@ -57,7 +58,7 @@ export default function LocalModelAction(props: {
 
   const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
     backupSnapshot();
-    const newEntity = createNewEntity();
+    const newEntity = createNewEntity(StereoType.Entity);
     setEntities((entities) => [...entities, newEntity]);
     setAnchorEl(null);
     event.stopPropagation();

@@ -7,7 +7,7 @@ export function useCreateTempClassNodeForNew(serviceId: number) {
   const creatNewClassMeta = useCreateNewClass(serviceId);
   const createTempClassNodeForNew = useCallback(
     (stereoType: StereoType) => {
-      const classMeta = creatNewClassMeta();
+      const classMeta = creatNewClassMeta(stereoType);
       if (
         stereoType === StereoType.ValueObject ||
         stereoType === StereoType.Service ||
@@ -22,7 +22,6 @@ export function useCreateTempClassNodeForNew(serviceId: number) {
         shape: "react-shape",
         data: {
           ...classMeta,
-          stereoType,
           root: stereoType === StereoType.Service,
           isTempForNew: true,
         },

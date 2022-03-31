@@ -17,7 +17,6 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { ClassView } from "../GraphCanvas/ClassView";
 import { NODE_INIT_SIZE } from "../GraphCanvas/nodeInitSize";
 import { useDeleteClass } from "../hooks/useDeleteClass";
-import { useChangeClass } from "../hooks/useChangeClass";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { useServiceId } from "../hooks/useServiceId";
 const { Dnd } = Addon;
@@ -25,23 +24,22 @@ const { Dnd } = Addon;
 export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
   const { uuid, graph } = props;
   const [dnd, setDnd] = React.useState<any>();
-  const serviceId = useServiceId()
+  const serviceId = useServiceId();
   const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
-  const entity = useClass(uuid, serviceId);
+  const cls = useClass(uuid, serviceId);
   const sourceRelations = useSourceRelations(uuid, serviceId);
   const targetRelations = useTargetRelations(uuid, serviceId);
   const deleteEntity = useDeleteClass(serviceId);
-  const changeEntity = useChangeClass(serviceId);
-  const createColumn = useCreateClassAttribute();
-  const theme = useTheme()
+  const createAttribute = useCreateClassAttribute(serviceId);
+  const theme = useTheme();
   //解决不能拖放的bug
   const ref = useCallback((elt: Element) => {
-    elt?.addEventListener('focusin', (e) => {
+    elt?.addEventListener("focusin", (e) => {
       // Disable Treeview focus system which make draggable on TreeIten unusable
       // see https://github.com/mui-org/material-ui/issues/29518
       e.stopImmediatePropagation();
-    })
-  }, [])
+    });
+  }, []);
 
   useEffect(() => {
     const theDnd = graph
@@ -61,15 +59,15 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
       }
       const node = graph.createNode({
         ...NODE_INIT_SIZE,
-        height: 70 + (entity?.attributes.length || 0) * 26,
+        height: 70 + (cls?.attributes.length || 0) * 26,
         isTempForDrag: true,
         shape: "react-shape",
         component: <ClassView />,
-        data: { ...entity, isTempForDrag: true },
+        data: { ...cls, isTempForDrag: true },
       });
       dnd?.start(node, e.nativeEvent as any);
     },
-    [dnd, entity, graph]
+    [dnd, cls, graph]
   );
 
   const handleClick = useCallback(
@@ -95,12 +93,15 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
     [deleteEntity, uuid]
   );
 
-  const handlePlusColumn = useCallback((event: React.MouseEvent) => {
-    if (entity) {
-      changeEntity(createColumn(entity));
-    }
-    event.stopPropagation();
-  }, [changeEntity, createColumn, entity]);
+  const handlePlusColumn = useCallback(
+    (event: React.MouseEvent) => {
+      if (cls) {
+        createAttribute(cls);
+      }
+      event.stopPropagation();
+    },
+    [createAttribute, cls]
+  );
 
   // const inherits = allScouceRelation.filter(
   //   (relation) => relation.relationType === RelationType.INHERIT
@@ -131,20 +132,20 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
             M 1,11
             L 14,11
           "
-              stroke= {theme.palette.text.primary}
+              stroke={theme.palette.text.primary}
               strokeWidth="1"
               fill="transparent"
             ></path>
           </SvgIcon>
           <NodeText>
-            <div style={{ marginLeft: "-8px" }}>{entity?.name}</div>
+            <div style={{ marginLeft: "-8px" }}>{cls?.name}</div>
           </NodeText>
         </TreeNodeLabel>
       }
     >
-      {entity?.attributes?.length && (
+      {cls?.attributes?.length && (
         <TreeItem
-          nodeId={entity?.uuid + "columns"}
+          nodeId={cls?.uuid + "columns"}
           label={
             <TreeNodeLabel
               action={
@@ -157,16 +158,14 @@ export const ClassNode = memo((props: { uuid: string; graph?: Graph }) => {
             </TreeNodeLabel>
           }
         >
-          {entity?.attributes.map((column) => {
-            return (
-              <AttributeNode key={column.uuid} attribute={column} />
-            );
+          {cls?.attributes.map((column) => {
+            return <AttributeNode key={column.uuid} attribute={column} />;
           })}
         </TreeItem>
       )}
       {(sourceRelations.length > 0 || targetRelations.length > 0) && (
         <TreeItem
-          nodeId={(entity?.uuid || "") + "relations"}
+          nodeId={(cls?.uuid || "") + "relations"}
           label={
             <TreeNodeLabel>
               <NodeText>{intl.get("relations")}</NodeText>

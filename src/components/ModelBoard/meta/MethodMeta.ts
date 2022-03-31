@@ -5,6 +5,10 @@ export interface ArgMeta {
   name: string;
   type: ValueType;
   typeUuid?: string;
+  /**
+   * 渲染图形元素用的label，其他地方毫无用处
+   */
+  typeLabel: string;
 }
 
 export interface MethodMeta {
@@ -29,4 +33,9 @@ export interface MethodMeta {
   typeUuid?: string;
 
   args: ArgMeta[];
+
+  /**
+   * 渲染图形元素用的label，其他地方毫无用处
+   */
+  typeLabel: string;
 }

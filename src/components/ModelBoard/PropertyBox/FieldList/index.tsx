@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import intl from "react-intl-universal";
 import { FieldItem, FieldMeta } from "./FieldItem";
 import { useCreateAttribute } from "components/ModelBoard/hooks/useCreateAttribute";
+import { useServiceId } from "components/ModelBoard/hooks/useServiceId";
 
 export const FieldList = memo(
   (props: {
@@ -12,7 +13,8 @@ export const FieldList = memo(
     onChange: (fields: FieldMeta[]) => void;
   }) => {
     const { fields, withEntityType, onChange } = props;
-    const createAttribute = useCreateAttribute();
+    const serviceId = useServiceId();
+    const createAttribute = useCreateAttribute(serviceId);
 
     const handleAdd = useCallback(() => {
       const attr = createAttribute(fields);

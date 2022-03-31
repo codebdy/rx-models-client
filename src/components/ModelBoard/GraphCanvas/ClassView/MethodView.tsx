@@ -101,7 +101,7 @@ export default function MethodView(props: {
             marginLeft: "5px",
           }}
         >
-          {method.type}
+          {method.typeLabel}
         </Typography>
       </Box>
       {hover && (

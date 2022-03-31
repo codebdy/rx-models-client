@@ -20,25 +20,34 @@ export function useCreateNewClass(serviceId: number) {
     return prefix + index;
   }, [getClassByName]);
 
-  const createNewClass = useCallback(() => {
-    const newClass:ClassMeta = {
-      uuid: createId(),
-      innerId: createInnerId(),
-      name: getNewClassName(),
-      stereoType: StereoType.Entity,
-      attributes: [
-        {
-          uuid: createId(),
-          name: CONST_ID,
-          type: ValueType.ID,
-          primary: true,
-        },
-      ],
-      methods:[]
-    };
-    //setEntities((entites) => [...entites, newEntity]);
-    return newClass;
-  }, [createInnerId, getNewClassName]);
+  const createNewClass = useCallback(
+    (stereoType: StereoType) => {
+      const newClass: ClassMeta = {
+        uuid: createId(),
+        innerId: createInnerId(),
+        name: getNewClassName(),
+        stereoType: stereoType,
+        attributes:
+          stereoType === StereoType.Enum ||
+          stereoType === StereoType.ValueObject ||
+          stereoType === StereoType.Service
+            ? []
+            : [
+                {
+                  uuid: createId(),
+                  name: CONST_ID,
+                  type: ValueType.ID,
+                  primary: true,
+                  typeLabel: ValueType.ID,
+                },
+              ],
+        methods: [],
+      };
+      //setEntities((entites) => [...entites, newEntity]);
+      return newClass;
+    },
+    [createInnerId, getNewClassName]
+  );
 
   return createNewClass;
 }

@@ -36,8 +36,8 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const pressedLineType = useRecoilValue(pressedLineTypeState(serviceId));
   const getParentUuid = useGetParentUuid(serviceId);
   const changeClass = useChangeClass(serviceId);
-  const createAttribute = useCreateClassAttribute();
-  const createMethod = useCreateClassMethod();
+  const createAttribute = useCreateClassAttribute(serviceId);
+  const createMethod = useCreateClassMethod(serviceId);
   const themeMode = useRecoilValue(themeModeState);
   const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const getClassRef = useRef(getClass);
@@ -103,7 +103,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
       console.error("Class not exist: " + classUuid);
       return;
     }
-    changeClassRef.current(createAttributeRef.current(cls));
+    createAttributeRef.current(cls);
   }, []);
 
   const handleMethodCreate = useCallback((classUuid: string) => {
@@ -112,7 +112,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
       console.error("Class not exist: " + classUuid);
       return;
     }
-    changeClassRef.current(createMothodRef.current(cls));
+    createMothodRef.current(cls);
   }, []);
 
   const handleHideClass = useCallback(
