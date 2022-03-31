@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { IconButton, SvgIcon, useTheme } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
@@ -101,12 +101,19 @@ export const ClassNode = memo(
       [createAttribute, cls]
     );
 
+    const color = useMemo(() => {
+      return cls?.root
+        ? theme.palette.primary.main
+        : theme.palette.text.primary;
+    }, [cls?.root, theme.palette.primary.main, theme.palette.text.primary]);
+
     return (
       <TreeItem
         nodeId={uuid}
         ref={ref}
         label={
           <TreeNodeLabel
+            color={color}
             action={
               <IconButton size="small" onClick={handleDelete}>
                 <DeleteOutlineOutlinedIcon fontSize="small" />
@@ -126,7 +133,7 @@ export const ClassNode = memo(
             M 1,11
             L 14,11
           "
-                stroke={theme.palette.text.primary}
+                stroke={color}
                 strokeWidth="1"
                 fill="transparent"
               ></path>

@@ -7,8 +7,9 @@ export function TreeNodeLabel(props: {
   action?: any;
   onClick?: (event: React.MouseEvent) => void;
   onDragStart?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  color?: string;
 }) {
-  const { action, children, onClick, onDragStart } = props;
+  const { action, children, onClick, onDragStart, color } = props;
   const [hover, setHover] = useState(false);
 
   return (
@@ -19,7 +20,7 @@ export function TreeNodeLabel(props: {
         padding: "5px 0",
         position: "relative",
         userSelect: "none",
-        color: theme=>theme.palette.text.primary,
+        color: color || ((theme) => theme.palette.text.primary),
       }}
       onMouseOver={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

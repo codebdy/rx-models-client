@@ -115,13 +115,13 @@ export const ModelTreeView = memo((props: { graph?: Graph }) => {
             </TreeNodeLabel>
           }
         >
-          <Entities graph={graph}/>
-          <Enums graph={graph}/>
-          <ValueObjects graph={graph}/>
-          <Services graph={graph}/>
           {diagrams.map((diagram) => {
             return <DiagramNode key={diagram.uuid} diagram={diagram} />;
           })}
+          <Entities graph={graph} />
+          <Enums graph={graph} />
+          <ValueObjects graph={graph} />
+          <Services graph={graph} />
         </TreeItem>
         <TreeItem
           nodeId={TREE_ROOT_ID + 1}
