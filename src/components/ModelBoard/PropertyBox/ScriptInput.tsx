@@ -49,15 +49,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export function ScriptInput(
   props:{
     label: string,
-    value: any,
+    value: string,
     onChange: (value:any)=>void,
     title: string,
   }
 ) {
   const {label, value, onChange, title} = props;
   const [open, setOpen] = useState(false);
-  const [valueString, setValueString] = useState(JSON.stringify(value||{}, null, 2));
-  const [oldValue, setOldValue] = useState<any>();
+  const [valueString, setValueString] = useState(value);
+  const [oldValue, setOldValue] = useState<string>();
   const [error, setError] = useState('');
   const classes = useStyles();
   const theme = useTheme();
@@ -68,8 +68,8 @@ export function ScriptInput(
   }
 
   useEffect(()=>{
-    setValueString(JSON.stringify(value, null, 2));
-    setOldValue(JSON.stringify(value, null, 2));
+    setValueString(value);
+    setOldValue(value);
   }, [value])
 
   const handleEditorDidMount = (monaco: any)=>{
@@ -80,7 +80,7 @@ export function ScriptInput(
 
   const handleClose = ()=>{
     setOpen(false);
-    setValueString(JSON.stringify(value, null, 2));
+    setValueString(value);
     if(error){
       setError('');
     }
@@ -93,9 +93,7 @@ export function ScriptInput(
         handleClose();
         return;
       }
-
-      const newValue = JSON.parse(valueString);
-      onChange(newValue);
+      onChange(valueString);
       handleClose();
     }
     catch(error:any){

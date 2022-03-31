@@ -160,7 +160,7 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         <Grid item xs={12}>
           <ScriptInput
             label={intl.get("script")}
-            value={method.methodImplements}
+            value={method.methodImplements || ""}
             onChange={hangdleMethodImplementsChange}
             title={intl.get("edit-script")}
           />
