@@ -11,8 +11,9 @@ export const FieldList = memo(
     fields: FieldMeta[];
     withEntityType?: boolean;
     onChange: (fields: FieldMeta[]) => void;
+    title?: string;
   }) => {
-    const { fields, withEntityType, onChange } = props;
+    const { fields, withEntityType, onChange , title} = props;
     const serviceId = useServiceId();
     const createAttribute = useCreateAttribute(serviceId);
 
@@ -47,7 +48,7 @@ export const FieldList = memo(
           }}
         >
           <Typography sx={{ fontSize: "0.9rem" }}>
-            {intl.get("field-list")}
+            {title || intl.get("field-list")}
           </Typography>
           <IconButton size="small" onClick={handleAdd}>
             <AddIcon fontSize="small" />

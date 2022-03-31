@@ -2,20 +2,21 @@ import React, { useCallback } from "react";
 import intl from "react-intl-universal";
 import { Grid } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
-import { MethodMeta } from "../meta/MethodMeta";
+import { ArgMeta, MethodMeta } from "../meta/MethodMeta";
 import { ValueType } from "../meta/ValueType";
 import { ClassMeta } from "../meta/ClassMeta";
 import { useServiceId } from "../hooks/useServiceId";
 import { TypeInput } from "./TypeInput";
 import { useChangeMethod } from "../hooks/useChangeMethod";
 import { useGetTypeLabel } from "../hooks/useGetTypeLabel";
+import { FieldList } from "./FieldList";
 
 export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
   const { method, cls } = props;
   const serviceId = useServiceId();
   const changeMethod = useChangeMethod(serviceId);
   const getTypeLabel = useGetTypeLabel(serviceId);
-  
+
   const handleStringChange = useCallback(
     (prop: any) => (event: React.ChangeEvent<{ value: string }>) => {
       changeMethod(
@@ -59,17 +60,20 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
     [changeMethod, method, getTypeLabel, cls]
   );
 
-  const handleBooleanChange = useCallback(
-    (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleArgsChange = useCallback(
+    (args: ArgMeta[]) => {
       changeMethod(
         {
           ...method,
-          [prop]: event.target.checked,
+          args: args.map((arg) => ({
+            ...arg,
+            typeLabel: getTypeLabel(arg.type, arg.typeUuid),
+          })),
         },
         cls
       );
     },
-    [changeMethod, method, cls]
+    [changeMethod, cls, getTypeLabel, method]
   );
 
   return (
@@ -88,6 +92,12 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         onTypeChange={handleTypeChange}
         onTypeUuidChange={handleValueObjectChange}
         withEntityType={true}
+      />
+
+      <FieldList
+        fields={method.args || []}
+        onChange={handleArgsChange}
+        title={intl.get("arg-list")}
       />
     </>
   );

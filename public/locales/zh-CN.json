@@ -128,5 +128,6 @@
   "array":"数组",
   "multiplicity":"重数",
   "enable":"启用",
-  "field-list":"字段列表"
+  "field-list":"字段列表",
+  "arg-list":"参数类表"
 }

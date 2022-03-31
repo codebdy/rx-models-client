@@ -128,5 +128,6 @@
   "array":"Array",
   "multiplicity":"Multiplicity",
   "enable":"Enable",
-  "field-list":"Field list"
+  "field-list":"Field list",
+  "arg-list":"Arg list"
 }
