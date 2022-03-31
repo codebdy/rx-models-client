@@ -201,6 +201,19 @@ export const ClassView = memo(
       setAnchorEl(null);
     }, [node.id, onAttributeCreate]);
 
+    const handleMethodClick = useCallback(
+      (id: string) => {
+        onMethodSelect && onMethodSelect(id);
+      },
+      [onMethodSelect]
+    );
+
+    const handleMethodDelete = useCallback(
+      (id: string) => {
+        onMethodDelete && onMethodDelete(node.id, id);
+      },
+      [node.id, onMethodDelete]
+    );
     const handleMethodCreate = useCallback(() => {
       onMethodCreate && onMethodCreate(node.id);
       setAnchorEl(null);
@@ -472,8 +485,8 @@ export const ClassView = memo(
                         <MethodView
                           key={method.uuid}
                           method={method}
-                          onClick={handleAttributeClick}
-                          onDelete={handleAttributeDelete}
+                          onClick={handleMethodClick}
+                          onDelete={handleMethodDelete}
                         />
                       );
                     })}

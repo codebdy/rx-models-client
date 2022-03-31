@@ -21,6 +21,7 @@ import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { ClassNodeData } from "./ClassView/ClassNodeData";
 import { themeModeState } from "recoil/atoms";
 import { useDeleteClass } from "../hooks/useDeleteClass";
+import { useCreateClassMethod } from "../hooks/useCreateClassMethod";
 
 export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const selectedDiagram = useRecoilValue(selectedDiagramState(serviceId));
@@ -36,6 +37,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const getParentUuid = useGetParentUuid(serviceId);
   const changeClass = useChangeClass(serviceId);
   const createAttribute = useCreateClassAttribute();
+  const createMethod = useCreateClassMethod();
   const themeMode = useRecoilValue(themeModeState);
   const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const getClassRef = useRef(getClass);
@@ -48,6 +50,9 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const createAttributeRef = useRef(createAttribute);
   createAttributeRef.current = createAttribute;
 
+  const createMothodRef = useRef(createMethod);
+  createMothodRef.current = createMethod;
+
   const handleAttributeSelect = useCallback(
     (attrId: string) => {
       setSelectedElement(attrId);
@@ -59,7 +64,7 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     (classId: string, attrId: string) => {
       const cls = getClassRef.current(classId);
       if (!cls) {
-        console.error("Entity not exist: " + classId);
+        console.error("Class not exist: " + classId);
         return;
       }
       changeClassRef.current({
@@ -70,13 +75,44 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     []
   );
 
+  const handleMethodSelect = useCallback(
+    (methodId: string) => {
+      setSelectedElement(methodId);
+    },
+    [setSelectedElement]
+  );
+
+  const handleMothodDelete = useCallback(
+    (classId: string, methodId: string) => {
+      const cls = getClassRef.current(classId);
+      if (!cls) {
+        console.error("Class not exist: " + classId);
+        return;
+      }
+      changeClassRef.current({
+        ...cls,
+        methods: cls.methods.filter((cls) => cls.uuid !== methodId),
+      });
+    },
+    []
+  );
+
   const handleAttributeCreate = useCallback((classUuid: string) => {
     const cls = getClassRef.current(classUuid);
     if (!cls) {
-      console.error("Entity not exist: " + classUuid);
+      console.error("Class not exist: " + classUuid);
       return;
     }
     changeClassRef.current(createAttributeRef.current(cls));
+  }, []);
+
+  const handleMethodCreate = useCallback((classUuid: string) => {
+    const cls = getClassRef.current(classUuid);
+    if (!cls) {
+      console.error("Class not exist: " + classUuid);
+      return;
+    }
+    changeClassRef.current(createMothodRef.current(cls));
   }, []);
 
   const handleHideClass = useCallback(
@@ -136,6 +172,9 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
               onAttributeSelect={handleAttributeSelect}
               onAttributeDelete={handleAttributeDelete}
               onAttributeCreate={handleAttributeCreate}
+              onMethodSelect={handleMethodSelect}
+              onMethodDelete={handleMothodDelete}
+              onMethodCreate={handleMethodCreate}
               onDelete={handelDeleteClass}
               onHide={handleHideClass}
             />
@@ -171,5 +210,6 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     themeMode,
     drawingLine,
     handelDeleteClass,
+    handleMethodCreate,
   ]);
 }
