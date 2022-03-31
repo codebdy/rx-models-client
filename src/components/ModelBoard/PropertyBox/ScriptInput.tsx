@@ -141,7 +141,7 @@ export function ScriptInput(
           className = {classes.dialogContent}
         >
           <MonacoEditor
-            language="JavaScript"
+            language="javascript"
             theme={ theme.palette.mode === 'light' ? 'vs' : 'vs-dark'}
             value={ valueString }
             editorDidMount={handleEditorDidMount}
