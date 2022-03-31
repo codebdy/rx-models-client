@@ -11,6 +11,12 @@ export interface ArgMeta {
   typeLabel: string;
 }
 
+export enum MethodType {
+  Script = "Script",
+  CloudFunction = "Script",
+  MicroService = "MicroService"
+}
+
 export interface MethodMeta {
   /**
    * 唯一标识
@@ -38,4 +44,7 @@ export interface MethodMeta {
    * 渲染图形元素用的label，其他地方毫无用处
    */
   typeLabel: string;
+
+  methodType: MethodType;
+  typeJson?: any;
 }
