@@ -4,7 +4,7 @@ import { AttributeMeta } from "../meta/AttributeMeta";
 import { ValueType } from "../meta/ValueType";
 
 export function useCreateAttribute(prefix?: string) {
-  const createName = useCallback((attributes: AttributeMeta[]) => {
+  const createAttribute = useCallback((attributes: AttributeMeta[]) => {
     let index = 1;
     const namePrefix = prefix || "newAttribute";
     while (
@@ -23,5 +23,5 @@ export function useCreateAttribute(prefix?: string) {
     return attr;
   }, [prefix]);
 
-  return createName;
+  return createAttribute;
 }

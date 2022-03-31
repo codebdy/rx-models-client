@@ -6,17 +6,17 @@ import { useChangeClass } from "./useChangeClass";
 export function useChangeAttribute(serviceId: number) {
   const changeEntity = useChangeClass(serviceId);
 
-  const changeColumn = useCallback(
-    (column: AttributeMeta, entity: ClassMeta) => {
+  const changeAttribute = useCallback(
+    (attr: AttributeMeta, cls: ClassMeta) => {
       changeEntity({
-        ...entity,
-        attributes: entity.attributes.map((col) =>
-          col.uuid === column.uuid ? column : col
+        ...cls,
+        attributes: cls.attributes.map((col) =>
+          col.uuid === attr.uuid ? attr : col
         ),
       });
     },
     [changeEntity]
   );
 
-  return changeColumn;
+  return changeAttribute;
 }

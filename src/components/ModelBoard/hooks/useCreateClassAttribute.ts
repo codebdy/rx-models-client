@@ -4,10 +4,10 @@ import { useCreateAttribute } from "./useCreateAttribute";
 
 export function useCreateClassAttribute() {
   const createAttribute = useCreateAttribute()
-  const createClassAttribute = useCallback((entity: ClassMeta) => {
-    const attr = createAttribute(entity.attributes);
+  const createClassAttribute = useCallback((cls: ClassMeta) => {
+    const attr = createAttribute(cls.attributes);
 
-    return { ...entity, attributes: [...entity.attributes, attr] };
+    return { ...cls, attributes: [...cls.attributes, attr] };
   }, [createAttribute]);
 
   return createClassAttribute;
