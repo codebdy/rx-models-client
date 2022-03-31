@@ -46,5 +46,5 @@ export interface MethodMeta {
   typeLabel: string;
 
   implementType: MethodImplementType;
-  typeString?: string;
+  methodImplements?: string;
 }

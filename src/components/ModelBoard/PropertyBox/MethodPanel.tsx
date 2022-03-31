@@ -1,6 +1,13 @@
 import React, { useCallback } from "react";
 import intl from "react-intl-universal";
-import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { ArgMeta, MethodMeta, MethodImplementType } from "../meta/MethodMeta";
 import { ValueType } from "../meta/ValueType";
@@ -77,9 +84,31 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
     [changeMethod, cls, getTypeLabel, method]
   );
 
-  const handleMethodTypeChange = useCallback(() => {}, []);
+  const handleMethodTypeChange = useCallback(
+    (event: SelectChangeEvent<MethodImplementType>) => {
+      changeMethod(
+        {
+          ...method,
+          implementType: event.target.value as MethodImplementType,
+        },
+        cls
+      );
+    },
+    [changeMethod, cls, method]
+  );
 
-  const hangdleTypeStringChange = useCallback(() => {}, []);
+  const hangdleMethodImplementsChange = useCallback(
+    (value: any) => {
+      changeMethod(
+        {
+          ...method,
+          methodImplements: value,
+        },
+        cls
+      );
+    },
+    [changeMethod, cls, method]
+  );
 
   return (
     <>
@@ -131,8 +160,8 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         <Grid item xs={12}>
           <ScriptInput
             label={intl.get("script")}
-            value={method.typeString}
-            onChange={hangdleTypeStringChange}
+            value={method.methodImplements}
+            onChange={hangdleMethodImplementsChange}
             title={intl.get("edit-script")}
           />
         </Grid>
