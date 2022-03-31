@@ -69,12 +69,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ClassView = memo(
   (props: {
-    onAttributeSelect?: (columnId: string) => void;
-    onAttributeDelete?: (entityId: string, columnId: string) => void;
-    onAttributeCreate?: (entityId: string) => void;
-    onHide?: (entityId: string) => void;
-    onDeleteProperty?: (id: string) => void;
-    onAddProperty?: () => void;
+    onAttributeSelect?: (attrId: string) => void;
+    onAttributeDelete?: (clsId: string, attrId: string) => void;
+    onAttributeCreate?: (clsId: string) => void;
+    onMethodSelect?: (methodId: string) => void;
+    onMethodDelete?: (clsId: string, methodId: string) => void;
+    onMethodCreate?: (clsId: string) => void;
+    onHide?: (clsId: string) => void;
     onDelete?: (uuid: string) => void;
     node?: any;
   }) => {
@@ -84,6 +85,9 @@ export const ClassView = memo(
       onAttributeSelect,
       onAttributeDelete,
       onAttributeCreate,
+      onMethodSelect,
+      onMethodDelete,
+      onMethodCreate,
       onDelete,
       onHide,
     } = props;
@@ -196,6 +200,11 @@ export const ClassView = memo(
       onAttributeCreate && onAttributeCreate(node.id);
       setAnchorEl(null);
     }, [node.id, onAttributeCreate]);
+
+    const handleMethodCreate = useCallback(() => {
+      onMethodCreate && onMethodCreate(node.id);
+      setAnchorEl(null);
+    }, [node.id, onMethodCreate]);
 
     const handleMenuOpen = useCallback(
       (event: React.MouseEvent<HTMLElement>) => {
@@ -372,6 +381,7 @@ export const ClassView = memo(
                         data?.stereoType === StereoType.Enum ||
                         data?.stereoType === StereoType.ValueObject
                       }
+                      onClick={handleMethodCreate}
                     >
                       <SvgIcon fontSize="small">
                         <path
