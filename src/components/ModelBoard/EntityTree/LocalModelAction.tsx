@@ -53,21 +53,47 @@ export default function LocalModelAction(props: {
     event.stopPropagation();
   };
 
-  const addClass = useCallback((stereoType: StereoType) => {
-    backupSnapshot();
-    const newClass = createNewClass(stereoType);
-    setEntities((classes) => [...classes, newClass]);
-    setAnchorEl(null);
-  }, [backupSnapshot, createNewClass, setEntities]);
+  const addClass = useCallback(
+    (stereoType: StereoType) => {
+      backupSnapshot();
+      const newClass = createNewClass(stereoType);
+      setEntities((classes) => [...classes, newClass]);
+      setAnchorEl(null);
+    },
+    [backupSnapshot, createNewClass, setEntities]
+  );
 
   const handleAddEntity = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
-      addClass(StereoType.Entity)
+      addClass(StereoType.Entity);
       event.stopPropagation();
     },
     [addClass]
   );
 
+  const handleAddEnum = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      addClass(StereoType.Enum);
+      event.stopPropagation();
+    },
+    [addClass]
+  );
+
+  const handleAddValueObject = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      addClass(StereoType.ValueObject);
+      event.stopPropagation();
+    },
+    [addClass]
+  );
+
+  const handleAddService = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      addClass(StereoType.Service);
+      event.stopPropagation();
+    },
+    [addClass]
+  );
   const handleAddDiagram = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       backupSnapshot();
@@ -125,42 +151,6 @@ export default function LocalModelAction(props: {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleAddEntity}>
-          <SvgIcon fontSize="small">
-            <path
-              fill="currentColor"
-              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
-            />
-          </SvgIcon>
-          <span className={classes.text}>{intl.get("add-entity-class")} </span>
-        </MenuItem>
-        <MenuItem onClick={handleAddEntity}>
-          <SvgIcon fontSize="small">
-            <path
-              fill="currentColor"
-              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
-            />
-          </SvgIcon>
-          <span className={classes.text}>{intl.get("add-enum-class")} </span>
-        </MenuItem>
-        <MenuItem onClick={handleAddEntity}>
-          <SvgIcon fontSize="small">
-            <path
-              fill="currentColor"
-              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
-            />
-          </SvgIcon>
-          <span className={classes.text}>{intl.get("add-value-object")} </span>
-        </MenuItem>
-        <MenuItem onClick={handleAddEntity}>
-          <SvgIcon fontSize="small">
-            <path
-              fill="currentColor"
-              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
-            />
-          </SvgIcon>
-          <span className={classes.text}>{intl.get("add-service-class")} </span>
-        </MenuItem>
         <MenuItem onClick={handleAddDiagram}>
           <SvgIcon fontSize="small">
             <path
@@ -170,6 +160,43 @@ export default function LocalModelAction(props: {
           </SvgIcon>
           <span className={classes.text}>{intl.get("add-diagram")} </span>
         </MenuItem>
+        <MenuItem onClick={handleAddEntity}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-entity-class")} </span>
+        </MenuItem>
+        <MenuItem onClick={handleAddEnum}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-enum-class")} </span>
+        </MenuItem>
+        <MenuItem onClick={handleAddValueObject}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-value-object")} </span>
+        </MenuItem>
+        <MenuItem onClick={handleAddService}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-service-class")} </span>
+        </MenuItem>
+
         <Divider />
         <MenuItem onClick={handlePublish}>
           <SvgIcon fontSize="small">
