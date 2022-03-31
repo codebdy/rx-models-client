@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import intl from "react-intl-universal";
-import { Grid } from "@mui/material";
+import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
-import { ArgMeta, MethodMeta } from "../meta/MethodMeta";
+import { ArgMeta, MethodMeta, MethodImplementType } from "../meta/MethodMeta";
 import { ValueType } from "../meta/ValueType";
 import { ClassMeta } from "../meta/ClassMeta";
 import { useServiceId } from "../hooks/useServiceId";
@@ -76,6 +76,8 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
     [changeMethod, cls, getTypeLabel, method]
   );
 
+  const handleMethodTypeChange = useCallback(() => {}, []);
+
   return (
     <>
       <Grid item xs={12}>
@@ -100,6 +102,27 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         title={intl.get("arg-list")}
         prefix="arg"
       />
+
+      <Grid item xs={12}>
+        <FormControl variant="outlined" fullWidth size="small">
+          <InputLabel>{intl.get("implement-type")}</InputLabel>
+          <Select
+            value={method.implementType || MethodImplementType.Script}
+            onChange={handleMethodTypeChange}
+            label={intl.get("implement-type")}
+          >
+            <MenuItem value={MethodImplementType.Script}>
+              {intl.get("script")}
+            </MenuItem>
+            <MenuItem value={MethodImplementType.CloudFunction}>
+              {intl.get("cloud-function")}
+            </MenuItem>
+            <MenuItem value={MethodImplementType.MicroService}>
+              {intl.get("micro-service")}
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
     </>
   );
 };

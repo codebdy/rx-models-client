@@ -140,5 +140,9 @@
   "add-entity-class":"Add entity",
   "add-enum-class":"Add enum",
   "add-value-object":"Add value object",
-  "add-service-class":"Add service class"
+  "add-service-class":"Add service class",
+  "implement-type":"Implement type",
+  "script":"Script",
+  "cloud-function":"Cloud funcion",
+  "micro-service":"Micro service"
 }

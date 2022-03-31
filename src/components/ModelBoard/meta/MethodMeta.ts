@@ -11,7 +11,7 @@ export interface ArgMeta {
   typeLabel: string;
 }
 
-export enum MethodType {
+export enum MethodImplementType {
   Script = "Script",
   CloudFunction = "Script",
   MicroService = "MicroService"
@@ -45,6 +45,6 @@ export interface MethodMeta {
    */
   typeLabel: string;
 
-  methodType: MethodType;
+  implementType: MethodImplementType;
   typeJson?: any;
 }
