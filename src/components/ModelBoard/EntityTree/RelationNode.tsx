@@ -7,6 +7,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
 import { useServiceId } from "../hooks/useServiceId";
+import { useGetClass } from "../hooks/useGetClass";
 
 export const RelationNode = (props: {
   key?: string;
@@ -16,6 +17,7 @@ export const RelationNode = (props: {
   const { relation, isSource } = props;
   const serviceId = useServiceId();
   const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
+  const getClass = useGetClass(serviceId);
   const handleClick = () => {
     setSelectedElement(relation.uuid);
   };
@@ -45,7 +47,10 @@ export const RelationNode = (props: {
           </SvgIcon>
 
           <NodeText>
-            {isSource ? relation.roleOfTarget : relation.roleOfSource}
+            {isSource ? relation.roleOfTarget : relation.roleOfSource}:
+            {isSource
+              ? getClass(relation.targetId)?.name
+              : getClass(relation.sourceId)?.name}
           </NodeText>
         </TreeNodeLabel>
       }
