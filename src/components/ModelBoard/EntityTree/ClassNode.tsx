@@ -173,7 +173,7 @@ export const ClassNode = memo(
         )}
         {cls?.attributes?.length && (
           <TreeItem
-            nodeId={cls?.uuid + "columns"}
+            nodeId={cls?.uuid + "attributes"}
             label={
               <TreeNodeLabel
                 action={
@@ -186,8 +186,14 @@ export const ClassNode = memo(
               </TreeNodeLabel>
             }
           >
-            {cls?.attributes.map((column) => {
-              return <AttributeNode key={column.uuid} attribute={column} />;
+            {cls?.attributes.map((attr) => {
+              return (
+                <AttributeNode
+                  key={attr.uuid}
+                  attribute={attr}
+                  stereoType={cls.stereoType}
+                />
+              );
             })}
           </TreeItem>
         )}
