@@ -4,7 +4,6 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import {
@@ -45,6 +44,7 @@ import {
   onCanvasEvent,
 } from "../events";
 import { RelationType } from "components/ModelBoard/meta/RelationMeta";
+import { useMountRef } from "./useMountRef";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,20 +95,13 @@ export const ClassView = memo(
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [showLinkTo, setShowLinkTo] = React.useState(false);
     const isMenuOpen = Boolean(anchorEl);
-    const mountRef = useRef<boolean>(false);
+    const mountRef = useMountRef();
     const [data, setData] = useState<ClassNodeData>();
     const [pressedLineType, setPressedLineType] = useState<RelationType>();
 
     useEffect(() => {
       setData(node?.data);
     }, [node?.data]);
-
-    useEffect(() => {
-      mountRef.current = true;
-      return () => {
-        mountRef.current = false;
-      };
-    }, []);
 
     const theme = createTheme({
       palette: {
@@ -128,7 +121,7 @@ export const ClassView = memo(
           setShowLinkTo(showId === data?.id);
         }
       },
-      [data?.id]
+      [data?.id, mountRef]
     );
 
     const pressedLineTypeChanged = useCallback((event: Event) => {
@@ -136,23 +129,22 @@ export const ClassView = memo(
       if (mountRef.current) {
         setPressedLineType(newData);
       }
-    }, []);
+    }, [mountRef]);
     const handleNodeChanged = useCallback(
       (event: Event) => {
         const newData = (event as CustomEvent).detail;
         if (mountRef.current && newData.uuid === data?.id) {
-          console.log("哈哈", newData, newData.uuid, data?.id)
           setData({ ...data, ...newData });
         }
       },
-      [data]
+      [data, mountRef]
     );
 
     const handleUndoRedo = useCallback((event: Event) => {
       if (mountRef.current) {
         setData((data) => ({ ...data } as any));
       }
-    }, []);
+    }, [mountRef]);
 
     useEffect(() => {
       onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
