@@ -21,6 +21,7 @@ import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { useServiceId } from "../hooks/useServiceId";
 import { useFirstChildrenUuids } from "../hooks/useFirstChildrenUuids";
 import { MethodNode } from "./MethodNode";
+import { StereoType } from "../meta/ClassMeta";
 const { Dnd } = Addon;
 
 export const ClassNode = memo(
@@ -115,6 +116,7 @@ export const ClassNode = memo(
         label={
           <TreeNodeLabel
             color={color}
+            italic = {cls?.stereoType === StereoType.Abstract}
             action={
               <IconButton size="small" onClick={handleDelete}>
                 <DeleteOutlineOutlinedIcon fontSize="small" />

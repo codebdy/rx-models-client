@@ -124,12 +124,15 @@ export const ClassView = memo(
       [data?.id, mountRef]
     );
 
-    const pressedLineTypeChanged = useCallback((event: Event) => {
-      const newData = (event as CustomEvent).detail;
-      if (mountRef.current) {
-        setPressedLineType(newData);
-      }
-    }, [mountRef]);
+    const pressedLineTypeChanged = useCallback(
+      (event: Event) => {
+        const newData = (event as CustomEvent).detail;
+        if (mountRef.current) {
+          setPressedLineType(newData);
+        }
+      },
+      [mountRef]
+    );
     const handleNodeChanged = useCallback(
       (event: Event) => {
         const newData = (event as CustomEvent).detail;
@@ -140,11 +143,14 @@ export const ClassView = memo(
       [data, mountRef]
     );
 
-    const handleUndoRedo = useCallback((event: Event) => {
-      if (mountRef.current) {
-        setData((data) => ({ ...data } as any));
-      }
-    }, [mountRef]);
+    const handleUndoRedo = useCallback(
+      (event: Event) => {
+        if (mountRef.current) {
+          setData((data) => ({ ...data } as any));
+        }
+      },
+      [mountRef]
+    );
 
     useEffect(() => {
       onCanvasEvent(EVENT_PREPARE_LINK_TO, handleChangePrepareToLink);
@@ -301,6 +307,8 @@ export const ClassView = memo(
               color: data?.root
                 ? theme.palette.primary.main
                 : theme.palette.text.primary,
+              fontStyle:
+                data?.stereoType === StereoType.Abstract ? "italic" : undefined,
               overflow: "hidden",
             }}
           >
