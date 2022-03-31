@@ -2,14 +2,14 @@ import { useMemo } from "react";
 import { useRecoilValue } from "recoil";
 import { classesState } from "../recoil/atoms";
 
-export function useAttribute(uuid: string, serviceId: number) {
+export function useMethod(uuid: string, serviceId: number) {
   const classes = useRecoilValue(classesState(serviceId));
 
   const rt = useMemo(() => {
     for (const cls of classes) {
-      for (const attribute of cls.attributes) {
-        if (attribute.uuid === uuid) {
-          return { cls, attribute };
+      for (const method of cls.methods) {
+        if (method.uuid === uuid) {
+          return { cls, method };
         }
       }
     }

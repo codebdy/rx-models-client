@@ -13,12 +13,20 @@ import { useAttribute } from "../hooks/useAttribute";
 import { useRelation } from "../hooks/useRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
+import { useMethod } from "../hooks/useMethod";
 
 export const PropertyBox = () => {
   const serviceId = useServiceId();
   const selectedElement = useRecoilValue(selectedElementState(serviceId));
   const selectedEntity = useClass(selectedElement || "", serviceId);
-  const { cls, attribute } = useAttribute(selectedElement || "", serviceId);
+  const { cls: attributeCls, attribute } = useAttribute(
+    selectedElement || "",
+    serviceId
+  );
+  const { cls: methodCls, method } = useMethod(
+    selectedElement || "",
+    serviceId
+  );
   const relation = useRelation(selectedElement || "", serviceId);
   const scrollStyles = useScrollbarStyles(true);
 
@@ -45,8 +53,8 @@ export const PropertyBox = () => {
       >
         <Grid container spacing={2}>
           {selectedEntity && <ClassPanel cls={selectedEntity} />}
-          {attribute && cls && (
-            <AttributePanel attribute={attribute} cls={cls} />
+          {attribute && attributeCls && (
+            <AttributePanel attribute={attribute} cls={attributeCls} />
           )}
           {relation && <RelationPanel relation={relation} />}
           {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}

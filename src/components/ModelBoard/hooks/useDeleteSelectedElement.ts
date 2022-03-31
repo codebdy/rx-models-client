@@ -7,41 +7,52 @@ import { useDeleteClass } from "./useDeleteClass";
 import { useDeleteRelation } from "./useDeleteRelation";
 import { useClass } from "./useClass";
 import { useRelation } from "./useRelation";
+import { useMethod } from "./useMethod";
+import { useDeleteMethod } from "./useDeleteMethod";
 
 /**
  * 本方法不需要备份状态
  */
 export function useDeleteSelectedElement(serviceId: number) {
-  const [selectedElement, setSelectedElement] =
-    useRecoilState(selectedElementState(serviceId));
-  const entity = useClass(selectedElement || "", serviceId);
-  const deleteEntity = useDeleteClass(serviceId);
+  const [selectedElement, setSelectedElement] = useRecoilState(
+    selectedElementState(serviceId)
+  );
+  const cls = useClass(selectedElement || "", serviceId);
+  const deleteClass = useDeleteClass(serviceId);
   const relation = useRelation(selectedElement || "", serviceId);
   const deleteRelation = useDeleteRelation(serviceId);
 
   const { attribute } = useAttribute(selectedElement || "", serviceId);
-  const deletedColumn = useDeleteAttribute(serviceId);
+  const { method } = useMethod(selectedElement || "", serviceId);
+  const deletedAttribute = useDeleteAttribute(serviceId);
+  const deleteMethod = useDeleteMethod(serviceId);
 
   const deleteSelectedElement = useCallback(() => {
-    if (entity) {
-      deleteEntity(entity.uuid);
+    if (cls) {
+      deleteClass(cls.uuid);
     }
     if (relation) {
       deleteRelation(relation.uuid);
     }
 
     if (attribute) {
-      deletedColumn(attribute.uuid);
+      deletedAttribute(attribute.uuid);
+    }
+
+    if (method) {
+      deleteMethod(method.uuid);
     }
     setSelectedElement(undefined);
   }, [
-    attribute,
-    deleteEntity,
-    deleteRelation,
-    deletedColumn,
-    entity,
+    cls,
     relation,
+    attribute,
+    method,
     setSelectedElement,
+    deleteClass,
+    deleteRelation,
+    deletedAttribute,
+    deleteMethod,
   ]);
 
   return deleteSelectedElement;
