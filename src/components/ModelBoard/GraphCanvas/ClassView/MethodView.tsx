@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Theme, IconButton, Typography, Box } from "@mui/material";
 import makeStyles from "@mui/styles/makeStyles";
 import createStyles from "@mui/styles/createStyles";
 import classNames from "classnames";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { MethodMeta } from "components/ModelBoard/meta/MethodMeta";
+import { useMountRef } from "./useMountRef";
+import { EVENT_ELEMENT_SELECTED_CHANGE, offCanvasEvent, onCanvasEvent } from "../events";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,8 +44,7 @@ export default function MethodView(props: {
   const classes = useStyles();
   const [hover, setHover] = useState(false);
   const [isSelected, setIsSelected] = React.useState(false);
-
-  const isId = method.name === "id";
+  const mountRef = useMountRef();
 
   const handleClick = () => {
     onClick(method.uuid);
@@ -52,6 +53,23 @@ export default function MethodView(props: {
   const handleDeleteClick = () => {
     onDelete(method.uuid);
   };
+
+  const handleChangeSelected = useCallback(
+    (event: Event) => {
+      const selectedId = (event as CustomEvent).detail;
+      if (mountRef.current) {
+        setIsSelected(selectedId === method.uuid);
+      }
+    },
+    [method.uuid, mountRef]
+  );
+
+  useEffect(() => {
+    onCanvasEvent(EVENT_ELEMENT_SELECTED_CHANGE, handleChangeSelected);
+    return () => {
+      offCanvasEvent(EVENT_ELEMENT_SELECTED_CHANGE, handleChangeSelected);
+    };
+  }, [handleChangeSelected]);
 
   return (
     <div
@@ -67,7 +85,6 @@ export default function MethodView(props: {
         sx={{
           display: "flex",
           alignItems: "center",
-          color: (theme) => (isId ? theme.palette.text.secondary : undefined),
         }}
       >
         <Typography

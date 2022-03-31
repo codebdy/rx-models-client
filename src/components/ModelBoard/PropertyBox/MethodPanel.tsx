@@ -11,10 +11,7 @@ import { CONST_ID } from "../meta/Meta";
 import { TypeInput } from "./TypeInput";
 import { useChangeMethod } from "../hooks/useChangeMethod";
 
-export const MethodPanel = (props: {
-  method: MethodMeta;
-  cls: ClassMeta;
-}) => {
+export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
   const { method, cls } = props;
   const serviceId = useServiceId();
   const changeMethod = useChangeMethod(serviceId);
@@ -31,7 +28,6 @@ export const MethodPanel = (props: {
     },
     [changeMethod, method, cls]
   );
-
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
   const handleTypeChange = useCallback(
@@ -74,7 +70,6 @@ export const MethodPanel = (props: {
     [changeMethod, method, cls]
   );
 
-
   const isId = useMemo(() => method.name === CONST_ID, [method.name]);
   return (
     <>
@@ -87,17 +82,13 @@ export const MethodPanel = (props: {
         />
       </Grid>
 
-      {cls.stereoType !== StereoType.Enum && (
-        <>
-          <TypeInput
-            valueType={method.type}
-            typeUuid={method.typeUuid}
-            onTypeChange={handleTypeChange}
-            onTypeUuidChange={handleValueObjectChange}
-            disabled={isId}
-          />
-        </>
-      )}
+      <TypeInput
+        valueType={method.type}
+        typeUuid={method.typeUuid}
+        onTypeChange={handleTypeChange}
+        onTypeUuidChange={handleValueObjectChange}
+        disabled={isId}
+      />
     </>
   );
 };
