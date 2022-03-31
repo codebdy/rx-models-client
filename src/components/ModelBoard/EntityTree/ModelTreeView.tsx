@@ -20,6 +20,7 @@ import { ClassNode } from "./ClassNode";
 import { DiagramNode } from "./DiagramNode";
 import { Graph } from "@antv/x6";
 import { useServiceId } from "../hooks/useServiceId";
+import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 
 export const ModelTreeView = memo((props: { graph?: Graph }) => {
   const { graph } = props;
@@ -31,44 +32,60 @@ export const ModelTreeView = memo((props: { graph?: Graph }) => {
 
   const fileInputRef = useRef(null);
 
-  const handlePackageFileInputChange = useCallback((
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const pacakgeFile = event.target.files ? event.target.files[0] : undefined;
-    // if (pacakgeFile) {
-    //   var reader = new FileReader();
-    //   reader.readAsText(pacakgeFile, "utf-8");
-    //   reader.onload = () => {
-    //     if (!reader.result) {
-    //       appStore.infoError(intl.get("package-file-illegal"));
-    //       return;
-    //     }
-    //     const aPackage = JSON.parse(reader.result as string);
-    //     if (!aPackage.uuid) {
-    //       appStore.infoError(intl.get("package-file-illegal"));
-    //       return;
-    //     }
+  const handlePackageFileInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const pacakgeFile = event.target.files
+        ? event.target.files[0]
+        : undefined;
+      // if (pacakgeFile) {
+      //   var reader = new FileReader();
+      //   reader.readAsText(pacakgeFile, "utf-8");
+      //   reader.onload = () => {
+      //     if (!reader.result) {
+      //       appStore.infoError(intl.get("package-file-illegal"));
+      //       return;
+      //     }
+      //     const aPackage = JSON.parse(reader.result as string);
+      //     if (!aPackage.uuid) {
+      //       appStore.infoError(intl.get("package-file-illegal"));
+      //       return;
+      //     }
 
-    //     if (rootStore.packages.find((apk) => apk.uuid === aPackage.uuid)) {
-    //       appStore.infoError(intl.get("package-exist"));
-    //       return;
-    //     }
-    //     const command = new PackageCreateCommand(
-    //       new PackageStore(aPackage, rootStore),
-    //       rootStore
-    //     );
-    //     rootStore.excuteCommand(command);
-    //   };
-    // }
-  }, []);
+      //     if (rootStore.packages.find((apk) => apk.uuid === aPackage.uuid)) {
+      //       appStore.infoError(intl.get("package-exist"));
+      //       return;
+      //     }
+      //     const command = new PackageCreateCommand(
+      //       new PackageStore(aPackage, rootStore),
+      //       rootStore
+      //     );
+      //     rootStore.excuteCommand(command);
+      //   };
+      // }
+    },
+    []
+  );
 
   return (
     <>
       <TreeView
-        defaultCollapseIcon={<ExpandMoreIcon sx={{color:theme=>theme.palette.text.primary}} />}
+        defaultCollapseIcon={
+          <ExpandMoreIcon
+            sx={{ color: (theme) => theme.palette.text.primary }}
+          />
+        }
         defaultExpanded={[TREE_ROOT_ID]}
-        defaultExpandIcon={<ChevronRightIcon sx={{color:theme=>theme.palette.text.primary}}/>}
+        defaultExpandIcon={
+          <ChevronRightIcon
+            sx={{ color: (theme) => theme.palette.text.primary }}
+          />
+        }
         selected={[selectedDiagram || "", selectedElement || ""]}
+        sx={{
+          "& .MuiTreeItem-content": {
+            padding: 0,
+          },
+        }}
       >
         <TreeItem
           nodeId={TREE_ROOT_ID}
@@ -97,14 +114,103 @@ export const ModelTreeView = memo((props: { graph?: Graph }) => {
               <NodeText>{intl.get("local-models")}</NodeText>
             </TreeNodeLabel>
           }
-          sx={{
-            "& .MuiTreeItem-content": {
-              padding: 0,
-            },
-          }}
         >
+          <TreeItem
+            nodeId={TREE_ROOT_ID + "ENTITIES"}
+            label={
+              <TreeNodeLabel
+                action={
+                  <LocalModelAction
+                    onPublish={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onDownloadJson={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onExportInterface={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                  />
+                }
+              >
+                <FolderOutlinedIcon />
+                <NodeText>{intl.get("entity-classes")}</NodeText>
+              </TreeNodeLabel>
+            }
+          ></TreeItem>
+          <TreeItem
+            nodeId={TREE_ROOT_ID + "ENUMS"}
+            label={
+              <TreeNodeLabel
+                action={
+                  <LocalModelAction
+                    onPublish={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onDownloadJson={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onExportInterface={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                  />
+                }
+              >
+                <FolderOutlinedIcon />
+                <NodeText>{intl.get("enum-classes")}</NodeText>
+              </TreeNodeLabel>
+            }
+          ></TreeItem>
+          <TreeItem
+            nodeId={TREE_ROOT_ID + "value-objectes"}
+            label={
+              <TreeNodeLabel
+                action={
+                  <LocalModelAction
+                    onPublish={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onDownloadJson={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onExportInterface={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                  />
+                }
+              >
+                <FolderOutlinedIcon />
+                <NodeText>{intl.get("value-objects")}</NodeText>
+              </TreeNodeLabel>
+            }
+          ></TreeItem>
+          <TreeItem
+            nodeId={TREE_ROOT_ID + "value-objectes"}
+            label={
+              <TreeNodeLabel
+                action={
+                  <LocalModelAction
+                    onPublish={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onDownloadJson={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                    onExportInterface={function (): void {
+                      throw new Error("Function not implemented.");
+                    }}
+                  />
+                }
+              >
+                <FolderOutlinedIcon />
+                <NodeText>{intl.get("service-classes")}</NodeText>
+              </TreeNodeLabel>
+            }
+          ></TreeItem>
           {entities.map((entity) => {
-            return <ClassNode key={entity.uuid} uuid={entity.uuid} graph = {graph}/>;
+            return (
+              <ClassNode key={entity.uuid} uuid={entity.uuid} graph={graph} />
+            );
           })}
           {diagrams.map((diagram) => {
             return <DiagramNode key={diagram.uuid} diagram={diagram} />;
@@ -123,11 +229,6 @@ export const ModelTreeView = memo((props: { graph?: Graph }) => {
               <NodeText>{"用户服务"}</NodeText>
             </TreeNodeLabel>
           }
-          sx={{
-            "& .MuiTreeItem-content": {
-              padding: 0,
-            },
-          }}
         ></TreeItem>
         <TreeItem
           nodeId={TREE_ROOT_ID + 2}
@@ -142,11 +243,6 @@ export const ModelTreeView = memo((props: { graph?: Graph }) => {
               <NodeText>{"邮件管理"}</NodeText>
             </TreeNodeLabel>
           }
-          sx={{
-            "& .MuiTreeItem-content": {
-              padding: 0,
-            },
-          }}
         ></TreeItem>
       </TreeView>
       <input
