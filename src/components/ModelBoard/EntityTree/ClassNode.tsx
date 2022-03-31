@@ -20,6 +20,7 @@ import { useDeleteClass } from "../hooks/useDeleteClass";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { useServiceId } from "../hooks/useServiceId";
 import { useFirstChildrenUuids } from "../hooks/useFirstChildrenUuids";
+import { MethodNode } from "./MethodNode";
 const { Dnd } = Addon;
 
 export const ClassNode = memo(
@@ -144,17 +145,11 @@ export const ClassNode = memo(
           </TreeNodeLabel>
         }
       >
-        {children.length > 0 && (
+        {!!children.length && (
           <TreeItem
             nodeId={cls?.uuid + "children"}
             label={
-              <TreeNodeLabel
-                action={
-                  <IconButton size="small" onClick={handlePlusColumn}>
-                    <AddOutlinedIcon fontSize="small" />
-                  </IconButton>
-                }
-              >
+              <TreeNodeLabel>
                 <NodeText>{intl.get("children-class")}</NodeText>
               </TreeNodeLabel>
             }
@@ -171,7 +166,7 @@ export const ClassNode = memo(
             })}
           </TreeItem>
         )}
-        {cls?.attributes?.length && (
+        {!!cls?.attributes?.length && (
           <TreeItem
             nodeId={cls?.uuid + "attributes"}
             label={
@@ -192,6 +187,31 @@ export const ClassNode = memo(
                   key={attr.uuid}
                   attribute={attr}
                   stereoType={cls.stereoType}
+                />
+              );
+            })}
+          </TreeItem>
+        )}
+        {!!cls?.methods?.length &&  (
+          <TreeItem
+            nodeId={cls?.uuid + "methods"}
+            label={
+              <TreeNodeLabel
+                action={
+                  <IconButton size="small" onClick={handlePlusColumn}>
+                    <AddOutlinedIcon fontSize="small" />
+                  </IconButton>
+                }
+              >
+                <NodeText>{intl.get("methods")}</NodeText>
+              </TreeNodeLabel>
+            }
+          >
+            {cls?.methods.map((method) => {
+              return (
+                <MethodNode
+                  key={method.uuid}
+                  method={method}
                 />
               );
             })}

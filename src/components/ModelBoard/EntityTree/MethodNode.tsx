@@ -2,46 +2,34 @@ import { IconButton, SvgIcon } from "@mui/material";
 import { TreeItem } from "@mui/lab";
 import { NodeText } from "./NodeText";
 import { TreeNodeLabel } from "./TreeNodeLabel";
-import { AttributeMeta } from "../meta/AttributeMeta";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { useMemo } from "react";
 import { useSetRecoilState } from "recoil";
 import { selectedElementState } from "../recoil/atoms";
-import { useDeleteAttribute } from "../hooks/useDeleteAttribute";
 import { useServiceId } from "../hooks/useServiceId";
-import { CONST_ID } from "../meta/Meta";
-import { StereoType } from "../meta/ClassMeta";
+import { MethodMeta } from "../meta/MethodMeta";
+import { useDeleteMethod } from "../hooks/useDeleteMethod";
 
-export const AttributeNode = (props: {
-  attribute: AttributeMeta;
-  stereoType: StereoType;
-}) => {
-  const { attribute, stereoType } = props;
+export const MethodNode = (props: { method: MethodMeta }) => {
+  const { method } = props;
   const serviceId = useServiceId();
   const setSelectedElement = useSetRecoilState(selectedElementState(serviceId));
-  const isId = useMemo(
-    () => attribute.name === CONST_ID,
-    [attribute.name]
-  ); 
-  const deletedAttribute = useDeleteAttribute(serviceId);
+  const deletedMethod = useDeleteMethod(serviceId);
   const handleClick = () => {
-    setSelectedElement(attribute.uuid);
+    setSelectedElement(method.uuid);
   };
 
   const handleDelete = () => {
-    deletedAttribute(attribute.uuid);
+    deletedMethod(method.uuid);
   };
   return (
     <TreeItem
-      nodeId={attribute.uuid}
+      nodeId={method.uuid}
       label={
         <TreeNodeLabel
           action={
-            !isId && (
-              <IconButton size="small" onClick={handleDelete}>
-                <DeleteOutlineOutlinedIcon fontSize="small" />
-              </IconButton>
-            )
+            <IconButton size="small" onClick={handleDelete}>
+              <DeleteOutlineOutlinedIcon fontSize="small" />
+            </IconButton>
           }
           onClick={handleClick}
         >
@@ -52,8 +40,8 @@ export const AttributeNode = (props: {
             />
           </SvgIcon>
           <NodeText>
-            {attribute.name}
-            {stereoType !== StereoType.Enum && <>:{attribute.typeLabel}</>}
+            {method.name}({method.args.length > 0 ? "..." : ""}
+            ):{method.typeLabel}
           </NodeText>
         </TreeNodeLabel>
       }

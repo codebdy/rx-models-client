@@ -87,7 +87,12 @@ export default function MethodView(props: {
           }}
         >
           {method.name}(
-          {method.args.map((arg) => arg.name + ":" + arg.typeLabel).join(",")})
+          {
+            /* {method.args.map((arg) => arg.name + ":" + arg.typeLabel).join(",")} */ 
+            method.args.length > 0
+              ? "..."
+              : ""
+          })
         </Typography>
         :
         <Typography
@@ -106,7 +111,7 @@ export default function MethodView(props: {
             position: "absolute",
             right: "4px",
             top: "0",
-            borderRadius:"50%",
+            borderRadius: "50%",
             background: (theme) => theme.palette.background.paper,
           }}
         >
