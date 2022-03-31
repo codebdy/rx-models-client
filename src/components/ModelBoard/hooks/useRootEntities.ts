@@ -10,7 +10,8 @@ export function useRootEntities(serviceId: number) {
   const entities = useMemo(() => {
     return classes.filter(
       (cls) =>
-        cls.stereoType === StereoType.Entity &&
+        (cls.stereoType === StereoType.Entity ||
+          cls.stereoType === StereoType.Abstract) &&
         getParentuuids(cls.uuid).length === 0
     );
   }, [classes, getParentuuids]);
