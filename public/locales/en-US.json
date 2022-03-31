@@ -129,5 +129,6 @@
   "multiplicity":"Multiplicity",
   "enable":"Enable",
   "field-list":"Field list",
-  "arg-list":"Arg list"
+  "arg-list":"Arg list",
+  "error-name-repeat":"Name repeated"
 }

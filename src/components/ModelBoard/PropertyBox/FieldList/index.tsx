@@ -5,6 +5,7 @@ import intl from "react-intl-universal";
 import { FieldItem, FieldMeta } from "./FieldItem";
 import { useCreateAttribute } from "components/ModelBoard/hooks/useCreateAttribute";
 import { useServiceId } from "components/ModelBoard/hooks/useServiceId";
+import { useAlertError } from "recoil/hooks/useAlertError";
 
 export const FieldList = memo(
   (props: {
@@ -14,9 +15,10 @@ export const FieldList = memo(
     title?: string;
     prefix?: string;
   }) => {
-    const { fields, withEntityType, onChange , title, prefix} = props;
+    const { fields, withEntityType, onChange, title, prefix } = props;
     const serviceId = useServiceId();
     const createAttribute = useCreateAttribute(serviceId, prefix);
+    const alertError = useAlertError();
 
     const handleAdd = useCallback(() => {
       const attr = createAttribute(fields);
@@ -32,9 +34,17 @@ export const FieldList = memo(
 
     const handleChange = useCallback(
       (field: FieldMeta) => {
+        if (
+          fields
+            .filter((fd) => fd.uuid !== field.uuid)
+            .find((fd) => fd.name === field.name)
+        ) {
+          alertError(intl.get("error-name-repeat"));
+          return;
+        }
         onChange(fields.map((fd) => (fd.uuid === field.uuid ? field : fd)));
       },
-      [fields, onChange]
+      [alertError, fields, onChange]
     );
 
     return (
