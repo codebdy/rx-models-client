@@ -8,12 +8,14 @@ import { ClassMeta } from "../meta/ClassMeta";
 import { useServiceId } from "../hooks/useServiceId";
 import { TypeInput } from "./TypeInput";
 import { useChangeMethod } from "../hooks/useChangeMethod";
+import { useGetTypeLabel } from "../hooks/useGetTypeLabel";
 
 export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
   const { method, cls } = props;
   const serviceId = useServiceId();
   const changeMethod = useChangeMethod(serviceId);
-
+  const getTypeLabel = useGetTypeLabel(serviceId);
+  
   const handleStringChange = useCallback(
     (prop: any) => (event: React.ChangeEvent<{ value: string }>) => {
       changeMethod(
@@ -35,11 +37,12 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
           ...method,
           type,
           typeUuid: undefined,
+          typeLabel: getTypeLabel(type),
         },
         cls
       );
     },
-    [changeMethod, method, cls]
+    [changeMethod, method, getTypeLabel, cls]
   );
 
   const handleValueObjectChange = useCallback(
@@ -48,11 +51,12 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         {
           ...method,
           typeUuid: uuid,
+          typeLabel: getTypeLabel(method.type, uuid),
         },
         cls
       );
     },
-    [changeMethod, method, cls]
+    [changeMethod, method, getTypeLabel, cls]
   );
 
   const handleBooleanChange = useCallback(

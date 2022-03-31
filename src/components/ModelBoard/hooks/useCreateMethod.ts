@@ -2,10 +2,10 @@ import { useCallback } from "react";
 import { createId } from "util/createId";
 import { MethodMeta } from "../meta/MethodMeta";
 import { ValueType } from "../meta/ValueType";
-import { useGetTypeName } from "./useGetTypeName";
+import { useGetTypeLabel } from "./useGetTypeLabel";
 
 export function useCreateMethod(serviceId: number) {
-  const getTypeName = useGetTypeName(serviceId);
+  const getTypeName = useGetTypeLabel(serviceId);
 
   const createMethod = useCallback((methods: MethodMeta[]) => {
     let index = 1;

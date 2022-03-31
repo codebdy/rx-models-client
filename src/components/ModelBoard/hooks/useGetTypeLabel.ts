@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { ValueType } from "../meta/ValueType";
 import { useGetClass } from "./useGetClass";
 
-export function useGetTypeName(serviceId: number) {
+export function useGetTypeLabel(serviceId: number) {
   const getClass = useGetClass(serviceId);
 
   const typeName = useCallback(

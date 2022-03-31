@@ -9,6 +9,7 @@ import { useChangeAttribute } from "../hooks/useChangeAttribute";
 import { useServiceId } from "../hooks/useServiceId";
 import { CONST_ID } from "../meta/Meta";
 import { TypeInput } from "./TypeInput";
+import { useGetTypeLabel } from "../hooks/useGetTypeLabel";
 
 export const AttributePanel = (props: {
   attribute: AttributeMeta;
@@ -17,6 +18,7 @@ export const AttributePanel = (props: {
   const { attribute, cls } = props;
   const serviceId = useServiceId();
   const changeAttribute = useChangeAttribute(serviceId);
+  const getTypeLabel = useGetTypeLabel(serviceId);
 
   const handleStringChange = useCallback(
     (prop: any) => (event: React.ChangeEvent<{ value: string }>) => {
@@ -54,11 +56,12 @@ export const AttributePanel = (props: {
           type,
           nullable: attribute.nullable,
           typeUuid: undefined,
+          typeLabel: getTypeLabel(type),
         },
         cls
       );
     },
-    [changeAttribute, attribute, cls]
+    [changeAttribute, attribute, getTypeLabel, cls]
   );
 
   const handleValueObjectChange = useCallback(
@@ -67,11 +70,12 @@ export const AttributePanel = (props: {
         {
           ...attribute,
           typeUuid: uuid,
+          typeLabel: getTypeLabel(attribute.type, uuid),
         },
         cls
       );
     },
-    [changeAttribute, attribute, cls]
+    [changeAttribute, attribute, getTypeLabel, cls]
   );
 
   const handleBooleanChange = useCallback(

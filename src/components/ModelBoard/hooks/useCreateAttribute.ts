@@ -2,10 +2,10 @@ import { useCallback } from "react";
 import { createId } from "util/createId";
 import { AttributeMeta } from "../meta/AttributeMeta";
 import { ValueType } from "../meta/ValueType";
-import { useGetTypeName } from "./useGetTypeName";
+import { useGetTypeLabel } from "./useGetTypeLabel";
 
 export function useCreateAttribute(serviceId: number, prefix?: string) {
-  const getTypeName = useGetTypeName(serviceId);
+  const getTypeName = useGetTypeLabel(serviceId);
 
   const createAttribute = useCallback(
     (attributes: AttributeMeta[]) => {
