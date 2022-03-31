@@ -120,15 +120,27 @@ export default function AttributeView(props: {
         )}
       </Box>
       {hover && !readOnly && !isId && (
-        <div className={classes.propertyTools}>
+        <Box
+          sx={{
+            zIndex: 1,
+            position: "absolute",
+            right: "4px",
+            top: "0",
+            borderRadius:"50%",
+            background: (theme) => theme.palette.background.paper,
+          }}
+        >
           <IconButton
-            className={classes.propertyButton}
+            sx={{
+              width: "24px",
+              height: "24px",
+            }}
             onClick={handleDeleteClick}
             size="large"
           >
             <DeleteOutlineOutlinedIcon sx={{ fontSize: 16 }} />
           </IconButton>
-        </div>
+        </Box>
       )}
     </div>
   );
