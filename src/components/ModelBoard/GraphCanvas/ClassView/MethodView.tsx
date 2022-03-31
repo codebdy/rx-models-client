@@ -6,7 +6,11 @@ import classNames from "classnames";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { MethodMeta } from "components/ModelBoard/meta/MethodMeta";
 import { useMountRef } from "./useMountRef";
-import { EVENT_ELEMENT_SELECTED_CHANGE, offCanvasEvent, onCanvasEvent } from "../events";
+import {
+  EVENT_ELEMENT_SELECTED_CHANGE,
+  offCanvasEvent,
+  onCanvasEvent,
+} from "../events";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,7 +96,8 @@ export default function MethodView(props: {
             marginLeft: "3px",
           }}
         >
-          {method.name}()
+          {method.name}(
+          {method.args.map((arg) => arg.name + ":" + arg.typeLabel).join(",")})
         </Typography>
         :
         <Typography
