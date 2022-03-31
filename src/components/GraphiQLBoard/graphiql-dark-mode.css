@@ -225,13 +225,18 @@ li.CodeMirror-hint-active {
   color: #425555;
 }
 
-.graphiql-container .docExplorerWrap{
+.graphiql-container .docExplorerWrap {
   background-color: #21262b !important;
 }
 
 .graphiql-container .doc-explorer-title-bar {
   display: flex;
 }
-.graphiql-container .doc-explorer-title-bar{
+.graphiql-container .doc-explorer-title-bar {
   padding: 0;
+}
+
+.graphiql-container .doc-explorer-contents {
+  top: 34px;
+  padding-top: 10px;
 }
