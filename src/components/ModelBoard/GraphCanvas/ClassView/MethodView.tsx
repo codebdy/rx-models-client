@@ -87,12 +87,13 @@ export default function MethodView(props: {
           }}
         >
           {method.name}(
+          {method.args.map((arg) => arg.name + ":" + arg.typeLabel).join(",")}
           {
-            /* {method.args.map((arg) => arg.name + ":" + arg.typeLabel).join(",")} */ 
-            method.args.length > 0
-              ? "..."
-              : ""
-          })
+            // method.args.length > 0
+            //   ? "..."
+            //   : ""
+          }
+          )
         </Typography>
         :
         <Typography
