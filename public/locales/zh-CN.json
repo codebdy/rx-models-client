@@ -134,5 +134,6 @@
   "enable":"启用",
   "field-list":"字段列表",
   "arg-list":"参数类表",
-  "error-name-repeat":"名称重复！"
+  "error-name-repeat":"名称重复！",
+  "children-class":"子类"
 }

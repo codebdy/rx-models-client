@@ -134,5 +134,6 @@
   "enable":"Enable",
   "field-list":"Field list",
   "arg-list":"Arg list",
-  "error-name-repeat":"Name repeated"
+  "error-name-repeat":"Name repeated",
+  "children-class":"Children"
 }
