@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export function JsonInput(
+export function ScriptInput(
   props:{
     label: string,
     value: any,
@@ -111,7 +111,7 @@ export function JsonInput(
       <TextField 
         size = "small" 
         multiline 
-        rows = "12"  
+        rows = "6"  
         fullWidth 
         variant = "outlined"
         label = {label}
@@ -143,7 +143,7 @@ export function JsonInput(
           className = {classes.dialogContent}
         >
           <MonacoEditor
-            language="json"
+            language="JavaScript"
             theme={ theme.palette.mode === 'light' ? 'vs' : 'vs-dark'}
             value={ valueString }
             editorDidMount={handleEditorDidMount}

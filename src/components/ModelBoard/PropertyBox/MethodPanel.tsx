@@ -10,6 +10,7 @@ import { TypeInput } from "./TypeInput";
 import { useChangeMethod } from "../hooks/useChangeMethod";
 import { useGetTypeLabel } from "../hooks/useGetTypeLabel";
 import { FieldList } from "./FieldList";
+import { ScriptInput } from "./ScriptInput";
 
 export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
   const { method, cls } = props;
@@ -78,6 +79,8 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
 
   const handleMethodTypeChange = useCallback(() => {}, []);
 
+  const hangdleTypeStringChange = useCallback(() => {}, []);
+
   return (
     <>
       <Grid item xs={12}>
@@ -123,6 +126,17 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
           </Select>
         </FormControl>
       </Grid>
+      {(!method.implementType ||
+        method.implementType === MethodImplementType.Script) && (
+        <Grid item xs={12}>
+          <ScriptInput
+            label={intl.get("script")}
+            value={method.typeString}
+            onChange={hangdleTypeStringChange}
+            title={intl.get("edit-script")}
+          />
+        </Grid>
+      )}
     </>
   );
 };

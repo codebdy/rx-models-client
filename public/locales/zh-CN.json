@@ -144,5 +144,6 @@
   "implement-type":"实现类型",
   "script":"脚本",
   "cloud-function":"云函数",
-  "micro-service":"微服务"
+  "micro-service":"微服务",
+  "edit-script":"编辑脚本"
 }

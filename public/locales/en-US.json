@@ -137,12 +137,13 @@
   "error-name-repeat": "Name repeated",
   "children-class": "Children",
   "methods": "Methods",
-  "add-entity-class":"Add entity",
-  "add-enum-class":"Add enum",
-  "add-value-object":"Add value object",
-  "add-service-class":"Add service class",
-  "implement-type":"Implement type",
-  "script":"Script",
-  "cloud-function":"Cloud funcion",
-  "micro-service":"Micro service"
+  "add-entity-class": "Add entity",
+  "add-enum-class": "Add enum",
+  "add-value-object": "Add value object",
+  "add-service-class": "Add service class",
+  "implement-type": "Implement type",
+  "script": "Script",
+  "cloud-function": "Cloud funcion",
+  "micro-service": "Micro service",
+  "edit-script": "Edit script"
 }
