@@ -9,11 +9,13 @@ import { useServiceId } from "../hooks/useServiceId";
 export const ClassPanel = (props: { cls: ClassMeta }) => {
   const { cls } = props;
   const serviceId = useServiceId();
+
   const changeClass = useChangeClass(serviceId);
 
   const handleNameChange = useCallback(
     (event: React.ChangeEvent<{ value: string }>) => {
-      changeClass({ ...cls, name: event.target.value.trim() });
+      const name = event.target.value.trim()
+      changeClass({ ...cls, name: name });
     },
     [changeClass, cls]
   );
