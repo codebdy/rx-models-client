@@ -14,6 +14,7 @@ import { useRelation } from "../hooks/useRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { useScrollbarStyles } from "theme/useScrollbarStyles";
 import { useMethod } from "../hooks/useMethod";
+import { MethodPanel } from "./MethodPanel";
 
 export const PropertyBox = () => {
   const serviceId = useServiceId();
@@ -55,6 +56,9 @@ export const PropertyBox = () => {
           {selectedEntity && <ClassPanel cls={selectedEntity} />}
           {attribute && attributeCls && (
             <AttributePanel attribute={attribute} cls={attributeCls} />
+          )}
+          {method && methodCls && (
+            <MethodPanel method={method} cls={methodCls} />
           )}
           {relation && <RelationPanel relation={relation} />}
           {!selectedElement && <Grid item>{intl.get("no-selected")}</Grid>}
