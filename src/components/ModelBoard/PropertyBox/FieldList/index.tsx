@@ -12,10 +12,11 @@ export const FieldList = memo(
     withEntityType?: boolean;
     onChange: (fields: FieldMeta[]) => void;
     title?: string;
+    prefix?: string;
   }) => {
-    const { fields, withEntityType, onChange , title} = props;
+    const { fields, withEntityType, onChange , title, prefix} = props;
     const serviceId = useServiceId();
-    const createAttribute = useCreateAttribute(serviceId);
+    const createAttribute = useCreateAttribute(serviceId, prefix);
 
     const handleAdd = useCallback(() => {
       const attr = createAttribute(fields);

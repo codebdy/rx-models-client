@@ -98,6 +98,7 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         fields={method.args || []}
         onChange={handleArgsChange}
         title={intl.get("arg-list")}
+        prefix="arg"
       />
     </>
   );
