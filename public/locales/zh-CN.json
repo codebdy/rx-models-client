@@ -136,5 +136,9 @@
   "arg-list":"参数类表",
   "error-name-repeat":"名称重复！",
   "children-class":"子类",
-  "methods":"方法"
+  "methods":"方法",
+  "add-entity-class":"添加实体类",
+  "add-enum-class":"添加枚举类",
+  "add-value-object":"添加值类",
+  "add-service-class":"添加服务类"
 }

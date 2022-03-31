@@ -136,5 +136,9 @@
   "arg-list": "Arg list",
   "error-name-repeat": "Name repeated",
   "children-class": "Children",
-  "methods": "Methods"
+  "methods": "Methods",
+  "add-entity-class":"Add entity",
+  "add-enum-class":"Add enum",
+  "add-value-object":"Add value object",
+  "add-service-class":"Add service class"
 }

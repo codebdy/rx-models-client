@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   Divider,
   IconButton,
@@ -21,9 +21,6 @@ import { StereoType } from "../meta/ClassMeta";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    menuItem: {
-      padding: theme.spacing(1, 3),
-    },
     text: {
       marginLeft: "16px",
     },
@@ -40,7 +37,7 @@ export default function LocalModelAction(props: {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const serviceId = useServiceId();
-  const createNewEntity = useCreateNewClass(serviceId);
+  const createNewClass = useCreateNewClass(serviceId);
   const createNewDiagram = useCreateNewDiagram(serviceId);
   const setEntities = useSetRecoilState(classesState(serviceId));
   const setSelectedDiagram = useSetRecoilState(selectedDiagramState(serviceId));
@@ -56,39 +53,58 @@ export default function LocalModelAction(props: {
     event.stopPropagation();
   };
 
-  const handleAddEntity = (event: React.MouseEvent<HTMLElement>) => {
+  const addClass = useCallback((stereoType: StereoType) => {
     backupSnapshot();
-    const newEntity = createNewEntity(StereoType.Entity);
-    setEntities((entities) => [...entities, newEntity]);
+    const newClass = createNewClass(stereoType);
+    setEntities((classes) => [...classes, newClass]);
     setAnchorEl(null);
-    event.stopPropagation();
-  };
+  }, [backupSnapshot, createNewClass, setEntities]);
 
-  const handleAddDiagram = (event: React.MouseEvent<HTMLElement>) => {
-    backupSnapshot();
-    const newDiagram = createNewDiagram();
-    setSelectedDiagram(newDiagram.uuid);
-    setAnchorEl(null);
-    event.stopPropagation();
-  };
+  const handleAddEntity = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      addClass(StereoType.Entity)
+      event.stopPropagation();
+    },
+    [addClass]
+  );
 
-  const handlePublish = (event: React.MouseEvent<HTMLElement>) => {
-    onPublish();
-    setAnchorEl(null);
-    event.stopPropagation();
-  };
+  const handleAddDiagram = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      backupSnapshot();
+      const newDiagram = createNewDiagram();
+      setSelectedDiagram(newDiagram.uuid);
+      setAnchorEl(null);
+      event.stopPropagation();
+    },
+    [backupSnapshot, createNewDiagram, setSelectedDiagram]
+  );
 
-  const handleDownloadJson = (event: React.MouseEvent<HTMLElement>) => {
-    onDownloadJson();
-    setAnchorEl(null);
-    event.stopPropagation();
-  };
+  const handlePublish = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      onPublish();
+      setAnchorEl(null);
+      event.stopPropagation();
+    },
+    [onPublish]
+  );
 
-  const handleExportInterface = (event: React.MouseEvent<HTMLElement>) => {
-    onExportInterface();
-    setAnchorEl(null);
-    event.stopPropagation();
-  };
+  const handleDownloadJson = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      onDownloadJson();
+      setAnchorEl(null);
+      event.stopPropagation();
+    },
+    [onDownloadJson]
+  );
+
+  const handleExportInterface = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      onExportInterface();
+      setAnchorEl(null);
+      event.stopPropagation();
+    },
+    [onExportInterface]
+  );
 
   return (
     <>
@@ -109,16 +125,43 @@ export default function LocalModelAction(props: {
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleAddEntity} className={classes.menuItem}>
+        <MenuItem onClick={handleAddEntity}>
           <SvgIcon fontSize="small">
             <path
               fill="currentColor"
               d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
             />
           </SvgIcon>
-          <span className={classes.text}>{intl.get("add-entity")} </span>
+          <span className={classes.text}>{intl.get("add-entity-class")} </span>
         </MenuItem>
-        <MenuItem onClick={handleAddDiagram} className={classes.menuItem}>
+        <MenuItem onClick={handleAddEntity}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-enum-class")} </span>
+        </MenuItem>
+        <MenuItem onClick={handleAddEntity}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-value-object")} </span>
+        </MenuItem>
+        <MenuItem onClick={handleAddEntity}>
+          <SvgIcon fontSize="small">
+            <path
+              fill="currentColor"
+              d="M17 2H19V5H22V7H19V10H17V7H14V5H17V2M7 5H11V7H7C5.9 7 5 7.9 5 9V17C5 18.11 5.9 19 7 19H15C16.11 19 17 18.11 17 17V13H19V17C19 19.21 17.21 21 15 21H7C4.79 21 3 19.21 3 17V9C3 6.79 4.79 5 7 5Z"
+            />
+          </SvgIcon>
+          <span className={classes.text}>{intl.get("add-service-class")} </span>
+        </MenuItem>
+        <MenuItem onClick={handleAddDiagram}>
           <SvgIcon fontSize="small">
             <path
               fill="currentColor"
@@ -128,7 +171,7 @@ export default function LocalModelAction(props: {
           <span className={classes.text}>{intl.get("add-diagram")} </span>
         </MenuItem>
         <Divider />
-        <MenuItem className={classes.menuItem} onClick={handlePublish}>
+        <MenuItem onClick={handlePublish}>
           <SvgIcon fontSize="small">
             <path
               fill="currentColor"
@@ -137,7 +180,7 @@ export default function LocalModelAction(props: {
           </SvgIcon>
           <span className={classes.text}>{intl.get("publish")} </span>
         </MenuItem>
-        <MenuItem className={classes.menuItem} onClick={handleDownloadJson}>
+        <MenuItem onClick={handleDownloadJson}>
           <SvgIcon fontSize="small">
             <path
               fill="currentColor"
@@ -146,7 +189,7 @@ export default function LocalModelAction(props: {
           </SvgIcon>
           <span className={classes.text}>{intl.get("export-json")} </span>
         </MenuItem>
-        <MenuItem className={classes.menuItem} onClick={handleExportInterface}>
+        <MenuItem onClick={handleExportInterface}>
           <SvgIcon fontSize="small">
             <path
               fill="currentColor"
