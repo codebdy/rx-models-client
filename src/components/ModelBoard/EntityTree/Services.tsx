@@ -1,7 +1,5 @@
 import TreeItem from "@mui/lab/TreeItem";
-import { useRecoilValue } from "recoil";
 import { TREE_ROOT_ID } from "util/consts";
-import { classesState } from "../recoil/atoms";
 import { TreeNodeLabel } from "./TreeNodeLabel";
 import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
 import { useServiceId } from "../hooks/useServiceId";

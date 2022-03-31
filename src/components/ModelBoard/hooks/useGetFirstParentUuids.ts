@@ -3,15 +3,18 @@ import { useRecoilValue } from "recoil";
 import { RelationType } from "../meta/RelationMeta";
 import { relationsState } from "../recoil/atoms";
 
-export function useGetParentUuid(serviceId :number) {
+export function useGetFirstParentUuids(serviceId: number) {
   const relations = useRecoilValue(relationsState(serviceId));
   const getParentUuid = useCallback(
     (uuid: string) => {
-      return relations.find(
-        (relation) =>
-          relation.sourceId === uuid &&
-          relation.relationType === RelationType.INHERIT
-      )?.targetId;
+      const uuids: string[] = [];
+      for(const relation of relations){
+        if(relation.sourceId === uuid &&
+          relation.relationType === RelationType.INHERIT){
+            uuids.push(relation.targetId)
+          }
+      }
+      return uuids
     },
     [relations]
   );

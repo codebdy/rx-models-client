@@ -18,8 +18,6 @@ import {
 import { DiagramNode } from "./DiagramNode";
 import { Graph } from "@antv/x6";
 import { useServiceId } from "../hooks/useServiceId";
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined";
-import { useValueObjects } from "../hooks/useValueObjects";
 import { Entities } from "./Entities";
 import { Enums } from "./Enums";
 import { ValueObjects } from "./ValueObjects";

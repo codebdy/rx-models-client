@@ -1,17 +1,17 @@
 import { Node } from "@antv/x6";
 import { useCallback } from "react";
 import { useRecoilValue } from "recoil";
+import { useGetAllParentUuids } from "../hooks/useGetAllParentUuids";
 import { useGetClass } from "../hooks/useGetClass";
 import { StereoType } from "../meta/ClassMeta";
 import { RelationType } from "../meta/RelationMeta";
 import { drawingLineState, relationsState } from "../recoil/atoms";
-import { useGetParentUuids } from "./useGetParentUuids";
 
 export function useCheckCanLinkTo(serviceId: number) {
   const drawingLine = useRecoilValue(drawingLineState(serviceId));
   const relations = useRecoilValue(relationsState(serviceId));
   const getClass = useGetClass(serviceId);
-  const getParentUuids = useGetParentUuids(serviceId);
+  const getParentUuids = useGetAllParentUuids(serviceId);
   const checkCanLinkTo = useCallback(
     (node: Node) => {
       if (!drawingLine) {

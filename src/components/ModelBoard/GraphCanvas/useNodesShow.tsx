@@ -15,7 +15,6 @@ import { useDiagramNodes } from "../hooks/useDiagramNodes";
 import { useGetClass } from "../hooks/useGetClass";
 import { useGetDiagramNode } from "../hooks/useGetDiagramNode";
 import { useGetNode } from "../hooks/useGetNode";
-import { useGetParentUuid } from "./useGetParentUuid";
 import { useChangeClass } from "../hooks/useChangeClass";
 import { useCreateClassAttribute } from "../hooks/useCreateClassAttribute";
 import { ClassNodeData } from "./ClassView/ClassNodeData";
@@ -34,7 +33,6 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   const getNode = useGetNode(serviceId);
   const getDiagramNode = useGetDiagramNode(serviceId);
   const pressedLineType = useRecoilValue(pressedLineTypeState(serviceId));
-  const getParentUuid = useGetParentUuid(serviceId);
   const changeClass = useChangeClass(serviceId);
   const createAttribute = useCreateClassAttribute(serviceId);
   const createMethod = useCreateClassMethod(serviceId);
@@ -196,7 +194,6 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
     getDiagramNode,
     getClass,
     getNode,
-    getParentUuid,
     graph,
     handleAttributeCreate,
     handleAttributeDelete,
