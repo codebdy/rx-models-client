@@ -13,7 +13,7 @@ export function useCreateTempClassNodeForNew(serviceId: number) {
         stereoType === StereoType.Service ||
         stereoType === StereoType.Enum
       ) {
-        classMeta.attributes = [];
+        classMeta.methods = [];
       }
       return {
         uuid: "entityMeta.uuid",

@@ -141,6 +141,7 @@ export const ClassView = memo(
       (event: Event) => {
         const newData = (event as CustomEvent).detail;
         if (mountRef.current && newData.uuid === data?.id) {
+          console.log("哈哈", newData, newData.uuid, data?.id)
           setData({ ...data, ...newData });
         }
       },

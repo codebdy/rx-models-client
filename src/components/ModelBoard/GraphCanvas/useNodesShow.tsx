@@ -135,13 +135,13 @@ export function useNodesShow(graph: Graph | undefined, serviceId: number) {
   useEffect(() => {
     nodes?.forEach((node) => {
       const grahpNode = graph?.getCellById(node.id) as Node<Node.Properties>;
-      const entity = getClass(node.id);
-      if (!entity) {
+      const cls = getClass(node.id);
+      if (!cls) {
         console.error("cant not find entity by node id :" + node.id);
         return;
       }
       const data: ClassNodeData = {
-        ...entity,
+        ...cls,
         ...node,
         //selectedId: selectedElement,
         //pressedLineType: pressedLineType,

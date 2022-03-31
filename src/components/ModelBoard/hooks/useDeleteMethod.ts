@@ -1,29 +1,26 @@
 import { useCallback } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { classesState } from "../recoil/atoms";
-import { useBackupSnapshot } from "./useBackupSnapshot";
+import { useChangeClass } from "./useChangeClass";
 
 export function useDeleteMethod(serviceId: number) {
-  const setClasses = useSetRecoilState(classesState(serviceId));
-  const backupSnapshot = useBackupSnapshot(serviceId);
+  const changeClass = useChangeClass(serviceId);
+  const clses = useRecoilValue(classesState(serviceId))
 
   const deleteMethod = useCallback(
     (methodUuid: string) => {
-      backupSnapshot();
-      setClasses((clses) =>
-        clses.map((cls) =>
-          cls.methods.find((mthd) => mthd.uuid === methodUuid)
-            ? {
-                ...cls,
-                methods: cls.methods.filter(
-                  (mth) => mth.uuid !== methodUuid
-                ),
-              }
-            : cls
-        )
-      );
+      for(const cls of clses){
+        if(cls.methods.find((mthd) => mthd.uuid === methodUuid)){
+          changeClass({
+            ...cls,
+            methods: cls.methods.filter(
+              (mth) => mth.uuid !== methodUuid
+            ),
+          })
+        }
+      }
     },
-    [backupSnapshot, setClasses]
+    [changeClass, clses]
   );
 
   return deleteMethod;

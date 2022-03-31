@@ -1,29 +1,26 @@
 import { useCallback } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { classesState } from "../recoil/atoms";
-import { useBackupSnapshot } from "./useBackupSnapshot";
+import { useChangeClass } from "./useChangeClass";
 
 export function useDeleteAttribute(serviceId: number) {
-  const setClasses = useSetRecoilState(classesState(serviceId));
-  const backupSnapshot = useBackupSnapshot(serviceId);
+  const changeClass = useChangeClass(serviceId);
+  const clses = useRecoilValue(classesState(serviceId))
 
   const deleteAttribute = useCallback(
     (attributeUuid: string) => {
-      backupSnapshot();
-      setClasses((clses) =>
-        clses.map((cls) =>
-          cls.attributes.find((attr) => attr.uuid === attributeUuid)
-            ? {
-                ...cls,
-                attributes: cls.attributes.filter(
-                  (atr) => atr.uuid !== attributeUuid
-                ),
-              }
-            : cls
-        )
-      );
+      for(const cls of clses){
+        if(cls.attributes.find((attr) => attr.uuid === attributeUuid)){
+          changeClass({
+            ...cls,
+            attributes: cls.attributes.filter(
+              (atr) => atr.uuid !== attributeUuid
+            ),
+          })
+        }
+      }
     },
-    [backupSnapshot, setClasses]
+    [changeClass, clses]
   );
 
   return deleteAttribute;

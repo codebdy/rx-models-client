@@ -9,7 +9,7 @@ export function useChangeClass(serviceId: number) {
   const backupSnapshot = useBackupSnapshot(serviceId);
   const setEntities = useSetRecoilState(classesState(serviceId));
 
-  const changeEntity = useCallback(
+  const changeClass = useCallback(
     (cls: ClassMeta) => {
       backupSnapshot();
       setEntities((entities) =>
@@ -20,5 +20,5 @@ export function useChangeClass(serviceId: number) {
     [backupSnapshot, setEntities]
   );
 
-  return changeEntity;
+  return changeClass;
 }

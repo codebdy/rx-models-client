@@ -124,7 +124,7 @@ export const ClassNode = observer((props:{
 
       {
         entityAuth?.expand && 
-        entityMeta.attributes.map(column=>{
+        entityMeta.methods.map(column=>{
           return (
             column.name !== 'id'
               ? <AttributeNode 
