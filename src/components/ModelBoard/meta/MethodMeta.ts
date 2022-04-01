@@ -12,9 +12,9 @@ export interface ArgMeta {
 }
 
 export enum MethodImplementType {
-  Script = "Script",
-  CloudFunction = "CloudFunction",
-  MicroService = "MicroService"
+  Script = "script",
+  CloudFunction = "cloudFunction",
+  MicroService = "microService"
 }
 
 export interface MethodMeta {

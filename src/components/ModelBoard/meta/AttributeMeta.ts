@@ -64,6 +64,10 @@ export interface AttributeMeta {
    */
   length?: number;
 
+  floatM?: number;
+
+  floatD?: number;
+
   unsigned?: boolean;
 
   typeUuid?: string;
