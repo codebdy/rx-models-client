@@ -11,10 +11,15 @@ export interface ArgMeta {
   typeLabel: string;
 }
 
+export enum MethodType {
+  Query = "query",
+  Mutation = "mutation"
+}
+
 export enum MethodImplementType {
   Script = "script",
   CloudFunction = "cloudFunction",
-  MicroService = "microService"
+  MicroService = "microService",
 }
 
 export interface MethodMeta {
@@ -44,6 +49,8 @@ export interface MethodMeta {
    * 渲染图形元素用的label，其他地方毫无用处
    */
   typeLabel: string;
+
+  methodType: MethodType;
 
   implementType: MethodImplementType;
   methodImplements?: string;

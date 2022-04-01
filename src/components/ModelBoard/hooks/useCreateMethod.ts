@@ -1,6 +1,10 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
-import { MethodMeta, MethodImplementType } from "../meta/MethodMeta";
+import {
+  MethodMeta,
+  MethodImplementType,
+  MethodType,
+} from "../meta/MethodMeta";
 import { Type } from "../meta/Type";
 import { useGetTypeLabel } from "./useGetTypeLabel";
 
@@ -25,6 +29,7 @@ export function useCreateMethod(serviceId: number) {
         type: Type.String,
         typeLabel: getTypeName(Type.String),
         implementType: MethodImplementType.Script,
+        methodType: MethodType.Query,
       };
 
       return method;
