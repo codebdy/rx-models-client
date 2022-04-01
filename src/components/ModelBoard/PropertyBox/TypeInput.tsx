@@ -12,15 +12,15 @@ import { useEntities } from "../hooks/useEntities";
 import { useEnums } from "../hooks/useEnums";
 import { useServiceId } from "../hooks/useServiceId";
 import { useValueObjects } from "../hooks/useValueObjects";
-import { ValueType } from "../meta/ValueType";
+import { Type } from "../meta/Type";
 
 export const TypeInput = memo(
   (props: {
     disabled?: boolean;
-    valueType: ValueType;
+    valueType: Type;
     typeUuid?: string;
     withEntityType?: boolean;
-    onTypeChange: (valueType: ValueType) => void;
+    onTypeChange: (valueType: Type) => void;
     onTypeUuidChange: (typeUuid: string) => void;
   }) => {
     const {
@@ -36,7 +36,7 @@ export const TypeInput = memo(
     const valueObjects = useValueObjects(serviceId);
     const entities = useEntities(serviceId);
     const handleTypeChange = useCallback(
-      (event: SelectChangeEvent<ValueType>) => {
+      (event: SelectChangeEvent<Type>) => {
         const type = event.target.value as any;
         onTypeChange(type);
       },
@@ -65,46 +65,46 @@ export const TypeInput = memo(
               onChange={handleTypeChange}
               label={intl.get("data-type")}
             >
-              <MenuItem value={ValueType.ID}>ID</MenuItem>
-              <MenuItem value={ValueType.Int}>Int</MenuItem>
-              <MenuItem value={ValueType.Float}>Float</MenuItem>
-              <MenuItem value={ValueType.Boolean}>Boolean</MenuItem>
-              <MenuItem value={ValueType.String}>String</MenuItem>
-              <MenuItem value={ValueType.Date}>Date</MenuItem>
-              <MenuItem value={ValueType.Enum}>{intl.get("enum")}</MenuItem>
-              <MenuItem value={ValueType.ValueObject}>
+              <MenuItem value={Type.ID}>ID</MenuItem>
+              <MenuItem value={Type.Int}>Int</MenuItem>
+              <MenuItem value={Type.Float}>Float</MenuItem>
+              <MenuItem value={Type.Boolean}>Boolean</MenuItem>
+              <MenuItem value={Type.String}>String</MenuItem>
+              <MenuItem value={Type.Date}>Date</MenuItem>
+              <MenuItem value={Type.Enum}>{intl.get("enum")}</MenuItem>
+              <MenuItem value={Type.ValueObject}>
                 {intl.get("value-object")}
               </MenuItem>
               {withEntityType && (
-                <MenuItem value={ValueType.Entity}>
+                <MenuItem value={Type.Entity}>
                   {intl.get("entity")}
                 </MenuItem>
               )}
-              <MenuItem value={ValueType.IDArray}>
+              <MenuItem value={Type.IDArray}>
                 ID {intl.get("array")}
               </MenuItem>
-              <MenuItem value={ValueType.IntArray}>
+              <MenuItem value={Type.IntArray}>
                 Int {intl.get("array")}
               </MenuItem>
-              <MenuItem value={ValueType.FloatArray}>
+              <MenuItem value={Type.FloatArray}>
                 Float {intl.get("array")}
               </MenuItem>
-              <MenuItem value={ValueType.StringArray}>
+              <MenuItem value={Type.StringArray}>
                 String {intl.get("array")}
               </MenuItem>
-              <MenuItem value={ValueType.DateArray}>
+              <MenuItem value={Type.DateArray}>
                 Date {intl.get("array")}
               </MenuItem>
-              <MenuItem value={ValueType.EnumArray}>
+              <MenuItem value={Type.EnumArray}>
                 {intl.get("enum")}
                 {intl.get("array")}
               </MenuItem>
-              <MenuItem value={ValueType.ValueObjectArray}>
+              <MenuItem value={Type.ValueObjectArray}>
                 {intl.get("value-object")}
                 {intl.get("array")}
               </MenuItem>
               {withEntityType && (
-                <MenuItem value={ValueType.EntityArray}>
+                <MenuItem value={Type.EntityArray}>
                   {intl.get("entity")}
                   {intl.get("array")}
                 </MenuItem>
@@ -112,8 +112,8 @@ export const TypeInput = memo(
             </Select>
           </FormControl>
         </Grid>
-        {(valueType === ValueType.Enum ||
-          valueType === ValueType.EnumArray) && (
+        {(valueType === Type.Enum ||
+          valueType === Type.EnumArray) && (
           <Grid item xs={12}>
             <FormControl
               variant="outlined"
@@ -138,8 +138,8 @@ export const TypeInput = memo(
             </FormControl>
           </Grid>
         )}
-        {(valueType === ValueType.ValueObject ||
-          valueType === ValueType.ValueObjectArray) && (
+        {(valueType === Type.ValueObject ||
+          valueType === Type.ValueObjectArray) && (
           <Grid item xs={12}>
             <FormControl
               variant="outlined"
@@ -167,8 +167,8 @@ export const TypeInput = memo(
             </FormControl>
           </Grid>
         )}
-        {(valueType === ValueType.Entity ||
-          valueType === ValueType.EntityArray) && (
+        {(valueType === Type.Entity ||
+          valueType === Type.EntityArray) && (
           <Grid item xs={12}>
             <FormControl
               variant="outlined"

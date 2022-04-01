@@ -3,7 +3,7 @@ import intl from "react-intl-universal";
 import { FormControlLabel, Grid, Switch } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { AttributeMeta } from "../meta/AttributeMeta";
-import { ValueType } from "../meta/ValueType";
+import { Type } from "../meta/Type";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { useChangeAttribute } from "../hooks/useChangeAttribute";
 import { useServiceId } from "../hooks/useServiceId";
@@ -49,7 +49,7 @@ export const AttributePanel = (props: {
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
   const handleTypeChange = useCallback(
-    (type: ValueType) => {
+    (type: Type) => {
       changeAttribute(
         {
           ...attribute,
@@ -169,7 +169,7 @@ export const AttributePanel = (props: {
             </Grid>
           )}
 
-          {attribute.type === ValueType.Date && (
+          {attribute.type === Type.Date && (
             <Grid item xs={6}>
               <FormControlLabel
                 control={
@@ -183,7 +183,7 @@ export const AttributePanel = (props: {
               />
             </Grid>
           )}
-          {attribute.type === ValueType.Date && (
+          {attribute.type === Type.Date && (
             <Grid item xs={6}>
               <FormControlLabel
                 control={
@@ -197,7 +197,7 @@ export const AttributePanel = (props: {
               />
             </Grid>
           )}
-          {attribute.type === ValueType.Date && (
+          {attribute.type === Type.Date && (
             <Grid item xs={12}>
               <FormControlLabel
                 control={
@@ -236,7 +236,7 @@ export const AttributePanel = (props: {
             </Grid>
           )}
 
-          {!isId && attribute.type === ValueType.String && (
+          {!isId && attribute.type === Type.String && (
             <Grid item xs={12}>
               <LazyTextField
                 label={intl.get("length")}

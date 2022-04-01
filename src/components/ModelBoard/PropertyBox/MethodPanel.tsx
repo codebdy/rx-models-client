@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import { ArgMeta, MethodMeta, MethodImplementType } from "../meta/MethodMeta";
-import { ValueType } from "../meta/ValueType";
+import { Type } from "../meta/Type";
 import { ClassMeta } from "../meta/ClassMeta";
 import { useServiceId } from "../hooks/useServiceId";
 import { TypeInput } from "./TypeInput";
@@ -40,7 +40,7 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
 
   //不设置allValues， 类型改变会清空所有旧设置，保留nullable
   const handleTypeChange = useCallback(
-    (type: ValueType) => {
+    (type: Type) => {
       changeMethod(
         {
           ...method,

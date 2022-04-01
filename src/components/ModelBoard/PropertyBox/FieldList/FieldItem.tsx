@@ -13,14 +13,14 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import React from "react";
 import intl from "react-intl-universal";
 import { TypeInput } from "../TypeInput";
-import { ValueType } from "components/ModelBoard/meta/ValueType";
+import { Type } from "components/ModelBoard/meta/Type";
 import { useServiceId } from "components/ModelBoard/hooks/useServiceId";
 import { useGetTypeLabel } from "components/ModelBoard/hooks/useGetTypeLabel";
 
 export interface FieldMeta {
   name: string;
   uuid: string;
-  type: ValueType;
+  type: Type;
   typeUuid?: string;
   typeLabel: string;
 }
@@ -76,7 +76,7 @@ export const FieldItem = memo(
       []
     );
 
-    const handleTypeChange = useCallback((vType: ValueType) => {
+    const handleTypeChange = useCallback((vType: Type) => {
       setType(vType);
     }, []);
 

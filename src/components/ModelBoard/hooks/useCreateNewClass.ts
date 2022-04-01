@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { createId } from "util/createId";
-import { ValueType } from "../meta/ValueType";
+import { Type } from "../meta/Type";
 import { ClassMeta, StereoType } from "../meta/ClassMeta";
 import { CONST_ID } from "../meta/Meta";
 import { useCreateClassInnerId } from "./useCreateClassInnerId";
@@ -36,9 +36,9 @@ export function useCreateNewClass(serviceId: number) {
                 {
                   uuid: createId(),
                   name: CONST_ID,
-                  type: ValueType.ID,
+                  type: Type.ID,
                   primary: true,
-                  typeLabel: ValueType.ID,
+                  typeLabel: Type.ID,
                 },
               ],
         methods: [],

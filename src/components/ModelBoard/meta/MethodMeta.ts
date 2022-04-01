@@ -1,9 +1,9 @@
-import { ValueType } from "./ValueType";
+import { Type } from "./Type";
 
 export interface ArgMeta {
   uuid: string;
   name: string;
-  type: ValueType;
+  type: Type;
   typeUuid?: string;
   /**
    * 渲染图形元素用的label，其他地方毫无用处
@@ -31,7 +31,7 @@ export interface MethodMeta {
   /**
    * 字段类型
    */
-  type: ValueType;
+  type: Type;
 
   /**
    * 类型uuid

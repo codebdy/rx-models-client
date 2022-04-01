@@ -1,4 +1,4 @@
-import { ValueType } from "./ValueType";
+import { Type } from "./Type";
 
 export interface AttributeMeta {
   /**
@@ -14,7 +14,7 @@ export interface AttributeMeta {
   /**
    * 字段类型
    */
-  type: ValueType;
+  type: Type;
 
   /**
    * 是否主键

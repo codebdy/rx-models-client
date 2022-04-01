@@ -1,24 +1,24 @@
 import { useCallback } from "react";
-import { ValueType } from "../meta/ValueType";
+import { Type } from "../meta/Type";
 import { useGetClass } from "./useGetClass";
 
 export function useGetTypeLabel(serviceId: number) {
   const getClass = useGetClass(serviceId);
 
   const typeName = useCallback(
-    (type: ValueType, typeUuid?: string): string => {
+    (type: Type, typeUuid?: string): string => {
       if (
-        type === ValueType.ID ||
-        type === ValueType.Boolean ||
-        type === ValueType.Int ||
-        type === ValueType.Float ||
-        type === ValueType.String ||
-        type === ValueType.Date ||
-        type === ValueType.IDArray ||
-        type === ValueType.IntArray ||
-        type === ValueType.FloatArray ||
-        type === ValueType.StringArray ||
-        type === ValueType.DateArray
+        type === Type.ID ||
+        type === Type.Boolean ||
+        type === Type.Int ||
+        type === Type.Float ||
+        type === Type.String ||
+        type === Type.Date ||
+        type === Type.IDArray ||
+        type === Type.IntArray ||
+        type === Type.FloatArray ||
+        type === Type.StringArray ||
+        type === Type.DateArray
       ) {
         return type;
       } else {
@@ -27,15 +27,15 @@ export function useGetTypeLabel(serviceId: number) {
           return "";
         }
         if (
-          type === ValueType.Enum ||
-          type === ValueType.ValueObject ||
-          type === ValueType.Entity
+          type === Type.Enum ||
+          type === Type.ValueObject ||
+          type === Type.Entity
         ) {
           return cls.name;
         } else if (
-          type === ValueType.EnumArray ||
-          type === ValueType.ValueObjectArray ||
-          type === ValueType.EntityArray
+          type === Type.EnumArray ||
+          type === Type.ValueObjectArray ||
+          type === Type.EntityArray
         ) {
           return `${cls.name}[]`;
         }

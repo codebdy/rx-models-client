@@ -1,7 +1,7 @@
 /**
  * 字段类型，枚举，目前版本仅支持这些类型，后续可以扩展
  */
-export enum ValueType {
+export enum Type {
   ID = "ID",
   Int = "Int",
   Float = "Float",
