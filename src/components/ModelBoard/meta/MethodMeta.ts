@@ -11,7 +11,7 @@ export interface ArgMeta {
   typeLabel: string;
 }
 
-export enum MethodType {
+export enum OperateType {
   Query = "query",
   Mutation = "mutation"
 }
@@ -50,7 +50,7 @@ export interface MethodMeta {
    */
   typeLabel: string;
 
-  methodType: MethodType;
+  operateType: OperateType;
 
   implementType: MethodImplementType;
   methodImplements?: string;
