@@ -145,5 +145,6 @@
   "script": "Script",
   "cloud-function": "Cloud funcion",
   "micro-service": "Micro service",
-  "edit-script": "Edit script"
+  "edit-script": "Edit script",
+  "operate-type":"Operate type"
 }

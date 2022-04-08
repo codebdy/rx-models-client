@@ -9,7 +9,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
-import { ArgMeta, MethodMeta, MethodImplementType } from "../meta/MethodMeta";
+import { ArgMeta, MethodMeta, MethodImplementType, MethodOperateType } from "../meta/MethodMeta";
 import { Type } from "../meta/Type";
 import { ClassMeta } from "../meta/ClassMeta";
 import { useServiceId } from "../hooks/useServiceId";
@@ -97,6 +97,19 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
     [changeMethod, cls, method]
   );
 
+  const handleMethodOperateChange = useCallback(
+    (event: SelectChangeEvent<MethodOperateType>) => {
+      changeMethod(
+        {
+          ...method,
+          operateType: event.target.value as MethodOperateType,
+        },
+        cls
+      );
+    },
+    [changeMethod, cls, method]
+  );
+
   const hangdleMethodImplementsChange = useCallback(
     (value: any) => {
       changeMethod(
@@ -134,7 +147,23 @@ export const MethodPanel = (props: { method: MethodMeta; cls: ClassMeta }) => {
         title={intl.get("arg-list")}
         prefix="arg"
       />
-
+      <Grid item xs={12}>
+        <FormControl variant="outlined" fullWidth size="small">
+          <InputLabel>{intl.get("operate-type")}</InputLabel>
+          <Select
+            value={method.operateType || ""}
+            onChange={handleMethodOperateChange}
+            label={intl.get("operate-type")}
+          >
+            <MenuItem value={MethodOperateType.Query}>
+              QUERY
+            </MenuItem>
+            <MenuItem value={MethodOperateType.Mutation}>
+              MUTATION
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
       <Grid item xs={12}>
         <FormControl variant="outlined" fullWidth size="small">
           <InputLabel>{intl.get("implement-type")}</InputLabel>
