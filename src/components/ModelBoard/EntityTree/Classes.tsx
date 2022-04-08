@@ -8,12 +8,12 @@ import { ClassNode } from "./ClassNode";
 import intl from "react-intl-universal";
 import { memo } from "react";
 import { Graph } from "@antv/x6";
-import { useRootEntities } from "../hooks/useRootEntities";
+import { useRootClasses } from "../hooks/useRootClasses";
 
-export const Entities = memo((props: { graph?: Graph }) => {
+export const Classes = memo((props: { graph?: Graph }) => {
   const { graph } = props;
   const serviceId = useServiceId();
-  const entities = useRootEntities(serviceId);
+  const entities = useRootClasses(serviceId);
 
   return entities.length > 0 ? (
     <TreeItem
@@ -21,7 +21,7 @@ export const Entities = memo((props: { graph?: Graph }) => {
       label={
         <TreeNodeLabel>
           <FolderOutlinedIcon />
-          <NodeText>{intl.get("entity-classes")}</NodeText>
+          <NodeText>{intl.get("classes")}</NodeText>
         </TreeNodeLabel>
       }
     >

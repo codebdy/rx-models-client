@@ -18,7 +18,7 @@ import {
 import { DiagramNode } from "./DiagramNode";
 import { Graph } from "@antv/x6";
 import { useServiceId } from "../hooks/useServiceId";
-import { Entities } from "./Entities";
+import { Classes } from "./Classes";
 import { Enums } from "./Enums";
 import { ValueObjects } from "./ValueObjects";
 import { Services } from "./Services";
@@ -118,7 +118,7 @@ export const ModelTreeView = memo((props: { graph?: Graph }) => {
           {diagrams.map((diagram) => {
             return <DiagramNode key={diagram.uuid} diagram={diagram} />;
           })}
-          <Entities graph={graph} />
+          <Classes graph={graph} />
           <Enums graph={graph} />
           <ValueObjects graph={graph} />
           <Services graph={graph} />

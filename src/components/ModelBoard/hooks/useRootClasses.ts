@@ -4,7 +4,7 @@ import { StereoType } from "../meta/ClassMeta";
 import { classesState } from "../recoil/atoms";
 import { useGetFirstParentUuids } from "./useGetFirstParentUuids";
 
-export function useRootEntities(serviceId: number) {
+export function useRootClasses(serviceId: number) {
   const classes = useRecoilValue(classesState(serviceId));
   const getParentuuids = useGetFirstParentUuids(serviceId);
   const entities = useMemo(() => {
