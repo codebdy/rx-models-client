@@ -39,6 +39,11 @@ export function useCheckCanLinkTo(serviceId: number) {
         return false;
       }
 
+      //非虚类不接受子类
+      if (isInherit && target.stereoType !== StereoType.Abstract) {
+        return false;
+      }
+
       //继承不能重复
       for (const relation of relations) {
         if (
