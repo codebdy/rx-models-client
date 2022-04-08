@@ -20,16 +20,6 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
     [changeClass, cls]
   );
 
-  const handelAbtractChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const stereoType = event.target.checked
-        ? StereoType.Abstract
-        : StereoType.Entity;
-      changeClass({ ...cls, stereoType });
-    },
-    [changeClass, cls]
-  );
-
   const handleRootChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       changeClass({ ...cls, root: event.target.checked });
@@ -60,21 +50,6 @@ export const ClassPanel = (props: { cls: ClassMeta }) => {
           onChange={handleNameChange}
         />
       </Grid>
-      {(cls.stereoType === StereoType.Abstract ||
-        cls.stereoType === StereoType.Entity) && (
-        <Grid item xs={6}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={cls.stereoType === StereoType.Abstract}
-                onChange={handelAbtractChange}
-              />
-            }
-            label={intl.get("abstract-class")}
-          />
-        </Grid>
-      )}
-
       {cls.stereoType !== StereoType.Enum &&
         cls.stereoType !== StereoType.ValueObject && (
           <>
