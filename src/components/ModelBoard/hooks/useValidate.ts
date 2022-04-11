@@ -22,7 +22,7 @@ export function useValidate(serviceId: number) {
       const names = cls.attributes.map(atr=>atr.name)
       names.push(...cls.methods.map(mth=>mth.name))
       names.push(...getClassAssociations(cls.uuid).map(aso=>aso.name))
-      if(hasDuplicates(names)){
+      if(hasDuplicates(names.filter(name=>!!name))){
         alertError(intl.get("duplicated-property-error", {cls:cls.name}))
         return false
       }
