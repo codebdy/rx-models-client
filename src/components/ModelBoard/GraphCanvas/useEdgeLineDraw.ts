@@ -49,11 +49,16 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
       }
       if (p) {
         const [targetNode] = graph?.getNodesFromPoint(p?.x, p?.y) || [];
-        if(targetNode && canLinkTo(targetNode)){
-          triggerCanvasEvent({name:EVENT_PREPARE_LINK_TO, detail:targetNode.id})
-        }
-        else{
-          triggerCanvasEvent({name:EVENT_PREPARE_LINK_TO, detail:undefined})
+        if (targetNode && canLinkTo(targetNode)) {
+          triggerCanvasEvent({
+            name: EVENT_PREPARE_LINK_TO,
+            detail: targetNode.id,
+          });
+        } else {
+          triggerCanvasEvent({
+            name: EVENT_PREPARE_LINK_TO,
+            detail: undefined,
+          });
         }
       }
     },
@@ -86,6 +91,10 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
         const source = getClass(drawingLine.sourceNodeId);
         const target = getClass(targetNode.id);
         const isInherit = drawingLine.relationType === RelationType.INHERIT;
+        const isOneWay =
+          drawingLine.relationType === RelationType.ONE_WAY_AGGREGATION ||
+          drawingLine.relationType === RelationType.ONE_WAY_ASSOCIATION ||
+          drawingLine.relationType === RelationType.ONE_WAY_COMBINATION;
 
         if (!source || !target) {
           return;
@@ -110,9 +119,10 @@ export function useEdgeLineDraw(graph: Graph | undefined, serviceId: number) {
             roleOfTarget: isInherit
               ? undefined
               : target.name.toLowerCase() + seedId(),
-            roleOfSource: isInherit
-              ? undefined
-              : source.name.toLowerCase() + seedId(),
+            roleOfSource:
+              isInherit || isOneWay
+                ? undefined
+                : source.name.toLowerCase() + seedId(),
             sourceMutiplicity: RelationMultiplicity.ZERO_ONE,
             targetMultiplicity: RelationMultiplicity.ZERO_ONE,
           },

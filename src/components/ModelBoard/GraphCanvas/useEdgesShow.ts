@@ -99,7 +99,7 @@ export function useEdgesShow(graph: Graph | undefined, serviceId: number) {
           {
             attrs: {
               text: {
-                text: edgeMeta.roleOfSource,
+                text: edgeMeta.roleOfSource||"",
                 fill: theme.palette.text.primary,
               },
               rect: {
