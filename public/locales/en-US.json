@@ -147,5 +147,6 @@
   "micro-service": "Micro service",
   "edit-script": "Edit script",
   "operate-type":"Operate type",
-  "classes" :"Classes"
+  "classes" :"Classes",
+  "duplicated-property-error":"Class {cls} has duplicated property"
 }

@@ -4,7 +4,7 @@ import { RelationMeta } from "../meta/RelationMeta";
 import { relationsState } from "../recoil/atoms";
 
 export interface Association {
-  name: string | undefined;
+  name: string ;
   relation: RelationMeta;
 }
 
@@ -16,9 +16,9 @@ export function useGetClassAssociations(serviceId: number) {
       const associations: Association[] = [];
       for (const relation of relations) {
         if (relation.sourceId === classUuid) {
-          associations.push({ name: relation.roleOfTarget, relation });
+          associations.push({ name: relation.roleOfTarget||"", relation });
         }else if(relation.targetId === classUuid){
-          associations.push({ name: relation.roleOfSource, relation });
+          associations.push({ name: relation.roleOfSource||"", relation });
         }
       }
       return associations;

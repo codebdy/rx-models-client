@@ -33,6 +33,7 @@ import { usePostOne } from "do-ents/usePostOne";
 import { CONST_ID, EntityNameMeta, Meta, MetaStatus } from "../meta/Meta";
 import { SyncButton } from "./SyncButton";
 import { useServiceId } from "../hooks/useServiceId";
+import { useValidate } from "../hooks/useValidate";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -81,6 +82,7 @@ export const ModelToolbar = memo(() => {
   const redo = useRedo(serviceId);
   const deleteSelectedElement = useDeleteSelectedElement(serviceId);
   const [minMap, setMinMap] = useRecoilState(minMapState(serviceId));
+  const validate = useValidate(serviceId);
   const [excuteSave, { loading, error }] = usePostOne<Meta>({
     onCompleted(data: Meta) {
       setSuccessAlertState(true);
@@ -108,6 +110,9 @@ export const ModelToolbar = memo(() => {
   }, [deleteSelectedElement]);
 
   const handleSave = useCallback(() => {
+    if (!validate()) {
+      return;
+    }
     const content = {
       classes: classeMetas,
       relations,
@@ -128,7 +133,16 @@ export const ModelToolbar = memo(() => {
             content,
           };
     excuteSave(data);
-  }, [classeMetas, diagrams, excuteSave, meta, relations, x6Edges, x6Nodes]);
+  }, [
+    classeMetas,
+    diagrams,
+    excuteSave,
+    meta,
+    relations,
+    validate,
+    x6Edges,
+    x6Nodes,
+  ]);
 
   return (
     <div className={classes.toolbar}>
@@ -155,7 +169,9 @@ export const ModelToolbar = memo(() => {
         </IconButton>
         <IconButton
           className={classes.iconButton}
-          disabled={(attribute && attribute.name === CONST_ID) || !selectedElement}
+          disabled={
+            (attribute && attribute.name === CONST_ID) || !selectedElement
+          }
           onClick={handleDelete}
           size="large"
         >

@@ -147,5 +147,6 @@
   "micro-service":"微服务",
   "edit-script":"编辑脚本",
   "operate-type":"操作类型",
-  "classes":"类"
+  "classes":"类",
+  "duplicated-property-error":"类{cls}上属性或方法重名"
 }
