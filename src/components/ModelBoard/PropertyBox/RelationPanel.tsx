@@ -154,13 +154,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
           >
             <Grid container spacing={2} sx={{ p: 2, pr: 0 }}>
               <Grid item xs={12}>
-                <LazyTextField
-                  label={intl.get("role-name")}
-                  value={relation.roleOfTarget || ""}
-                  onChange={handleSourceRoleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
                 <FormControl variant="outlined" fullWidth size="small">
                   <InputLabel>{intl.get("multiplicity")}</InputLabel>
                   <Select
@@ -182,15 +175,28 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
-                <LazyTextField
-                  label={intl.get("description")}
-                  value={relation.descriptionOnSource || ""}
-                  multiline
-                  rows={4}
-                  onChange={handleSourceDescriptionChange}
-                />
-              </Grid>
+              {relation.relationType !== RelationType.ONE_WAY_AGGREGATION &&
+                relation.relationType !== RelationType.ONE_WAY_ASSOCIATION &&
+                relation.relationType !== RelationType.ONE_WAY_COMBINATION && (
+                  <>
+                    <Grid item xs={12}>
+                      <LazyTextField
+                        label={intl.get("role-name")}
+                        value={relation.roleOfTarget || ""}
+                        onChange={handleSourceRoleChange}
+                      />
+                      <Grid item xs={12}>
+                        <LazyTextField
+                          label={intl.get("description")}
+                          value={relation.descriptionOnSource || ""}
+                          multiline
+                          rows={4}
+                          onChange={handleSourceDescriptionChange}
+                        />
+                      </Grid>
+                    </Grid>
+                  </>
+                )}
             </Grid>
           </RelationBlockCollapse>
           <RelationBlockCollapse
@@ -198,13 +204,6 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
             defaultExpand
           >
             <Grid container spacing={2} sx={{ p: 2, pr: 0 }}>
-              <Grid item xs={12}>
-                <LazyTextField
-                  label={intl.get("role-name")}
-                  value={relation.roleOfSource || ""}
-                  onChange={handleTargetRoleChange}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <FormControl variant="outlined" fullWidth size="small">
                   <InputLabel>{intl.get("multiplicity")}</InputLabel>
@@ -222,6 +221,14 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                   </Select>
                 </FormControl>
               </Grid>
+              <Grid item xs={12}>
+                <LazyTextField
+                  label={intl.get("role-name")}
+                  value={relation.roleOfSource || ""}
+                  onChange={handleTargetRoleChange}
+                />
+              </Grid>
+
               <Grid item xs={12}>
                 <LazyTextField
                   label={intl.get("description")}
