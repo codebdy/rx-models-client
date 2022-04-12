@@ -18,6 +18,7 @@ export function useValidate(serviceId: number) {
   const alertError = useAlertError()
   const getClassAssociations = useGetClassAssociations(serviceId);
   const validate = useCallback(() => {
+    //检查属性名重复
     for (const cls of classes){
       const names = cls.attributes.map(atr=>atr.name)
       names.push(...cls.methods.map(mth=>mth.name))
@@ -27,6 +28,7 @@ export function useValidate(serviceId: number) {
         return false
       }
     }
+    //检查关联类属性名冲突
     return true;
   }, [alertError, classes, getClassAssociations]);
 

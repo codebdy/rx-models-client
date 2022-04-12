@@ -182,18 +182,18 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                     <Grid item xs={12}>
                       <LazyTextField
                         label={intl.get("role-name")}
-                        value={relation.roleOfTarget || ""}
-                        onChange={handleSourceRoleChange}
+                        value={relation.roleOfSource || ""}
+                        onChange={handleTargetRoleChange}
                       />
-                      <Grid item xs={12}>
-                        <LazyTextField
-                          label={intl.get("description")}
-                          value={relation.descriptionOnSource || ""}
-                          multiline
-                          rows={4}
-                          onChange={handleSourceDescriptionChange}
-                        />
-                      </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <LazyTextField
+                        label={intl.get("description")}
+                        value={relation.descriptionOnSource || ""}
+                        multiline
+                        rows={4}
+                        onChange={handleSourceDescriptionChange}
+                      />
                     </Grid>
                   </>
                 )}
@@ -224,8 +224,8 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               <Grid item xs={12}>
                 <LazyTextField
                   label={intl.get("role-name")}
-                  value={relation.roleOfSource || ""}
-                  onChange={handleTargetRoleChange}
+                  value={relation.roleOfTarget || ""}
+                  onChange={handleSourceRoleChange}
                 />
               </Grid>
 
