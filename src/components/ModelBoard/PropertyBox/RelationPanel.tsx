@@ -2,13 +2,11 @@ import React, { useCallback, useMemo } from "react";
 import intl from "react-intl-universal";
 import {
   FormControl,
-  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
-  Switch,
 } from "@mui/material";
 import LazyTextField from "components/ModelBoard/PropertyBox/LazyTextField";
 import {
@@ -20,8 +18,6 @@ import { useClass } from "../hooks/useClass";
 import { useChangeRelation } from "../hooks/useChangeRelation";
 import { useServiceId } from "../hooks/useServiceId";
 import { RelationBlockCollapse } from "./RelationBlockCollapse";
-import { FieldList } from "./FieldList";
-import { AttributeMeta } from "../meta/AttributeMeta";
 
 export const RelationPanel = (props: { relation: RelationMeta }) => {
   const { relation } = props;
@@ -89,51 +85,51 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
     [changeRelation, relation]
   );
 
-  const handleEnableAssociationClass = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const enabled = event.target.checked;
-      changeRelation({
-        ...relation,
-        enableAssociaitonClass: enabled,
-        associationClass:
-          enabled && !relation.associationClass
-            ? {
-                name: "AssociationClass",
-                attributes: [],
-              }
-            : relation.associationClass,
-      });
-    },
-    [changeRelation, relation]
-  );
+  // const handleEnableAssociationClass = useCallback(
+  //   (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     const enabled = event.target.checked;
+  //     changeRelation({
+  //       ...relation,
+  //       enableAssociaitonClass: enabled,
+  //       associationClass:
+  //         enabled && !relation.associationClass
+  //           ? {
+  //               name: "AssociationClass",
+  //               attributes: [],
+  //             }
+  //           : relation.associationClass,
+  //     });
+  //   },
+  //   [changeRelation, relation]
+  // );
 
-  const handleAssociationClassNameChange = useCallback(
-    (event: React.ChangeEvent<{ value: string }>) => {
-      relation.associationClass &&
-        changeRelation({
-          ...relation,
-          associationClass: {
-            ...relation.associationClass,
-            name: event.target.value,
-          },
-        });
-    },
-    [changeRelation, relation]
-  );
+  // const handleAssociationClassNameChange = useCallback(
+  //   (event: React.ChangeEvent<{ value: string }>) => {
+  //     relation.associationClass &&
+  //       changeRelation({
+  //         ...relation,
+  //         associationClass: {
+  //           ...relation.associationClass,
+  //           name: event.target.value,
+  //         },
+  //       });
+  //   },
+  //   [changeRelation, relation]
+  // );
 
-  const handleAssociationFieldsChange = useCallback(
-    (attrs: AttributeMeta[]) => {
-      relation.associationClass &&
-        changeRelation({
-          ...relation,
-          associationClass: {
-            ...relation.associationClass,
-            attributes: attrs,
-          },
-        });
-    },
-    [changeRelation, relation]
-  );
+  // const handleAssociationFieldsChange = useCallback(
+  //   (attrs: AttributeMeta[]) => {
+  //     relation.associationClass &&
+  //       changeRelation({
+  //         ...relation,
+  //         associationClass: {
+  //           ...relation.associationClass,
+  //           attributes: attrs,
+  //         },
+  //       });
+  //   },
+  //   [changeRelation, relation]
+  // );
 
   const isInherit = useMemo(
     () => RelationType.INHERIT === relation.relationType,
@@ -240,7 +236,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
               </Grid>
             </Grid>
           </RelationBlockCollapse>
-          <RelationBlockCollapse title={intl.get("association-class")}>
+          {/* 关联类暂缓实现<RelationBlockCollapse title={intl.get("association-class")}>
             <Grid container spacing={2} sx={{ p: 2, pr: 0 }}>
               <Grid item xs={12}>
                 <FormControlLabel
@@ -270,7 +266,7 @@ export const RelationPanel = (props: { relation: RelationMeta }) => {
                 </>
               )}
             </Grid>
-          </RelationBlockCollapse>
+          </RelationBlockCollapse> */}
         </>
       )}
     </>
